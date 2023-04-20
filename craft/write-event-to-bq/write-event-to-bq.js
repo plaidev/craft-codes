@@ -1,6 +1,8 @@
 import { BigQuery } from '@google-cloud/bigquery'
-const GOOGLE_CLOUD_BQ_DATASET = 'manabu_test_dataset';
-const GOOGLE_CLOUD_BQ_TABLE = 'manabu_test_table';
+
+// この変数に利用するデータセット、テーブル名を指定する
+const GOOGLE_CLOUD_BQ_DATASET = 'hoge_dataset';
+const GOOGLE_CLOUD_BQ_TABLE = 'hoge_table';
 
 /**
  * サービスアカウントキー（JSON形式）からClient Configを生成する
@@ -41,13 +43,13 @@ function getBQDatetimeString(date) {
 export default async function (data, { MODULES }) {
     const { logger, secret } = MODULES;
 
-    // validate data
+    // Validate data
     const actionData = data.jsonPayload?.data;
     if (actionData == null || !actionData.visitor_id || !actionData.datetime || !actionData.url) {
         throw new Error('invalid action data');
     }
 
-    // set row data
+    // Set row data
     const { visitor_id: rowVisitorId, datetime: strDatetime, url } = actionData
     const visitor_id = `vis-${rowVisitorId}`;
     const datetime = getBQDatetimeString(new Date(Number(strDatetime) * 1000))
