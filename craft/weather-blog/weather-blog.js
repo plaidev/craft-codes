@@ -30,5 +30,5 @@ export default async function (data, { MODULES }) {
             event_name: 'weather_information'
         }
     });
-    logger.log(await res.json());
+    logger.log(res);
 }
