@@ -3,10 +3,10 @@ const DUP_PREFIX = 'functionName';
 
 /**
  * ファンクションの重複実行を検知します。
- * @param {Object} id - Craft Functionsの実行を一意に識別するID. (data.id)
+ * @param {string} id - Craft Functionsの実行を一意に識別するID. (data.id)
  * @param {Object} kvs - MODULES.kvs
  * @param {*} prefix - Function識別用のプレフィクス
- * @returns {boolean} - すでに実行中であれば true を返却する。未実行であればKVSにレコードを書き込んでfalseを返却する。
+ * @returns {Promise<boolean>} - すでに実行中であれば true を返却する。未実行であればKVSにレコードを書き込んでfalseを返却する。
  */
 async function isDuplicatedExec(id, kvs, prefix) {
     const key = `${prefix}_${id}`;
