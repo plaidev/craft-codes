@@ -91,6 +91,31 @@ function getJwtClient(credentials) {
 }
 
 /**
+ * 文字列から不要な空白とJSONとして不正な文字を取り除く
+ * @param {string} str 
+ * @returns {string}
+ */
+function removeSpacesAndNonValidJSONChars(str) {
+    return str.replace(/\s+/g,'')
+    .replace(/\\'/g, "\\'")
+    .replace(/\\"/g, '\\"')
+    .replace(/\\&/g, "\\&")
+    .replace(/\\r/g, "\\r")
+    .replace(/\\t/g, "\\t")
+    .replace(/\\b/g, "\\b")
+    .replace(/\\f/g, "\\f");
+}
+
+/**
+ * HTMLタグを取り除く
+ * @param {string} str 
+ * @returns {string}
+ */
+function removeHtmlTags(str) {
+    return str.replace(/<[^>]*>/g, '');
+}
+
+/**
  * カレンダーイベントのdescriptionをパースして、campaign_idとon_holidayを取得する
  * @param {string} description カレンダーイベントのdescription
  * @param {Object} logger logger module
@@ -99,7 +124,9 @@ function getJwtClient(credentials) {
 function validateEventDescriptionAndConvertToCampaignSetting(description, logger) {
     let parsedDescription;
     try {
-        parsedDescription = JSON.parse(description);
+        // descriptionからHTMLタグと空白文字を取り除いてパースできるようにする。
+        // NOTE: 今回はvalueに空白文字が入らない前提なので問題ないが、空白文字が入る場合は別の方法でエスケープ文字を取り除く必要がある
+        parsedDescription = JSON.parse(removeSpacesAndNonValidJSONChars(removeHtmlTags(description)));
     } catch (err) {
         logger.error('description is not json format: ', description);
         throw err;
