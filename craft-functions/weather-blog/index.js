@@ -21,7 +21,7 @@ export default async function (data, { MODULES }) {
     const ret_json = await ret.json();
     logger.log(ret_json);
 
-    const res = await insight.postV2TrackEventWrite({
+    const res = await insight.postV2betaTrackEventWriteandexecaction({
         keys: { user_id: user_id },
         event: {
             values: {
