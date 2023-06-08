@@ -1,16 +1,13 @@
-# simple-deduplicate
+# Summary
+## title
+KARTE Craftでファンクションの重複実行を防ぐ
 
-リクエストの重複排除を行うサンプル
+## blog url
+https://solution.plaid.co.jp/implementing-exactly-once-semantics-in-karte-craft
 
-# これはなんですか
+## description
+Craft Functionsのセマンティクスは "at least once" (少なくとも1回は実行する) です。このサンプルでは、KARTE CraftのKVS機能を使ってCraft Functionsの実行リクエストの重複排除を行い、 "exactly once" (必ず1回だけ実行する) のセマンティクスを実現します。
+## category
 
-* Craft Functionsのセマンティクスは "at least once" (少なくとも1回は実行する) です。
-* このサンプルでは、KARTE CraftのKVS機能を使ってCraft Functionsの実行リクエストの重複排除を行い、 "exactly once" (必ず1回だけ実行する) のセマンティクスを実現します。
-
-# 前提
-
-* Craft KVSが有効になっている必要があります。
-
-# 使い方
-
-deduplication.js の `checkDuplicatedExec()` と同様の実装をすることで、 "exactly once" が実現できます。
+# 注意点
+- Craft KVSが有効になっている必要があります
