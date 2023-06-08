@@ -1,10 +1,18 @@
-## これはなんですか
+# Summary
+## title
+KARTE CraftとGoogle Calendarを使ってKARTEの接客配信スケジュールを拡張する
 
-KARTEの接客サービスをGoogle Calendarで公開・停止するためのCraft Functionsコードです。
+## blog url
+https://solution.plaid.co.jp/202306-campaign-scheduler-with-googlecal
 
-ブログ記事：https://solution.plaid.co.jp/202306-campaign-scheduler-with-googlecal
+## description
+KARTEの接客サービスをGoogle Calendarに登録された予定に応じて公開・停止するためのサンプルコードです。接客サービスの通常の配信設定機能で実現できない配信スケジュールを実現することができます。
 
-## KARTE接客スケジューラー
+## category
+機能拡張
+
+# 詳細説明
+## 構成
 
 構成は以下の通りです。
 

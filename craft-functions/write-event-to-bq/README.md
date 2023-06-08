@@ -1,15 +1,19 @@
-# これはなんですか
+# Summary
+## title
+BigQueryのテーブルにKARTEから受け取ったデータを即時書き込みする
 
-KARTE Craftでサーバーサイドアクションで受け取ったデータをBigQueryに書き込むサンプルです。
+## blog url
+https://solution.plaid.co.jp/karte-craft-improve-customer-data-utilization-2
 
-[KARTEとKARTE Craftでユーザー情報の活用の幅が広がる話 (後編)](https://solution.plaid.co.jp/karte-craft-improve-customer-data-utilization-2) で利用しています。
+## description
+KARTE Craftでサーバーサイドアクションで受け取ったデータをBigQueryに書き込むサンプルコードです。
 
-# Craft Functions の設定方法
+## category
+外部連携
 
-* codesに `write-event-to-bq.js` を貼り付けます
-* packagesに `modules.json` を貼り付けます
-
-# BQテーブルのスキーマ定義
+# 使い方
+## BigQuery側テーブルのスキーマ定義
+書き込み先テーブルの スキーマ定義 は以下を想定しています。
 
 | フィールド | 型 | モード |
 | --- | --- | --- |
@@ -17,8 +21,7 @@ KARTE Craftでサーバーサイドアクションで受け取ったデータを
 | visitor_id | STRING | REQUIRED |
 | url | STRING | REQUIRED |
 
-# サーバーサイドアクションの設定
-
+## サーバーサイドアクションの設定
 アクションの data は以下を想定しています。
 
 ```json
