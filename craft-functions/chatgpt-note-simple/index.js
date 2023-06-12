@@ -1,7 +1,8 @@
 import api from 'api';
 
 export default async function (data, { MODULES }) {
-  const { logger, secret } = MODULES;
+  // const { logger } = MODULES;
+  const { secret } = MODULES;
   const { KARTE_API_TOKEN: token } = await secret.get({ keys: ["KARTE_API_TOKEN"] });
   const talk = api('@dev-karte/v1.0#br7wylg4sjwm0');
   talk.auth(token);
@@ -14,10 +15,7 @@ export default async function (data, { MODULES }) {
     return;
   }
 
-  var user_id = data.jsonPayload.data.user_id;
-  if (!user_id) {
-    user_id = data.jsonPayload.data.visitor_id;
-  }
+  var user_id = data.jsonPayload.data.user_id ?? data.jsonPayload.data.visitor_id;
 
   const res_chatgpt = await fetch(CHATGPT_API_ENDPOINT, {
     method: 'POST',
@@ -35,7 +33,7 @@ export default async function (data, { MODULES }) {
   });
 
   const body = await res_chatgpt.json();
-  logger.log(body);
+  // logger.log(body);
 
   const res_note = await talk.postV2betaTalkNoteSend({
     content: {
@@ -47,5 +45,5 @@ export default async function (data, { MODULES }) {
       is_bot: true
     }
   })
-  logger.log(await res_note.json());
+  // logger.log(res_note);
 }

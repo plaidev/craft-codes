@@ -7,10 +7,7 @@ export default async function (data, { MODULES }) {
     insight.auth(token);
     const OPEN_WEATHER_API_KEY = '{{OPEN_WEATHER_API_KEY}}'; // OpenWeatherMapのAPIキーを指定する。
 
-    let user_id = data.jsonPayload.data.user_id;
-    if (!user_id) {
-        user_id = data.jsonPayload.data.visitor_id;
-    }
+    let user_id = data.jsonPayload.data.user_id ?? data.jsonPayload.data.visitor_id;
 
     // 緯度(lat) 経度(lon) をもとに OpenWeatherMap から天気情報を取得する
     const lat = data.jsonPayload.data.latitude;
