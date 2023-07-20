@@ -1,11 +1,12 @@
 import retry from "async-retry";
 const ALLOWED_METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE"];
-const FUNCTIONS_TIMEOUT_MS = 20 * 1000; // [変更不可] Function全体における1回の実行のTimeout時間（ミリ秒）. Craft Functions側の制限である30secを超えないよう余裕をもった値を設定する
+const PER_EXEC_TIMEOUT_MS = 1000 * 10; // [変更不可] Function実行毎の1回の実行のTimeout時間（ミリ秒）. Craft Functions側の制限である10secを超えないよう余裕をもった値を設定する
+const PER_DATA_TIMEOUT_MS = 1000 * 60 * 10; // Function自体の再実行も考慮したTimeout時間（ミリ秒）. 無限に再実行されるのを防ぐ.
 
 const defaultRetryOptions = {
-  retries: 4, // 最大リトライ回数
+  retries: 3, // 最大リトライ回数
   minTimeout: 1000, // 最小リトライ間隔（ミリ秒）
-  maxTimeout: 10000, // 最大リトライ間隔（ミリ秒）
+  maxTimeout: 5000, // 最大リトライ間隔（ミリ秒）
   randomize: false, // リトライ間隔の計算に乱数を利用する
   factor: 2, // リトライ間隔を指数関数的に増やすときの乗数
 };
@@ -13,15 +14,6 @@ const defaultRetryOptions = {
 class BailError extends Error {
   constructor(message) {
     super(message);
-  }
-}
-
-function infoLogger(logger, infoLogEnabled=false) {
-  return {
-    log: (data, ...args) => {
-      if(!infoLogEnabled) return;
-      logger.log(data, ...args);
-    }
   }
 }
 
@@ -40,11 +32,17 @@ function calculateSleepMs({attempt, minTimeout=1000, maxTimeout=10*1000, factor=
   return sleepTime;
 }
 
-function isTimeoutRertyLoop({retryOptions, attempt, startMs}) {
+function isTimeoutPerData({timestamp}) {
+  const firstStartMs = new Date(timestamp).getTime();
+  const currentMs = new Date().getTime();
+  return currentMs - firstStartMs >= PER_DATA_TIMEOUT_MS;
+}
+
+function isTimeoutPerExec({retryOptions, attempt, startMs}) {
   if (attempt >= retryOptions.retries+1) return false;
   const currentMs = new Date().getTime();
   const nextSleepMs = calculateSleepMs({...retryOptions, attempt});
-  return currentMs + nextSleepMs - startMs  >= FUNCTIONS_TIMEOUT_MS;
+  return currentMs + nextSleepMs - startMs  >= PER_EXEC_TIMEOUT_MS;
 }
 
 function isValidUrl(url) {
@@ -102,27 +100,34 @@ async function requestData({ method, url, data = {}, headers = {}, campaignId, i
 }
 
 export default async function (data, { MODULES }) {
-  const { logger } = MODULES;
-  const { method, url, hookData, headers, infoLogEnabled, campaignId } = data.jsonPayload.data;
-  const _logger = infoLogger(logger, infoLogEnabled);
-  const { id } = data; // 関数実行毎のID
+  const { initLogger } = MODULES;
+  const { timestamp, id } = data;
+  const { method, url, hookData, headers, logLevel, campaignId } = data.jsonPayload.data;
+  const lv = ( ['DEBUG', 'INFO', 'WARN', 'ERROR'].includes(logLevel) ) ? logLevel : 'ERROR';
+  const logger = initLogger({logLevel: lv});
+
   let { retryOptions } = data.jsonPayload.data;
   retryOptions = retryOptions ? retryOptions : defaultRetryOptions;
+
+  if (isTimeoutPerData({timestamp})) {
+    logger.log(`[${campaignId}][${id}] Timeout: Timestamp is too old`);
+    return;
+  }
 
   const startMs = new Date().getTime();
 
   return await retry(async (bail, attempt) => {
     try {
       const resStatus = await requestData({ method, url, data: hookData, headers, campaignId, id });
-      _logger.log(`[${campaignId}][${id}] Webhook execution completed. status: ${resStatus}`);
+      logger.log(`[${campaignId}][${id}] Webhook execution completed. status: ${resStatus}`);
       return;
     } catch (err) {
       if (err instanceof BailError) {
         bail(err);
         return;
       }
-      if (isTimeoutRertyLoop({retryOptions, attempt, startMs})) {
-        bail(new Error(`[${campaignId}][${id}] Craft function timeout.`));
+      if (isTimeoutPerExec({retryOptions, attempt, startMs})) {
+        bail(new Error(`[${campaignId}][${id}] Timeout per exec.`));
         return;
       }
       throw err;
