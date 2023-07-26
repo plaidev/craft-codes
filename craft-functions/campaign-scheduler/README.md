@@ -2,7 +2,7 @@
 ## title
 KARTE CraftとGoogle Calendarを使ってKARTEの接客配信スケジュールを拡張する
 
-## blog url
+## blogUrl
 https://solution.plaid.co.jp/202306-campaign-scheduler-with-googlecal
 
 ## description
