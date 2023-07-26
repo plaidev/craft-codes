@@ -2,7 +2,7 @@
 ## title
 チャットメッセージを要約する AI Bot を Craft AI Modules で実装する
 
-## blog url
+## blogUrl
 https://solution.plaid.co.jp/202307-chat-summary-ai-bot
 
 ## description
