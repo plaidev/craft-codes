@@ -2,13 +2,14 @@ import api from "api";
 import { WebClient } from '@slack/web-api';
 
 /* KARTE API V2 Setting - ACCESS TOKEN */
-const SECRET_KEY_API = "KOHA_API_KEY_ANYTHING";
+const SECRET_KEY_API = "";
 
 /* Slack App - Bot User OAuth Token */
-const SECRET_KEY_SLACK = "SLACK_TOKEN_KOHA_CRAFT_TRIGGER";
+const SECRET_KEY_SLACK = "";
 
 /* KARTE Action URL */
-const PROJECT_ID = "633e9007f91a8d00128f31e7";
+const PROJECT_ID = "";
+
 const URL_KARTE = "https://admin.karte.io/p/";
 const URL_SUFFIX= "/service/";
 
