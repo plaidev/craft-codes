@@ -2,22 +2,23 @@ import { WebClient } from '@slack/web-api';
 import api from "api";
 
 /* KARTE API V2 Setting - ACCESS TOKEN */
-const SECRET_KEY_API = "xxxxxxx";
+const SECRET_KEY_API = "KOHA_API_KEY_ANYTHING";
 
 /* Slack App - Bot User OAuth Token */
-const SECRET_KEY_SLACK = "xxxxxxx";
+const SECRET_KEY_SLACK = "SLACK_TOKEN_KOHA_CRAFT_TRIGGER";
 
 /* KARTE Action URL */
-const PROJECT_ID = "xxxxxxx";
+const PROJECT_ID = "633e9007f91a8d00128f31e7";
 const URL_KARTE = "https://admin.karte.io/p/";
 const URL_SUFFIX= "/service/";
 
+const LOG_LEVEL = 'DEBUG';
 const MESSAGE_CHANGE_CAMPAIGN_STATUS_RESULT = {
     PREFIX: "以下接客を",
     ACTIVATE: "公開しました。\n",
     INACTIVATE: "停止しました。\n",
     CAMPAIN_NAME : "接客サービス名： ",
-    SUFIX: "※KARTE反映まで若干のラグがある場合があります。"
+    SUFFIX: "※KARTE反映まで若干のラグがある場合があります。"
 }
 const MESSAGE_SEND_SLACK = {
     SUCCESS: "Slackに通知が送信されました: ",
@@ -34,7 +35,7 @@ const MESSAGE_INVALID = {
     CAMPAIGN_ENABLED: "接客ステータス",
     MESSAGE_TS: "SLACKメッセージタイムスタンプ",
     ACTION_KIND: "ボタンの操作結果",
-    SUFIX: "が正しく取得できませんでした。"
+    SUFFIX: "が正しく取得できませんでした。"
 }
 
 function validateData (data, errorMessages) {
@@ -51,6 +52,7 @@ function parseArgumentPayload (logger, data) {
         payloadFromSlack = JSON.parse(data.jsonPayload.data.hook_data.body.payload);
     } catch (error) {
         logger.error(MESSAGE_ERROR_PARSE_PAYLOAD, error);
+        throw error;
     }
 
     const {
@@ -67,11 +69,11 @@ function parseArgumentPayload (logger, data) {
             campaignName,
             action_kind
         }, {
-            channelId: MESSAGE_INVALID.CHANNEL_ID.SUFIX,
-            message_ts: MESSAGE_INVALID.MESSAGE_TS.SUFIX,
-            campaignId: MESSAGE_INVALID.CAMPAIGN_ID.SUFIX,
-            campaignName: MESSAGE_INVALID.CAMPAIGN_NAME.SUFIX,
-            action_kind: MESSAGE_INVALID.ACTION_KIND.SUFIX,
+            channelId: MESSAGE_INVALID.CHANNEL_ID.SUFFIX,
+            message_ts: MESSAGE_INVALID.MESSAGE_TS.SUFFIX,
+            campaignId: MESSAGE_INVALID.CAMPAIGN_ID.SUFFIX,
+            campaignName: MESSAGE_INVALID.CAMPAIGN_NAME.SUFFIX,
+            action_kind: MESSAGE_INVALID.ACTION_KIND.SUFFIX,
         });
     } catch (error) {
         logger.error(error);
@@ -107,15 +109,15 @@ function judgeEnabled (logger, action_kind) {
 async function actionCampaignToggleenabled(logger, token, campaignId, isCampaignEnabled) {
     const action = api('@dev-karte/v1.0#1ehqt16lkm2a8jw');
     action.auth(token);
-    action.postV2betaActionCampaignToggleenabled({ enabled: isCampaignEnabled, id: campaignId });
+    await action.postV2betaActionCampaignToggleenabled({ enabled: isCampaignEnabled, id: campaignId });
     logger.log(MESSAGE_KICK_KARTE_API_SUCCESS);
 }
 
-function slackMessage (slackMessageParts, isCampaignEnabled) {
+function getSlackMessage (slackMessageParts, isCampaignEnabled) {
     const textMessage = `${MESSAGE_CHANGE_CAMPAIGN_STATUS_RESULT.PREFIX}${isCampaignEnabled
         ? MESSAGE_CHANGE_CAMPAIGN_STATUS_RESULT.ACTIVATE
         : MESSAGE_CHANGE_CAMPAIGN_STATUS_RESULT.INACTIVATE
-        }${MESSAGE_CHANGE_CAMPAIGN_STATUS_RESULT.SUFIX}`;
+        }${MESSAGE_CHANGE_CAMPAIGN_STATUS_RESULT.SUFFIX}`;
 
     const message = {
         "channel": slackMessageParts.channelId,
@@ -168,7 +170,7 @@ function slackMessage (slackMessageParts, isCampaignEnabled) {
 
 async function updateSlackMessage(logger, token, slackMessageParts, isCampaignEnabled) {
     const slackClient = new WebClient(token);
-    const result = await slackClient.chat.update(slackMessage(slackMessageParts, isCampaignEnabled, false));
+    const result = await slackClient.chat.update(getSlackMessage(slackMessageParts, isCampaignEnabled, false));
     logger.log(MESSAGE_SEND_SLACK.SUCCESS, result);
 }
 
@@ -188,7 +190,8 @@ async function postSlackErrorMessage(logger, token, slackMessageParts, error) {
 }
 
 export default async function (data, { MODULES }) {
-    const { logger, secret } = MODULES;
+    const { initLogger, secret } = MODULES;
+    const logger = initLogger({ logLevel: LOG_LEVEL });
     if (data.kind !== "karte/track-hook") return;
 
     const tokens = await secret.get({
@@ -200,7 +203,6 @@ export default async function (data, { MODULES }) {
     const karteApiToken = tokens[SECRET_KEY_API];
     const slackToken = tokens[SECRET_KEY_SLACK];
 
-    /* Slackから受け取ったPayloadを取り出し */
     const payloadFromSlack = parseArgumentPayload(logger, data);
 
     try {
@@ -215,6 +217,7 @@ export default async function (data, { MODULES }) {
 
     } catch (error) {
         await postSlackErrorMessage(logger, slackToken, payloadFromSlack.slackMessageParts, error);
+        logger.error(error);
         return;
     }
 
