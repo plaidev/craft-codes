@@ -78,6 +78,7 @@ function parseArgumentPayload (logger, data) {
         });
     } catch (error) {
         logger.error(error);
+        throw error;
     }
 
     return {
