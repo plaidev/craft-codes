@@ -2,16 +2,17 @@ import api from "api";
 import { WebClient } from '@slack/web-api';
 
 /* KARTE API V2 Setting - ACCESS TOKEN */
-const SECRET_KEY_API = "ｘｘｘｘｘｘｘ";
+const SECRET_KEY_API = "KOHA_API_KEY_ANYTHING";
 
 /* Slack App - Bot User OAuth Token */
-const SECRET_KEY_SLACK = "ｘｘｘｘｘｘｘ";
+const SECRET_KEY_SLACK = "SLACK_TOKEN_KOHA_CRAFT_TRIGGER";
 
 /* KARTE Action URL */
-const PROJECT_ID = "ｘｘｘｘｘｘｘ";
+const PROJECT_ID = "633e9007f91a8d00128f31e7";
 const URL_KARTE = "https://admin.karte.io/p/";
 const URL_SUFFIX= "/service/";
 
+const LOG_LEVEL = 'DEBUG';
 const MESSAGE_PROCESSING = "接客情報を取得しています...";
 const MESSAGE_DESCRIPTION_CHANGE_CAMPAIGN_STATUS = "以下の接客について公開状態を変更できます。\n";
 const MESSAGE_CAMPAIN_NAME = "接客サービス名： ";
@@ -29,7 +30,7 @@ const MESSAGE_INVALID = {
     CAMPAIGN_ID: "接客ID",
     CAMPAIGN_NAME: "接客名",
     CAMPAIGN_ENABLED: "接客ステータス",
-    SUFIX: "が正しく取得できませんでした。"
+    SUFFIX: "が正しく取得できませんでした。"
 }
 
 function validateData (data, errorMessages, logger, slackToken) {
@@ -52,6 +53,7 @@ function parseArgumentPayload (logger, data, slackToken) {
         payloadFromSlack = JSON.parse(JSON.stringify(data.jsonPayload.data.hook_data.body));
     } catch (error) {
         logger.error(MESSAGE_ERROR_PARSE_PAYLOAD, error);
+        throw error;
     }
 
     const {
@@ -63,8 +65,8 @@ function parseArgumentPayload (logger, data, slackToken) {
         channelId,
         campaignId
     }, {
-        channelId: MESSAGE_INVALID.CHANNEL_ID.SUFIX,
-        campaignId: MESSAGE_INVALID.CAMPAIGN_ID.SUFIX
+        channelId: MESSAGE_INVALID.CHANNEL_ID.SUFFIX,
+        campaignId: MESSAGE_INVALID.CAMPAIGN_ID.SUFFIX
     }, logger, slackToken);
     return {
         channelId,
@@ -84,9 +86,9 @@ function parseCampaignInfo (campaign) {
         campaignId,
         campaignName
     }, {
-        isNowEnabled: MESSAGE_INVALID.CAMPAIGN_ENABLED.SUFIX,
-        campaignId: MESSAGE_INVALID.CAMPAIGN_ID.SUFIX,
-        campaignName: MESSAGE_INVALID.CAMPAIGN_NAME.SUFIX
+        isNowEnabled: MESSAGE_INVALID.CAMPAIGN_ENABLED.SUFFIX,
+        campaignId: MESSAGE_INVALID.CAMPAIGN_ID.SUFFIX,
+        campaignName: MESSAGE_INVALID.CAMPAIGN_NAME.SUFFIX
     });
     return {
         isNowEnabled,
@@ -101,7 +103,7 @@ async function fetchCampaign (token, campaignId) {
     return await action.postV2betaActionCampaignFindbyid({ id: campaignId })
 }
 
-function slackMessage (channelId, campaign) {
+function getSlackMessage (channelId, campaign) {
     const statusMessage = `${MESSAGE_DESCRIPTION_CHANGE_CAMPAIGN_STATUS}${campaign.isNowEnabled
         ? MESSAGE_NOW_CAMPAIGN_STAUTS_ENABLED
         : MESSAGE_NOW_CAMPAIGN_STAUTS_DISABLED
@@ -220,13 +222,13 @@ async function postSlackPreMessage(logger, slackClient, channelId) {
         });
     } catch (error) {
         logger.error(MESSAGE_SEND_SLACK.FAILURE, error);
-        return;
+        throw error;
     }
 }
 
 async function postSlack(logger, slackClient, channelId, campaign) {
     let result
-    result = await slackClient.chat.postMessage(slackMessage(channelId, campaign));
+    result = await slackClient.chat.postMessage(getSlackMessage(channelId, campaign));
     logger.log(MESSAGE_SEND_SLACK.SUCCESS, result);
 }
 
@@ -244,7 +246,8 @@ async function postSlackErrorMessage(logger, slackClient, channelId, header, err
 }
 
 export default async function (data, { MODULES }) {
-    const { logger, secret } = MODULES;
+    const { initLogger, secret } = MODULES;
+    const logger = initLogger({ logLevel: LOG_LEVEL });
     if (data.kind !== "karte/track-hook") return;
 
     const tokens = await secret.get({
@@ -257,11 +260,10 @@ export default async function (data, { MODULES }) {
     const slackToken = tokens[SECRET_KEY_SLACK];
     const slackClient = new WebClient(slackToken);
 
-    /*Slackから受け取ったPayloadを取り出し*/
     const slackArgument = parseArgumentPayload(logger, data, slackClient);
 
     /* 処理中の旨を送信 */
-    postSlackPreMessage(logger, slackClient, slackArgument.channelId);
+    await postSlackPreMessage(logger, slackClient, slackArgument.channelId);
 
     try {
         /* KARTE API Kick(接客取得) */
@@ -276,4 +278,5 @@ export default async function (data, { MODULES }) {
         logger.error(error);
         return;
     }
+
 }
