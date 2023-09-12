@@ -7,7 +7,7 @@ const SECRET_KEY_API = "";
 /* Slack App - Bot User OAuth Token */
 const SECRET_KEY_SLACK = "";
 
-/* KARTE Action URL */
+/* KARTE Project ID */
 const PROJECT_ID = "";
 
 const URL_KARTE = "https://admin.karte.io/p/";
