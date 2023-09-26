@@ -1,5 +1,5 @@
 const LOG_LEVEL = "ERROR";
-const MINUTES_TO_EXPIRE_COUPON = 60 * 24 * 30; // 30日後に削除
+const MINUTES_TO_EXPIRE = 60 * 24 * 30; // 30日後に削除
 // SQLの結果に応じてカラム名を変更してください
 // 1列目の値がkvsのkeyになります
 const HEADER_COLUMNS = ["coupon_id", "already_used", "user_id"];
@@ -7,7 +7,7 @@ const HEADER_COLUMNS = ["coupon_id", "already_used", "user_id"];
 async function upsertData(key, row, kvs, logger) {
   logger.debug(`start [upsertData] key: ${key}`);
 
-  await kvs.write({ key, value: row, minutesToExpire: MINUTES_TO_EXPIRE_COUPON });
+  await kvs.write({ key, value: row, minutesToExpire: MINUTES_TO_EXPIRE });
 
   logger.debug(`end [upsertData] key: ${key}`);
 }
