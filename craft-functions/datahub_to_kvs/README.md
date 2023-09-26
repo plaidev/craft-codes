@@ -1,12 +1,12 @@
 # Summary
 ## title
-Datahubクエリの結果をCraft kvsに格納してみた
+Datahubクエリの結果をCraft KVSに格納してみた
 
 ## blogUrl
 blog公開後に記載
 
 ## description
-Craft Functionsを使ってクーポンを払い出したいとき、事前に払い出し用のクポーン情報をCraft kvsに登録しておく必要があります。初期導入時のコストとハードルを少しでも下げるために、カラム名を変更するだけで使える汎用的なCraft Functionsを作成しました。
+Craft KVSに初期データを入稿する際に、Datahubクエリの結果を利用できるようにしました。
 
 ## category
-Craft kvs,Datahub,クーポン
+Craft KVS,Datahub
