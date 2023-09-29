@@ -14,4 +14,4 @@ API v2 の Craft タイプのアプリは、KARTE Craftでのみ利用可能な�
 
 ## category
 
-Tips
+Tips,CRAFT_ENDPOINT
