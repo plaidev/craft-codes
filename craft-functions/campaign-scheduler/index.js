@@ -7,13 +7,10 @@ import { google } from 'googleapis';
  **********************************************/
 
 // スケジューラーで管理する対象の接客ID
-const TARGET_CAMPAIGNS = [
-    'xxxxxxxxxxxxxxxxxxxxxxxx',
-    'yyyyyyyyyyyyyyyyyyyyyyyy',
-];
+const TARGET_CAMPAIGNS = '<% TARGET_CAMPAIGNS %>'.split(',').map(v => v.trim());
 
 // カレンダーID
-const CALENDAR_ID = 'x_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx@group.calendar.google.com'
+const CALENDAR_ID = '<% CALENDAR_ID %>';
 
 /**********************************************
  * 各種処理

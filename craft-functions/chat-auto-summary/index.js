@@ -1,10 +1,10 @@
-const LOG_LEVEL = 'WARN';
-const MODEL = 'gpt3.5';
-const CHAT_SENDER_ID = '';
+const LOG_LEVEL = '<% LOG_LEVEL %>';
+const MODEL = '<% MODEL %>';
+const CHAT_SENDER_ID = '<% CHAT_SENDER_ID %>';
 const CRAFT_SPEC_URI = '@dev-karte/xxxxxxxxxx';
 const TALK_SPEC_URI = '@dev-karte/yyyyyyyyyy';
-const CRAFT_APP_TOKEN_SECRET_NAME = '';
-const MIN_CHAT_TEXT_LENGTH = '100'; // この文字数以上のチャットメッセージのみ自動要約する
+const CRAFT_APP_TOKEN_SECRET_NAME = '<% CRAFT_APP_TOKEN_SECRET_NAME %>';
+const MIN_CHAT_TEXT_LENGTH = Number('<% MIN_CHAT_TEXT_LENGTH %'); // この文字数以上のチャットメッセージのみ自動要約する
 
 async function fetchSummary({text, token, karteSecureApiClient}) {
   const sdk = karteSecureApiClient({
