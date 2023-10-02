@@ -2,7 +2,7 @@
 
 ## title
 
-Slackから接客サービスの公開非公開状態を切り替える
+Slackに接客サービスの公開非公開状態を送る
 
 ## blogUrl
 https://solution.plaid.co.jp/202309-slack-change-campaign-status
