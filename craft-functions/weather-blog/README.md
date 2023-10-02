@@ -14,4 +14,4 @@ https://solution.plaid.co.jp/craft-weather-api
 
 ## category
 
-外部連携,マーケティング
+外部連携,マーケティング,SERVER_SIDE_ACTION

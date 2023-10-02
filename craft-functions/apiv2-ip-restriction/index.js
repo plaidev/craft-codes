@@ -16,13 +16,10 @@
 //   }'
 
 // ログレベルを設定する。デバッグ時は DEBUG に設定する。
-const LOG_LEVEL = "WARN";
+const LOG_LEVEL = '<% LOG_LEVEL %>';
 
 // 許可対象のIPを配列形式で設定する
-const ALLOWED_IPS = [
-  // sample ip. 適宜変更する。
-  "192.168.0.1",
-];
+const ALLOWED_IPS = '<% ALLOWED_IPS %>'.split(',').map(v => v.trim());
 
 // api に渡す spec uri
 // developers portal のリファレンスから確認する。

@@ -1,0 +1,32 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "MODEL",
+    "value": "gpt3.5",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "CHAT_SENDER_ID",
+    "value": "",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "CRAFT_APP_TOKEN_SECRET_NAME",
+    "value": "",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "MIN_CHAT_TEXT_LENGTH",
+    "value": 100,
+    "type": "number",
+    "required": true
+  }
+]

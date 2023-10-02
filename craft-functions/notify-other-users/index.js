@@ -1,7 +1,7 @@
 import api from 'api';
-const LOG_LEVEL = 'WARN';
-const EVENT_NAME = ''; // 送信するイベント名を指定する
-const SECRET_NAME = ''; // シークレット名を指定する
+const LOG_LEVEL = '<% LOG_LEVEL %>';
+const EVENT_NAME = '<% EVENT_NAME %>'; // 送信するイベント名を指定する
+const APP_TOKEN_SECRET = '<% APP_TOKEN_SECRET %>'; // シークレット名を指定する
 const karteApiClient = api('@dev-karte/v1.0#1jvnhd6llgekil84');
 
 export default async function (data, { MODULES }) {
@@ -13,8 +13,8 @@ export default async function (data, { MODULES }) {
     return;
   }
 
-  const secrets = await secret.get({ keys: [ SECRET_NAME ] });
-  const token = secrets[ SECRET_NAME ];
+  const secrets = await secret.get({ keys: [ APP_TOKEN_SECRET ] });
+  const token = secrets[ APP_TOKEN_SECRET ];
   karteApiClient.auth(token);
 
   const userId = data.jsonPayload.data.related_user_id; // イベントを送信するユーザーのIDを指定する

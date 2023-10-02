@@ -6,9 +6,9 @@ export default async function (data, { MODULES }) {
   const { KARTE_API_TOKEN: token } = await secret.get({ keys: ["KARTE_API_TOKEN"] });
   const talk = api('@dev-karte/v1.0#br7wylg4sjwm0');
   talk.auth(token);
-  const CHATGPT_API_KEY = '{{CHATGPT_API_KEY}}';
+  const CHATGPT_API_KEY = '<% CHATGPT_API_KEY %>';
   const CHATGPT_API_ENDPOINT = 'https://api.openai.com/v1/chat/completions';
-  const SENDER_ID = '{{SENDER_ID}}';
+  const SENDER_ID = '<% SENDER_ID %>';
 
   if (!data.jsonPayload.data.content.text.startsWith(`教えてGPT：`)) {
     logger.log('keyword not included');

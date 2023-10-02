@@ -1,8 +1,8 @@
 import { BigQuery } from '@google-cloud/bigquery'
 
 // この変数に利用するデータセット、テーブル名を指定する
-const GOOGLE_CLOUD_BQ_DATASET = 'hoge_dataset';
-const GOOGLE_CLOUD_BQ_TABLE = 'hoge_table';
+const GOOGLE_CLOUD_BQ_DATASET = '<% GOOGLE_CLOUD_BQ_DATASET %>';
+const GOOGLE_CLOUD_BQ_TABLE = '<% GOOGLE_CLOUD_BQ_TABLE %>';
 
 /**
  * サービスアカウントキー（JSON形式）からClient Configを生成する

@@ -1,0 +1,14 @@
+[
+  {
+    "name": "TARGET_CAMPAIGNS",
+    "value": "xxxxxxxxxxxxxxxxxxxxxxxx,yyyyyyyyyyyyyyyyyyyyyyyy",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "CALENDAR_ID",
+    "value": "x_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx@group.calendar.google.com",
+    "type": "string",
+    "required": true
+  }
+]

@@ -1,0 +1,8 @@
+[
+  {
+    "name": "DUP_SUFFIX",
+    "value": "dup-exec-check",
+    "type": "string",
+    "required": true
+  }
+]

@@ -1,9 +1,9 @@
 import api from 'api';
 import crypto from 'crypto';
 
-const LOG_LEVEL = 'INFO';
-const KARTE_APP_SECRET_NAME = '';
-const TEAMS_OUTGOING_WEBHOOK_SECRET_NAME = '';
+const LOG_LEVEL = '<% LOG_LEVEL %>';
+const KARTE_APP_SECRET_NAME = '<% KARTE_APP_SECRET_NAME %>';
+const TEAMS_OUTGOING_WEBHOOK_SECRET_NAME = '<% TEAMS_OUTGOING_WEBHOOK_SECRET_NAME %>';
 const karteApiClient = api('@dev-karte/v1.0#1ehqt16lkm2a8jw');
 
 export default async function (data, { MODULES }) {

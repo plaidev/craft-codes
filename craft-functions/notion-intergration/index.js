@@ -1,10 +1,10 @@
-const LOG_LEVEL = 'DEBUG';
+const LOG_LEVEL = '<% LOG_LEVEL %>';
 
 export default async function (data, { MODULES }) {
   const { initLogger,secret } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
-  const { NOTION_API_SALESENGINEER,NOTION_DB_ID } = await secret.get({
-    keys: ['NOTION_API_SALESENGINEER','NOTION_DB_ID'],
+  const { NOTION_API_TOKEN, NOTION_DB_ID } = await secret.get({
+    keys: ['NOTION_API_TOKEN','NOTION_DB_ID'],
   });
   logger.log('data:', data.jsonPayload.data);
 
@@ -91,7 +91,7 @@ export default async function (data, { MODULES }) {
   // Notionにデータを送信する
   const sendNotionDB = async () => {
     const url = 'https://api.notion.com/v1/pages';
-    const token = NOTION_API_SALESENGINEER;
+    const token = NOTION_API_TOKEN;
 
     const headers = {
       'content-type': 'application/json',

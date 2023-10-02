@@ -14,4 +14,4 @@ KARTE で配信したウェブチャットでエンドユーザーから受信�
 
 ## category
 
-カスタマーサポート,Craft AI Modules
+カスタマーサポート,Craft AI Modules,HOOK_V2

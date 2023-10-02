@@ -1,11 +1,11 @@
 import api from 'api';
+const OPEN_WEATHER_API_KEY = '<% OPEN_WEATHER_API_KEY %>';; // OpenWeatherMapのAPIキーを指定する。
 
 export default async function (data, { MODULES }) {
     const { logger, secret } = MODULES;
     const { KARTE_API_TOKEN: token } = await secret.get({ keys: ["KARTE_API_TOKEN"] });
     const insight = api('@dev-karte/v1.0#1jvnhd6llgekil84');
     insight.auth(token);
-    const OPEN_WEATHER_API_KEY = '{{OPEN_WEATHER_API_KEY}}'; // OpenWeatherMapのAPIキーを指定する。
 
     let user_id = data.jsonPayload.data.user_id ?? data.jsonPayload.data.visitor_id;
 

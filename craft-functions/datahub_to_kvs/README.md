@@ -9,4 +9,4 @@ blog公開後に記載
 Craft KVSに初期データを入稿する際に、Datahubクエリの結果を利用できるようにしました。
 
 ## category
-Craft KVS,Datahub
+Craft KVS,Datahub,DATAHUB_JOB_FLOW_CONNECTOR
