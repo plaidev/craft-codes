@@ -6,13 +6,13 @@
     "required": true
   },
   {
-    "name": "EVENT_NAME",
+    "name": "KARTE_APP_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true
   },
   {
-    "name": "APP_TOKEN_SECRET",
+    "name": "TEAMS_OUTGOING_WEBHOOK_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true
