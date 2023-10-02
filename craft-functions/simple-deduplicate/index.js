@@ -1,5 +1,5 @@
 // KVSの重複排除用サフィックス。任意のサフィックスを指定する
-const DUP_SUFFIX = 'functionName';
+const DUP_SUFFIX = '<% DUP_SUFFIX %>';
 
 /**
  * ファンクションの重複実行を検知します。

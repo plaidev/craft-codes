@@ -2,18 +2,19 @@ import { WebClient } from '@slack/web-api';
 import api from "api";
 
 /* KARTE API V2 Setting - ACCESS TOKEN */
-const SECRET_KEY_API = "";
+const SECRET_KEY_API = '<% SECRET_KEY_API %>';
 
 /* Slack App - Bot User OAuth Token */
-const SECRET_KEY_SLACK = "";
+const SECRET_KEY_SLACK = '<% SECRET_KEY_SLACK %>';
 
 /* KARTE Project ID */
-const PROJECT_ID = "";
+const PROJECT_ID = '<% PROJECT_ID %>';
+
+const LOG_LEVEL = '<% LOG_LEVEL %>';
 
 const URL_KARTE = "https://admin.karte.io/p/";
 const URL_SUFFIX= "/service/";
 
-const LOG_LEVEL = 'DEBUG';
 const MESSAGE_CHANGE_CAMPAIGN_STATUS_RESULT = {
     PREFIX: "以下接客を",
     ACTIVATE: "公開しました。\n",

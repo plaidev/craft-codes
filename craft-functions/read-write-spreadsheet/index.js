@@ -1,9 +1,9 @@
 import { google } from "googleapis";
 
-const LOG_LEVEL = "WARN";
-const SERVICE_ACCOUNT_KEY_SECRET = ""; // GoogleサービスアカウントのJSONキーを登録したシークレットの名前
-const SPREADSHEET_ID = ""; // https://docs.google.com/spreadsheets/d/#{SPREADSHEET_ID}/
-const SHEET_NAME = ""; // スプレッドシート内のシート名
+const LOG_LEVEL = '<% LOG_LEVEL %>';
+const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>'; // GoogleサービスアカウントのJSONキーを登録したシークレットの名前
+const SPREADSHEET_ID = '<% SPREADSHEET_ID %>'; // https://docs.google.com/spreadsheets/d/#{SPREADSHEET_ID}/
+const SHEET_NAME = '<% SHEET_NAME %>'; // スプレッドシート内のシート名
 
 async function getSsValues(sheets, range) {
   const res = await sheets.spreadsheets.values.get({

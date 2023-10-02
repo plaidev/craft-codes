@@ -1,6 +1,6 @@
-const KARTE_PROJECT_ID = ''; // KARTEプロジェクトIDを指定
-const SLACK_CHANNEL_ID = ''; // 送信先のチャンネルIDを指定
-const LOG_LEVEL = "INFO";
+const KARTE_PROJECT_ID = '<% KARTE_PROJECT_ID %>'; // KARTEプロジェクトIDを指定
+const SLACK_CHANNEL_ID = '<% SLACK_CHANNEL_ID %>'; // 送信先のチャンネルIDを指定
+const LOG_LEVEL = '<% LOG_LEVEL %>';
 
 import { WebClient } from '@slack/web-api';
 

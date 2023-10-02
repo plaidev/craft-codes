@@ -1,0 +1,14 @@
+[
+  {
+    "name": "CHATGPT_API_KEY",
+    "value": "",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "SENDER_ID",
+    "value": "",
+    "type": "string",
+    "required": true
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "MINUTES_TO_EXPIRE",
+    "value": 43200,
+    "type": "number",
+    "required": true
+  },
+  {
+    "name": "HEADER_COLUMNS",
+    "value": "coupon_id,already_used,user_id",
+    "type": "string",
+    "required": true
+  }
+]

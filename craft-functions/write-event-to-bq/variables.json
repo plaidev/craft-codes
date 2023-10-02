@@ -1,0 +1,14 @@
+[
+  {
+    "name": "GOOGLE_CLOUD_BQ_DATASET",
+    "value": "",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "GOOGLE_CLOUD_BQ_TABLE",
+    "value": "",
+    "type": "string",
+    "required": true
+  }
+]
