@@ -14,4 +14,4 @@ KARTE の接客サービス機能でエンドユーザーの行動を元に Craf
 
 ## category
 
-外部連携
+外部連携,SERVER_SIDE_ACTION

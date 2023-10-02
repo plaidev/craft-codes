@@ -14,4 +14,4 @@ Craft と Notion DB を連携させてアンケートを管理する
 
 ## category
 
-外部連携
+外部連携,SERVER_SIDE_ACTION

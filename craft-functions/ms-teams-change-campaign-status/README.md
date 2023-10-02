@@ -15,4 +15,4 @@ KARTE の接客サービスの公開／非公開を外部サービスから変�
 
 ## category
 
-Microsoft,Teams,外部連携
+Microsoft,Teams,外部連携,CRAFT_ENDPOINT

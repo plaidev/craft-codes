@@ -14,7 +14,7 @@ KARTE Craft でサーバーサイドアクションで受け取ったデータ�
 
 ## category
 
-外部連携
+外部連携,SERVER_SIDE_ACTION
 
 # 使い方
 
