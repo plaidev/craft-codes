@@ -89,21 +89,18 @@ export default async function (data, { MODULES }) {
     return;
   }
 
-  try {
-    const resStatus = await requestData({
-      method,
-      url,
-      data: hookData,
-      headers,
-      campaignId,
-      id,
-      RetryableError,
-    });
-    logger.debug(
-      `[${campaignId}][${id}] Webhook execution completed. status: ${resStatus}`
-    );
-  } catch (err) {
-    throw err;
-  }
+  const resStatus = await requestData({
+    method,
+    url,
+    data: hookData,
+    headers,
+    campaignId,
+    id,
+    RetryableError,
+  });
+  logger.debug(
+    `[${campaignId}][${id}] Webhook execution completed. status: ${resStatus}`
+  );
+
   return;
 }
