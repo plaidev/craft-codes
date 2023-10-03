@@ -1,1 +1,14 @@
-[]
+[
+    {
+      "name": "LOG_LEVEL",
+      "value": "WARN",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "PER_DATA_TIMEOUT_MS",
+      "value": 600000,
+      "type": "number",
+      "required": true
+    }
+]
