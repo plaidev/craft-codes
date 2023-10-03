@@ -6,7 +6,7 @@ Web 上のユーザー行動をトリガーにして外部に Webhook リクエ�
 
 ## blogUrl
 
-https://solution.plaid.co.jp/202306-craft-webhook
+https://solution.plaid.co.jp/202310-craft-webhook
 
 ## description
 
