@@ -1,7 +1,7 @@
 const ALLOWED_METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE"];
 
-// Function自体の再実行も考慮したTimeout時間（ミリ秒）. 無限に再実行されるのを防ぐ. ex 1000 * 60 * 10 = 10分
-const PER_DATA_TIMEOUT_MS = Number('<% PER_DATA_TIMEOUT_MS %>');
+// Function自体の再実行も考慮したTimeout時間（秒）. 無限に再実行されるのを防ぐ. ex 60 * 10 = 10分
+const PER_DATA_TIMEOUT_SEC = Number('<% PER_DATA_TIMEOUT_SEC %>');
 const LOG_LEVEL = "<% LOG_LEVEL %>"; // DEBUG, INFO, WARN, ERROR
 
 function isValidUrl(url) {
@@ -63,7 +63,7 @@ async function requestData({
     ) {
       throw new RetryableError(
         `[${campaignId}][${id}] Request failed with status ${response.status}`,
-        PER_DATA_TIMEOUT_MS
+        PER_DATA_TIMEOUT_SEC
       );
     }
     throw new Error(
