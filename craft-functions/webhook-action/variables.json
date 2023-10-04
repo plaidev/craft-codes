@@ -6,9 +6,9 @@
       "required": true
     },
     {
-      "name": "PER_DATA_TIMEOUT_MS",
-      "value": 600000,
+      "name": "PER_DATA_TIMEOUT_SEC",
+      "value": 600,
       "type": "number",
       "required": true
     }
-]
+  ]
