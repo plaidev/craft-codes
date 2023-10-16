@@ -1,0 +1,14 @@
+# Summary
+
+## title
+配信数やクリック数に応じた接客サービスの自動停止
+
+## blog url
+https://solution.plaid.co.jp/202310-stop-campaign-by-imp-click
+
+## description
+接客で設定したタイミング（表示毎 or クリック毎）でCraft Functionsのエンドポイントをトリガーし、Craft Counterで接客IDをキーにカウントアップして、指定した上限数に到達したタイミングで該当の接客を停止するためのサンプルコードです。
+
+## category
+Craft Counter
+
