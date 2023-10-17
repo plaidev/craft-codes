@@ -1,0 +1,44 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "FREQUENT_ACQUISITION_ERROR_MINUTES",
+    "value": 1,
+    "type": "number",
+    "required": true
+  },
+  {
+    "name": "COUPON_CODE_PREFIX",
+    "value": "coupon-code",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "COUPON_USER_STATUS_PREFIX",
+    "value": "coupon-user-status",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "COUPON_USER_STATUS_EXPIRE_MINUTES",
+    "value": 1440,
+    "type": "number",
+    "required": true
+  },
+  {
+    "name": "COUPON_INDEX_PREFIX",
+    "value": "coupon-index",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "COUPON_INDEX_EXPIRE_SECONDS",
+    "value": 2592000,
+    "type": "number",
+    "required": true
+  }
+]
