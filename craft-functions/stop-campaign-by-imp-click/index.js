@@ -33,7 +33,7 @@ export default async function (data, { MODULES }) {
   }
   if (!limitNumber) return paramErr('limitNumber is required in the request body.');
 
-  const key = COUNTER_KEY_PREFIX + campaignId;
+  const key = COUNTER_KEY_PREFIX + '_' + campaignId;
 
   try {
     const incrementRes = await counter.increment({ 

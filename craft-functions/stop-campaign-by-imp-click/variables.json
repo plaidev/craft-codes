@@ -13,7 +13,7 @@
     },
     {
       "name": "COUNTER_KEY_PREFIX",
-      "value": "stop-campaign-by-imp-click_",
+      "value": "stop-campaign-by-imp-click",
       "type": "string",
       "required": true
       },
