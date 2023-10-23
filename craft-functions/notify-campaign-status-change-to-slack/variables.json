@@ -16,5 +16,11 @@
     "value": "",
     "type": "string",
     "required": true
+  },
+  {
+    "name": "SLACK_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true
   }
 ]
