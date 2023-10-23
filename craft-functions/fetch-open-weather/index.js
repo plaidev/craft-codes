@@ -1,9 +1,15 @@
 import api from 'api';
-const OPEN_WEATHER_API_KEY = '<% OPEN_WEATHER_API_KEY %>';; // OpenWeatherMapのAPIキーを指定する。
+
+const KARTE_TOKEN_SECRET = '<% KARTE_TOKEN_SECRET %>';
+const OPEN_WEATHER_API_KEY_SECRET = '<% OPEN_WEATHER_API_KEY_SECRET %>';
 
 export default async function (data, { MODULES }) {
     const { logger, secret } = MODULES;
-    const { KARTE_API_TOKEN: token } = await secret.get({ keys: ["KARTE_API_TOKEN"] });
+
+    const secrets = await secret.get({ keys: [KARTE_TOKEN_SECRET, OPEN_WEATHER_API_KEY_SECRET] });
+    const token = secrets[KARTE_TOKEN_SECRET];
+    const openWeatherApiKey = secrets[OPEN_WEATHER_API_KEY_SECRET];
+
     const insight = api('@dev-karte/v1.0#1jvnhd6llgekil84');
     insight.auth(token);
 
@@ -13,7 +19,7 @@ export default async function (data, { MODULES }) {
     const lat = data.jsonPayload.data.latitude;
     const lon = data.jsonPayload.data.longtitude;
     const ret = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${OPEN_WEATHER_API_KEY}`,
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${openWeatherApiKey}`,
     );
     const ret_json = await ret.json();
     logger.log(ret_json);

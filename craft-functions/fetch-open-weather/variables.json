@@ -1,0 +1,14 @@
+[
+  {
+    "name": "KARTE_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "OPEN_WEATHER_API_KEY_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true
+  }
+]
