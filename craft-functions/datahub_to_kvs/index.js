@@ -1,13 +1,24 @@
+import murmurhash from "murmurhash";
+
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const MINUTES_TO_EXPIRE = Number('<% MINUTES_TO_EXPIRE %>'); // 30日後に削除
 // SQLの結果に応じてカラム名を変更してください
 // 1列目の値がkvsのkeyになります
 const HEADER_COLUMNS = '<% HEADER_COLUMNS %>'.split(',').map(v => v.trim());
 
+// kvs書き込み時のkeyに、元のkeyをhash化した文字列をprefixとして付与するオプションです。ホットスポット回避に利用したい場合はtrueを設定してください。
+const APPEND_HASH_PREFIX = ('<% APPEND_HASH_PREFIX %>' === 'true');
+
 async function upsertData(key, row, kvs, logger) {
   logger.debug(`start [upsertData] key: ${key}`);
-
-  await kvs.write({ key, value: row, minutesToExpire: MINUTES_TO_EXPIRE });
+  let _key;
+  if (APPEND_HASH_PREFIX) {
+    const hash = murmurhash.v3(key);
+    _key = `${hash}_${key}`;
+  } else {
+    _key = key;
+  }
+  await kvs.write({ key: _key, value: row, minutesToExpire: MINUTES_TO_EXPIRE });
 
   logger.debug(`end [upsertData] key: ${key}`);
 }

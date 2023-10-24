@@ -16,5 +16,11 @@
     "value": "coupon_id,already_used,user_id",
     "type": "string",
     "required": true
+  },
+  {
+    "name": "APPEND_HASH_PREFIX",
+    "value": false,
+    "type": "boolean",
+    "required": true
   }
 ]
