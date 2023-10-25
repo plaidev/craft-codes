@@ -1,4 +1,4 @@
-const COUNTER_EXPIRE_SECONDS = Number('<% COUNTER_EXPIRE_SECONDS %'); // アンケート集計結果の保持期間（秒）
+const COUNTER_EXPIRE_SECONDS = Number('<% COUNTER_EXPIRE_SECONDS %>'); // アンケート集計結果の保持期間（秒）
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const COUNTER_KEY_PREFIX = '<% COUNTER_KEY_PREFIX %>';
 
