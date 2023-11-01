@@ -6,7 +6,7 @@ const COUNTER_KEY_PREFIX = '<% COUNTER_KEY_PREFIX %>'; // Craft Counterのkeyの
 const karteApiClient = api('@dev-karte/v1.0#1ehqt16lkm2a8jw');
 const COUNTER_EXPIRE_SECONDS = Number('<% COUNTER_EXPIRE_SECONDS %>'); // 集計の保持期間（秒）
 
-function paramErr(param) {
+function paramErr(msg) {
   return { craft_status_code: 400, error: `"${msg}"` }
 }
 
