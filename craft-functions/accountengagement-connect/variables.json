@@ -1,0 +1,56 @@
+[
+    {
+      "name": "LOG_LEVEL",
+      "value": "WARN",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "APP_TOKEN_SECRET",
+      "value": "",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "EVENT_NAME",
+      "value": "",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "ACCOUNTENGAGEMENT_CLIENT_ID",
+      "value": "",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "ACCOUNTENGAGEMENT_CLIENT_SECRET",
+      "value": "",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "ACCOUNTENGAGEMENT_USERNAME",
+      "value": "",
+      "type": "string",
+      "required": true
+    },   
+    {
+      "name": "ACCOUNTENGAGEMENT_PASSWORD",
+      "value": "",
+      "type": "string",
+      "required": true
+    },   
+    {
+      "name": "ACCOUNTENGAGEMENT_BUSINESS_UNIT_ID",
+      "value": "",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "PROSPECTFIELDS",
+      "value": "",
+      "type": "string",
+      "required": true
+    }
+]
