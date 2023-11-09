@@ -15,7 +15,8 @@
     "name": "PROJECT_ID",
     "value": "",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "KARTEのプロジェクトID"
   },
   {
     "name": "LOG_LEVEL",
