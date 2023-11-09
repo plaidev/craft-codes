@@ -1,6 +1,6 @@
 import { JSDOM } from "jsdom";
 import api from "api";
-const sdk = api('@dev-karte/v0.0.1#<% SDK_SUFFIX %>');
+const sdk = api('@dev-karte/v1.0#<% SDK_SUFFIX %>');
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 
 export default async function (data, { MODULES }) {
