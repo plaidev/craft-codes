@@ -113,18 +113,9 @@ export default async function (data, { MODULES }) {
   }
 
   const { cookie: aeCookie, visitor_id: visitorId } = data.jsonPayload.data;
-  const secrets = await secret.get({ keys: [APP_TOKEN_SECRET] });
-  const token = secrets[APP_TOKEN_SECRET];
-  karteApiClient.auth(token);
-
-  const {
-    ACCOUNTENGAGEMENT_CLIENT_ID: clientId,
-    ACCOUNTENGAGEMENT_CLIENT_SECRET: clientSecret,
-    ACCOUNTENGAGEMENT_USERNAME: username,
-    ACCOUNTENGAGEMENT_PASSWORD: password,
-    ACCOUNTENGAGEMENT_BUSINESS_UNIT_ID: unitId,
-  } = await secret.get({
+  const secrets = await secret.get({
     keys: [
+      APP_TOKEN_SECRET,
       ACCOUNTENGAGEMENT_CLIENT_ID,
       ACCOUNTENGAGEMENT_CLIENT_SECRET,
       ACCOUNTENGAGEMENT_USERNAME,
@@ -133,6 +124,14 @@ export default async function (data, { MODULES }) {
     ],
   });
 
+  const token = secrets[APP_TOKEN_SECRET];
+  const clientId = secrets[ACCOUNTENGAGEMENT_CLIENT_ID];
+  const clientSecret = secrets[ACCOUNTENGAGEMENT_CLIENT_SECRET];
+  const username = secrets[ACCOUNTENGAGEMENT_USERNAME];
+  const password = secrets[ACCOUNTENGAGEMENT_PASSWORD];
+  const unitId = secrets[ACCOUNTENGAGEMENT_BUSINESS_UNIT_ID];
+  karteApiClient.auth(token);
+
   const authResponse = await authenticateSalesforce(
     clientId,
     clientSecret,
@@ -140,6 +139,7 @@ export default async function (data, { MODULES }) {
     password,
     logger
   );
+
   if (!authResponse) return;
 
   const aeVisitorResponse = await getAeVisitor(aeCookie, unitId, authResponse.access_token, logger);
