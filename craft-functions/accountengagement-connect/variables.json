@@ -1,57 +1,65 @@
 [
-    {
-      "name": "LOG_LEVEL",
-      "value": "WARN",
-      "type": "string",
-      "required": true,
-      "description": "出力するログレベル"         
-    },
-    {
-      "name": "APP_TOKEN_SECRET",
-      "value": "",
-      "type": "string",
-      "required": true
-    },
-    {
-      "name": "EVENT_NAME",
-      "value": "",
-      "type": "string",
-      "required": true
-    },
-    {
-      "name": "ACCOUNTENGAGEMENT_CLIENT_ID",
-      "value": "",
-      "type": "string",
-      "required": true
-    },
-    {
-      "name": "ACCOUNTENGAGEMENT_CLIENT_SECRET",
-      "value": "",
-      "type": "string",
-      "required": true
-    },
-    {
-      "name": "ACCOUNTENGAGEMENT_USERNAME",
-      "value": "",
-      "type": "string",
-      "required": true
-    },   
-    {
-      "name": "ACCOUNTENGAGEMENT_PASSWORD",
-      "value": "",
-      "type": "string",
-      "required": true
-    },   
-    {
-      "name": "ACCOUNTENGAGEMENT_BUSINESS_UNIT_ID",
-      "value": "",
-      "type": "string",
-      "required": true
-    },
-    {
-      "name": "PROSPECTFIELDS",
-      "value": "",
-      "type": "string",
-      "required": true
-    }
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
+  },
+  {
+    "name": "APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Craftシークレットに保存したAPI v2 アプリのアクセストークンのキー名です。"
+  },
+  {
+    "name": "EVENT_NAME",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTEで発生させるイベント名です。"
+  },
+  {
+    "name": "ACCOUNTENGAGEMENT_CLIENT_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Craftシークレットに保存したAccount EngagementクライアントIDのAPIトークンキー名です。"
+  },
+  {
+    "name": "ACCOUNTENGAGEMENT_CLIENT_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Craftシークレットに保存したAccount EngagementクライアントシークレットのAPIトークンキー名です。"
+  },
+  {
+    "name": "ACCOUNTENGAGEMENT_USERNAME",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Craftシークレットに保存したAccount Engagementユーザー名のAPIトークンキー名です。"
+  },
+  {
+    "name": "ACCOUNTENGAGEMENT_PASSWORD",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Craftシークレットに保存したAccount EngagementパスワードのAPIトークンキー名です。"
+  },
+  {
+    "name": "ACCOUNTENGAGEMENT_BUSINESS_UNIT_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Craftシークレットに保存したAccount EngagementビジネスユニットIDのAPIトークンキー名です。"
+  },
+  {
+    "name": "PROSPECTFIELDS",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTEにイベント送信するフィールドです。複数ある場合カンマ区切りで指定してください。"
+  }
 ]

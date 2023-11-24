@@ -3,6 +3,7 @@
     "name": "LOG_LEVEL",
     "value": "WARN",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
   }
 ]

@@ -4,20 +4,20 @@
     "value": 3,
     "type": "number",
     "required": true,
-    "description": "「最大何分前から現在まで」のUU数を集計するかを指定します"
+    "description": "集計対象期間です。「最大何分前から現在まで」を時間（分）で指定してください。"
   },
   {
     "name": "COUNTER_KEY_PREFIX",
     "value": "item-view-uu",
     "type": "string",
     "required": true,
-    "description": "Craft Counterのkeyのprefixを指定します"
+    "description": "Craft Counterのkeyのprefixです。"
   },
   {
     "name": "LOG_LEVEL",
     "value": "WARN",
     "type": "string",
     "required": true,
-    "description": "ERROR/WARN/INFO/DEBUGから出力するログレベルを指定します"
+    "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
   }
 ]

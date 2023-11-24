@@ -3,18 +3,21 @@
     "name": "LOG_LEVEL",
     "value": "WARN",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
   },
   {
     "name": "EVENT_NAME",
     "value": "",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "KARTEに送信するイベント名です。"
   },
   {
     "name": "APP_TOKEN_SECRET",
     "value": "",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "Craftシークレットに保存したAPI v2 アプリのアクセストークンのキー名です。"
   }
 ]

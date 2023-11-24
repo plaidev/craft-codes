@@ -1,16 +1,16 @@
 [
-    {
-      "name": "LOG_LEVEL",
-      "value": "WARN",
-      "type": "string",
-      "required": true,
-      "description": "出力するログレベル" 
-    },
-    {
-      "name": "ALLOWED_IPS",
-      "value": "192.168.0.1,192.168.0.2",
-      "type": "string",
-      "required": true,
-      "description": "許可するIPアドレス" 
-    }
-  ]
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
+  },
+  {
+    "name": "ALLOWED_IPS",
+    "value": "192.168.0.1,192.168.0.2",
+    "type": "string",
+    "required": true,
+    "description": "アクセス許可対象のIPアドレスです。複数ある場合配列型式で指定してください。"
+  }
+]

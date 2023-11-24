@@ -3,12 +3,14 @@
     "name": "KARTE_TOKEN_SECRET",
     "value": "",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "Craftシークレットに保存したAPI v2 アプリのアクセストークンのキー名です。"
   },
   {
     "name": "OPEN_WEATHER_API_KEY_SECRET",
     "value": "",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "Craftシークレットに保存したOpenWeatherMapnのAPIキーのキー名です。"
   }
 ]

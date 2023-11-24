@@ -3,25 +3,28 @@
     "name": "SECRET_KEY_API",
     "value": "",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "Craftシークレットに保存したAPIv2アプリのアクセストークンのキー名です。"
   },
   {
     "name": "SECRET_KEY_SLACK",
     "value": "",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "Craftシークレットに保存したSlackアプリのアクセストークンのキー名です。"
   },
   {
     "name": "PROJECT_ID",
     "value": "",
     "type": "string",
     "required": true,
-    "description": "KARTEのプロジェクトID"
+    "description": "KARTEのプロジェクトIDです。"
   },
   {
     "name": "LOG_LEVEL",
     "value": "WARN",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
   }
 ]

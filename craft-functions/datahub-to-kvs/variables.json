@@ -3,24 +3,28 @@
     "name": "LOG_LEVEL",
     "value": "WARN",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
   },
   {
     "name": "MINUTES_TO_EXPIRE",
     "value": 43200,
     "type": "number",
-    "required": true
+    "required": true,
+    "description": "Craft KVSから自動削除までの時間です。時間（分）で指定してください。"
   },
   {
     "name": "HEADER_COLUMNS",
     "value": "coupon_id,already_used,user_id",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "ジョブフローから連携するカラム定義です。カンマ区切りで指定してください。"
   },
   {
     "name": "APPEND_HASH_PREFIX",
     "value": false,
     "type": "boolean",
-    "required": true
+    "required": true,
+    "description": "Craft KVS書き込み時のkeyに元のkeyをhash化した文字列をprefixとして付与するオプションです。ホットスポット回避に利用したい場合はtrueを設定してください。"
   }
 ]

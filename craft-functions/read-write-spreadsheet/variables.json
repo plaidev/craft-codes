@@ -3,24 +3,28 @@
     "name": "LOG_LEVEL",
     "value": "WARN",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
   },
   {
     "name": "SERVICE_ACCOUNT_KEY_SECRET",
     "value": "",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "Craftシークレットに保存したGoogleサービスアカウントのキー名です。"
   },
   {
     "name": "SPREADSHEET_ID",
     "value": "",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "GoogleスプレッドシートIDです。"
   },
   {
     "name": "SHEET_NAME",
     "value": "",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "連携対象のGoogleスプレッドシートのシート名です。"
   }
 ]
