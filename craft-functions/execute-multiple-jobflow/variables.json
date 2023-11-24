@@ -1,0 +1,16 @@
+[
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名"
+  },
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "ERROR/WARN/INFO/DEBUGから出力するログレベルを指定します"
+  }
+]
