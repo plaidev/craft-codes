@@ -18,6 +18,6 @@
     "value": "",
     "type": "string",
     "required": true,
-    "description": "Craftシークレットに保存したAPI v2 アプリのアクセストークンのキー名です。"
+    "description": "API v2 アプリのアクセストークンを登録したシークレットの名前です。"
   }
 ]

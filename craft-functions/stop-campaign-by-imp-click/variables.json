@@ -11,14 +11,14 @@
     "value": "",
     "type": "string",
     "required": true,
-    "description": "Craftシークレットに保存したAPIv2アプリのアクセストークンのキー名です。"
+    "description": "API v2 アプリのアクセストークンを登録したシークレットの名前です。"
   },
   {
     "name": "COUNTER_KEY_PREFIX",
     "value": "stop-campaign-by-imp-click",
     "type": "string",
     "required": true,
-    "description": "Craft Counterへ送る任意のキープレフィックスです。"
+    "description": "Craft Counterのキーに設定するプレフィックスです。"
   },
   {
     "name": "COUNTER_EXPIRE_SECONDS",

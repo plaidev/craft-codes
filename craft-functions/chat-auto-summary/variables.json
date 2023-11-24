@@ -25,7 +25,7 @@
     "value": "",
     "type": "string",
     "required": true,
-    "description": "Craftシークレットに保存したAPIトークンのキー名です。"
+    "description": "API v2 アプリのアクセストークンを登録したシークレットの名前です。"
   },
   {
     "name": "MIN_CHAT_TEXT_LENGTH",

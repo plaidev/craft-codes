@@ -11,7 +11,7 @@
     "value": "item-view-uu",
     "type": "string",
     "required": true,
-    "description": "Craft Counterのkeyのprefixです。"
+    "description": "Craft Counterのキーに設定するプレフィックスです。"
   },
   {
     "name": "LOG_LEVEL",

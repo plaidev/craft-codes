@@ -18,13 +18,13 @@
     "value": "",
     "type": "string",
     "required": true,
-    "description": "連携するSLACKのチャンネルIDです。"
+    "description": "連携するSlackのチャンネルIDです。"
   },
   {
     "name": "SLACK_TOKEN_SECRET",
     "value": "",
     "type": "string",
     "required": true,
-    "description": "Craftシークレットに保存したSlackアプリのアクセストークンのキー名です。"
+    "description": "Slackアプリのアクセストークンを登録したシークレットの名前です。"
   }
 ]

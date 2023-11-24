@@ -18,6 +18,6 @@
     "value": "realtime-enquete",
     "type": "string",
     "required": true,
-    "description": "Craft Counterへ送る任意のキープレフィックスです。"
+    "description": "Craft Counterのキーに設定するプレフィックスです。"
   }
 ]

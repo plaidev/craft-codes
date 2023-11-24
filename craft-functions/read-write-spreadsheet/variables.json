@@ -11,7 +11,7 @@
     "value": "",
     "type": "string",
     "required": true,
-    "description": "Craftシークレットに保存したGoogleサービスアカウントのキー名です。"
+    "description": "Googleサービスアカウントを登録したシークレットの名前です。"
   },
   {
     "name": "SPREADSHEET_ID",

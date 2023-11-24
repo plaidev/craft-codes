@@ -11,13 +11,13 @@
     "value": "",
     "type": "string",
     "required": true,
-    "description": "Craftシークレットに保存したAPI v2 アプリのアクセストークンのキー名です。"
+    "description": "API v2 アプリのアクセストークンを登録したシークレットの名前です。"
   },
   {
     "name": "TEAMS_OUTGOING_WEBHOOK_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,
-    "description": "Craftシークレットに保存したTeam HMAC トークンのキー名です。"
+    "description": "Team HMAC トークンを登録したシークレットの名前です。"
   }
 ]

@@ -4,14 +4,14 @@
     "value": "",
     "type": "string",
     "required": true,
-    "description": "Craftシークレットに保存したAPIv2アプリのアクセストークンのキー名です。"
+    "description": "API v2 アプリのアクセストークンを登録したシークレットの名前です。"
   },
   {
     "name": "SECRET_KEY_SLACK",
     "value": "",
     "type": "string",
     "required": true,
-    "description": "Craftシークレットに保存したSlackアプリのアクセストークンのキー名です。"
+    "description": "Slackアプリのアクセストークンを登録したシークレットの名前です。"
   },
   {
     "name": "PROJECT_ID",
