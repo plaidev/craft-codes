@@ -3,12 +3,14 @@
     "name": "GOOGLE_CLOUD_BQ_DATASET",
     "value": "",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "書き込み対象のBigQueryのデータセット名です。"
   },
   {
     "name": "GOOGLE_CLOUD_BQ_TABLE",
     "value": "",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "書き込み対象のBigQueryのテーブル名です。"
   }
 ]

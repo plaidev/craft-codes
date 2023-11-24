@@ -1,14 +1,16 @@
 [
-    {
-      "name": "LOG_LEVEL",
-      "value": "WARN",
-      "type": "string",
-      "required": true
-    },
-    {
-      "name": "PER_DATA_TIMEOUT_SEC",
-      "value": 600,
-      "type": "number",
-      "required": true
-    }
-  ]
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
+  },
+  {
+    "name": "PER_DATA_TIMEOUT_SEC",
+    "value": 600,
+    "type": "number",
+    "required": true,
+    "description": "Functionの不要な連続実行を防ぐためのタイムアウト時間（秒）です。"
+  }
+]

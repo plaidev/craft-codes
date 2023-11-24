@@ -3,30 +3,35 @@
     "name": "LOG_LEVEL",
     "value": "WARN",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
   },
   {
     "name": "MODEL",
     "value": "gpt3.5",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "利用するGPTモデルです。"
   },
   {
     "name": "CHAT_SENDER_ID",
     "value": "",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "KARTE Talkのチャットの送信者として指定するオペレータID(アサインID)です。"
   },
   {
     "name": "CRAFT_APP_TOKEN_SECRET_NAME",
     "value": "",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "API v2 アプリのアクセストークンを登録したシークレットの名前です。"
   },
   {
     "name": "MIN_CHAT_TEXT_LENGTH",
     "value": 100,
     "type": "number",
-    "required": true
+    "required": true,
+    "description": "要約する文章の最低文字数です。"
   }
 ]

@@ -4,24 +4,27 @@
     "value": "WARN",
     "type": "string",
     "required": true,
-    "description": "出力するログレベル"
+    "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
   },
   {
     "name": "KARTE_PROJECT_ID",
     "value": "",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "対象となるKARTEのプロジェクトIDです。"
   },
   {
     "name": "SLACK_CHANNEL_ID",
     "value": "",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "連携するSlackのチャンネルIDです。"
   },
   {
     "name": "SLACK_TOKEN_SECRET",
     "value": "",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "Slackアプリのアクセストークンを登録したシークレットの名前です。"
   }
 ]

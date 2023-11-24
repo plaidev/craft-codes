@@ -3,18 +3,21 @@
     "name": "CHATGPT_API_KEY",
     "value": "",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "chatGPTのAPIキーを登録したシークレットの名前です。"
   },
   {
     "name": "SENDER_ID",
     "value": "",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "KARTE Talkのチャットの送信者として指定するオペレータID(アサインID)です。"
   },
   {
     "name": "KARTE_TOKEN_SECRET",
     "value": "",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "API v2 アプリのアクセストークンを登録したシークレットの名前です。"
   }
 ]

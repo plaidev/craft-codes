@@ -3,18 +3,21 @@
     "name": "LOG_LEVEL",
     "value": "WARN",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
   },
   {
     "name": "COUNTER_EXPIRE_SECONDS",
     "value": 2592000,
     "type": "number",
-    "required": true
+    "required": true,
+    "description": "Craft Counterから自動削除までの時間です。時間（分）で指定してください。"
   },
   {
     "name": "COUNTER_KEY_PREFIX",
     "value": "realtime-enquete",
     "type": "string",
-    "required": true
+    "required": true,
+    "description": "Craft Counterのキーに設定するプレフィックスです。"
   }
 ]

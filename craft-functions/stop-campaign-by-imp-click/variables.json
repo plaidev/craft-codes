@@ -1,26 +1,30 @@
 [
-    {
-      "name": "LOG_LEVEL",
-      "value": "WARN",
-      "type": "string",
-      "required": true
-    },
-    {
-      "name": "APP_TOKEN_SECRET",
-      "value": "",
-      "type": "string",
-      "required": true
-    },
-    {
-      "name": "COUNTER_KEY_PREFIX",
-      "value": "stop-campaign-by-imp-click",
-      "type": "string",
-      "required": true
-      },
-    {
-      "name": "COUNTER_EXPIRE_SECONDS",
-      "value": 2592000,
-      "type": "number",
-      "required": true
-    }
-  ]
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
+  },
+  {
+    "name": "APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "API v2 アプリのアクセストークンを登録したシークレットの名前です。"
+  },
+  {
+    "name": "COUNTER_KEY_PREFIX",
+    "value": "stop-campaign-by-imp-click",
+    "type": "string",
+    "required": true,
+    "description": "Craft Counterのキーに設定するプレフィックスです。"
+  },
+  {
+    "name": "COUNTER_EXPIRE_SECONDS",
+    "value": 2592000,
+    "type": "number",
+    "required": true,
+    "description": "Craft Counterから自動削除までの時間です。時間（分）で指定してください。"
+  }
+]
