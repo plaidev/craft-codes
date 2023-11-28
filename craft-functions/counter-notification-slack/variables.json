@@ -1,0 +1,30 @@
+[
+    {
+       "name": "COUNTER_KEYS",
+       "value": null,
+       "type": "string",
+       "required": true,
+       "description": "Craft Counterから取得したいkeyをカンマ区切りの文字列で指定します"
+    },
+    {
+       "name": "SLACK_CHANNEL_ID",
+       "value": null,
+       "type": "string",
+       "required": true,
+       "description": "SlackのチャンネルIDを指定します"
+    },
+    {
+        "name": "SLACK_TOKEN_SECRET",
+        "value": null,
+        "type": "string",
+        "required": true,
+        "description": "Slack Appの Bot User OAuth Tokenを登録したシークレット名を指定します"
+    },
+    {
+        "name": "LOG_LEVEL",
+        "value": "DEBUG",
+        "type": "string",
+        "required": true,
+        "description": "LOG_LEVELの設定をします"
+    }
+]
