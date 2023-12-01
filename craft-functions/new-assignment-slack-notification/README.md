@@ -6,7 +6,7 @@ KARTE Talk で新規アサインされた場合に Slack 通知する
 
 ## blogUrl
 
-https://solution.plaid.co.jp/202311-new-assignment-slack-notification
+https://solution.plaid.co.jp/202312-new-assignment-slack-notification
 
 ## description
 
