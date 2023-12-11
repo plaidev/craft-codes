@@ -32,12 +32,11 @@ export default async function (data, { MODULES }) {
   let msg;
   if (operatorName === '未担当') {
     msg = `KARTE Talkのチャットでアサインが「未担当」になりました。\n`;
-    msg += `Talk画面はこちらです。https://admin.karte.io/communication/v2/redirect_from_v1/${assignedUser}?project=${KARTE_PROJECT_ID}`;
   } else {
     msg = `KARTE Talkのチャットでアサインが${operatorName}さんになりました。\n`;
-    msg += `新規アサインされた担当のuser_idは${assignedUser}です。\n`;
-    msg += `Talk画面はこちらです。https://admin.karte.io/communication/v2/redirect_from_v1/${assignedUser}?project=${KARTE_PROJECT_ID}`;
   }
+  msg += `新規アサインされた担当のuser_idは${assignedUser}です。\n`;
+  msg += `Talk画面はこちらです。https://admin.karte.io/communication/v2/redirect_from_v1/${assignedUser}?project=${KARTE_PROJECT_ID}`;
 
   // Slack APIのchat.postMessageを使ってメッセージを送信
   await slackClient.chat.postMessage({
