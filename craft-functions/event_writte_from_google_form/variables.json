@@ -1,0 +1,14 @@
+[
+    {
+      "name": "LOG_LEVEL",
+      "value": "ERROR",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "SECRET_NAME",
+      "value": "",
+      "type": "string",
+      "required": true
+    }
+  ]
