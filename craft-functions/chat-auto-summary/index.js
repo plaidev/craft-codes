@@ -20,7 +20,7 @@ async function fetchSummary({text, token, karteSecureApiClient}) {
       content: prompt
     },
   ];
-  const { data } = await sdk.postV2alphaCraftOpenaiChatCompletions({
+  const { data } = await sdk.postV2betaCraftAimodulesOpenaiChatCompletions({
     messages,
     model: MODEL,
     temperature: 0.7,
