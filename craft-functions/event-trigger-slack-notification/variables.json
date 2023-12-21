@@ -1,0 +1,17 @@
+[
+    {
+      "name": "LOG_LEVEL",
+      "value": "DEBUG",
+      "type": "string",
+      "required": true,
+      "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
+    },
+    {
+      "name": "SLACK_TOKEN_SECRET",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "Slackトークンを登録したシークレットの名前です。"
+    }
+  ]
+ 
