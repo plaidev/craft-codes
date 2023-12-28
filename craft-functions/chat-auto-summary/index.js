@@ -6,8 +6,8 @@ const TALK_SPEC_URI = '@dev-karte/yyyyyyyyyy';
 const CRAFT_APP_TOKEN_SECRET_NAME = '<% CRAFT_APP_TOKEN_SECRET_NAME %>';
 const MIN_CHAT_TEXT_LENGTH = Number('<% MIN_CHAT_TEXT_LENGTH %'); // この文字数以上のチャットメッセージのみ自動要約する
 
-async function fetchSummary({text, token, karteSecureApiClient}) {
-  const sdk = karteSecureApiClient({
+async function fetchSummary({text, token, karteApiClientForCraftTypeApp}) {
+  const sdk = karteApiClientForCraftTypeApp({
     token,
     specUri: CRAFT_SPEC_URI,
   });
@@ -32,8 +32,8 @@ async function fetchSummary({text, token, karteSecureApiClient}) {
   return data.content;
 }
 
-function postNote({user_id, text, token, karteSecureApiClient}) {
-  const sdk = karteSecureApiClient({
+function postNote({user_id, text, token, karteApiClientForCraftTypeApp}) {
+  const sdk = karteApiClientForCraftTypeApp({
     token,
     specUri: TALK_SPEC_URI,
   });
@@ -51,7 +51,7 @@ function postNote({user_id, text, token, karteSecureApiClient}) {
 }
 
 export default async function (data, { MODULES }) {
-  const { initLogger, secret, karteSecureApiClient } = MODULES;
+  const { initLogger, secret, karteApiClientForCraftTypeApp } = MODULES;
   const logger = initLogger({logLevel: LOG_LEVEL});
 
   if (data.kind !== 'karte/apiv2-hook') { 
@@ -68,7 +68,7 @@ export default async function (data, { MODULES }) {
   const secrets = await secret.get({keys: [ CRAFT_APP_TOKEN_SECRET_NAME ]});
   const token = secrets[CRAFT_APP_TOKEN_SECRET_NAME];
 
-  const summary = await fetchSummary({text: userMessage, token, karteSecureApiClient});
+  const summary = await fetchSummary({text: userMessage, token, karteApiClientForCraftTypeApp});
   if (summary) {
     logger.debug(`fetchSummary succeeded.`);
   }
@@ -78,5 +78,5 @@ export default async function (data, { MODULES }) {
   if (!user_id) user_id = visitor_id;
 
   const reply = `■自動要約: \n${summary}`;
-  return postNote({user_id, text: reply, token, karteSecureApiClient});
+  return postNote({user_id, text: reply, token, karteApiClientForCraftTypeApp});
 }
