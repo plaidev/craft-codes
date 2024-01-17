@@ -1,6 +1,6 @@
 import { google } from "googleapis";
 
-const LOG_LEVEL = '<% DEBUG %>';
+const LOG_LEVEL = '<% LOG_LEVEL %>';
 const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
 
 async function updateSsValues(sheets, spreadsheetId, range, values) {

@@ -1,7 +1,7 @@
 import { WebClient } from '@slack/web-api';
 
 const SLACK_TOKEN_SECRET = '<% SLACK_TOKEN_SECRET %>';
-const LOG_LEVEL = '<% DEBUG %>';
+const LOG_LEVEL = '<% LOG_LEVEL %>';
 
 export default async function (data, { MODULES }) {
   const { initLogger, secret } = MODULES;
