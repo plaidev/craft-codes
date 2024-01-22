@@ -1,0 +1,30 @@
+[
+    {
+      "name": "LOG_LEVEL",
+      "value": "DEBUG",
+      "type": "string",
+      "required": true,
+      "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
+    },
+    {
+      "name": "SLACK_TOKEN_SECRET",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "Slackトークンを登録したシークレットの名前です。"
+    },
+    {
+      "name": "SERVICE_ACCOUNT_KEY_SECRET",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "利用するGoogleサービスアカウントのJSONキーを登録したシークレットの名前です。"
+    },
+    {
+      "name": "STOCK_TABLE_ID",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "クエリを実行する際に参照するデータが入ったテーブルの名前です。"
+    }
+]

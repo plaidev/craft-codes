@@ -1,0 +1,4 @@
+{
+    "@slack/web-api": "6.8.1",
+    "@google-cloud/bigquery": "6.2.0"
+}
