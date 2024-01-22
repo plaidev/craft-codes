@@ -19,5 +19,12 @@
       "type": "string",
       "required": true,
       "description": "利用するGoogleサービスアカウントのJSONキーを登録したシークレットの名前です。"
+    },
+    {
+      "name": "STOCK_TABLE_ID",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "クエリを実行する際に参照するデータが入ったテーブルの名前です。"
     }
 ]

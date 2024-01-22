@@ -3,6 +3,7 @@ import { BigQuery } from '@google-cloud/bigquery';
 
 const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
 const SLACK_TOKEN_SECRET = '<% SLACK_TOKEN_SECRET %>';
+const STOCK_TABLE_ID = '<% STOCK_TABLE_ID %>';
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 
 function getClientConfig(saKeyJson) {
@@ -64,10 +65,9 @@ export default async function (data, { MODULES }) {
 
   const payloadData = data.jsonPayload.data;
   const targetItemId = payloadData.target_item_id;
-  const stockTableId = payloadData.stock_table_id;
 
   // BigQueryの結果を取得する
-  const [rows] = await queryBigQueryForStock(targetItemId, stockTableId, { bigquery });
+  const [rows] = await queryBigQueryForStock(targetItemId, STOCK_TABLE_ID, { bigquery });
 
   // BigQueryの結果が取得できなかった場合は、警告のログを出す
   if (!rows || rows.length === 0) {
