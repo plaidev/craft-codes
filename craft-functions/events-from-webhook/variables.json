@@ -1,0 +1,44 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "ERROR",
+    "type": "string",
+    "required": true,
+    "description": "ERROR/WARN/INFO/DEBUGから出力するログレベルを指定します"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名"
+  },
+  {
+    "name": "EVENT_NAME",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTEの中で発生させたいイベント名"
+  },
+  {
+    "name": "VALUES_FIELDS",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "payloadの中にあるデータでイベントのvaluesで送信したいfieldの名前をカンマ区切りで入力"
+  },
+  {
+    "name": "USER_ID_FIELD",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "payloadの中の「ビジターID生成に利用するユーザー識別ID」が格納されているfield名"
+  },
+  {
+    "name": "VISTOR_ID_PREFIX",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "生成するvistor_idにつけたいプレフィックスの文字列"
+  }
+]
