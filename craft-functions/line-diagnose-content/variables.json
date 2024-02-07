@@ -1,0 +1,23 @@
+[
+    {
+        "name": "LOG_LEVEL",
+        "value": "WARN",
+        "type": "string",
+        "required": true,
+        "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+    },
+    {
+        "name": "CHANNEL_ACCESS_TOKEN_SECRET",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "LINEのチャンネルアクセストークンを登録したシークレット名を指定します。"
+    },
+    {
+        "name": "DIAGNOSE_START_TEXT",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "診断を開始するためのトリガーとなるテキストを指定します。"
+    }
+]
