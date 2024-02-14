@@ -1,0 +1,32 @@
+[
+  {
+    "name": "SDK_SUFFIX",
+    "value": "40cpt1klofgiw4n",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "API_TOKEN_SECRET_KEY",
+    "value": "",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "IMAGE_ELEMENT_ID",
+    "value": "dynamic-image",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "ACTION_WRAPPER_CLASS_NAME",
+    "value": "karte-action-wrapper",
+    "type": "string",
+    "required": true
+  }
+]

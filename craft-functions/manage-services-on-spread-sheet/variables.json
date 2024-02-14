@@ -1,0 +1,20 @@
+[
+  {
+    "name": "SDK_SUFFIX",
+    "value": "40cpt1klofgiw4n",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "API_TOKEN_SECRET_KEY",
+    "value": "",
+    "type": "string",
+    "required": true
+  }
+]
