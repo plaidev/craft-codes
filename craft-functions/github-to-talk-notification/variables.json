@@ -1,0 +1,30 @@
+[
+    {
+        "name": "LOG_LEVEL",
+        "value": "WARN",
+        "type": "string",
+        "required": true,
+        "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+    },
+    {
+        "name": "KARTE_PROJECT_ID",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "通知先となるKARTEのプロジェクトIDです"
+    },
+    {
+        "name": "TALK_BOT_ID",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "ノート投稿に利用するKARTE TalkのBot IDです"
+    },
+    {
+        "name": "KARTE_APP_TOKEN_SECRET",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+    }
+]
