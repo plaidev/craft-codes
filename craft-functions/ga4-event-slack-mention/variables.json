@@ -1,0 +1,45 @@
+[
+    {
+      "name": "LOG_LEVEL",
+      "value": "WARN",
+      "type": "string",
+      "required": true,
+      "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+    },
+    {
+      "name": "SERVICE_ACCOUNT_KEY_SECRET",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "利用するGoogleサービスアカウントのJSONキーを登録したシークレットの名前です"
+    },
+    {
+      "name": "SLACK_TOKEN_SECRET",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "Slack Appの Bot User OAuth Tokenを登録したシークレット名です"
+    },
+    {
+      "name": "SLACK_CHANNEL_ID",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "通知対象のSlackチャンネルIDです"
+    },
+    {
+      "name": "GA4_PROPERTY_ID",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "集計対象となるGA4のプロパティIDです。"
+    },
+    {
+      "name": "CV_EVENTS_AND_LIMITS_SETTING",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "eventA:0.1,eventB:0.2 という形式で集計対象とするコンバージョンイベント名と通知対象の下限値となるCVRの組を設定します。"
+    }
+]
+  
