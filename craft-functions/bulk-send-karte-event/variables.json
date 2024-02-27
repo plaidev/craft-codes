@@ -1,0 +1,23 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "SECRET_KEY_API",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Craft Secretに保存したAPIトークンのキー名です"
+  },
+  {
+    "name": "TARGET_JOBFLOW_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "LINEIDをDatahubから抽出するジョブフローIDを指定してください"
+  }
+]
