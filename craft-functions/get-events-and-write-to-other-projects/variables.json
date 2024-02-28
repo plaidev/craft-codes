@@ -1,0 +1,30 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "OTHER_PROJECT_KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "転送先プロジェクトのKARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "PER_DATA_TIMEOUT_SEC",
+    "value": "180",
+    "type": "number",
+    "required": true,
+    "description": "リトライのタイムアウト時間(秒)です。イベント取得APIエラー時のリトライ処理をいつまで実行するかを指定します"
+  }
+]
