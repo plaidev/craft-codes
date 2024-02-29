@@ -1,0 +1,23 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "ACCESS_KEY_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "取得したIAMユーザーのAccess Keyを登録したシークレット名です"
+  },
+  {
+    "name": "SECRET_ACCESS_KEY_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "取得したIAMユーザーのSercret Access Keyを登録したシークレット名です"
+  }
+]
