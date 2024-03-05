@@ -1,0 +1,66 @@
+[
+    {
+      "name": "LOG_LEVEL",
+      "value": "WARN",
+      "type": "string",
+      "required": true,
+      "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+    },
+    {
+      "name": "SERVICE_ACCOUNT_KEY_SECRET",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "利用するGoogleサービスアカウントのJSONキーを登録したシークレットの名前です"
+    },
+    {
+      "name": "GCP_API_KEY",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "GCPプロジェクトで発行したAPIキーです"
+    },
+    {
+      "name": "SPREADSHEET_ID",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "出力先となるスプレッドシートのシートIDです"
+    },
+    {
+      "name": "SHEET_NAME",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "出力先となるスプレッドシートのシート名です"
+    },
+    {
+      "name": "CUSTOM_SEARCH_ENGINE_ID",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "カスタム検索エンジンで取得した検索エンジンIDです"
+    },
+    {
+      "name": "TARGET_KEYWORD",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "検索結果を取得したいキーワードです"
+    },
+    {
+      "name": "SEARCH_TARGET_SITES",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "検索対象とするサイトのドメインをカンマ区切りで指定します"
+    },
+    {
+      "name": "MAX_RECORDS",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "スプレッドシートに出力される行数の最大値です"
+    }
+]
+  
