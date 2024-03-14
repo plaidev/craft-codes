@@ -1,0 +1,17 @@
+[
+    {
+      "name": "LOG_LEVEL",
+      "value": "WARN",
+      "type": "string",
+      "required": true,
+      "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+    },
+    {
+      "name": "SENDGRID_API_KEY_SECRET",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "SendGridのAPIキーを登録したシークレットの名前です"
+    }
+]
+  
