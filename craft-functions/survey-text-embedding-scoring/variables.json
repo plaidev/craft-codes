@@ -1,0 +1,51 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します。"
+  },
+  {
+    "name": "TEXT_EMBEDDING_MODEL",
+    "value": "text-embedding-3-large",
+    "type": "string",
+    "required": true,
+    "description": "Text Embeddingに使用するモデル名です。"
+  },
+  {
+    "name": "EMBEDDING_KEYWORDS",
+    "value": "positive,negative",
+    "type": "string",
+    "required": true,
+    "description": "Text Embeddings に用いるキーワードです。複数指定する場合はカンマ区切りにします。"
+  },
+  {
+    "name": "CRAFT_APP_TOKEN_SECRET_NAME",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "API v2 アプリのアクセストークンを登録したシークレットの名前です。"
+  },
+  {
+    "name": "SERVICE_ACCOUNT_KEY_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Googleサービスアカウントを登録したシークレットの名前です。"
+  },
+  {
+    "name": "SPREADSHEET_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "GoogleスプレッドシートIDです。"
+  },
+  {
+    "name": "SHEET_NAME",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "連携対象のGoogleスプレッドシートのシート名です。"
+  }
+]
