@@ -2,7 +2,7 @@
 
 ## title
 
-自由回答テキストに含まれる感情を Text Embedding で成分ごとにスコア化する
+自由回答テキストに含まれる文意を Text Embedding で成分ごとにスコア化する
 
 ## blogUrl
 
