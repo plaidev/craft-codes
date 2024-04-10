@@ -1,4 +1,4 @@
-import murmurhash from "murmurhash";
+import crypto from 'crypto';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const MINUTES_TO_EXPIRE = Number('<% MINUTES_TO_EXPIRE %>'); // 30日後に削除
@@ -7,13 +7,19 @@ const MINUTES_TO_EXPIRE = Number('<% MINUTES_TO_EXPIRE %>'); // 30日後に削�
 const HEADER_COLUMNS = '<% HEADER_COLUMNS %>'.split(',').map(v => v.trim());
 
 // kvs書き込み時のkeyに、元のkeyをhash化した文字列をprefixとして付与するオプションです。ホットスポット回避に利用したい場合はtrueを設定してください。
-const APPEND_HASH_PREFIX = ('<% APPEND_HASH_PREFIX %>' === 'true');
+const APPEND_HASH_PREFIX = '<% APPEND_HASH_PREFIX %>' === 'true';
 
-async function upsertData(key, row, kvs, logger) {
-  logger.debug(`start [upsertData] key: ${key}`);
+function generateHashedPrefix(key) {
+  const hashBase64 = crypto.createHash('sha256').update(key).digest('base64');
+  // 辞書順を分散させるためハッシュ値の5〜12文字目を使用
+  const prefix = hashBase64.substring(4, 12);
+  return prefix;
+}
+
+async function upsertData(key, row, kvs, logger, RetryableError) {
   let _key;
   if (APPEND_HASH_PREFIX) {
-    const hash = murmurhash.v3(key);
+    const hash = generateHashedPrefix(key);
     _key = `${hash}_${key}`;
   } else {
     _key = key;
