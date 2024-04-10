@@ -24,13 +24,18 @@ async function upsertData(key, row, kvs, logger, RetryableError) {
   } else {
     _key = key;
   }
-  await kvs.write({ key: _key, value: row, minutesToExpire: MINUTES_TO_EXPIRE });
 
-  logger.debug(`end [upsertData] key: ${key}`);
+  try {
+    await kvs.write({ key: _key, value: row, minutesToExpire: MINUTES_TO_EXPIRE });
+    logger.debug(`kvs.write() succeeded. key: ${_key}`);
+  } catch (err) {
+    logger.warn(`kvs.write() failed. key: ${_key}`);
+    throw new RetryableError(`kvs.write() failed. err: ${err.message}`);
+  }
 }
 
 export default async function (data, { MODULES }) {
-  const { initLogger, kvs } = MODULES;
+  const { initLogger, kvs, RetryableError } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
   const { value } = data.jsonPayload.data;
 
@@ -45,5 +50,5 @@ export default async function (data, { MODULES }) {
     acc[colName] = splitData[j];
     return acc;
   }, {});
-  await upsertData(obj[HEADER_COLUMNS[0]], obj, kvs, logger)
+  await upsertData(obj[HEADER_COLUMNS[0]], obj, kvs, logger, RetryableError);
 }
