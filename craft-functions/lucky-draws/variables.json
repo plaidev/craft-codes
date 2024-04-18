@@ -1,0 +1,65 @@
+[
+  {
+    "name": "PRIZE_COUNT_PREFIX",
+    "value": "test",
+    "type": "string",
+    "required": false,
+    "description": "当たり数Counterのプレフィックスです。"
+  },
+  {
+    "name": "PRIZE_COUNT_EXPIRE_SECONDS",
+    "value": 2592000,
+    "type": "number",
+    "required": false,
+    "description": "当たり数Counterの有効期限（秒）です。"
+  },
+  {
+    "name": "LOG_LEVEL",
+    "value": "DEBUG",
+    "type": "string",
+    "required": false,
+    "description": "ログレベルです。DEBUG, INFO, WARN, ERROR, NONEのいずれかを指定してください。"
+  },
+  {
+    "name": "USER_PARTICIPATION_PREFIX",
+    "value": "",
+    "type": "string",
+    "required": false,
+    "description": "当日くじ引き参加KVSのプレフィックスです。"
+  },
+  {
+    "name": "USER_PARTICIPATION_EXPIRE_SECONDS",
+    "value": 2592000,
+    "type": "number",
+    "required": false,
+    "description": "当日くじ引き参加KVSの有効期限（秒）です。"
+  },
+  {
+    "name": "APPEND_HASH_PREFIX",
+    "value": "true",
+    "type": "string",
+    "required": false,
+    "description": "ハッシュプレフィックスを追加するかどうかの設定です。'true'または'false'を指定してください。"
+  },
+  {
+    "name": "PRIZES",
+    "value": "['1等','2等','3等']",
+    "type": "string",
+    "required": true,
+    "description": "当たり等数のリストです。"
+  },
+  {
+    "name": "PROBABILITIES",
+    "value": "[0.1,0.2,0.3]",
+    "type": "string",
+    "required": true,
+    "description": "各当たり確率のリストです。"
+  },
+  {
+    "name": "LIMITS",
+    "value": "[10,50,100]",
+    "type": "string",
+    "required": true,
+    "description": "各当たり上限数のリストです。"
+  }
+]
