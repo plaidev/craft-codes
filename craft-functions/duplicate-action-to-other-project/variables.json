@@ -1,0 +1,30 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "KARTE_API_TOKEN_SECRET_FROM",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "接客サービス複製元プロジェクトでKARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "KARTE_API_TOKEN_SECRET_TO",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "接客サービス複製先プロジェクトでKARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "SEGMENT_ID_MAP",
+    "value": "xxx:yyy,zzz:www",
+    "type": "string",
+    "required": false,
+    "description": "接客サービス複製元プロジェクトのセグメントIDと接客サービス複製先プロジェクトのセグメントIDの組み合わせです"
+  }
+]
