@@ -1,0 +1,65 @@
+[
+    {
+        "name": "LOG_LEVEL",
+        "value": "WARN",
+        "type": "string",
+        "required": true,
+        "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+    },
+    {
+        "name": "KARTE_APP_TOKEN_SECRET",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+    },
+    {
+        "name": "SERVICE_ACCOUNT_KEY_SECRET",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "利用するGoogleサービスアカウントのJSONキーを登録したシークレットの名前です"
+    },
+    {
+        "name": "SPREADSHEET_ID",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "対象GoogleスプレッドシートのIDです"
+    },
+    {
+        "name": "SHEET_NAME",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "対象Googleスプレッドシートのシート名です"
+    },
+    {
+        "name": "RELATIVE_START_DATE_DAYS_AGO",
+        "value": "",
+        "type": "number",
+        "required": true,
+        "description": "[相対指定で利用] 効果計測期間がセッションの接客サービスの集計値を取得するときの集計開始日（現在からN日前）です"
+    },
+    {
+        "name": "ABSOLUTE_START_DATE",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "[絶対指定で利用] 効果計測期間がセッションの接客サービスの集計値を取得するときの集計開始日です。YYYY-MM-DDの形式で指定します"
+    },
+    {
+        "name": "ABSOLUTE_END_DATE",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "[絶対指定で利用] 効果計測期間がセッションの接客サービスの集計値を取得するときの集計終了日です。YYYY-MM-DDの形式で指定します"
+    },
+    {
+        "name": "AGGREGATION_RANGE",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "効果計測期間が1日/7日/30日の接客サービスの集計値を取得するときの集計期間です。latest_a_week/latest_thirty_days/latest_two_weeksのいずれかを指定します"
+    }
+]
