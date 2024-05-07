@@ -6,7 +6,7 @@ Craft Functions と Craft Counter で当たり上限数のあるくじ引き施�
 
 ## blogUrl
 
-https://solution.karte.io/blog/2024/04/lottery-with-limits-of-wins
+https://solution.karte.io/blog/2024/05/lottery-with-limits-of-wins
 
 ## description
 
@@ -14,4 +14,4 @@ KARTE の接客サービスと Craft を組み合わせて、上限設定付き�
 
 ## category
 
-Craft Functions,Craft KVS,Craft Counter,KARTEイベント,CRAFT_ENDPOINT
+Craft Functions,Craft KVS,Craft Counter,KARTE イベント,CRAFT_ENDPOINT
