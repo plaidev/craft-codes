@@ -47,7 +47,13 @@ function generateKey(prefix, lotteryKey, identifier) {
  * @param {object} params.logger - The logger object.
  * @returns {Promise<{count: number}>} The count object.
  */
-async function incrementAndFetchCount({ prefix, lotteryKey, prize, counter, logger }) {
+async function incrementAndFetchCount({
+  prefix,
+  lotteryKey,
+  prize,
+  counter,
+  logger,
+}) {
   const key = generateKey(prefix, lotteryKey, prize);
   try {
     const count = await counter.increment({
@@ -171,7 +177,7 @@ async function calcProbabilities({ prefix, lotteryKey, logger, counter }) {
     const totalInventory = inventories.reduce((prev, curr) => prev + curr, 0);
 
     const probabilities = inventories.map(
-      inventory => (1 - LOSE_PROBABILITY) * (inventory / totalInventory)
+      inventory => totalInventory > 0 ? (1 - LOSE_PROBABILITY) * (inventory / totalInventory) : 0
     );
     return probabilities;
   } catch (err) {
