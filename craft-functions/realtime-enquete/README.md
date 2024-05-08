@@ -5,8 +5,7 @@
 回答後に集計結果がリアルタイム表示されるアンケートをCraft Counterで実現する
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202310-realtime-enquete-with-counter
+https://solution.karte.io/blog/2023/10/realtime-enquete-with-counter
 
 ## description
 

@@ -5,8 +5,7 @@
 ユーザーの「緯度経度」をCraft Functions × Google Maps APIで「都道府県」に変換してKARTEのイベントを発生させる
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202402-Identify-prefecture-with-google-maps-api
+https://solution.karte.io/blog/2024/02/identify-prefecture-with-google-maps-api
 
 ## description
 

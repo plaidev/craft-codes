@@ -5,8 +5,7 @@
 KARTE Datahubジョブフローの実行時に指定したS3バケット上のファイルを削除する
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202402-s3-import-cleanup
+https://solution.karte.io/blog/2024/02/s3-import-cleanup
 
 ## description
 

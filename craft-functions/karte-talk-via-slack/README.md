@@ -5,8 +5,7 @@
 KARTE Talkのエンドユーザーとのチャット対応をSlack経由でできるようにする
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202402-karte-talk-via-slack
+https://solution.karte.io/blog/2024/02/karte-talk-via-slack
 
 ## description
 

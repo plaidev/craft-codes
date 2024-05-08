@@ -5,8 +5,7 @@
 Craft FunctionsからCustom Search APIとPageSpeed insights APIを使い、検索上位記事のメタデータとパフォーマンスの相関分析を行う
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202403-custom-search-pagespeed-insights-report
+https://solution.karte.io/blog/2024/03/custom-search-pagespeed-insights-report
 
 ## description
 

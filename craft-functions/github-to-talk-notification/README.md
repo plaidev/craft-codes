@@ -5,8 +5,7 @@
 関連するGitHub Issueの変更をKARTE Talkのノートに通知する
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202402-github-to-talk-notification
+https://solution.karte.io/blog/2024/02/github-to-talk-notification
 
 ## description
 

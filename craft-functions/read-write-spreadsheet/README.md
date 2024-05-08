@@ -5,8 +5,7 @@
 Craft Functionsからスプレッドシートのデータを読み書きする
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202308-read-write-spreadsheet
+https://solution.karte.io/blog/2023/08/read-write-spreadsheet
 
 ## description
 

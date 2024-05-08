@@ -5,8 +5,7 @@
 「いま何人がこの商品を見ています」施策をKARTE Craftで独自実装する
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202311-uu-per-item-counter
+https://solution.karte.io/blog/2023/11/uu-per-item-counter
 
 ## description
 

@@ -5,8 +5,7 @@
 ジョブフローでエラーが発生した場合、Slackに通知する処理をCraft Functionsで実装する
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202312-jobflow-error-slack-notification
+https://solution.karte.io/blog/2023/12/jobflow-error-slack-notification
 
 ## description
 

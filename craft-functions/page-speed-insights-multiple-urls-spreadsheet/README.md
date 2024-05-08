@@ -5,8 +5,7 @@
 Craft FunctionsからPageSpeed Insights APIを利用し、複数のURLのコアウェブバイタルのスコアをGoogleスプレッドシートに出力する方法
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202402-page-speed-insights-multiple-urls-spreadsheet
+https://solution.karte.io/blog/2024/02/page-speed-insights-multiple-urls-spreadsheet
 
 ## description
 

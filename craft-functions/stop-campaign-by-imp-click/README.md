@@ -5,8 +5,7 @@
 配信数やクリック数に応じた接客サービスの自動停止
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202310-stop-campaign-by-imp-click
+https://solution.karte.io/blog/2023/10/stop-campaign-by-imp-click
 
 ## description
 

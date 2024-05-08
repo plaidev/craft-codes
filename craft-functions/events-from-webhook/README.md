@@ -5,8 +5,7 @@
 外部サービスからWebhookをトリガーにKARTEのユーザーにイベントを発火させる
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202401-webhook-event
+https://solution.karte.io/blog/2024/01/webhook-event
 
 ## description
 

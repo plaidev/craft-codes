@@ -5,8 +5,7 @@
 都道府県ごとにWeather APIから取得した情報を含めてGoogleスプレッドシートに書き込みをする
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202312-message-weather-api
+https://solution.karte.io/blog/2023/12/message-weather-api
 
 ## description
 

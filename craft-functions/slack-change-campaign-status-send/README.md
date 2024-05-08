@@ -5,8 +5,7 @@
 Slackに接客サービスの公開非公開状態を送る
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202309-slack-change-campaign-status
+https://solution.karte.io/blog/2023/09/slack-change-campaign-status
 
 ## description
 

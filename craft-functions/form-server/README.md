@@ -5,8 +5,7 @@
 フォーム入力データをHTTP経由で受け取ってKARTEのユーザーデータとして書き込む
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202401-form-server
+https://solution.karte.io/blog/2024/01/form-server
 
 ## description
 

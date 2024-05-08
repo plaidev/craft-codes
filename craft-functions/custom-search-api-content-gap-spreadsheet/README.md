@@ -5,8 +5,7 @@
 Craft FunctionsからCustom Search APIを使って、複数のサイトのコンテンツギャップ解析を行う
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202403-custom-search-api-content-gap-spreadsheet
+https://solution.karte.io/blog/2024/03/custom-search-api-content-gap-spreadsheet
 
 ## description
 

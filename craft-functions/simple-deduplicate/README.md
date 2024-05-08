@@ -5,8 +5,7 @@
 KARTE Craft でファンクションの重複実行を防ぐ
 
 ## blogUrl
-
-https://solution.plaid.co.jp/implementing-exactly-once-semantics-in-karte-craft
+https://solution.karte.io/blog/2023/05/implementing-exactly-once-semantics-in-karte-craft/
 
 ## description
 

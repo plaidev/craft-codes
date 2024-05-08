@@ -5,8 +5,7 @@
 KARTE Talk のオペレーター向けチャット画面上で ChatGPT に質問できるようにする
 
 ## blogUrl
-
-https://solution.plaid.co.jp/talk-send-note-chatgpt
+https://solution.karte.io/blog/2023/04/talk-send-note-chatgpt/
 
 ## description
 
