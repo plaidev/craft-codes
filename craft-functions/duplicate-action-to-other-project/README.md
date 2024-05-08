@@ -5,7 +5,8 @@
 KARTEの接客サービスやアクションを別プロジェクトに対して自動複製する
 
 ## blogUrl
-https://solution.karte.io/blog/2024/04/duplicate-action-to-other-project
+
+https://solution.karte.io/blog/2024/05/duplicate-action-to-other-project
 
 ## description
 
