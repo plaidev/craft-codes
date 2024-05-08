@@ -6,7 +6,7 @@ KARTEの接客サービスやアクションを別プロジェクトに対して
 
 ## blogUrl
 
-https://solution.plaid.co.jp/202404-duplicate-action-to-other-project
+https://solution.karte.io/blog/2024/05/duplicate-action-to-other-project
 
 ## description
 
