@@ -5,8 +5,7 @@
 Craft Functionsを使ってLINE上で診断コンテンツを配信する
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202402-line-diagnose-content
+https://solution.karte.io/blog/2024/02/line-diagnose-content
 
 ## description
 

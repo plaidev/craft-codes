@@ -5,8 +5,7 @@
 Googleフォームからの回答内容を基に特定のユーザーにイベントを発火させる処理をCraft Functionsで実装する
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202312-eventwrite-from-googleform
+https://solution.karte.io/blog/2023/12/eventwrite-from-googleform
 
 ## description
 

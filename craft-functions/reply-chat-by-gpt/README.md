@@ -5,8 +5,7 @@
 エンドユーザーが KARTE のウェブチャット経由で ChatGPT と会話できるようにする
 
 ## blogUrl
-
-https://solution.plaid.co.jp/talk-chat-gpt-api
+https://solution.karte.io/blog/2023/04/talk-chat-gpt-api/
 
 ## description
 

@@ -5,8 +5,7 @@
 Microsoft Teams からKARTEの接客サービスの公開／非公開状態を切り替える
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202309-ms-teams-change-campaign-status
+https://solution.karte.io/blog/2023/09/ms-teams-change-campaign-status
 
 ## description
 

@@ -5,8 +5,7 @@
 Craft FunctionsからSearch Console APIとPageSpeed Insights APIを利用して、SEO相関分析レポートを作成する
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202403-search-console-pagespeed-insights-seo-report
+https://solution.karte.io/blog/2024/03/search-console-pagespeed-insights-seo-report
 
 ## description
 

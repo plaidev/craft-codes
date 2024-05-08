@@ -5,8 +5,7 @@
 Craft FunctionsからCustom Search APIを使って、特定のキーワードでの検索結果をGoogleスプレッドシートに出力する
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202403-custom-search-api-spreadsheet
+https://solution.karte.io/blog/2024/03/custom-search-api-spreadsheet
 
 ## description
 

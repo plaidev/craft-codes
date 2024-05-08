@@ -5,8 +5,7 @@
 KARTE CraftでLINEのMessaging API Webhookを別サービスに分岐する
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202312-line-webhook-branch
+https://solution.karte.io/blog/2023/12/line-webhook-branch
 
 ## description
 

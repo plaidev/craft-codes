@@ -5,8 +5,7 @@
 KARTE Talkで新規チャット問い合わせがあった場合に、Craft Functionsを使ってSlackに通知する
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202403-talk-new-message-slack-mention
+https://solution.karte.io/blog/2024/03/talk-new-message-slack-mention
 
 ## description
 

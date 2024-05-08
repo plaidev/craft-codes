@@ -5,7 +5,7 @@ KARTE CraftとDatahubでLINE IDを一括でKARTEユーザーIDに関連付けす
 
 
 ## blogUrl
-https://solution.plaid.co.jp/202402-bulk-send-karte-event
+https://solution.karte.io/blog/2024/02/bulk-send-karte-event
 
 
 ## description

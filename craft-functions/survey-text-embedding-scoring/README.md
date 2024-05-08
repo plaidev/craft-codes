@@ -5,8 +5,7 @@
 自由回答テキストに含まれる文意を Text Embedding で成分ごとにスコア化する
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202404-survey-text-embedding-scoring
+https://solution.karte.io/blog/2024/04/survey-text-embedding-scoring
 
 ## description
 

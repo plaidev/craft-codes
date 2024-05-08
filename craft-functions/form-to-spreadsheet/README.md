@@ -5,8 +5,7 @@
 フォーム入力データをGoogleスプレッドシートに連携する
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202402-form-to-spreadsheet
+https://solution.karte.io/blog/2024/02/form-to-spreadsheet
 
 ## description
 
