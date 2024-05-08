@@ -5,8 +5,7 @@
 API v2 Craft type app を使ったAPIの送信元IP制限
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202308-api-ip-restriction-with-karte-craft
+https://solution.karte.io/blog/2023/08/api-ip-restriction-with-karte-craft
 
 ## description
 

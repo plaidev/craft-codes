@@ -5,8 +5,7 @@
 「緯度経度」からCraft Functions × Google Maps PlatformのPollen APIで「花粉情報」を取得してKARTEに連携する
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202403-get-pollen-info-with-google-pollen-api
+https://solution.karte.io/blog/2024/03/get-pollen-info-with-google-pollen-api
 
 ## description
 

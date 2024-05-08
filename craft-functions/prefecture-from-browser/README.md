@@ -5,8 +5,7 @@
 ブラウザ側から緯度経度の情報を取得して、Craft functionsからGoogle Maps APIを利用して都道府県情報を取得してKARTEイベントを発生させる
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202402-prefecture-from-browser
+https://solution.karte.io/blog/2024/02/prefecture-from-browser
 
 ## description
 

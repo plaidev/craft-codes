@@ -5,8 +5,7 @@
 BigQuery のテーブルに KARTE から受け取ったデータを即時書き込みする
 
 ## blogUrl
-
-https://solution.plaid.co.jp/karte-craft-improve-customer-data-utilization-2
+https://solution.karte.io/blog/2023/04/karte-craft-improve-customer-data-utilization-2/
 
 ## description
 

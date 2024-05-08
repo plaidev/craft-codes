@@ -5,8 +5,7 @@
 PageSpeed Insights APIを利用して取得したWebページのスコアをSlackに通知する方法
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202402-page-speed-insights-slack-notification
+https://solution.karte.io/blog/2024/02/page-speed-insights-slack-notification
 
 ## description
 

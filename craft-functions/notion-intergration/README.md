@@ -5,8 +5,7 @@
 Craft と Notion の連携
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202307-craft-and-notion
+https://solution.karte.io/blog/2023/07/craft-and-notion
 
 ## description
 

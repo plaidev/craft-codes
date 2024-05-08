@@ -4,7 +4,7 @@
 KARTEで特定のイベントが発生した際に、Datahubのデータセットにクエリをリアルタイム実行する
 
 ## blogUrl
-https://solution.plaid.co.jp/202401-event-realtime-datahub-execute
+https://solution.karte.io/blog/2024/01/event-realtime-datahub-execute
 
 ## description
 KARTEで特定のイベントが発生したことをトリガーとして、Craft Functionsを起動し、Datahubのデータセットにクエリをリアルタイム実行するためのサンプルコードです。

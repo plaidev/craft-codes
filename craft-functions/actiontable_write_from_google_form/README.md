@@ -5,8 +5,7 @@
 Googleフォームからの回答内容をアクションテーブルに格納する処理をCraft Functionsで実装する
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202312-actiontable-write-from-googleform
+https://solution.karte.io/blog/2023/12/actiontable-write-from-googleform
 
 ## description
 

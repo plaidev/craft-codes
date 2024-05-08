@@ -5,8 +5,7 @@
 KARTE の接客ステータス変更時に Slack 通知をする
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202307-hookv2-slack-integration
+https://solution.karte.io/blog/2023/07/hookv2-slack-integration
 
 ## description
 

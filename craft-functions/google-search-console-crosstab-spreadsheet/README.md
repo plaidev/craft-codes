@@ -5,8 +5,7 @@
 Google Search Console APIを利用して、検索キーワードとページURLのクロス集計結果を、Googleスプレッドシートにまとめて出力する方法
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202402-google-search-console-crosstab-spreadsheet
+https://solution.karte.io/blog/2024/02/google-search-console-crosstab-spreadsheet
 
 ## description
 

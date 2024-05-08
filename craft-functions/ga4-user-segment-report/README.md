@@ -5,8 +5,7 @@
 Craft FunctionsからGoogle Analytics Data APIを利用し、GA4のユーザーセグメント分析レポートを作成する
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202404-ga4-user-segment-report
+https://solution.karte.io/blog/2024/04/ga4-user-segment-report
 
 ## description
 

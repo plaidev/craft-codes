@@ -4,7 +4,7 @@
 KARTEで特定のイベントが発生した際に、Googleスプレッドシートにそのログを貯める
 
 ## blogUrl
-https://solution.plaid.co.jp/202401-event-trigger-spreadsheet-collection
+https://solution.karte.io/blog/2024/01/event-trigger-spreadsheet-collection
 
 ## description
 KARTEで特定のイベントが発生したことをトリガーとして、Craft Functionsを起動し、Googleスプレッドシートにその実行ログを貯めていくためのサンプルコードです。

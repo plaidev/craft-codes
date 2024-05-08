@@ -5,8 +5,7 @@
 外部APIから取得したデータをGoogle Cloud Storageにファイル保存する
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202403-fetch-external-api-and-save-file-to-gcs
+https://solution.karte.io/blog/2024/03/fetch-external-api-and-save-file-to-gcs
 
 ## description
 

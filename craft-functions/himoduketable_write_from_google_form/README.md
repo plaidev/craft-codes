@@ -5,8 +5,7 @@
 Googleフォームからの回答内容を紐付けテーブルに格納する処理をCraft Functionsで実装する
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202312-reftable-update-from-google-form
+https://solution.karte.io/blog/2023/12/reftable-update-from-google-form
 
 ## description
 

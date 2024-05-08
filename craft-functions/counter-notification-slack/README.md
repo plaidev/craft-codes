@@ -3,7 +3,7 @@
 Craft Counterの中身を定期的にSlackに通知する
 
 ## blogUrl
-https://solution.plaid.co.jp/2023012-counter-notification-slack
+https://solution.karte.io/blog/2023/12/counter-notification-slack/
 
 ## description
 Craft Counterに格納されているカウンターの値を取得し

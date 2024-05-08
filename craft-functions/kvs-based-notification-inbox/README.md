@@ -5,8 +5,7 @@
 アクションテーブル×Craft kvsを使って通知のInbox機能を実現する
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202402-kvs-based-notification-inbox
+https://solution.karte.io/blog/2024/02/kvs-based-notification-inbox
 
 ## description
 

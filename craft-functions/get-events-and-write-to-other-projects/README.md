@@ -5,8 +5,7 @@
 KARTEのイベントデータをAPI経由で取得して別のプロジェクトにイベントを転送します
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202403-get-events-and-write-to-other-projects
+https://solution.karte.io/blog/2024/03/get-events-and-write-to-other-projects
 
 
 ## description

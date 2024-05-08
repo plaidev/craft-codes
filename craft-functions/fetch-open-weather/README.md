@@ -5,8 +5,7 @@
 OpenWeatherMap から取得した天気情報を含めて KARTE にイベント送信する
 
 ## blogUrl
-
-https://solution.plaid.co.jp/craft-weather-api
+https://solution.karte.io/blog/2023/04/craft-weather-api/
 
 ## description
 

@@ -5,8 +5,7 @@
 KARTE のイベント数の変化に応じて Slack に通知をする
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202310-event-notification-to-slack
+https://solution.karte.io/blog/2023/10/event-notification-to-slack
 
 ## description
 

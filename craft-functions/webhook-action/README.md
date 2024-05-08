@@ -5,8 +5,7 @@
 Web 上のユーザー行動をトリガーにして外部に Webhook リクエストを飛ばす
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202310-craft-webhook
+https://solution.karte.io/blog/2023/10/craft-webhook
 
 ## description
 

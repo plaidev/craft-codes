@@ -5,8 +5,7 @@
 クーポンコードの順次払い出し機能をCraftで実装する
 
 ## blogUrl
-
-https://solution.plaid.co.jp/202310-coupon-dispenser
+https://solution.karte.io/blog/2023/10/coupon-dispenser
 
 ## description
 
