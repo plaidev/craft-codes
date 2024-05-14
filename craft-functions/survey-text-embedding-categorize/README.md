@@ -6,7 +6,7 @@
 
 ## blogUrl
 
-https://solution.plaid.co.jp/202404-survey-text-embedding-categorize
+https://solution.karte.io/blog/2024/05/survey-text-embedding-categorize/
 
 ## description
 
