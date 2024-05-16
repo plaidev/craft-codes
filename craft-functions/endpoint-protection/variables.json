@@ -1,0 +1,23 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "INFO",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "JWT_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Craftシークレットに保存したJWT署名用秘密鍵のシークレット名です"
+  },
+  {
+    "name": "EXPIRE_SEC",
+    "value": 3600,
+    "type": "number",
+    "required": true,
+    "description": "JWTトークンの有効期限（秒）を指定します"
+  }
+]
