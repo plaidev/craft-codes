@@ -1,0 +1,59 @@
+[
+    {
+      "name": "LOG_LEVEL",
+      "value": "WARN",
+      "type": "string",
+      "required": true,
+      "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+    },
+    {
+      "name": "SERVICE_ACCOUNT_KEY_SECRET",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "利用するGoogleサービスアカウントのJSONキーを登録したシークレットの名前です"
+    },
+    {
+      "name": "SPREADSHEET_ID",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "対象GoogleスプレッドシートのIDです"
+    },
+    {
+      "name": "SHEET_NAME",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "対象Googleスプレッドシートのシート名です"
+    },
+    {
+      "name": "INSTAGRAM_ACCESS_TOKEN_SECRET",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "無期限のユーザーアクセストークンを登録したシークレットの名前です"
+    },
+    {
+      "name": "INSTAGRAM_BUSINESS_ACCOUNT_ID",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "Instagramビジネスアカウントの内部IDです"
+    },
+    {
+      "name": "GRAPH_API_VERSION",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "使用するInstagram Graph APIのバージョンです"
+    },
+    {
+      "name": "DAY_BEFORE_END_DATE",
+      "value": "",
+      "type": "number",
+      "required": true,
+      "description": "現在日から何日前の日付をインタラクションの集計開始日として使用するかを指定します"
+    }
+  ]
+  
