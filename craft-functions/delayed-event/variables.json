@@ -1,0 +1,38 @@
+[
+    {
+      "name": "LOG_LEVEL",
+      "value": "WARN",
+      "type": "string",
+      "required": true,
+      "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+    },
+    {
+      "name": "KARTE_APP_TOKEN_SECRET",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+    },
+    {
+      "name": "DELAY_MIN",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "イベント発生までの時間（分）です"
+    },
+    {
+      "name": "EVENT_NAME",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "KARTEで発生させるイベント名です"
+    },
+    {
+      "name": "KVS_KEY_PREFIX",
+      "value": "DELAY-EVENT",
+      "type": "string",
+      "required": true,
+      "description": "Craft kvsのkeyに付与する共通の接頭辞です"
+    }
+  ]
+  
