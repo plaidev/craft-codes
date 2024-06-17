@@ -1,10 +1,10 @@
 [
   {
-    "name": "PRIZE_COUNT_PREFIX",
-    "value": "prize_count",
+    "name": "SOLUTION_ID",
+    "value": "lottery_with_limits_of_wins",
     "type": "string",
     "required": true,
-    "description": "当たり数を管理するCounterのキープレフィックスです。"
+    "description": "固定のソリューションIDです. KVSやCounterのレコードを他の施策のものと区別するために利用されます"
   },
   {
     "name": "PRIZE_COUNT_EXPIRE_MINUTES",
@@ -12,13 +12,6 @@
     "type": "number",
     "required": true,
     "description": "当たり数を管理するCounterの有効期限（秒）です。"
-  },
-  {
-    "name": "USER_PARTICIPATION_PREFIX",
-    "value": "user_participation",
-    "type": "string",
-    "required": true,
-    "description": "ユーザーのくじ引き参加を管理するKVSのキープレフィックスです。"
   },
   {
     "name": "USER_PARTICIPATION_INTERVAL_MINUTES",
@@ -29,7 +22,7 @@
   },
   {
     "name": "LOG_LEVEL",
-    "value": "DEBUG",
+    "value": "WARN",
     "type": "string",
     "required": true,
     "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します。"
