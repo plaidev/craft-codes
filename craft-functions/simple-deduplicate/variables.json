@@ -1,9 +1,9 @@
 [
   {
-    "name": "DUP_SUFFIX",
+    "name": "SOLUTION_ID",
     "value": "dup-exec-check",
     "type": "string",
     "required": true,
-    "description": "KVSの重複排除用プレフィクスです。任意のプレフィクスを指定してください。"
+    "description": "固定のソリューションIDです. KVSレコードを他の施策のものと区別するために利用されます"
   }
 ]

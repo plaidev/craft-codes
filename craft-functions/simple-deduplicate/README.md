@@ -13,7 +13,7 @@ Craft Functions のセマンティクスは "at least once" (少なくとも 1 �
 
 ## category
 
-Tips
+Craft Functions,Craft KVS
 
 # 注意点
 
