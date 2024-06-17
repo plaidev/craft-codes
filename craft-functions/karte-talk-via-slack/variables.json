@@ -49,17 +49,17 @@
     "description": "Slack通知から除外するTalkオペレーターIDのリストをカンマ区切りで指定します"
   },
   {
-    "name": "KVS_KEY_PREFIX",
-    "value": "KARTE_TALK_VIA_SLACK",
+    "name": "SOLUTION_ID",
+    "value": "karte_talk_via_slack",
     "type": "string",
     "required": true,
-    "description": "Craft kvsのkeyに付与する共通の接頭辞です"
+    "description": "固定のソリューションIDです. KVSレコードを他の施策のものと区別するために利用されます"
   },
   {
     "name": "KVS_EXPIRE_MINUTES",
-    "value": "1440",
+    "value": 1440,
     "type": "number",
     "required": true,
-    "description": "Craft kvsのレコードの生存期間（分）です"
+    "description": "Craft KVSのレコードの生存期間（分）です"
   }
 ]

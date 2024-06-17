@@ -8,7 +8,7 @@ const SLACK_APP_USER_ID = '<% SLACK_APP_USER_ID %>';
 const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
 const KARTE_BOT_ID = '<% KARTE_BOT_ID %>';
 const IGNORE_TALK_ACCOUNTS = '<% IGNORE_TALK_ACCOUNTS %>';
-const KVS_KEY_PREFIX = '<% KVS_KEY_PREFIX %>';
+const SOLUTION_ID = '<% SOLUTION_ID %>';
 const KVS_EXPIRE_MINUTES = Number('<% KVS_EXPIRE_MINUTES %>');
 
 const SLACK_KARTE_ACCOUNT_ID_MAP = {
@@ -18,10 +18,10 @@ const SLACK_KARTE_ACCOUNT_ID_MAP = {
 };
 
 function kvsKeyForUserId(thread) {
-  return `${KVS_KEY_PREFIX}-slack-threadid-${thread}`;
+  return `${SOLUTION_ID}-slack_threadid_${thread}`;
 }
 function kvsKeyForThread(userId) {
-  return `${KVS_KEY_PREFIX}-talk-userid-${userId}`;
+  return `${SOLUTION_ID}-talk_userid_${userId}`;
 }
 
 function isEmpty(obj) {
