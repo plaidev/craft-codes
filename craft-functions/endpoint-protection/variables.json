@@ -19,5 +19,12 @@
     "type": "number",
     "required": true,
     "description": "JWTトークンの有効期限（秒）を指定します"
+  },
+  {
+    "name": "SOLUTION_ID",
+    "value": "endpoint-protection",
+    "type": "string",
+    "required": true,
+    "description": "固定のソリューションIDです. KVSレコードを他の施策のものと区別するために利用されます"
   }
 ]
