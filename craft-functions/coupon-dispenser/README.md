@@ -13,4 +13,4 @@ https://solution.karte.io/blog/2023/10/coupon-dispenser
 
 ## category
 
-マーケティング,CRAFT_ENDPOINT
+Craft Functions,Craft KVS,Craft Counter,CRAFT_ENDPOINT

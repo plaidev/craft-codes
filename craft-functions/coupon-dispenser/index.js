@@ -1,38 +1,40 @@
 import crypto from 'crypto';
-import murmurhash from 'murmurhash';
 import { differenceInMinutes } from 'date-fns';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const FREQUENT_ACQUISITION_ERROR_MINUTES = Number('<% FREQUENT_ACQUISITION_ERROR_MINUTES %>'); // 同一ユーザーの連続取得禁止を解除するまでの時間（分）. 連続取得チェックをしない場合は0を指定.
+const FREQUENT_ACQUISITION_ERROR_MINUTES = Number('<% FREQUENT_ACQUISITION_ERROR_MINUTES %>');
+const COUPON_INDEX_EXPIRE_SECONDS = Number('<% COUPON_INDEX_EXPIRE_SECONDS %>');
+const SOLUTION_ID = '<% SOLUTION_ID %>';
 
-// kvs
-const COUPON_CODE_PREFIX = '<% COUPON_CODE_PREFIX %>'; // プロジェクトで共通のクーポン管理用prefix
-const COUPON_USER_STATUS_PREFIX = '<% COUPON_USER_STATUS_PREFIX %>'; // プロジェクトで共通のprefix
-const COUPON_USER_STATUS_EXPIRE_MINUTES = Number('<% COUPON_USER_STATUS_EXPIRE_MINUTES %>'); // ユーザー状態の保持期間（分）
+function generateHash(str) {
+  return crypto.createHash('sha256').update(str).digest('base64');
+}
 
-// Counter
-const COUPON_INDEX_PREFIX = '<% COUPON_INDEX_PREFIX %>'; // プロジェクトで共通のクーポン管理用prefix
-const COUPON_INDEX_EXPIRE_SECONDS = Number('<% COUPON_INDEX_EXPIRE_SECONDS %>'); // 払い出し中クーポン番号の保持期間（秒）
-
-function generateHashedPrefix(key) {
+function generateHashPrefix(key) {
   const hashBase64 = crypto.createHash('sha256').update(key).digest('base64');
   // 辞書順を分散させるためハッシュ値の5〜12文字目を使用
   const prefix = hashBase64.substring(4, 12);
   return prefix;
 }
 
+function kvsKey(recordName) {
+  const solutionId = SOLUTION_ID;
+  const hash = generateHashPrefix(`${solutionId}-${recordName}`);
+  return `${hash}-${solutionId}-${recordName}`;
+}
+
 function couponCodeKey({ couponGroupId, couponIndex }) {
-  const key = `${COUPON_CODE_PREFIX}_${couponGroupId}_${couponIndex}`;
-  const hash = generateHashedPrefix(key); // ホットスポット回避用のハッシュ値
-  return `${hash}_${key}`; // 例: xxxx_coupon-code_shop001_42
+  const recordName = `code_${couponGroupId}_${couponIndex}`;
+  return kvsKey(recordName); // 例: `xxx-coupon-code_shop001_42`
 }
+
 function couponUserStatusKey({ couponGroupId, hashedUserId }) {
-  const key = `${COUPON_USER_STATUS_PREFIX}_${couponGroupId}_${hashedUserId}`;
-  const hash = generateHashedPrefix(key); // ホットスポット回避用のハッシュ値
-  return `${hash}_${key}`; // 例: xxxx_coupon-user-status_shop001_uuuuuuuuu
+  const recordName = `user_${couponGroupId}_${hashedUserId}`;
+  return kvsKey(recordName); // 例: `xxxx-coupon-user_shop001_uuuuuuuuu`
 }
+
 function couponIndexKey({ couponGroupId }) {
-  return `${COUPON_INDEX_PREFIX}_${couponGroupId}`; // 例: coupon-index_shop001
+  return `${SOLUTION_ID}-index_${couponGroupId}`; // 例: coupon-index_shop001
 }
 function isFrequentAcquisition({ couponAcquisitionDate, logger }) {
   if (!couponAcquisitionDate) return false;
@@ -70,7 +72,7 @@ async function updateUserStatus({ couponGroupId, hashedUserId, kvs, logger }) {
     await kvs.write({
       key,
       value: { coupon_acquisition_date: couponAcquisitionDate },
-      minutesToExpire: COUPON_USER_STATUS_EXPIRE_MINUTES,
+      minutesToExpire: FREQUENT_ACQUISITION_ERROR_MINUTES,
     });
     logger.debug(
       `updateUserStatus succeeded. key: ${key}, couponAcquisitionDate: ${couponAcquisitionDate}`
@@ -136,7 +138,7 @@ export default async function (data, { MODULES }) {
   const { coupon_group_id: couponGroupId, user_id: userId } = body;
   if (!couponGroupId) return noRequiredParamErr('coupon_group_id');
   if (!userId) return noRequiredParamErr('user_id');
-  const hashedUserId = murmurhash.v3(userId); // リスク軽減のためにuser_idはハッシュ化してから扱う
+  const hashedUserId = generateHash(userId); // リスク軽減のためにuser_idはハッシュ化してから扱う
 
   // 前回の取得から一定時間経過しているかチェック
   if (FREQUENT_ACQUISITION_ERROR_MINUTES > 0) {

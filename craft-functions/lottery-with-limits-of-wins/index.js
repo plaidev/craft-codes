@@ -2,9 +2,8 @@ import crypto from 'crypto';
 import api from 'api';
 
 // Constants
-const PRIZE_COUNT_PREFIX = '<% PRIZE_COUNT_PREFIX %>';
+const SOLUTION_ID = '<% SOLUTION_ID %>';
 const PRIZE_COUNT_EXPIRE_SECONDS = Number('<% PRIZE_COUNT_EXPIRE_SECONDS %>');
-const USER_PARTICIPATION_PREFIX = '<% USER_PARTICIPATION_PREFIX %>';
 const USER_PARTICIPATION_INTERVAL_MINUTES = Number('<% USER_PARTICIPATION_INTERVAL_MINUTES %>');
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const PRIZES = '<% PRIZES %>'.split(',').map(v => v.trim());
@@ -15,46 +14,50 @@ const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
 const karteApiClient = api('@dev-karte/v1.0#1bkcoiglscz8c35');
 
 /**
- * Generates a hashed prefix from a given key.
- * @param {string} key - The key to generate the hashed prefix from.
- * @returns {string} The hashed prefix.
+ * Generates a hash prefix from a given key.
+ * @param {string} key - The key to generate the hash prefix from.
+ * @returns {string} The hash prefix.
  */
-function generateHashedPrefix(key) {
+function generateHashPrefix(key) {
   const hashBase64 = crypto.createHash('sha256').update(key).digest('base64');
   return hashBase64.substring(4, 12);
 }
 
 /**
- * Generates a storage key based on the provided parameters.
- * @param {string} prefix - The prefix of the key.
+ * Generates a kvs key based on the provided parameters.
  * @param {string} lotteryKey - The lucky draw key.
- * @param {string} identifier - The identifier.
- * @returns {string} The generated storage key.
+ * @param {string} userId - User ID for which participation status is to be checked.
+ * @returns {string} The generated kvs key.
  */
-function generateKey(prefix, lotteryKey, identifier) {
-  const key = `${prefix}_${lotteryKey}_${identifier}`;
-  const hashPrefix = generateHashedPrefix(key);
-  return `${hashPrefix}_${key}`;
+function generateKvsKey(lotteryKey, userId) {
+  const recordName = `${lotteryKey}_${userId}`;
+  const solutionId = SOLUTION_ID;
+  const hash = generateHashPrefix(`${solutionId}-${recordName}`);
+  return `${hash}-${solutionId}-${recordName}`;
+}
+
+/**
+ * Generates a counter key based on the provided parameters.
+ * @param {string} lotteryKey - The lucky draw key.
+ * @param {string} prize - The prize that the user won.
+ * @returns {string} The generated counter key.
+ */
+function generateCounterKey(lotteryKey, prize) {
+  const recordName = `${lotteryKey}_${prize}`;
+  return `${SOLUTION_ID}-${recordName}`;
 }
 
 /**
  * Increments and fetches the count for a given identifier.
  * @param {object} params - The function parameters.
- * @param {string} params.prefix - The prefix of the key.
  * @param {string} params.lotteryKey - The lucky draw key.
  * @param {string} params.prize - The identifier.
  * @param {object} params.counter - The counter object.
  * @param {object} params.logger - The logger object.
  * @returns {Promise<{count: number}>} The count object.
  */
-async function incrementAndFetchCount({
-  prefix,
-  lotteryKey,
-  prize,
-  counter,
-  logger,
-}) {
-  const key = generateKey(prefix, lotteryKey, prize);
+async function incrementAndFetchCount({ lotteryKey, prize, counter, logger }) {
+  const key = generateCounterKey(lotteryKey, prize);
   try {
     const count = await counter.increment({
       key,
@@ -83,7 +86,7 @@ async function hasParticipatedRecently({ lotteryKey, userId, kvs, logger }) {
     return false;
   }
 
-  const key = generateKey(USER_PARTICIPATION_PREFIX, lotteryKey, userId);
+  const key = generateKvsKey(lotteryKey, userId);
   try {
     const participation = await kvs.get({ key });
     const lastParticipationTime = participation[key]?.value?.lastParticipationTime;
@@ -112,7 +115,7 @@ async function setParticipationTime({ lotteryKey, userId, kvs, logger }) {
     return;
   }
 
-  const key = generateKey(USER_PARTICIPATION_PREFIX, lotteryKey, userId);
+  const key = generateKvsKey(lotteryKey, userId);
   try {
     await kvs.write({
       key,
@@ -157,7 +160,6 @@ async function sendKarteEvent({ userId, lotteryKey, prize, message, token, logge
 /**
  * Calculates the probabilities for each prize.
  * @param {object} params - The function parameters.
- * @param {string} params.prefix - The prefix of the key.
  * @param {string} params.lotteryKey - The lucky draw key.
  * @param {object} params.logger - The logger object.
  * @param {object} params.counter - The counter object.
@@ -169,15 +171,15 @@ async function sendKarteEvent({ userId, lotteryKey, prize, message, token, logge
  * // and the probabilities will be [0.1, 0.1, 0.1] (probability of winning each prize).
  * // The remaining probability (0.7) is the probability of not winning any prize.
  */
-async function calcProbabilities({ prefix, lotteryKey, logger, counter }) {
-  const keys = PRIZES.map(prize => generateKey(prefix, lotteryKey, prize));
+async function calcProbabilities({ lotteryKey, logger, counter }) {
+  const keys = PRIZES.map(prize => generateCounterKey(lotteryKey, prize));
   try {
     const totalWinningCount = await counter.get({ keys });
     const inventories = LIMITS.map((limit, index) => Math.max(0, limit - totalWinningCount[index]));
     const totalInventory = inventories.reduce((prev, curr) => prev + curr, 0);
 
-    const probabilities = inventories.map(
-      inventory => totalInventory > 0 ? (1 - LOSE_PROBABILITY) * (inventory / totalInventory) : 0
+    const probabilities = inventories.map(inventory =>
+      totalInventory > 0 ? (1 - LOSE_PROBABILITY) * (inventory / totalInventory) : 0
     );
     return probabilities;
   } catch (err) {
@@ -270,7 +272,6 @@ export default async function (data, { MODULES }) {
 
     const rand = Math.random();
     const probabilities = await calcProbabilities({
-      prefix: PRIZE_COUNT_PREFIX,
       lotteryKey,
       logger,
       counter,
@@ -293,7 +294,6 @@ export default async function (data, { MODULES }) {
 
     const { prize, index } = prizeResult;
     const { count } = await incrementAndFetchCount({
-      prefix: PRIZE_COUNT_PREFIX,
       lotteryKey,
       prize,
       counter,

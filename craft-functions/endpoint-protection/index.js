@@ -1,10 +1,11 @@
-import crypto from "crypto";
-import jwt from "jsonwebtoken";
+import crypto from 'crypto';
+import jwt from 'jsonwebtoken';
 
 // Constants
-const LOG_LEVEL = "<% LOG_LEVEL %>";
-const JWT_SECRET = "<% JWT_SECRET %>";
-const EXPIRE_SEC = parseInt("<% EXPIRE_SEC %>", 10);
+const LOG_LEVEL = '<% LOG_LEVEL %>';
+const JWT_SECRET = '<% JWT_SECRET %>';
+const EXPIRE_SEC = parseInt('<% EXPIRE_SEC %>', 10) || 3600;
+const SOLUTION_ID = '<% SOLUTION_ID %>';
 
 /**
  * Hashes the password using SHA-256.
@@ -12,9 +13,9 @@ const EXPIRE_SEC = parseInt("<% EXPIRE_SEC %>", 10);
  * @returns {string} The hashed password.
  */
 function hashPassword(password) {
-  const hash = crypto.createHash("sha256");
+  const hash = crypto.createHash('sha256');
   hash.update(password);
-  return hash.digest("hex");
+  return hash.digest('hex');
 }
 
 /**
@@ -38,18 +39,34 @@ function verifyToken(token, secret) {
   try {
     const decoded = jwt.verify(token, secret);
     if (Date.now() >= decoded.exp * 1000) {
-      return {
-        authenticated: false,
-        error: "Authentication error: Token expired",
-      };
+      return { authenticated: false, error: 'Authentication error: Token expired' };
     }
     return { authenticated: true };
   } catch (error) {
-    return {
-      authenticated: false,
-      error: "Authentication error: Invalid token",
-    };
+    return { authenticated: false, error: 'Authentication error: Invalid token' };
   }
+}
+
+/**
+ * Generate a hash prefix to be assigned to the kvs key.
+ * @param {string} key - The key without hash prefix
+ * @returns {string} - The generated hash prefix.
+ */
+function generateHashPrefix(key) {
+  const hashBase64 = crypto.createHash('sha256').update(key).digest('base64');
+  const prefix = hashBase64.substring(4, 12);
+  return prefix;
+}
+
+/**
+ * Generate a kvs key.
+ * @param {string} username - The username of the user.
+ * @returns {string} -  The generated kvs key.
+ */
+function kvsKey(username) {
+  const solutionId = SOLUTION_ID;
+  const hash = generateHashPrefix(`${solutionId}-${username}`);
+  return `${hash}-${solutionId}-${username}`;
 }
 
 /**
@@ -63,22 +80,23 @@ function verifyToken(token, secret) {
  * @returns {{token: string} | {error: string}} The generated token or an error message.
  */
 async function signin({ username, password, kvs, logger, secret }) {
-  const userKey = username;
-  const user = await kvs.get({ key: userKey });
+  const key = kvsKey(username);
+  const v = await kvs.get({ key });
 
-  if (!user[userKey]) {
+  if (!v[key]) {
     logger.warn(`User ${username} does not exist`);
-    return { error: "Invalid username or password" };
+    return { error: 'Invalid username or password' };
   }
+  const user = v[key].value;
 
   const hashedPassword = hashPassword(password);
-  if (user[userKey].value.password !== hashedPassword) {
+  if (user.password !== hashedPassword) {
     logger.warn(`Invalid password for user ${username}`);
-    return { error: "Invalid username or password" };
+    return { error: 'Invalid username or password' };
   }
 
   const token = generateToken({
-    payload: { username, role: user[userKey].value.role },
+    payload: { username, role: user.role },
     secret,
     expiresIn: EXPIRE_SEC,
     logger,
@@ -120,37 +138,28 @@ export default async function (data, { MODULES }) {
   const secret = secrets[JWT_SECRET];
 
   try {
-    logger.debug("Starting the authentication process");
+    logger.debug('Starting the authentication process');
 
     const { jsonPayload } = data;
     const { body } = jsonPayload?.data?.hook_data || {};
     const { action, username, password, token } = body || {};
 
     if (!body || !action) {
-      const missingField = !body ? "request body" : "action";
+      const missingField = !body ? 'request body' : 'action';
       logger.warn(`Missing ${missingField}`);
       return { craft_status_code: 400, error: `Missing ${missingField}` };
     }
 
     switch (action) {
-      case "signin": {
+      case 'signin': {
         if (!username || !password) {
-          return {
-            craft_status_code: 400,
-            error: "Missing 'username' or 'password' parameter",
-          };
+          return { craft_status_code: 400, error: "Missing 'username' or 'password' parameter" };
         }
-        if (typeof username !== "string") {
-          return {
-            craft_status_code: 400,
-            error: "Invalid 'username' parameter type",
-          };
+        if (typeof username !== 'string') {
+          return { craft_status_code: 400, error: "Invalid 'username' parameter type" };
         }
-        if (typeof password !== "string") {
-          return {
-            craft_status_code: 400,
-            error: "Invalid 'password' parameter type",
-          };
+        if (typeof password !== 'string') {
+          return { craft_status_code: 400, error: "Invalid 'password' parameter type" };
         }
         const { token: generatedToken, error: signinError } = await signin({
           username,
@@ -165,15 +174,11 @@ export default async function (data, { MODULES }) {
         return { craft_status_code: 200, result: { token: generatedToken } };
       }
 
-      case "verify": {
+      case 'verify': {
         if (!token) {
           return { craft_status_code: 400, error: "Missing 'token' parameter" };
         }
-        const { authenticated, error: verifyError } = verify({
-          token,
-          secret,
-          logger,
-        });
+        const { authenticated, error: verifyError } = verify({ token, secret, logger });
         if (verifyError) {
           return { craft_status_code: 401, error: verifyError };
         }
@@ -185,6 +190,6 @@ export default async function (data, { MODULES }) {
     }
   } catch (error) {
     logger.error(`Error in authentication process: ${error.toString()}`);
-    return { craft_status_code: 500, error: "Internal Server Error" };
+    return { craft_status_code: 500, error: 'Internal Server Error' };
   }
 }

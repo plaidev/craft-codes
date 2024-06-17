@@ -6,7 +6,7 @@ const LOG_LEVEL = '<% LOG_LEVEL %>';
 const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
 const EVENT_NAME = '<% EVENT_NAME %>';
 const DELAY_MIN = Number('<% DELAY_MIN %>');
-const KVS_KEY_PREFIX = '<% KVS_KEY_PREFIX %>';
+const SOLUTION_ID = '<% SOLUTION_ID %>';
 const karteApiClient = api('@dev-karte/v1.0#1jvnhd6llgekil84');
 
 function formatTimeWindow(date) {
@@ -26,18 +26,23 @@ function get30minBefore() {
   return thirtyMinBofore;
 }
 
-function generateHashedPrefix(key) {
+function generateHashPrefix(key) {
   const hashBase64 = crypto.createHash('sha256').update(key).digest('base64');
   // 辞書順を分散させるためハッシュ値の5〜12文字目を使用
   const prefix = hashBase64.substring(4, 12);
   return prefix;
 }
 
+function kvsKey(time) {
+  const recordName = `users_${time}`;
+  const solutionId = SOLUTION_ID;
+  const hash = generateHashPrefix(`${solutionId}-${recordName}`);
+  return `${hash}-${solutionId}-${recordName}`; // 例: `7aYO2FVx-delayed_event_user-2024-06-28 12:34`
+}
+
 async function registerTargetVisitor(visitorId, kvs) {
   const currentTime = getJSTFormattedDate();
-  const keyInfo = `${KVS_KEY_PREFIX}-${currentTime}`;
-  const hash = generateHashedPrefix(keyInfo);
-  const key = `${hash}_${keyInfo}`;
+  const key = kvsKey(currentTime);
   const userIds = [];
 
   const result = await kvs.get({ key });
@@ -57,9 +62,7 @@ async function sendEventToTargets(logger, kvs, secret) {
   const token = secrets[KARTE_APP_TOKEN_SECRET];
   karteApiClient.auth(token);
   const thirtyMinutesAgo = get30minBefore();
-  const keyInfo = `${KVS_KEY_PREFIX}-${thirtyMinutesAgo}`;
-  const hash = generateHashedPrefix(keyInfo);
-  const key = `${hash}_${keyInfo}`;
+  const key = kvsKey(thirtyMinutesAgo);
   const response = await kvs.get({ key });
   const targetIds = response[key].value.uniqueUserIds;
   if (!targetIds) {

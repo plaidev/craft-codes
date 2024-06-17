@@ -1,15 +1,13 @@
 import crypto from 'crypto';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const MINUTES_TO_EXPIRE = Number('<% MINUTES_TO_EXPIRE %>'); // 30日後に削除
-// SQLの結果に応じてカラム名を変更してください
-// 1列目の値がkvsのkeyになります
+const MINUTES_TO_EXPIRE = Number('<% MINUTES_TO_EXPIRE %>');
 const HEADER_COLUMNS = '<% HEADER_COLUMNS %>'.split(',').map(v => v.trim());
 
-// kvs書き込み時のkeyに、元のkeyをhash化した文字列をprefixとして付与するオプションです。ホットスポット回避に利用したい場合はtrueを設定してください。
+// kvs書き込み時のkeyに、元のkeyをhash化した文字列をprefixとして付与するオプションです。ホットスポット回避に利用したい場合はtrueを設定してください
 const APPEND_HASH_PREFIX = '<% APPEND_HASH_PREFIX %>' === 'true';
 
-function generateHashedPrefix(key) {
+function generateHashPrefix(key) {
   const hashBase64 = crypto.createHash('sha256').update(key).digest('base64');
   // 辞書順を分散させるためハッシュ値の5〜12文字目を使用
   const prefix = hashBase64.substring(4, 12);
@@ -19,8 +17,8 @@ function generateHashedPrefix(key) {
 async function upsertData(key, row, kvs, logger, RetryableError) {
   let _key;
   if (APPEND_HASH_PREFIX) {
-    const hash = generateHashedPrefix(key);
-    _key = `${hash}_${key}`;
+    const hash = generateHashPrefix(key);
+    _key = `${hash}-${key}`;
   } else {
     _key = key;
   }

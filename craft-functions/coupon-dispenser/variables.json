@@ -4,48 +4,27 @@
     "value": "WARN",
     "type": "string",
     "required": true,
-    "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
   },
   {
     "name": "FREQUENT_ACQUISITION_ERROR_MINUTES",
     "value": 1,
     "type": "number",
     "required": true,
-    "description": "同一ユーザーの連続取得禁止を解除するまでの時間（分）です。連続取得チェックをしない場合は0を指定します。"
-  },
-  {
-    "name": "COUPON_CODE_PREFIX",
-    "value": "coupon-code",
-    "type": "string",
-    "required": true,
-    "description": "プロジェクトで共通のクーポン管理用prefixです。"
-  },
-  {
-    "name": "COUPON_USER_STATUS_PREFIX",
-    "value": "coupon-user-status",
-    "type": "string",
-    "required": true,
-    "description": "プロジェクトで共通のprefixです。"
-  },
-  {
-    "name": "COUPON_USER_STATUS_EXPIRE_MINUTES",
-    "value": 1440,
-    "type": "number",
-    "required": true,
-    "description": "ユーザー状態の保持期間（分）です。"
-  },
-  {
-    "name": "COUPON_INDEX_PREFIX",
-    "value": "coupon-index",
-    "type": "string",
-    "required": true,
-    "description": "プロジェクトで共通のクーポン管理用prefixです。"
+    "description": "同一ユーザーの連続取得禁止を解除するまでの時間（分）です. 連続取得チェックをしない場合は0を指定します"
   },
   {
     "name": "COUPON_INDEX_EXPIRE_SECONDS",
     "value": 2592000,
     "type": "number",
     "required": true,
-    "description": "払い出し中クーポン番号の保持期間（秒）です。"
+    "description": "払い出し中のクーポン番号を管理するCraft Counterレコードの保持期間（秒）です"
+  },
+  {
+    "name": "SOLUTION_ID",
+    "value": "coupon",
+    "type": "string",
+    "required": true,
+    "description": "固定のソリューションIDです. KVSレコードを他の施策のものと区別するために利用されます"
   }
 ]
