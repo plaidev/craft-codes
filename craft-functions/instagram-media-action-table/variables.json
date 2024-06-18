@@ -1,0 +1,58 @@
+[
+    {
+      "name": "LOG_LEVEL",
+      "value": "WARN",
+      "type": "string",
+      "required": true,
+      "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+    },
+    {
+      "name": "ACTION_TABLE_ID",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "更新対象のアクションテーブルのIDです"
+    },
+    {
+      "name": "INSTAGRAM_ACCESS_TOKEN_SECRET",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "無期限のユーザーアクセストークンを登録したシークレットの名前です"
+    },
+    {
+      "name": "INSTAGRAM_BUSINESS_ACCOUNT_ID",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "Instagramビジネスアカウントの内部IDです"
+    },
+    {
+      "name": "GRAPH_API_VERSION",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "使用するInstagram Graph APIのバージョンです"
+    },
+    {
+      "name": "KARTE_APP_TOKEN_SECRET",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+    },
+    {
+      "name": "MAX_RETRIES",
+      "value": "",
+      "type": "number",
+      "required": true,
+      "description": "アクションテーブルへのデータ投入時にリトライする回数の最大値です"
+    },
+    {
+      "name": "RETRY_DELAY",
+      "value": "",
+      "type": "number",
+      "required": true,
+      "description": "アクションテーブルへのデータ投入失敗時に何ミリ秒後にリトライするかを指定します"
+    }
+]
