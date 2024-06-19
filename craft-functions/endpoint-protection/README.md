@@ -6,7 +6,7 @@ Craft Functionsにおけるエンドポイント保護のためのJWT認証実�
 
 ## blogUrl
 
-https://solution.karte.io/2024/05/endpoint-protection
+https://solution.karte.io/blog/2024/05/endpoint-protection/
 
 ## description
 
