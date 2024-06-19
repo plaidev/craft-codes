@@ -6,7 +6,7 @@
 
 ## blogUrl
 
-https://solution.karte.io/blog/2024/05/delayed-event/
+https://solution.karte.io/blog/2024/06/delayed-event/
 
 ## description
 
