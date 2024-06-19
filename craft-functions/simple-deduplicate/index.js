@@ -1,4 +1,4 @@
-const crypto = require('crypto');
+import crypto from 'crypto';
 
 const SOLUTION_ID = '<% SOLUTION_ID %>';
 
