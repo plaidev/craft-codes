@@ -1,0 +1,37 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "COUNTER_EXPIRE_SECONDS",
+    "value": 86400,
+    "type": "number",
+    "required": true,
+    "description": "指定した値の秒だけカウンター内にデータを保持します(例10分なら600)"
+  },
+  {
+    "name": "CAPACITY",
+    "value": 5,
+    "type": "number",
+    "required": true,
+    "description": "時間毎の流入可能人数を入力します"
+  },
+  {
+    "name": "SOLUTION_ID",
+    "value": "waiting_room",
+    "type": "string",
+    "required": true,
+    "description": "固定のソリューションIDです. KVSやCounterのレコードを他の施策のものと区別するために利用されます"
+  },
+  {
+    "name": "KVS_EXPIRE_MINUTES",
+    "value": 1440,
+    "type": "number",
+    "required": true,
+    "description": "指定した値の分だけkvs内にデータを保持します(例10分なら10)"
+  }
+]
