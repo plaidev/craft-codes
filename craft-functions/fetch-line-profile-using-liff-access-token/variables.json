@@ -1,0 +1,30 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "LINE_LOGIN_CHANNEL_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "LINEログインチャネルのIDです"
+  },
+  {
+    "name": "KVS_MINUTES_TO_EXPIRE",
+    "value": 1440,
+    "type": "number",
+    "required": true,
+    "description": "Craft KVSレコードの生存期間（分）です"
+  },
+  {
+    "name": "ALLOWED_ORIGIN",
+    "value": "https://example.com",
+    "type": "string",
+    "required": true,
+    "description": "Craft Sites側サイトのドメインを指定します。CORSの許可対象ドメインとして利用されます"
+  }
+]
