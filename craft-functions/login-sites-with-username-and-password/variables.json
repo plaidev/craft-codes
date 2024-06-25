@@ -1,0 +1,37 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "AUTH_KEY_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "署名鍵のシークレット名です。Craft Secret Managerのシークレット一覧にある CSP_{{サイト名(大文字)}} という名前を指定します"
+  },
+  {
+    "name": "AUTH_KEY_NAME",
+    "value": "csp-key",
+    "type": "string",
+    "required": true,
+    "description": "署名生成時に必要な鍵名です。現状はcsp-key の固定値です"
+  },
+  {
+    "name": "AUTH_ENDPOINT_URL",
+    "value": "https://xxx.yyy.karte.io/functions/zzz",
+    "type": "string",
+    "required": true,
+    "description": "認証用ファンクションのエンドポイントURLです"
+  },
+  {
+    "name": "ALLOWED_ORIGIN",
+    "value": "https://example.com",
+    "type": "string",
+    "required": true,
+    "description": "Craft Sites側サイトのドメインを指定します。CORSの許可対象ドメインとして利用されます"
+  }
+]
