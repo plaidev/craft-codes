@@ -1,0 +1,31 @@
+[
+    {
+      "name": "LOG_LEVEL",
+      "value": "WARN",
+      "type": "string",
+      "required": true,
+      "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+    },
+    {
+      "name": "KARTE_APP_TOKEN_SECRET",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+    },
+    {
+      "name": "DELAY_MIN",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "チャット終了リクエストに対して反応がない場合にクローズするまでの待ち時間(分)です。"
+    },
+    {
+      "name": "SOLUTION_ID",
+      "value": "chat-auto-close",
+      "type": "string",
+      "required": true,
+      "description": "固定のソリューションIDです. KVSレコードを他の施策のものと区別するために利用されます"
+    }
+  ]
+  
