@@ -1,0 +1,23 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "SOLUTION_ID",
+    "value": "custom_dashboard",
+    "type": "string",
+    "required": true,
+    "description": "固定のソリューションIDです. KVSレコードを他の施策のものと区別するために利用されます"
+  },
+  {
+    "name": "ALLOWED_ORIGIN",
+    "value": "https://example.com",
+    "type": "string",
+    "required": true,
+    "description": "Craft Sites側サイトのドメインを指定します。CORSの許可対象ドメインとして利用されます"
+  }
+]
