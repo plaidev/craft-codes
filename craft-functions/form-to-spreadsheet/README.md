@@ -5,7 +5,7 @@
 フォーム入力データをGoogleスプレッドシートに連携する
 
 ## blogUrl
-https://solution.karte.io/blog/2024/02/form-to-spreadsheet
+https://solution.karte.io/blog/2024/02/form-spreadsheets-message/
 
 ## description
 
