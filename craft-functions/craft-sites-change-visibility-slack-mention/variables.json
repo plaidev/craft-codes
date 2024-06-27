@@ -1,0 +1,31 @@
+[
+    {
+      "name": "LOG_LEVEL",
+      "value": "WARN",
+      "type": "string",
+      "required": true,
+      "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+    },
+    {
+      "name": "SLACK_TOKEN_SECRET",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "Slack Appの Bot User OAuth Tokenを登録したシークレット名です"
+    },
+    {
+      "name": "SLACK_CHANNEL_ID",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "通知対象のSlackチャンネルIDです"
+    },
+    {
+      "name": "EXCLUDED_SITE_NAMES",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "公開ステータス変更にSlack通知しないサイトの名称をカンマ区切りで指定します"
+    }
+]
+  
