@@ -1,0 +1,23 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "OAUTH2_CLIENT_CREDENTIALS_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "OAuth 2.0 クライアントID作成時にダウンロードしたJSONデータを登録したシークレット名です"
+  },
+  {
+    "name": "REFRESH_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "OAuth 2.0 PlayGroundで発行したリフレッシュトークンを登録したシークレット名です"
+  }
+]
