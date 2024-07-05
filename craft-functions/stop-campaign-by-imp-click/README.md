@@ -15,3 +15,6 @@ https://solution.karte.io/blog/2023/10/stop-campaign-by-imp-click
 
 Craft Counter
 
+## functionType
+
+http
