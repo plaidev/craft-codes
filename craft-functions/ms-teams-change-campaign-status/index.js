@@ -10,19 +10,19 @@ export default async function (data, { MODULES }) {
   const { initLogger, secret } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
-  if (data.kind !== 'karte/track-hook') {
-    logger.error(new Error('invalid kind'));
-    return;
-  }
-  if (
-    data.jsonPayload.name !== 'craft-hook' ||
-    data.jsonPayload.data.plugin_name !== 'craft'
-  ) {
-    logger.error(new Error('invalid kind'));
+  const { req, res } = data;
+  const headers = req.headers;
+  const body = req.body;
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    res.status(204).end();
     return;
   }
 
-  const { body, headers } = data.jsonPayload.data.hook_data;
   const secrets = await secret.get({ keys: [KARTE_APP_SECRET_NAME, TEAMS_OUTGOING_WEBHOOK_SECRET_NAME] });
   const token = secrets[KARTE_APP_SECRET_NAME];
   const teamsToken = secrets[TEAMS_OUTGOING_WEBHOOK_SECRET_NAME];
@@ -33,7 +33,7 @@ export default async function (data, { MODULES }) {
   }
 
   try {
-    const { authorization } = headers;
+    const authorization = headers.authorization?.split(' ')[1];
 
     const bufSecret = Buffer.from(teamsToken, 'base64');
     const msgBuf = Buffer.from(JSON.stringify(body), 'utf8');
@@ -42,13 +42,17 @@ export default async function (data, { MODULES }) {
       crypto.createHmac('sha256', bufSecret).update(msgBuf).digest('base64');
 
     if (msgHash !== authorization) {
-      return teamsMessage(`提供された認証情報が無効です。正しい認証情報を提供して再度試してください。`);
+      res.status(401).send(teamsMessage(`提供された認証情報が無効です。正しい認証情報を提供して再度試してください。`));
+      return;
     }
 
     const text = body.text;
     const campaignID = text.match(/(?<![a-f0-9])[a-f0-9]{24}(?![a-f0-9])/g);
 
-    if (!campaignID) return teamsMessage(`入力データ内に接客サービスIDが見つかりませんでした。`);
+    if (!campaignID) {
+      res.status(400).send(teamsMessage(`入力データ内に接客サービスIDが見つかりませんでした。`));
+      return;
+    }
     
     let status;
     if (text.includes("true")) {
@@ -56,19 +60,20 @@ export default async function (data, { MODULES }) {
     } else if (text.includes("false")) {
       status = false;
     } else {
-      return teamsMessage(`入力データ内にtrue/falseが見つかりませんでした。`);
+      res.status(400).send(teamsMessage(`入力データ内にtrue/falseが見つかりませんでした。`));
+      return;
     }
 
-    const res = await karteApiClient.postV2betaActionCampaignToggleenabled({
+    const response = await karteApiClient.postV2betaActionCampaignToggleenabled({
       id: campaignID[0],
       enabled: status
     });
 
-    if (res.status === 200) {
-      return teamsMessage(`接客のステータスが変わりました。</br>接客ID：${campaignID[0]}</br>ステータス：${status}`);
+    if (response.status === 200) {
+      res.status(200).send(teamsMessage(`接客のステータスが変わりました。</br>接客ID：${campaignID[0]}</br>ステータス：${status}`));
     }
   } catch (e) {
     logger.error(e);
-    return teamsMessage(`無効なリクエストです。入力データを確認し、再度試してください。`);
+    res.status(400).send(teamsMessage(`無効なリクエストです。入力データを確認し、再度試してください。`));
   }
 }
