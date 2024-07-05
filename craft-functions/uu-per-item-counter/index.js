@@ -1,6 +1,6 @@
 import { format, subMinutes } from 'date-fns';
 
-const HOW_MANY_MINUTES_AGO = Number('<% HOW_MANY_MINUTES_AGO %>'); // 「最大何分前から現在まで」のUU数を集計するか？
+const HOW_MANY_MINUTES_AGO = Number('<% HOW_MANY_MINUTES_AGO %>');
 const COUNTER_KEY_PREFIX = '<% COUNTER_KEY_PREFIX %>';
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const TIMEWINDOW_FORMAT = 'yyyyMMddHHmm';
@@ -16,7 +16,7 @@ function counterKey({ timewindow, itemId }) {
  */
 function makeTargetTimewindows() {
   const targetTimewindows = [];
-  const agoArr = [...Array(HOW_MANY_MINUTES_AGO)].map((_, i) => i); // 3 -> [0, 1, 2]
+  const agoArr = [...Array(HOW_MANY_MINUTES_AGO)].map((_, i) => i);
   agoArr.forEach(ago =>
     targetTimewindows.push(format(subMinutes(new Date(), ago), TIMEWINDOW_FORMAT))
   );
@@ -48,7 +48,7 @@ async function incrementCount({ counter, logger, itemId, currentTimewindow }) {
   try {
     await counter.increment({
       key: counterKey({ timewindow: currentTimewindow, itemId }),
-      secondsToExpire: HOW_MANY_MINUTES_AGO * 60 + 60, // 参照されえないレコードは自動削除。60秒だけ余裕を持たせておく
+      secondsToExpire: HOW_MANY_MINUTES_AGO * 60 + 60,
     });
     logger.debug(`incrementCount succeeded. timewindow: ${currentTimewindow}. itemId: ${itemId}.`);
   } catch (err) {
@@ -60,7 +60,7 @@ async function incrementCount({ counter, logger, itemId, currentTimewindow }) {
 
 function noRequiredParamErr(param) {
   return {
-    craft_status_code: 400,
+    statusCode: 400,
     error: `"${param}" is required in the request body.`,
   };
 }
@@ -68,19 +68,29 @@ function noRequiredParamErr(param) {
 export default async function (data, { MODULES }) {
   const { counter, initLogger } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
+  const { req, res } = data;
 
-  if (data.kind !== 'karte/track-hook') {
-    logger.error(new Error('invalid kind. expected: karte/track-hook'));
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    res.status(204).end();
     return;
   }
 
-  const body = data.jsonPayload.data.hook_data.body;
+  const body = req.body;
   if (typeof body !== 'object') {
-    return { craft_status_code: 400, error: 'Invalid request body.' };
+    res.status(400).send({ error: 'Invalid request body.' });
+    return;
   }
 
   const { itemId, skipIncrement, skipGettingCount } = body;
-  if (!itemId) return noRequiredParamErr('itemId');
+  if (!itemId) {
+    const { statusCode, error } = noRequiredParamErr('itemId');
+    res.status(statusCode).send({ error });
+    return;
+  }
 
   const currentTimewindow = format(new Date(), TIMEWINDOW_FORMAT);
   const targetTimewindows = makeTargetTimewindows(HOW_MANY_MINUTES_AGO);
@@ -88,19 +98,19 @@ export default async function (data, { MODULES }) {
   logger.debug(`targetTimewindows: ${JSON.stringify(targetTimewindows)}`);
 
   if (skipIncrement !== true) {
-    // getだけしたい場合はスキップ
     await incrementCount({ counter, logger, itemId, currentTimewindow });
   }
 
   if (skipGettingCount === true) {
-    // incrementだけしたい場合はスキップ
-    return { craft_status_code: 200, count: null, error: null };
+    res.status(200).send({ count: null, error: null });
+    return;
   }
+
   const { statusCode, count, error } = await getCount({
     counter,
     logger,
     itemId,
     targetTimewindows,
   });
-  return { craft_status_code: statusCode, count, error };
+  res.status(statusCode).send({ count, error });
 }
