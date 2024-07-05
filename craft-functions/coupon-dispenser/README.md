@@ -14,3 +14,7 @@ https://solution.karte.io/blog/2023/10/coupon-dispenser
 ## category
 
 Craft Functions,Craft KVS,Craft Counter,CRAFT_ENDPOINT
+
+## functionType
+
+http
