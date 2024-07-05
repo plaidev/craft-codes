@@ -24,7 +24,7 @@ const ALLOWED_IPS = "<% ALLOWED_IPS %>".split(",").map((v) => v.trim());
 // api に渡す spec uri
 // developers portal のリファレンスから確認する。
 // https://developers.karte.io/reference/post_v2-track-event-write
-const SPEC_URI = "@dev-karte/v1.0#e00ojitlkrqw8qf";
+const SPEC_URI = "@dev-karte/v1.0#4013y24lvyu582u";
 
 export default async function (data, { MODULES }) {
   const { initLogger, karteApiClientForCraftTypeApp } = MODULES;
@@ -55,7 +55,7 @@ export default async function (data, { MODULES }) {
   }
 
   const track = karteApiClientForCraftTypeApp({
-    token: token,
+    token,
     specUri: SPEC_URI,
   });
 
