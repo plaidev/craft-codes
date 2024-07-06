@@ -71,25 +71,35 @@ async function sendToSlack(userId, text, { kvs, slack, logger }) {
 
 // Slack to KARTE
 async function handleSlackHook(data, { secret, kvs, logger }) {
+  const { req, res } = data;
   const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
   const karteAppToken = secrets[KARTE_APP_TOKEN_SECRET];
 
   const talk = api('@dev-karte/v1.0#br7wylg4sjwm0');
   talk.auth(karteAppToken);
 
-  const hookDataBody = data.jsonPayload.data.hook_data.body;
-  const { event } = hookDataBody;
+  const { event } = req.body;
   const { text, channel, thread_ts: thread, user: slackUserId } = event;
 
-  if (channel !== SLACK_CHANNEL_ID) return;
+  if (channel !== SLACK_CHANNEL_ID) {
+    res.status(200).send({ message: 'Channel does not match' });
+    return;
+  }
 
-  if (!thread) return;
-  if (slackUserId === SLACK_APP_USER_ID) return; // Slack Bot自身の投稿は無視する
+  if (!thread) {
+    res.status(200).send({ message: 'No thread' });
+    return;
+  }
+  if (slackUserId === SLACK_APP_USER_ID) {
+    res.status(200).send({ message: 'Ignore Slack Bot message' });
+    return;
+  }
 
   const userIdKey = kvsKeyForUserId(thread);
   const v = await kvs.get({ key: userIdKey });
   if (isEmpty(v)) {
     logger.warn(`[Slack to KARTE] cannot find user_id in kvs. thread: ${thread}`);
+    res.status(404).send({ message: 'User ID not found in KVS' });
     return;
   }
   const { userId } = v[userIdKey].value;
@@ -108,24 +118,31 @@ async function handleSlackHook(data, { secret, kvs, logger }) {
   try {
     await talk.postV2TalkMessageSendfromoperator(payload);
     logger.debug(`[Slack to KARTE] succeeded. user_id: ${userId}, sender_id: ${senderId}`);
+    res.status(200).send({ message: 'Success' });
   } catch (e) {
     logger.error(`[Slack to KARTE] send talk message error: ${e}`);
+    res.status(500).send({ message: 'Internal Server Error' });
   }
 }
 
 // KARTE to Slack
 async function handleTalkHook(data, { secret, kvs, logger }) {
-  const eventType = data.jsonPayload.event_type;
+  const { req, res } = data;
+  const eventType = req.body.event_type;
 
   if (!['talk/message/sendFromOperator', 'talk/message/sendFromUser'].includes(eventType)) {
     logger.warn(`invalid event_type: ${eventType}`);
+    res.status(400).send({ message: 'Invalid event type' });
     return;
   }
 
-  const d = data.jsonPayload.data;
+  const d = req.body.data;
   const { content, user_id: userId, visitor_id: visitorId, account_id: accountId } = d;
   const isIgnored = IGNORE_TALK_ACCOUNTS.split(',').some(a => a === accountId);
-  if (isIgnored) return;
+  if (isIgnored) {
+    res.status(200).send({ message: 'Ignored account' });
+    return;
+  }
 
   const _userId = userId || visitorId;
 
@@ -140,17 +157,31 @@ async function handleTalkHook(data, { secret, kvs, logger }) {
   const slackToken = secrets[SLACK_TOKEN_SECRET];
   const slack = new WebClient(slackToken);
   await sendToSlack(_userId, text, { kvs, slack, logger });
+  res.status(200).send({ message: 'Success' });
 }
 
 export default async function (data, { MODULES }) {
+  const { req, res } = data;
   const { secret, kvs, initLogger } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
-  if (data.kind === 'karte/apiv2-hook') {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    res.status(204).end();
+    return;
+  }
+
+  const { kind } = req.body;
+
+  if (kind === 'karte/apiv2-hook') {
     await handleTalkHook(data, { secret, kvs, logger });
-  } else if (data.kind === 'karte/track-hook' && data.jsonPayload.name === 'craft-hook') {
+  } else if (kind === 'karte/track-hook') {
     await handleSlackHook(data, { secret, kvs, logger });
   } else {
-    logger.warn(`invalid trigger. kind: ${data.kind}, jsonPayload.name: ${data.jsonPayload.name}`);
+    logger.warn(`invalid trigger. kind: ${kind}`);
+    res.status(400).send({ message: 'Invalid trigger' });
   }
 }
