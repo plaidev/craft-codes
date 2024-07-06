@@ -1,4 +1,5 @@
 import api from 'api';
+
 const karteApiClient = api('@dev-karte/v1.0#1jvnhd6llgekil84');
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
@@ -13,7 +14,9 @@ export default async function (data, { MODULES }) {
   const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
   const token = secrets[KARTE_APP_TOKEN_SECRET];
   karteApiClient.auth(token);
-  const payload = data.jsonPayload.data.hook_data.body.payload;
+
+  const { req, res } = data;
+  const payload = req.body.payload;
   const userId = payload[USER_ID_FIELD];
 
   const values = {};
@@ -22,16 +25,27 @@ export default async function (data, { MODULES }) {
     values[field] = payload[field];
   });
 
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    res.status(204).end();
+    return;
+  }
+
   try {
     await karteApiClient.postV2betaTrackEventWriteandexecaction({
-      keys: { visitor_id: VISTOR_ID_PREFIX + '-' + userId },
+      keys: { visitor_id: `${VISTOR_ID_PREFIX}-${userId}` },
       event: {
         event_name: EVENT_NAME,
         values,
       },
     });
-    logger.log(EVENT_NAME + 'Event sent successfully.');
+    logger.log(`Event sent successfully. event_name: ${EVENT_NAME}`);
+    res.status(200).send({ message: 'Success' });
   } catch (e) {
     logger.error(e);
+    res.status(500).send({ error: e.message });
   }
 }
