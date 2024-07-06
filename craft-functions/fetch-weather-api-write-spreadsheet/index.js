@@ -43,7 +43,7 @@ const LOCATIONS = [
   { prefecture: '広島県', location: 'hiroshima', lat: '34.2348', lon: '132.2735' },
   { prefecture: '山口県', location: 'yamaguchi', lat: '34.1109', lon: '131.2817' },
   { prefecture: '徳島県', location: 'tokushima', lat: '34.0357', lon: '134.3334' },
-  { prefecture: '香川県', location: 'kagawa', lat: '34.2024', lon: '134.0236' },
+  { prefecture: '香川県', location:   'kagawa', lat: '34.2024', lon: '134.0236' },
   { prefecture: '愛媛県', location: 'ehime', lat: '33.5030', lon: '132.4558' },
   { prefecture: '高知県', location: 'kochi', lat: '33.3335', lon: '133.3152' },
   { prefecture: '福岡県', location: 'fukuoka', lat: '33.3623', lon: '130.2505' },
@@ -92,8 +92,18 @@ async function fetchData({ location, rows, logger }) {
 }
 
 export default async function (data, { MODULES }) {
+  const { req, res } = data;
   const { initLogger, secret } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    res.status(204).end();
+    return;
+  }
 
   // GoogleサービスアカウントのJSONキーをシークレットから取得
   const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET] });
@@ -115,7 +125,9 @@ export default async function (data, { MODULES }) {
     await Promise.all(LOCATIONS.map(location => fetchData({ location, rows, logger })));
     await updateSsValues(sheets, `${SHEET_NAME}!1:${LOCATIONS.length + 1}`, rows);
     logger.debug('Data fetch completed:', rows);
+    res.status(200).send({ message: 'Success' });
   } catch (error) {
     logger.debug('Data fetch Failed:', error);
+    res.status(500).send({ message: 'Data fetch Failed' });
   }
 }
