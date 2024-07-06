@@ -14,3 +14,7 @@ KARTE Blocks等でWebページ上に配信したフォームの入力データ�
 ## category
 
 Craft Functions,紐付けテーブル,CRAFT_ENDPOINT
+
+## functionType
+
+http
