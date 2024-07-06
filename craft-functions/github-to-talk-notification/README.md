@@ -14,3 +14,7 @@ KARTE Talkのトーク画面URLをトップコメントに貼ったGitHub Issue�
 ## category
 
 GitHub,Craft Functions,Talk,CRAFT_ENDPOINT
+
+## functionType
+
+http
