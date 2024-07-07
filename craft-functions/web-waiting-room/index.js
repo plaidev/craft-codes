@@ -85,7 +85,7 @@ export default async function (data, { MODULES }) {
   if (!targetTimeWindow) {
     await updateKvsTimeWindow({ logger, kvs, timeWindow: currentTimeWindow });
     await incrementCounter({ logger, counter, timeWindow: currentTimeWindow });
-    res.status(200).send({ isThrough: true, timeWindow: currentTimeWindow });
+    res.status(200).json({ isThrough: true, timeWindow: currentTimeWindow });
     return;
   }
 
@@ -100,7 +100,7 @@ export default async function (data, { MODULES }) {
   if (isTargetPast) {
     await updateKvsTimeWindow({ logger, kvs, timeWindow: currentTimeWindow });
     await incrementCounter({ logger, counter, timeWindow: currentTimeWindow });
-    res.status(200).send({ isThrough: true, timeWindow: currentTimeWindow });
+    res.status(200).json({ isThrough: true, timeWindow: currentTimeWindow });
     return;
   }
 
@@ -109,7 +109,7 @@ export default async function (data, { MODULES }) {
   // 対象の時間枠に空きがある -> 対象の時間枠を返して待たせる
   if (nOfPeople < CAPACITY) {
     await incrementCounter({ logger, counter, timeWindow: targetTimeWindow });
-    res.status(200).send({ isThrough: false, timeWindow: targetTimeWindow });
+    res.status(200).json({ isThrough: false, timeWindow: targetTimeWindow });
     return;
   }
 
@@ -118,6 +118,6 @@ export default async function (data, { MODULES }) {
     const nextTimeWindow = formatTimeWindow(addMinutes(targetJst, 1));
     await updateKvsTimeWindow({ logger, kvs, timeWindow: nextTimeWindow });
     await incrementCounter({ logger, counter, timeWindow: nextTimeWindow });
-    res.status(200).send({ isThrough: false, timeWindow: nextTimeWindow });
+    res.status(200).json({ isThrough: false, timeWindow: nextTimeWindow });
   }
 }
