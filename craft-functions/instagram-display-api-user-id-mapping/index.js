@@ -80,6 +80,16 @@ export default async function (data, { MODULES }) {
   const { initLogger, secret } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
+  const { req, res } = data;
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    res.status(204).end();
+    return;
+  }
+
   try {
     const secrets = await secret.get({
       keys: [KARTE_API_TOKEN_SECRET, INSTAGRAM_APP_SECRET],
@@ -89,7 +99,7 @@ export default async function (data, { MODULES }) {
     sdk.auth(karteToken);
     const appSecret = secrets[INSTAGRAM_APP_SECRET];
 
-    const { authorizationCode, websiteUserId } = data.jsonPayload.data.hook_data.body;
+    const { authorizationCode, websiteUserId } = req.body;
 
     const { access_token: accessToken, user_id: instagramUserId } = await fetchInstagramAccessToken(
       authorizationCode,
@@ -103,9 +113,9 @@ export default async function (data, { MODULES }) {
     );
     await upsertKarteRefTable(websiteUserId, instagramUserId, instagramUserName, logger);
 
-    return { craft_status_code: 200, message: 'Successfully sent data to the endpoint' };
+    res.status(200).send({ message: 'Successfully sent data to the endpoint' });
   } catch (error) {
     logger.error('Failed to process Instagram authentication:', error.message);
-    return { craft_status_code: 500, message: 'Internal server error' };
+    res.status(500).send({ message: 'Internal server error' });
   }
 }
