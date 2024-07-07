@@ -69,6 +69,18 @@ async function embedding(text, sdk) {
 export default async function (data, { MODULES }) {
   const { initLogger, secret, karteApiClientForCraftTypeApp } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
+  const { req, res } = data;
+
+  // CORSサポートの追加
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    res.status(204).end();
+    return;
+  }
+
   try {
     // secretsの取得
     const secrets = await secret.get({
@@ -117,7 +129,9 @@ export default async function (data, { MODULES }) {
     // スコアをスプレッドシートに出力
     await outputData(sheets, clusteredDocuments);
     logger.log('job has succesfully completed.');
+    res.status(200).send({ message: 'Success' });
   } catch (e) {
     logger.error(e);
+    res.status(500).send({ error: e.message });
   }
 }
