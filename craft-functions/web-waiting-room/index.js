@@ -61,8 +61,18 @@ async function updateKvsTimeWindow({ logger, kvs, timeWindow }) {
 }
 
 export default async function (data, { MODULES }) {
+  const { req, res } = data;
   const { kvs, counter, initLogger } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    res.status(204).end();
+    return;
+  }
 
   // JSTで、現在の時:分の始まる時刻を取得
   const currentJst = utcToZonedTime(new Date(), 'Asia/Tokyo');
@@ -75,7 +85,8 @@ export default async function (data, { MODULES }) {
   if (!targetTimeWindow) {
     await updateKvsTimeWindow({ logger, kvs, timeWindow: currentTimeWindow });
     await incrementCounter({ logger, counter, timeWindow: currentTimeWindow });
-    return { isThrough: true, timeWindow: currentTimeWindow };
+    res.status(200).send({ isThrough: true, timeWindow: currentTimeWindow });
+    return;
   }
 
   const targetJst = parseTimeWindow(targetTimeWindow);
@@ -89,7 +100,8 @@ export default async function (data, { MODULES }) {
   if (isTargetPast) {
     await updateKvsTimeWindow({ logger, kvs, timeWindow: currentTimeWindow });
     await incrementCounter({ logger, counter, timeWindow: currentTimeWindow });
-    return { isThrough: true, timeWindow: currentTimeWindow };
+    res.status(200).send({ isThrough: true, timeWindow: currentTimeWindow });
+    return;
   }
 
   const nOfPeople = await counter.get({ keys: [counterKey(targetTimeWindow)] });
@@ -97,7 +109,8 @@ export default async function (data, { MODULES }) {
   // 対象の時間枠に空きがある -> 対象の時間枠を返して待たせる
   if (nOfPeople < CAPACITY) {
     await incrementCounter({ logger, counter, timeWindow: targetTimeWindow });
-    return { isThrough: false, timeWindow: targetTimeWindow };
+    res.status(200).send({ isThrough: false, timeWindow: targetTimeWindow });
+    return;
   }
 
   // 対象の時間枠に空きがない -> 対象の次の時間枠を返して待たせる
@@ -105,6 +118,6 @@ export default async function (data, { MODULES }) {
     const nextTimeWindow = formatTimeWindow(addMinutes(targetJst, 1));
     await updateKvsTimeWindow({ logger, kvs, timeWindow: nextTimeWindow });
     await incrementCounter({ logger, counter, timeWindow: nextTimeWindow });
-    return { isThrough: false, timeWindow: nextTimeWindow };
+    res.status(200).send({ isThrough: false, timeWindow: nextTimeWindow });
   }
 }
