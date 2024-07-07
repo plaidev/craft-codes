@@ -27,17 +27,30 @@ async function fetchPollenInfo(latitude, longitude, logger) {
 }
 
 export default async function (data, { MODULES }) {
+  const { req, res } = data;
   const { initLogger, secret } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
-  const body = data.jsonPayload.data.hook_data.body;
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    res.status(204).end();
+    return;
+  }
+
+  const body = req.body;
   if (!body) {
     logger.error('bodyが存在しません');
+    res.status(400).send({ message: 'bodyが存在しません' });
     return;
   }
 
   const visitorId = body.visitor_id;
   if (!visitorId) {
     logger.error('visitor_idが存在しません');
+    res.status(400).send({ message: 'visitor_idが存在しません' });
     return;
   }
 
@@ -45,6 +58,7 @@ export default async function (data, { MODULES }) {
   const longitude = body.longitude;
   if (!latitude || !longitude) {
     logger.error('latitudeかlongitudeのいずれかが存在しません');
+    res.status(400).send({ message: 'latitudeかlongitudeのいずれかが存在しません' });
     return;
   }
 
@@ -54,6 +68,7 @@ export default async function (data, { MODULES }) {
 
   const pollen = await fetchPollenInfo(latitude, longitude, logger);
   if (!pollen) {
+    res.status(500).send({ message: 'Pollen情報の取得に失敗しました' });
     return;
   }
   const values = {};
@@ -68,7 +83,9 @@ export default async function (data, { MODULES }) {
       },
     });
     logger.log(`Event sent successfully. event_name: ${EVENT_NAME}`);
+    res.status(200).send({ message: 'Event sent successfully' });
   } catch (e) {
     logger.error(`send event failed. event_name: ${EVENT_NAME}, error: ${e}`);
+    res.status(500).send({ message: `send event failed. event_name: ${EVENT_NAME}, error: ${e}` });
   }
 }
