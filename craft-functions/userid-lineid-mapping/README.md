@@ -15,3 +15,7 @@ LINEログイン時の認可コードを受け取ってLINE IDを取得し、会
 ## category
 
 LINE,Craft Functions,紐付けテーブル,接客サービス,CRAFT_ENDPOINT
+
+## functionType
+
+http
