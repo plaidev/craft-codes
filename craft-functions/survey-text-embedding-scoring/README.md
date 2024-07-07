@@ -2,10 +2,10 @@
 
 ## title
 
-自由回答テキストに含まれる文意を Text Embedding で成分ごとにスコア化する
+自由回答テキストに含まれる感情を Word Embedding で成分ごとにスコア化する
 
 ## blogUrl
-https://solution.karte.io/blog/2024/04/survey-text-embedding-scoring
+https://solution.karte.io/blog/2024/04/survey-word-embedding-scoring
 
 ## description
 
@@ -13,4 +13,8 @@ https://solution.karte.io/blog/2024/04/survey-text-embedding-scoring
 
 ## category
 
-Craft Functions,Craft AI Modules,LLM
+Craft Functions,Craft AI Modules
+
+## functionType
+
+http
