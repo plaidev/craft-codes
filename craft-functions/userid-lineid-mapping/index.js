@@ -111,13 +111,13 @@ export default async function (data, { MODULES }) {
 
     if (!authorizationCode || !websiteUserId) {
       logger.warn('Missing authorizationCode or websiteUserId');
-      res.status(400).send({ message: 'Missing authorizationCode or websiteUserId' });
+      res.status(400).json({ message: 'Missing authorizationCode or websiteUserId' });
       return;
     }
 
     const tokenData = await fetchTokens(authorizationCode, clientSecret, logger);
     if (!tokenData) {
-      res.status(400).send({ message: 'Error in fetchTokens' });
+      res.status(400).json({ message: 'Error in fetchTokens' });
       return;
     }
 
@@ -125,15 +125,15 @@ export default async function (data, { MODULES }) {
 
     const retrievedLineId = await verifyIdToken(idToken, logger);
     if (!retrievedLineId) {
-      res.status(401).send({ message: 'Error in verifyIdToken' });
+      res.status(401).json({ message: 'Error in verifyIdToken' });
       return;
     }
 
     await upsertKarteRefTable(websiteUserId, retrievedLineId, logger);
 
-    res.status(200).send({ message: 'Data inserted successfully' });
+    res.status(200).json({ message: 'Data inserted successfully' });
   } catch (err) {
     logger.error(`Error in lineid mapping process: ${err.toString()}`);
-    res.status(500).send({ message: 'Internal Server Error' });
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 }
