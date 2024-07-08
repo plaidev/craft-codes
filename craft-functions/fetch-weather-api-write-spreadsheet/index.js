@@ -125,9 +125,9 @@ export default async function (data, { MODULES }) {
     await Promise.all(LOCATIONS.map(location => fetchData({ location, rows, logger })));
     await updateSsValues(sheets, `${SHEET_NAME}!1:${LOCATIONS.length + 1}`, rows);
     logger.debug('Data fetch completed:', rows);
-    res.status(200).send({ message: 'Success' });
+    res.status(200).json({ message: 'Success' });
   } catch (error) {
     logger.debug('Data fetch Failed:', error);
-    res.status(500).send({ message: 'Data fetch Failed' });
+    res.status(500).json({ message: 'Data fetch Failed' });
   }
 }
