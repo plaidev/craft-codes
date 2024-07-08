@@ -113,9 +113,9 @@ export default async function (data, { MODULES }) {
     );
     await upsertKarteRefTable(websiteUserId, instagramUserId, instagramUserName, logger);
 
-    res.status(200).send({ message: 'Successfully sent data to the endpoint' });
+    res.status(200).json({ message: 'Successfully sent data to the endpoint' });
   } catch (error) {
     logger.error('Failed to process Instagram authentication:', error.message);
-    res.status(500).send({ message: 'Internal server error' });
+    res.status(500).json({ message: 'Internal server error' });
   }
 }
