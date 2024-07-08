@@ -81,14 +81,14 @@ export default async function (data, { MODULES }) {
 
   const body = req.body;
   if (typeof body !== 'object') {
-    res.status(400).send({ error: 'Invalid request body.' });
+    res.status(400).json({ error: 'Invalid request body.' });
     return;
   }
 
   const { itemId, skipIncrement, skipGettingCount } = body;
   if (!itemId) {
     const { statusCode, error } = noRequiredParamErr('itemId');
-    res.status(statusCode).send({ error });
+    res.status(statusCode).json({ error });
     return;
   }
 
@@ -102,7 +102,7 @@ export default async function (data, { MODULES }) {
   }
 
   if (skipGettingCount === true) {
-    res.status(200).send({ count: null, error: null });
+    res.status(200).json({ count: null, error: null });
     return;
   }
 
@@ -112,5 +112,5 @@ export default async function (data, { MODULES }) {
     itemId,
     targetTimewindows,
   });
-  res.status(statusCode).send({ count, error });
+  res.status(statusCode).json({ count, error });
 }
