@@ -154,9 +154,9 @@ export default async function (data, { MODULES }) {
     // スコアをスプレッドシートに出力
     await outputData(sheets, scores);
 
-    res.status(200).send({ message: 'Success' });
+    res.status(200).json({ message: 'Success' });
   } catch (e) {
     logger.log(e);
-    res.status(500).send({ message: 'Internal Server Error' });
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 }
