@@ -286,7 +286,7 @@ export default async function (data, { MODULES }) {
     /* Slackへ投稿 */
     await postSlack(logger, slackClient, slackArgument.channelId, campaign);
 
-    res.status(200).send({ message: 'Success' });
+    res.status(200).json({ message: 'Success' });
   } catch (error) {
     await postSlackErrorMessage(
       logger,
@@ -296,6 +296,6 @@ export default async function (data, { MODULES }) {
       error
     );
     logger.error(error);
-    res.status(500).send({ message: 'Internal Server Error' });
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 }

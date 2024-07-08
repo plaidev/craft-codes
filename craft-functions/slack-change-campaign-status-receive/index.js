@@ -244,10 +244,10 @@ export default async function (data, { MODULES }) {
       isCampaignEnabled
     );
 
-    res.status(200).send({ message: 'Success' });
+    res.status(200).json({ message: 'Success' });
   } catch (error) {
     await postSlackErrorMessage(logger, slackToken, payloadFromSlack.slackMessageParts, error);
     logger.error(error);
-    res.status(500).send({ message: 'Internal Server Error' });
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 }
