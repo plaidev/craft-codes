@@ -37,12 +37,12 @@ export default async function (data, { MODULES }) {
 
   if (!ALLOWED_IPS.includes(ip)) {
     logger.warn(`not allowedIP. ip: ${ip}`);
-    res.status(401).send({ message: "unauthorized" });
+    res.status(401).json({ message: "unauthorized" });
     return;
   }
   if (!body) {
     logger.warn(`body is null or undefined`);
-    res.status(400).send({ message: "invalid body" });
+    res.status(400).json({ message: "invalid body" });
     return;
   }
 
@@ -50,7 +50,7 @@ export default async function (data, { MODULES }) {
   const { request_body: requestBody } = body;
   if (!token || !requestBody) {
     logger.warn(`invalid body.`);
-    res.status(400).send({ message: "invalid body" });
+    res.status(400).json({ message: "invalid body" });
     return;
   }
 
@@ -73,13 +73,13 @@ export default async function (data, { MODULES }) {
       return;
     }
 
-    res.status(200).send(result.data);
+    res.status(200).json(result.data);
   } catch (err) {
     logger.error(err);
     if (err.status >= 400 && err.status < 500) {
-      res.status(err.status).send({ message: err.message });
+      res.status(err.status).json({ message: err.message });
     } else {
-      res.status(500).send({ message: "internal server error" });
+      res.status(500).json({ message: "internal server error" });
     }
   }
 }
