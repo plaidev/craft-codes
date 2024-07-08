@@ -129,9 +129,9 @@ export default async function (data, { MODULES }) {
     // スコアをスプレッドシートに出力
     await outputData(sheets, clusteredDocuments);
     logger.log('job has succesfully completed.');
-    res.status(200).send({ message: 'Success' });
+    res.status(200).json({ message: 'Success' });
   } catch (e) {
     logger.error(e);
-    res.status(500).send({ error: e.message });
+    res.status(500).json({ error: e.message });
   }
 }
