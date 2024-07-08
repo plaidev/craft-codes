@@ -36,9 +36,9 @@ export default async function (data, { MODULES }) {
       },
     });
     logger.log(`${TABLE_ID} is updated`);
-    res.status(200).send({ message: 'Success' });
+    res.status(200).json({ message: 'Success' });
   } catch (e) {
     logger.error(e);
-    res.status(500).send({ message: 'Error occurred' });
+    res.status(500).json({ message: 'Error occurred' });
   }
 }
