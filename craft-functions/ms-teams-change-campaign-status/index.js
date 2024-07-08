@@ -44,7 +44,7 @@ export default async function (data, { MODULES }) {
     if (msgHash !== authorization) {
       res
         .status(401)
-        .send(
+        .json(
           teamsMessage(`提供された認証情報が無効です。正しい認証情報を提供して再度試してください。`)
         );
       return;
@@ -54,7 +54,7 @@ export default async function (data, { MODULES }) {
     const campaignID = text.match(/(?<![a-f0-9])[a-f0-9]{24}(?![a-f0-9])/g);
 
     if (!campaignID) {
-      res.status(400).send(teamsMessage(`入力データ内に接客サービスIDが見つかりませんでした。`));
+      res.status(400).json(teamsMessage(`入力データ内に接客サービスIDが見つかりませんでした。`));
       return;
     }
 
@@ -64,7 +64,7 @@ export default async function (data, { MODULES }) {
     } else if (text.includes('false')) {
       status = false;
     } else {
-      res.status(400).send(teamsMessage(`入力データ内にtrue/falseが見つかりませんでした。`));
+      res.status(400).json(teamsMessage(`入力データ内にtrue/falseが見つかりませんでした。`));
       return;
     }
 
@@ -76,7 +76,7 @@ export default async function (data, { MODULES }) {
     if (response.status === 200) {
       res
         .status(200)
-        .send(
+        .json(
           teamsMessage(
             `接客のステータスが変わりました。</br>接客ID：${campaignID[0]}</br>ステータス：${status}`
           )
@@ -86,6 +86,6 @@ export default async function (data, { MODULES }) {
     logger.error(e);
     res
       .status(400)
-      .send(teamsMessage(`無効なリクエストです。入力データを確認し、再度試してください。`));
+      .json(teamsMessage(`無効なリクエストです。入力データを確認し、再度試してください。`));
   }
 }
