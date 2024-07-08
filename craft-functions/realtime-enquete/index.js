@@ -60,29 +60,29 @@ export default async function (data, { MODULES }) {
 
   const body = req.body;
   if (typeof body !== 'object') {
-    res.status(400).send({ error: 'Invalid request body.' });
+    res.status(400).json({ error: 'Invalid request body.' });
     return;
   }
 
   const { action, enqueteId } = body;
   if (!action) {
-    res.status(400).send(noRequiredParamErr('action'));
+    res.status(400).json(noRequiredParamErr('action'));
     return;
   }
   if (!enqueteId) {
-    res.status(400).send(noRequiredParamErr('enqueteId'));
+    res.status(400).json(noRequiredParamErr('enqueteId'));
     return;
   }
 
   if (action !== 'read' && action !== 'write') {
-    res.status(400).send({ error: `Invalid action type: ${action}` });
+    res.status(400).json({ error: `Invalid action type: ${action}` });
     return;
   }
 
   if (action === 'read') {
     const { choiceIds } = body;
     if (!choiceIds) {
-      res.status(400).send(noRequiredParamErr('choiceIds'));
+      res.status(400).json(noRequiredParamErr('choiceIds'));
       return;
     }
 
@@ -92,13 +92,13 @@ export default async function (data, { MODULES }) {
       enqueteId,
       choiceIds,
     });
-    res.status(statusCode).send({ result, error });
+    res.status(statusCode).json({ result, error });
     return;
   }
 
   const { selectedChoiceId } = body;
   if (!selectedChoiceId) {
-    res.status(400).send(noRequiredParamErr('selectedChoiceId'));
+    res.status(400).json(noRequiredParamErr('selectedChoiceId'));
     return;
   }
 
@@ -108,5 +108,5 @@ export default async function (data, { MODULES }) {
     enqueteId,
     selectedChoiceId,
   });
-  res.status(statusCode).send({ result, error });
+  res.status(statusCode).json({ result, error });
 }
