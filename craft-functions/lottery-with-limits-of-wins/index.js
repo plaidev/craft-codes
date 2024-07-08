@@ -245,7 +245,7 @@ export default async function (data, { MODULES }) {
     if (PRIZES.length !== LIMITS.length) {
       const errorMessage = 'PRIZES and LIMITS must have the same length.';
       logger.error(errorMessage);
-      res.status(500).send({ error: errorMessage });
+      res.status(500).json({ error: errorMessage });
       return;
     }
 
@@ -254,14 +254,14 @@ export default async function (data, { MODULES }) {
     if (!lotteryKey || !userId) {
       const missingKeyError = `Missing ${!lotteryKey ? 'lotteryKey' : 'userId'}`;
       logger.warn(missingKeyError);
-      res.status(400).send({ error: `${missingKeyError} is required.` });
+      res.status(400).json({ error: `${missingKeyError} is required.` });
       return;
     }
 
     const hasParticipated = await hasParticipatedRecently({ lotteryKey, userId, kvs, logger });
     if (hasParticipated) {
       logger.debug(`User ${userId} has participated recently.`);
-      res.status(400).send({ error: 'User has participated recently.' });
+      res.status(400).json({ error: 'User has participated recently.' });
       return;
     }
 
@@ -284,7 +284,7 @@ export default async function (data, { MODULES }) {
       });
       await setParticipationTime({ lotteryKey, userId, kvs, logger });
       logger.debug(`User ${userId} did not win any prize.`);
-      res.status(200).send({ result: 'No prize won' });
+      res.status(200).json({ result: 'No prize won' });
       return;
     }
 
@@ -306,16 +306,16 @@ export default async function (data, { MODULES }) {
         logger,
       });
       logger.debug(`Prize ${prize} has reached its limit.`);
-      res.status(200).send({ result: 'No prize won' });
+      res.status(200).json({ result: 'No prize won' });
       return;
     }
 
     await sendKarteEvent({ userId, lotteryKey, prize, message: '', token, logger });
     await setParticipationTime({ lotteryKey, userId, kvs, logger });
     logger.debug(`User ${userId} won prize: ${prize}. ${LIMITS[index] - count} left.`);
-    res.status(200).send({ result: prize });
+    res.status(200).json({ result: prize });
   } catch (error) {
     logger.error(`Error in the lucky draw process: ${error.toString()}`);
-    res.status(500).send({ error: `Internal Server Error: ${error.message}` });
+    res.status(500).json({ error: `Internal Server Error: ${error.message}` });
   }
 }
