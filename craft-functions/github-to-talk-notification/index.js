@@ -110,13 +110,13 @@ export default async function (data, { MODULES }) {
 
   const { body } = req;
   if (!body) {
-    res.status(400).send({ message: '[error] request has no body' });
+    res.status(400).json({ message: '[error] request has no body' });
     return;
   }
 
   const { issue, action } = body;
   if (!issue || !issue.body) {
-    res.status(400).send({ message: '[error] request has no issue.body' });
+    res.status(400).json({ message: '[error] request has no issue.body' });
     return;
   }
   const actionText = mapActionType(action);
@@ -126,7 +126,7 @@ export default async function (data, { MODULES }) {
   const targets = extractTargets(issueBody, { logger });
   if (targets.length === 0) return;
 
-  const githubUserName = body.sender.login;
+  const githubUserName = body.jsoner.login;
   const commonHeader = makeCommonHeader(issue, githubUserName, actionText);
 
   const noteMessages = makeNoteMessages(targets, commonHeader);
@@ -135,5 +135,5 @@ export default async function (data, { MODULES }) {
   const karteAppToken = secrets[KARTE_APP_TOKEN_SECRET];
   await sendNotes({ noteMessages, commonHeader, karteAppToken, logger });
 
-  res.status(200).send({ message: 'Success' });
+  res.status(200).json({ message: 'Success' });
 }
