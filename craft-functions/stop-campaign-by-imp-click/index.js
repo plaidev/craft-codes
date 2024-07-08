@@ -27,11 +27,11 @@ export default async function (data, { MODULES }) {
   const { campaignId, limitNumber } = req.body;
 
   if (!campaignId.match(/^[a-f0-9]{24}$/)) {
-    res.status(400).send(paramErr('invalid campaignId.'));
+    res.status(400).json(paramErr('invalid campaignId.'));
     return;
   }
   if (!limitNumber) {
-    res.status(400).send(paramErr('limitNumber is required in the request body.'));
+    res.status(400).json(paramErr('limitNumber is required in the request body.'));
     return;
   }
 
@@ -45,7 +45,7 @@ export default async function (data, { MODULES }) {
     logger.debug('接客ID:', campaignId, ',回数:', incrementRes, ',上限:', limitNumber);
 
     if (incrementRes < limitNumber) {
-      res.status(200).send({ result: 'increment succeeded.' });
+      res.status(200).json({ result: 'increment succeeded.' });
       return;
     }
 
@@ -59,11 +59,11 @@ export default async function (data, { MODULES }) {
     });
     if (apiRes.status === 200) {
       logger.log('Campaign has been successfully stopped.');
-      res.status(200).send({ result: 'Campaign has been successfully stopped.' });
+      res.status(200).json({ result: 'Campaign has been successfully stopped.' });
     } else {
-      res.status(apiRes.status).send({ error: 'Failed to stop campaign.' });
+      res.status(apiRes.status).json({ error: 'Failed to stop campaign.' });
     }
   } catch (err) {
-    res.status(500).send({ error: `write answer error: ${err}` });
+    res.status(500).json({ error: `write answer error: ${err}` });
   }
 }
