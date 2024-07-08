@@ -82,16 +82,16 @@ async function handleSlackHook(data, { secret, kvs, logger }) {
   const { text, channel, thread_ts: thread, user: slackUserId } = event;
 
   if (channel !== SLACK_CHANNEL_ID) {
-    res.status(200).send({ message: 'Channel does not match' });
+    res.status(200).json({ message: 'Channel does not match' });
     return;
   }
 
   if (!thread) {
-    res.status(200).send({ message: 'No thread' });
+    res.status(200).json({ message: 'No thread' });
     return;
   }
   if (slackUserId === SLACK_APP_USER_ID) {
-    res.status(200).send({ message: 'Ignore Slack Bot message' });
+    res.status(200).json({ message: 'Ignore Slack Bot message' });
     return;
   }
 
@@ -99,7 +99,7 @@ async function handleSlackHook(data, { secret, kvs, logger }) {
   const v = await kvs.get({ key: userIdKey });
   if (isEmpty(v)) {
     logger.warn(`[Slack to KARTE] cannot find user_id in kvs. thread: ${thread}`);
-    res.status(404).send({ message: 'User ID not found in KVS' });
+    res.status(404).json({ message: 'User ID not found in KVS' });
     return;
   }
   const { userId } = v[userIdKey].value;
@@ -118,10 +118,10 @@ async function handleSlackHook(data, { secret, kvs, logger }) {
   try {
     await talk.postV2TalkMessageSendfromoperator(payload);
     logger.debug(`[Slack to KARTE] succeeded. user_id: ${userId}, sender_id: ${senderId}`);
-    res.status(200).send({ message: 'Success' });
+    res.status(200).json({ message: 'Success' });
   } catch (e) {
     logger.error(`[Slack to KARTE] send talk message error: ${e}`);
-    res.status(500).send({ message: 'Internal Server Error' });
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 }
 
@@ -132,7 +132,7 @@ async function handleTalkHook(data, { secret, kvs, logger }) {
 
   if (!['talk/message/sendFromOperator', 'talk/message/sendFromUser'].includes(eventType)) {
     logger.warn(`invalid event_type: ${eventType}`);
-    res.status(400).send({ message: 'Invalid event type' });
+    res.status(400).json({ message: 'Invalid event type' });
     return;
   }
 
@@ -140,7 +140,7 @@ async function handleTalkHook(data, { secret, kvs, logger }) {
   const { content, user_id: userId, visitor_id: visitorId, account_id: accountId } = d;
   const isIgnored = IGNORE_TALK_ACCOUNTS.split(',').some(a => a === accountId);
   if (isIgnored) {
-    res.status(200).send({ message: 'Ignored account' });
+    res.status(200).json({ message: 'Ignored account' });
     return;
   }
 
@@ -157,7 +157,7 @@ async function handleTalkHook(data, { secret, kvs, logger }) {
   const slackToken = secrets[SLACK_TOKEN_SECRET];
   const slack = new WebClient(slackToken);
   await sendToSlack(_userId, text, { kvs, slack, logger });
-  res.status(200).send({ message: 'Success' });
+  res.status(200).json({ message: 'Success' });
 }
 
 export default async function (data, { MODULES }) {
@@ -182,6 +182,6 @@ export default async function (data, { MODULES }) {
     await handleSlackHook(data, { secret, kvs, logger });
   } else {
     logger.warn(`invalid trigger. kind: ${kind}`);
-    res.status(400).send({ message: 'Invalid trigger' });
+    res.status(400).json({ message: 'Invalid trigger' });
   }
 }
