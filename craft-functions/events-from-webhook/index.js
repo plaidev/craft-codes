@@ -43,9 +43,9 @@ export default async function (data, { MODULES }) {
       },
     });
     logger.log(`Event sent successfully. event_name: ${EVENT_NAME}`);
-    res.status(200).send({ message: 'Success' });
+    res.status(200).json({ message: 'Success' });
   } catch (e) {
     logger.error(e);
-    res.status(500).send({ error: e.message });
+    res.status(500).json({ error: e.message });
   }
 }
