@@ -139,17 +139,17 @@ export default async function (data, { MODULES }) {
 
   const body = req.body;
   if (typeof body !== 'object') {
-    res.status(400).send({ error: 'Invalid request body.' });
+    res.status(400).json({ error: 'Invalid request body.' });
     return;
   }
 
   const { coupon_group_id: couponGroupId, user_id: userId } = body;
   if (!couponGroupId) {
-    res.status(400).send(noRequiredParamErr('coupon_group_id'));
+    res.status(400).json(noRequiredParamErr('coupon_group_id'));
     return;
   }
   if (!userId) {
-    res.status(400).send(noRequiredParamErr('user_id'));
+    res.status(400).json(noRequiredParamErr('user_id'));
     return;
   }
   const hashedUserId = generateHash(userId);
@@ -162,12 +162,12 @@ export default async function (data, { MODULES }) {
       logger,
     });
     if (fetchUserStatusError) {
-      res.status(500).send({ error: fetchUserStatusError });
+      res.status(500).json({ error: fetchUserStatusError });
       return;
     }
     if (couponAcquisitionDate && isFrequentAcquisition({ couponAcquisitionDate, logger })) {
       logger.debug(`too frequent acquisition error.`);
-      res.status(400).send({ error: 'too frequent acquisition error.' });
+      res.status(400).json({ error: 'too frequent acquisition error.' });
       return;
     }
   }
@@ -175,7 +175,7 @@ export default async function (data, { MODULES }) {
   const { couponIndex, error: incrementAndFetchCouponIndexError } =
     await incrementAndFetchCouponIndex({ couponGroupId, hashedUserId, counter, logger });
   if (incrementAndFetchCouponIndexError) {
-    res.status(500).send({ error: incrementAndFetchCouponIndexError });
+    res.status(500).json({ error: incrementAndFetchCouponIndexError });
     return;
   }
 
@@ -191,8 +191,8 @@ export default async function (data, { MODULES }) {
     logger,
   });
   if (fetchCouponCodeError) {
-    res.status(500).send({ error: fetchCouponCodeError });
+    res.status(500).json({ error: fetchCouponCodeError });
     return;
   }
-  res.status(200).send({ coupon_code: couponCode });
+  res.status(200).json({ coupon_code: couponCode });
 }
