@@ -57,7 +57,7 @@ export default async function (data, { MODULES }) {
   const validationError = validateData(req, logger);
   if (validationError) {
     const { status, message } = validationError;
-    res.status(status).send({ message });
+    res.status(status).json({ message });
     return;
   }
 
@@ -74,6 +74,6 @@ export default async function (data, { MODULES }) {
   const postReftableRowUpsertRes = await postReftableRowUpsert(logger, { visitorId, values });
   if (postReftableRowUpsertRes) {
     const { status, message } = postReftableRowUpsertRes;
-    res.status(status).send({ message });
+    res.status(status).json({ message });
   }
 }
