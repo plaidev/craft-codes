@@ -1,63 +1,69 @@
 import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const APP_TOKEN_SECRET = '<% APP_TOKEN_SECRET %>'; // シークレット名を指定する
-const COUNTER_KEY_PREFIX = '<% COUNTER_KEY_PREFIX %>'; // Craft Counterのkeyのprefix
+const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const COUNTER_KEY_PREFIX = '<% COUNTER_KEY_PREFIX %>';
 const karteApiClient = api('@dev-karte/v1.0#1ehqt16lkm2a8jw');
-const COUNTER_EXPIRE_SECONDS = Number('<% COUNTER_EXPIRE_SECONDS %>'); // 集計の保持期間（秒）
+const COUNTER_EXPIRE_SECONDS = Number('<% COUNTER_EXPIRE_SECONDS %>');
 
 function paramErr(msg) {
-  return { craft_status_code: 400, error: `"${msg}"` }
+  return { error: msg };
 }
 
 export default async function (data, { MODULES }) {
   const { initLogger, secret, counter } = MODULES;
-  const logger = initLogger({logLevel: LOG_LEVEL});
+  const logger = initLogger({ logLevel: LOG_LEVEL });
+  const { req, res } = data;
 
-  if (data.kind !== 'karte/track-hook') {
-    logger.error(new Error('invalid kind'));
-    return;
-  }
-  if (
-    data.jsonPayload.name !== 'craft-hook' ||
-    data.jsonPayload.data.plugin_name !== 'craft'
-  ) {
-    logger.error(new Error('invalid kind'));
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    res.status(204).end();
     return;
   }
 
-  const { campaignId, limitNumber } = data.jsonPayload.data.hook_data.body;
+  const { campaignId, limitNumber } = req.body;
 
   if (!campaignId.match(/^[a-f0-9]{24}$/)) {
-    return paramErr('invalid campaignId.');
+    res.status(400).json(paramErr('invalid campaignId.'));
+    return;
   }
-  if (!limitNumber) return paramErr('limitNumber is required in the request body.');
+  if (!limitNumber) {
+    res.status(400).json(paramErr('limitNumber is required in the request body.'));
+    return;
+  }
 
-  const key = COUNTER_KEY_PREFIX + '_' + campaignId;
+  const key = `${COUNTER_KEY_PREFIX}_${campaignId}`;
 
   try {
-    const incrementRes = await counter.increment({ 
-      key: key,
+    const incrementRes = await counter.increment({
+      key,
       secondsToExpire: COUNTER_EXPIRE_SECONDS,
-    }); 
-    logger.debug("接客ID:", campaignId,",回数:",incrementRes,",上限:",limitNumber); 
+    });
+    logger.debug('接客ID:', campaignId, ',回数:', incrementRes, ',上限:', limitNumber);
 
     if (incrementRes < limitNumber) {
-      return { craft_status_code: 200, result: "increment succeeded." };
+      res.status(200).json({ result: 'increment succeeded.' });
+      return;
     }
 
-    const secrets = await secret.get({ keys: [APP_TOKEN_SECRET] });
-    const token = secrets[APP_TOKEN_SECRET];
+    const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
+    const token = secrets[KARTE_APP_TOKEN_SECRET];
     karteApiClient.auth(token);
-  
-    const res = await karteApiClient.postV2betaActionCampaignToggleenabled({
+
+    const apiRes = await karteApiClient.postV2betaActionCampaignToggleenabled({
       id: campaignId,
-      enabled: false
+      enabled: false,
     });
-    if (res.status === 200) {
-        logger.log("Campaign has been successfully stopped.")
+    if (apiRes.status === 200) {
+      logger.log('Campaign has been successfully stopped.');
+      res.status(200).json({ result: 'Campaign has been successfully stopped.' });
+    } else {
+      res.status(apiRes.status).json({ error: 'Failed to stop campaign.' });
     }
   } catch (err) {
-    return { craft_status_code: 500, error: `write answer error: ${err}` };
+    res.status(500).json({ error: `write answer error: ${err}` });
   }
 }
