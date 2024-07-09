@@ -15,3 +15,7 @@ Craft FunctionsからInstagram基本表示APIを使って、KARTEのユーザー
 ## category
 
 Craft Functions,紐付けテーブル,接客サービス,Datahub,CRAFT_ENDPOINT
+
+## functionType
+
+http
