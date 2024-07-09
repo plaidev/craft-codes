@@ -14,15 +14,6 @@ export default async function (data, { MODULES }) {
   const headers = req.headers;
   const body = req.body;
 
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-
-  if (req.method === 'OPTIONS') {
-    res.status(204).end();
-    return;
-  }
-
   const secrets = await secret.get({
     keys: [KARTE_APP_SECRET_NAME, TEAMS_OUTGOING_WEBHOOK_SECRET_NAME],
   });
@@ -39,7 +30,7 @@ export default async function (data, { MODULES }) {
 
     const bufSecret = Buffer.from(teamsToken, 'base64');
     const msgBuf = Buffer.from(JSON.stringify(body), 'utf8');
-    const msgHash = `HMAC ${crypto.createHmac('sha256', bufSecret).update(msgBuf).digest('base64')}`;
+    const msgHash = crypto.createHmac('sha256', bufSecret).update(msgBuf).digest('base64');
 
     if (msgHash !== authorization) {
       res
