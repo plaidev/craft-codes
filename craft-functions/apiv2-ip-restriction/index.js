@@ -16,65 +16,70 @@
 //   }'
 
 // ログレベルを設定する。デバッグ時は DEBUG に設定する。
-const LOG_LEVEL = '<% LOG_LEVEL %>';
+const LOG_LEVEL = "<% LOG_LEVEL %>";
 
 // 許可対象のIPを配列形式で設定する
-const ALLOWED_IPS = '<% ALLOWED_IPS %>'.split(',').map(v => v.trim());
+const ALLOWED_IPS = "<% ALLOWED_IPS %>".split(",").map((v) => v.trim());
 
 // api に渡す spec uri
 // developers portal のリファレンスから確認する。
 // https://developers.karte.io/reference/post_v2-track-event-write
-const SPEC_URI = '@dev-karte/v1.0#e00ojitlkrqw8qf';
+const SPEC_URI = "@dev-karte/v1.0#4013y24lvyu582u";
 
 export default async function (data, { MODULES }) {
   const { initLogger, karteApiClientForCraftTypeApp } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
-  logger.debug(data);
+  const { req, res } = data;
+  logger.debug(req);
 
-  // validation 
-  const { kind, jsonPayload } = data;
-  if (kind !== "karte/track-hook") {
-    logger.warn("not track-hook");
-    return { craft_status_code: 400, message: "invalid request" };
-  }
+  const { headers, body } = req;
+  const ip = req.ip;
 
-  const { hook_data, plugin_name } = jsonPayload.data;
-  if (plugin_name !== "craft") {
-    logger.warn("not craft");
-    return { craft_status_code: 400, message: "invalid request" };
-  }
-
-  const { ip, body } = hook_data;
   if (!ALLOWED_IPS.includes(ip)) {
     logger.warn(`not allowedIP. ip: ${ip}`);
-    return { craft_status_code: 401, message: "unauthorized" };
+    res.status(401).json({ message: "unauthorized" });
+    return;
   }
   if (!body) {
     logger.warn(`body is null or undefined`);
-    return { craft_status_code: 400, message: "invalid body" };
+    res.status(400).json({ message: "invalid body" });
+    return;
   }
 
-  const { access_token, request_body } = body;
-  if (!access_token || !request_body) {
+  const token = headers.authorization?.split(" ")[1];
+  const { request_body: requestBody } = body;
+  if (!token || !requestBody) {
     logger.warn(`invalid body.`);
-    return { craft_status_code: 400, message: "invalid body" };
+    res.status(400).json({ message: "invalid body" });
+    return;
   }
 
-  // api client を初期化
   const track = karteApiClientForCraftTypeApp({
-    token: access_token,
-    specUri: SPEC_URI
+    token,
+    specUri: SPEC_URI,
   });
 
-  // track event write API を実行
   try {
-    const res = await track.postV2TrackEventWrite(request_body);
-    return res.data
-  } catch(err) {
+    const result = await track.postV2TrackEventWrite(requestBody);
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Content-Type, Authorization"
+    );
+
+    if (req.method === "OPTIONS") {
+      res.status(204).end();
+      return;
+    }
+
+    res.status(200).json(result.data);
+  } catch (err) {
     logger.error(err);
     if (err.status >= 400 && err.status < 500) {
-        return { craft_status_code: err.status, message: err.message };
+      res.status(err.status).json({ message: err.message });
+    } else {
+      res.status(500).json({ message: "internal server error" });
     }
-    return { craft_status_code: 500, message: "internal server error" };
   }
 }
