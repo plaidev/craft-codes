@@ -88,6 +88,16 @@ export default async function (data, { MODULES }) {
   const { initLogger, secret } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
+  const { req, res } = data;
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    res.status(204).end();
+    return;
+  }
+
   try {
     const secrets = await secret.get({
       keys: [KARTE_API_TOKEN_SECRET, LINE_CHANNEL_SECRET_NAME],
@@ -97,45 +107,33 @@ export default async function (data, { MODULES }) {
     const clientSecret = secrets[LINE_CHANNEL_SECRET_NAME];
     sdk.auth(karteToken);
 
-    const { authorizationCode, websiteUserId } = data.jsonPayload.data.hook_data.body;
+    const { authorizationCode, websiteUserId } = req.body;
 
     if (!authorizationCode || !websiteUserId) {
       logger.warn('Missing authorizationCode or websiteUserId');
-      return {
-        craft_status_code: 400,
-        body: JSON.stringify({ message: 'Missing authorizationCode or websiteUserId' }),
-      };
+      res.status(400).json({ message: 'Missing authorizationCode or websiteUserId' });
+      return;
     }
 
     const tokenData = await fetchTokens(authorizationCode, clientSecret, logger);
     if (!tokenData) {
-      return {
-        craft_status_code: 400,
-        body: JSON.stringify({ message: 'Error in fetchTokens' }),
-      };
+      res.status(400).json({ message: 'Error in fetchTokens' });
+      return;
     }
 
     const { id_token: idToken } = tokenData;
 
     const retrievedLineId = await verifyIdToken(idToken, logger);
     if (!retrievedLineId) {
-      return {
-        craft_status_code: 401,
-        body: JSON.stringify({ message: 'Error in verifyIdToken' }),
-      };
+      res.status(401).json({ message: 'Error in verifyIdToken' });
+      return;
     }
 
     await upsertKarteRefTable(websiteUserId, retrievedLineId, logger);
 
-    return {
-      craft_status_code: 200,
-      body: JSON.stringify({ message: 'Data inserted successfully' }),
-    };
+    res.status(200).json({ message: 'Data inserted successfully' });
   } catch (err) {
     logger.error(`Error in lineid mapping process: ${err.toString()}`);
-    return {
-      craft_status_code: 500,
-      body: JSON.stringify({ message: 'Internal Server Error' }),
-    };
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 }
