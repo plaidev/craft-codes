@@ -14,3 +14,7 @@ KARTE Talkのエンドユーザーとのチャットについて、オペレー�
 ## category
 
 Slack,Talk,HOOK_V2,CRAFT_ENDPOINT
+
+## functionType
+
+http
