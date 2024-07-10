@@ -15,3 +15,7 @@ Webサイトのサーバー負荷を軽減するための「Web待合室」で�
 ## category
 
 Craft Functions,Craft Sites,Craft KVS,Craft Counter,CRAFT_ENDPOINT
+
+## functionType
+
+http
