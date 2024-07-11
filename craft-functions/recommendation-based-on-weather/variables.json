@@ -1,0 +1,30 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "DEBUG",
+    "type": "string",
+    "required": true,
+    "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
+  },
+  {
+    "name": "AZURE_MAPS_SUBSCRIPTION_KEY",
+    "value": "AZURE_MAPS_SUBSCRIPTION_KEY",
+    "type": "string",
+    "required": true,
+    "description": "Azure Maps APIキーです。"
+  },
+  {
+    "name": "GOOGLE_API_KEY",
+    "value": "GOOGLE_API_KEY",
+    "type": "string",
+    "required": true,
+    "description": "Google APIキーです。"
+  },
+  {
+    "name": "DATASET_NAME",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KVSに格納されたデータセット名です。"
+  }
+]
