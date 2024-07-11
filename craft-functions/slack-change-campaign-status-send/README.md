@@ -14,3 +14,7 @@ Slackアプリからスラッシュコマンドで接客IDを投稿し、公開�
 ## category
 
 KARTE Action,Craft Functions,Slack,CRAFT_ENDPOINT
+
+## functionType
+
+http
