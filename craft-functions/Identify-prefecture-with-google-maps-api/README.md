@@ -14,3 +14,7 @@ https://solution.karte.io/blog/2024/02/identify-prefecture-with-google-maps-api
 ## category
 
 Google Maps API,Craft Functions,KARTEイベント,接客サービス,CRAFT_ENDPOINT
+
+## functionType
+
+http
