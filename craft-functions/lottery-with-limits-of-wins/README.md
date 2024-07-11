@@ -15,3 +15,7 @@ KARTE の接客サービスと Craft を組み合わせて、上限設定付き�
 ## category
 
 Craft Functions,Craft KVS,Craft Counter,KARTEイベント,CRAFT_ENDPOINT
+
+## functionType
+
+http
