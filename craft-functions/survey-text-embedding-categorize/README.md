@@ -15,3 +15,7 @@ https://solution.karte.io/blog/2024/05/survey-text-embedding-categorize/
 ## category
 
 Craft Functions,Craft AI Modules,LLM
+
+## functionType
+
+http
