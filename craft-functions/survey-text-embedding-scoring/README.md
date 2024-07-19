@@ -13,4 +13,8 @@ https://solution.karte.io/blog/2024/04/survey-text-embedding-scoring
 
 ## category
 
-Craft Functions,Craft AI Modules,LLM
+Craft Functions,Craft AI Modules
+
+## functionType
+
+http

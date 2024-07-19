@@ -116,6 +116,16 @@ async function scoring(scoringAxises, inputs, sdk) {
 export default async function (data, { MODULES }) {
   const { initLogger, secret, karteApiClientForCraftTypeApp } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
+  const { req, res } = data;
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    res.status(204).end();
+    return;
+  }
+
   try {
     // secretsの取得
     const secrets = await secret.get({
@@ -143,7 +153,10 @@ export default async function (data, { MODULES }) {
 
     // スコアをスプレッドシートに出力
     await outputData(sheets, scores);
+
+    res.status(200).json({ message: 'Success' });
   } catch (e) {
     logger.log(e);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 }
