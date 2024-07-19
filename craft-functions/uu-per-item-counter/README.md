@@ -14,3 +14,7 @@ Webサイト上で「いま何人がこの商品を見ています」と表示�
 ## category
 
 施策実装,CRAFT_ENDPOINT
+
+## functionType
+
+http
