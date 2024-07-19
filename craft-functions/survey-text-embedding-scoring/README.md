@@ -2,7 +2,7 @@
 
 ## title
 
-自由回答テキストに含まれる感情を Text Embedding で成分ごとにスコア化する
+自由回答テキストに含まれる文意を Text Embedding で成分ごとにスコア化する
 
 ## blogUrl
 https://solution.karte.io/blog/2024/04/survey-text-embedding-scoring
