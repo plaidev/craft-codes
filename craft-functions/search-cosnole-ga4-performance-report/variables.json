@@ -1,0 +1,59 @@
+[
+    {
+      "name": "LOG_LEVEL",
+      "value": "WARN",
+      "type": "string",
+      "required": true,
+      "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+    },
+    {
+      "name": "SERVICE_ACCOUNT_KEY_SECRET",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "利用するGoogleサービスアカウントのJSONキーを登録したシークレットの名前です"
+    },
+    {
+      "name": "SPREADSHEET_ID",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "対象GoogleスプレッドシートのIDです"
+    },
+    {
+      "name": "SHEET_NAME",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "対象Googleスプレッドシートのシート名です"
+    },
+    {
+      "name": "SITE_URL",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "集計対象となるWebサイトのURLです"
+    },
+    {
+      "name": "DAY_BEFORE_END_DATE",
+      "value": "",
+      "type": "number",
+      "required": true,
+      "description": "集計の終了日から何日前の日付を開始日として使用するかを指定します"
+    },
+    {
+      "name": "ROW_LIMIT",
+      "value": "",
+      "type": "number",
+      "required": true,
+      "description": "スプレッドシートに出力する集計結果の最大行数です"
+    },
+    {
+      "name": "GA4_PROPERTY_ID",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "集計対象となるGA4のプロパティIDです"
+    }
+]
+  
