@@ -1,0 +1,30 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "RANKING_SITE_NAME",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "ランキングページをホスティングするCraft Sitesのサイト名です"
+  },
+  {
+    "name": "RANKING_JSON_PATH",
+    "value": "/item-ranking-page/ranking.json",
+    "type": "string",
+    "required": true,
+    "description": "更新対象となるランキング管理用JSONファイル(ranking.json)のパスです"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+  }
+]
