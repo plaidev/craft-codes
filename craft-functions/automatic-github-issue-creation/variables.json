@@ -1,0 +1,31 @@
+[
+    {
+      "name": "LOG_LEVEL",
+      "value": "WARN",
+      "type": "string",
+      "required": true,
+      "description": "ERROR/WARN/INFO/DEBUGから出力するログレベルを指定します"
+    },
+    {
+      "name": "GITHUB_ACCESS_TOKEN",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "GitHubへのアクセス認証に利用する、Personal access tokensを登録したシークレット名を指定します"
+    },
+    {
+      "name": "GITHUB_ACCOUNT_NAME",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "isseueを立てるアカウント名を指定します"
+    },
+    {
+      "name": "GITHUB_REPOSITORY_NAME",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "issueを立てるリポジトリ名を指定します"
+    }
+]
+  
