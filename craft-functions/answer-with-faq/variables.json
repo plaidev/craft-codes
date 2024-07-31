@@ -1,0 +1,44 @@
+[
+    {
+      "name": "LOG_LEVEL",
+      "value": "WARN",
+      "type": "string",
+      "required": true,
+      "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+    },
+    {
+      "name": "KARTE_AI_APP_TOKEN_SECRET",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "CRAFTタイプのKARTE API v2アプリのtokenを登録したシークレット名です"
+    },
+    {
+      "name": "KARTE_TALK_APP_TOKEN_SECRET",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "BOTタイプのKARTE API v2アプリのtokenを登録したシークレット名です"
+    },
+    {
+      "name": "HELP_MESSAGE",
+      "value": "解決しない場合は右記までお問い合わせください。https://example.com/HELP_MESSAGE",
+      "type": "string",
+      "required": true,
+      "description": "Craft AI Modulesで解決できなかった場合に送信するチャットメッセージです"
+    },
+    {
+      "name": "BOT_ID",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "エンドユーザーに回答を送信する際のBOTの名前です"
+    },
+    {
+      "name": "MODEL",
+      "value": "gpt4",
+      "type": "string",
+      "required": true,
+      "description": "Craft AI ModulesのMODELです"
+    }
+  ]
