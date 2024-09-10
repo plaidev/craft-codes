@@ -11,7 +11,7 @@
     "value": 2592000,
     "type": "number",
     "required": true,
-    "description": "Craft Counterから自動削除までの時間です。時間（分）で指定してください。"
+    "description": "Craft Counterから自動削除までの時間です。時間（秒）で指定してください。"
   },
   {
     "name": "COUNTER_KEY_PREFIX",
