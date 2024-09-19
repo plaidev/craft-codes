@@ -1,20 +1,20 @@
-const ALLOWED_METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE"];
+const ALLOWED_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 
 // Function自体の再実行も考慮したTimeout時間（秒）. 無限に再実行されるのを防ぐ. ex 60 * 10 = 10分
 const PER_DATA_TIMEOUT_SEC = Number('<% PER_DATA_TIMEOUT_SEC %>');
-const LOG_LEVEL = "<% LOG_LEVEL %>"; // DEBUG, INFO, WARN, ERROR
+const LOG_LEVEL = '<% LOG_LEVEL %>'; // DEBUG, INFO, WARN, ERROR
 
 function isValidUrl(url) {
   const regex = /^(https?:\/\/[^\s/:?#]+)([^\s?#]*)(\?[^#]*)?(#.*)?$/;
   const match = url.match(regex);
 
   if (match) {
+    // URLの各要素をvalidationに利用する場合は、適宜カスタマイズしてください
     // const protocolAndDomain = match[1]; // "https://example.com"
     // const path = match[2]; // "/path/to/something"
-    const query = match[3]; // "?query=param"
-    const fragment = match[4]; // "#fragment"
-
-    return query === undefined && fragment === undefined;
+    // const query = match[3]; // "?query=param"
+    // const fragment = match[4]; // "#fragment"
+    return true;
   }
 
   return false;
@@ -38,29 +38,21 @@ async function requestData({
   }
 
   const requestOptions = {
-    method: method,
+    method,
     headers: new Headers(headers),
   };
 
-  if (method === "GET") {
+  if (method === 'GET') {
     const urlParams = new URLSearchParams(data);
     url = `${url}?${urlParams}`;
-  } else if (
-    method === "POST" ||
-    method === "PUT" ||
-    method === "PATCH" ||
-    method === "DELETE"
-  ) {
+  } else if (method === 'POST' || method === 'PUT' || method === 'PATCH' || method === 'DELETE') {
     requestOptions.body = JSON.stringify(data);
   }
 
   const response = await fetch(url, requestOptions);
 
   if (!response.ok) {
-    if (
-      (response.status >= 500 && response.status < 600) ||
-      [408, 429].includes(response.status)
-    ) {
+    if ((response.status >= 500 && response.status < 600) || [408, 429].includes(response.status)) {
       throw new RetryableError(
         `[${campaignId}][${id}] Request failed with status ${response.status}`,
         PER_DATA_TIMEOUT_SEC
@@ -75,17 +67,15 @@ async function requestData({
 }
 
 export default async function (data, { MODULES }) {
-  const { initLogger,  RetryableError } = MODULES;
+  const { initLogger, RetryableError } = MODULES;
   const { id } = data;
   const { method, url, hookData, headers, campaignId } = data.jsonPayload.data;
   const logger = initLogger({
-    logLevel: ["DEBUG", "INFO", "WARN", "ERROR"].includes(LOG_LEVEL)
-      ? LOG_LEVEL
-      : "ERROR",
+    logLevel: ['DEBUG', 'INFO', 'WARN', 'ERROR'].includes(LOG_LEVEL) ? LOG_LEVEL : 'ERROR',
   });
 
-  if (data.kind !== "karte/action") {
-    logger.error("invalid kind. expected: karte/action", data);
+  if (data.kind !== 'karte/action') {
+    logger.error('invalid kind. expected: karte/action', data);
     return;
   }
 
@@ -98,9 +88,5 @@ export default async function (data, { MODULES }) {
     id,
     RetryableError,
   });
-  logger.debug(
-    `[${campaignId}][${id}] Webhook execution completed. status: ${resStatus}`
-  );
-
-  return;
+  logger.debug(`[${campaignId}][${id}] Webhook execution completed. status: ${resStatus}`);
 }
