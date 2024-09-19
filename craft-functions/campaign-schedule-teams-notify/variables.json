@@ -1,0 +1,30 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "API v2 アプリのアクセストークンを登録したシークレットの名前です。"
+  },
+  {
+    "name": "TEAMS_INCOMING_WEBHOOK",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Teamsのチームに追加したIncoming Webhookアプリで作成したURLです。"
+  },
+  {
+    "name": "PROJECT_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "本機能を利用するKARTEプロジェクトIDです。"
+  }
+]
