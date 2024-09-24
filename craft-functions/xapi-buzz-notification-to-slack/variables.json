@@ -1,0 +1,58 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します。"
+  },
+  {
+    "name": "SLACK_CHANNEL_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "通知するSlackのチャンネルIDです。"
+  },
+  {
+    "name": "SLACK_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Slack OAuthトークンを登録したシークレットの名前です。"
+  },
+  {
+    "name": "X_BEARER_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "XのDeveloper Portalで生成したBearer Tokenを登録したシークレットの名前です。"
+  },
+  {
+    "name": "SEARCH_WORD",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Xで取得したい検索ワードです。"
+  },
+  {
+    "name": "MINUTES_AGO",
+    "value": 60,
+    "type": "number",
+    "required": true,
+    "description": "「何分前から現在まで」のXの投稿数を集計するかを、分で指定します。"
+  },
+  {
+    "name": "POST_THRESHOLD",
+    "value": 1000,
+    "type": "number",
+    "required": true,
+    "description": "検索にヒットした投稿件数の最小値を指定します。指定した件数以上にヒットしたときにSlackに通知します。"
+  },
+  {
+    "name": "MAX_RESULTS",
+    "value": 100,
+    "type": "number",
+    "required": true,
+    "description": "XのAPIの一度のリクエストで取得する投稿数を指定します。"
+  }
+]
