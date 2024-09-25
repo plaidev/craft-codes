@@ -1,0 +1,23 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "ALLOWED_ORIGIN",
+    "value": "https://xxx.yyy.zzz",
+    "type": "string",
+    "required": true,
+    "description": "ファンクションへのHTTPリクエストを許可するオリジンです。"
+  },
+  {
+    "name": "SHARED_KEY",
+    "value": "xxx",
+    "type": "string",
+    "required": true,
+    "description": "ファンクションへのHTTPリクエストの際に利用する簡易的なキーです。フロントエンドはSites Authenticationを利用するようにしてください。"
+  }
+]
