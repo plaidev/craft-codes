@@ -1,11 +1,11 @@
-import crypto from 'crypto';
-import jwt from 'jsonwebtoken';
+import crypto from "crypto";
+import jwt from "jsonwebtoken";
 
 // Constants
-const LOG_LEVEL = '<% LOG_LEVEL %>';
-const JWT_SECRET = '<% JWT_SECRET %>';
-const EXPIRE_SEC = parseInt('<% EXPIRE_SEC %>', 10) || 3600;
-const SOLUTION_ID = '<% SOLUTION_ID %>';
+const LOG_LEVEL = "<% LOG_LEVEL %>";
+const JWT_SECRET = "<% JWT_SECRET %>";
+const EXPIRE_SEC = parseInt("<% EXPIRE_SEC %>", 10) || 3600;
+const SOLUTION_ID = "<% SOLUTION_ID %>";
 
 /**
  * Hashes the password using SHA-256.
@@ -13,9 +13,7 @@ const SOLUTION_ID = '<% SOLUTION_ID %>';
  * @returns {string} The hashed password.
  */
 function hashPassword(password) {
-  const hash = crypto.createHash('sha256');
-  hash.update(password);
-  return hash.digest('hex');
+  return crypto.createHash("sha256").update(password).digest("hex");
 }
 
 /**
@@ -38,24 +36,13 @@ function generateToken({ payload, secret, expiresIn }) {
 function verifyToken(token, secret) {
   try {
     const decoded = jwt.verify(token, secret);
-    if (Date.now() >= decoded.exp * 1000) {
-      return { authenticated: false, error: 'Authentication error: Token expired' };
-    }
-    return { authenticated: true };
+    return { authenticated: Date.now() < decoded.exp * 1000 };
   } catch (error) {
-    return { authenticated: false, error: 'Authentication error: Invalid token' };
+    return {
+      authenticated: false,
+      error: "Authentication error: Invalid token",
+    };
   }
-}
-
-/**
- * Generate a hash prefix to be assigned to the kvs key.
- * @param {string} key - The key without hash prefix
- * @returns {string} - The generated hash prefix.
- */
-function generateHashPrefix(key) {
-  const hashBase64 = crypto.createHash('sha256').update(key).digest('base64');
-  const prefix = hashBase64.substring(4, 12);
-  return prefix;
 }
 
 /**
@@ -64,9 +51,12 @@ function generateHashPrefix(key) {
  * @returns {string} -  The generated kvs key.
  */
 function kvsKey(username) {
-  const solutionId = SOLUTION_ID;
-  const hash = generateHashPrefix(`${solutionId}-${username}`);
-  return `${hash}-${solutionId}-${username}`;
+  const hash = crypto
+    .createHash("sha256")
+    .update(`${SOLUTION_ID}-${username}`)
+    .digest("base64")
+    .substring(4, 12);
+  return `${hash}-${SOLUTION_ID}-${username}`;
 }
 
 /**
@@ -83,23 +73,15 @@ async function signin({ username, password, kvs, logger, secret }) {
   const key = kvsKey(username);
   const v = await kvs.get({ key });
 
-  if (!v[key]) {
-    logger.warn(`User ${username} does not exist`);
-    return { error: 'Invalid username or password' };
-  }
-  const user = v[key].value;
-
-  const hashedPassword = hashPassword(password);
-  if (user.password !== hashedPassword) {
-    logger.warn(`Invalid password for user ${username}`);
-    return { error: 'Invalid username or password' };
+  if (!v[key] || v[key].value.password !== hashPassword(password)) {
+    logger.warn(`Authentication failed for user ${username}`);
+    return { error: "Invalid username or password" };
   }
 
   const token = generateToken({
-    payload: { username, role: user.role },
+    payload: { username, role: v[key].value.role },
     secret,
     expiresIn: EXPIRE_SEC,
-    logger,
   });
   logger.debug(`User authenticated successfully`);
 
@@ -107,89 +89,89 @@ async function signin({ username, password, kvs, logger, secret }) {
 }
 
 /**
- * Verifies the provided token.
- * @param {object} params - The function parameters.
- * @param {string} params.token - The token to verify.
- * @param {string} params.secret - The secret key used to sign the token.
- * @param {object} params.logger - The logger object.
- * @returns {{authenticated: boolean, error?: string}} The verification result.
- */
-function verify({ token, secret, logger }) {
-  const result = verifyToken(token, secret);
-  if (result.error) {
-    logger.warn(`Token verification failed: ${result.error}`);
-  }
-  return result;
-}
-
-/**
  * Main function to handle the authentication process.
  * @param {object} data - The input data.
  * @param {object} MODULES - The modules object.
- * @returns {Promise<{craft_status_code: number, result: object} |
- *                   {craft_status_code: number, error: string}>}
- *          The result object containing the status code and either the authentication
- *          result or an error message.
+ * @returns {Promise<void>}
  */
 export default async function (data, { MODULES }) {
   const { initLogger, kvs, secret: craftSecrets } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
   const secrets = await craftSecrets.get({ keys: [JWT_SECRET] });
   const secret = secrets[JWT_SECRET];
+  const { req, res } = data;
+
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+  if (req.method === "OPTIONS") {
+    res.status(204).end();
+    return;
+  }
 
   try {
-    logger.debug('Starting the authentication process');
+    logger.debug("Starting the authentication process");
 
-    const { jsonPayload } = data;
-    const { body } = jsonPayload?.data?.hook_data || {};
-    const { action, username, password, token } = body || {};
+    const { action, username, password } = req.body || {};
 
-    if (!body || !action) {
-      const missingField = !body ? 'request body' : 'action';
-      logger.warn(`Missing ${missingField}`);
-      return { craft_status_code: 400, error: `Missing ${missingField}` };
+    if (!action) {
+      logger.warn("Missing action");
+      res.status(400).json({ error: "Missing action" });
+      return;
     }
 
     switch (action) {
-      case 'signin': {
-        if (!username || !password) {
-          return { craft_status_code: 400, error: "Missing 'username' or 'password' parameter" };
+      case "signin": {
+        if (
+          !username ||
+          !password ||
+          typeof username !== "string" ||
+          typeof password !== "string"
+        ) {
+          logger.warn("Invalid 'username' or 'password' parameter");
+          res
+            .status(400)
+            .json({ error: "Invalid 'username' or 'password' parameter" });
+          return;
         }
-        if (typeof username !== 'string') {
-          return { craft_status_code: 400, error: "Invalid 'username' parameter type" };
-        }
-        if (typeof password !== 'string') {
-          return { craft_status_code: 400, error: "Invalid 'password' parameter type" };
-        }
-        const { token: generatedToken, error: signinError } = await signin({
+        const { token, error } = await signin({
           username,
           password,
           kvs,
           logger,
           secret,
         });
-        if (signinError) {
-          return { craft_status_code: 401, error: signinError };
+        if (error) {
+          res.status(401).json({ error });
+          return;
         }
-        return { craft_status_code: 200, result: { token: generatedToken } };
+        res.status(200).json({ token });
+        break;
       }
 
-      case 'verify': {
+      case "verify": {
+        const token = req.headers.authorization?.split(" ")[1];
         if (!token) {
-          return { craft_status_code: 400, error: "Missing 'token' parameter" };
+          logger.warn("Missing 'token' parameter");
+          res.status(400).json({ error: "Missing 'token' parameter" });
+          return;
         }
-        const { authenticated, error: verifyError } = verify({ token, secret, logger });
-        if (verifyError) {
-          return { craft_status_code: 401, error: verifyError };
+        const { authenticated, error } = verifyToken(token, secret);
+        if (error) {
+          res.status(401).json({ error });
+          return;
         }
-        return { craft_status_code: 200, result: { authenticated } };
+        res.status(200).json({ authenticated });
+        break;
       }
 
       default:
-        return { craft_status_code: 400, error: "Invalid 'action' parameter" };
+        logger.warn("Invalid 'action' parameter");
+        res.status(400).json({ error: "Invalid 'action' parameter" });
     }
   } catch (error) {
     logger.error(`Error in authentication process: ${error.toString()}`);
-    return { craft_status_code: 500, error: 'Internal Server Error' };
+    res.status(500).json({ error: "Internal Server Error" });
   }
 }
