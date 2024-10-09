@@ -14,3 +14,7 @@ https://solution.karte.io/blog/2023/12/reftable-update-from-google-form
 ## category
 
 紐付けテーブル,Craft Functions,Google Form,CRAFT_ENDPOINT
+
+## functionType
+
+http
