@@ -14,3 +14,7 @@ https://solution.karte.io/blog/2024/03/get-pollen-info-with-google-pollen-api
 ## category
 
 Google Maps Platform,Pollen API,Craft Functions,KARTEイベント,接客サービス,CRAFT_ENDPOINT
+
+## functionType
+
+http
