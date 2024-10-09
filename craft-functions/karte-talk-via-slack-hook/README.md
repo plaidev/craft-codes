@@ -2,7 +2,7 @@
 
 ## title
 
-KARTE Talkのエンドユーザーとのチャット対応をSlack経由でできるようにする
+[Talk→Slack]KARTE Talkのエンドユーザーとのチャット対応をSlack経由でできるようにする
 
 ## blogUrl
 https://solution.karte.io/blog/2024/02/karte-talk-via-slack

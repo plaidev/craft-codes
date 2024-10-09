@@ -1,21 +1,11 @@
-import api from 'api';
 import { WebClient } from '@slack/web-api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const SLACK_CHANNEL_ID = '<% SLACK_CHANNEL_ID %>';
 const SLACK_TOKEN_SECRET = '<% SLACK_TOKEN_SECRET %>';
-const SLACK_APP_USER_ID = '<% SLACK_APP_USER_ID %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
-const KARTE_BOT_ID = '<% KARTE_BOT_ID %>';
 const IGNORE_TALK_ACCOUNTS = '<% IGNORE_TALK_ACCOUNTS %>';
 const SOLUTION_ID = '<% SOLUTION_ID %>';
 const KVS_EXPIRE_MINUTES = Number('<% KVS_EXPIRE_MINUTES %>');
-
-const SLACK_KARTE_ACCOUNT_ID_MAP = {
-  default: KARTE_BOT_ID,
-  // SlackのメンバーID: 'KARTE TalkのオペレーターID' の組を登録すると、対応するオペレーターからの返信としてメッセージを送信できる
-  // Uxxxxx: 'xxxxxxxxx',
-};
 
 function kvsKeyForUserId(thread) {
   return `${SOLUTION_ID}-slack_threadid_${thread}`;
@@ -69,50 +59,6 @@ async function sendToSlack(userId, text, { kvs, slack, logger }) {
   ]);
 }
 
-// Slack to KARTE
-async function handleSlackHook(data, { secret, kvs, logger }) {
-  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  const karteAppToken = secrets[KARTE_APP_TOKEN_SECRET];
-
-  const talk = api('@dev-karte/v1.0#br7wylg4sjwm0');
-  talk.auth(karteAppToken);
-
-  const hookDataBody = data.jsonPayload.data.hook_data.body;
-  const { event } = hookDataBody;
-  const { text, channel, thread_ts: thread, user: slackUserId } = event;
-
-  if (channel !== SLACK_CHANNEL_ID) return;
-
-  if (!thread) return;
-  if (slackUserId === SLACK_APP_USER_ID) return; // Slack Bot自身の投稿は無視する
-
-  const userIdKey = kvsKeyForUserId(thread);
-  const v = await kvs.get({ key: userIdKey });
-  if (isEmpty(v)) {
-    logger.warn(`[Slack to KARTE] cannot find user_id in kvs. thread: ${thread}`);
-    return;
-  }
-  const { userId } = v[userIdKey].value;
-
-  let senderId = SLACK_KARTE_ACCOUNT_ID_MAP.default;
-  // Slack IDに対応するアカウントIDがあればセットする
-  if (SLACK_KARTE_ACCOUNT_ID_MAP[slackUserId]) {
-    senderId = SLACK_KARTE_ACCOUNT_ID_MAP[slackUserId];
-  }
-
-  const payload = {
-    content: { text },
-    sender_id: senderId,
-    user_id: userId,
-  };
-  try {
-    await talk.postV2TalkMessageSendfromoperator(payload);
-    logger.debug(`[Slack to KARTE] succeeded. user_id: ${userId}, sender_id: ${senderId}`);
-  } catch (e) {
-    logger.error(`[Slack to KARTE] send talk message error: ${e}`);
-  }
-}
-
 // KARTE to Slack
 async function handleTalkHook(data, { secret, kvs, logger }) {
   const eventType = data.jsonPayload.event_type;
@@ -148,9 +94,7 @@ export default async function (data, { MODULES }) {
 
   if (data.kind === 'karte/apiv2-hook') {
     await handleTalkHook(data, { secret, kvs, logger });
-  } else if (data.kind === 'karte/track-hook' && data.jsonPayload.name === 'craft-hook') {
-    await handleSlackHook(data, { secret, kvs, logger });
   } else {
-    logger.warn(`invalid trigger. kind: ${data.kind}, jsonPayload.name: ${data.jsonPayload.name}`);
+    logger.warn(`invalid trigger. kind: ${data.kind}`);
   }
 }
