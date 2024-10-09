@@ -14,3 +14,7 @@ https://solution.karte.io/blog/2024/01/webhook-event
 ## category
 
 外部連携,Craft Functions,CRAFT_ENDPOINT
+
+## functionType
+
+http
