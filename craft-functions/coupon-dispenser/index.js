@@ -12,6 +12,7 @@ function generateHash(str) {
 
 function generateHashPrefix(key) {
   const hashBase64 = crypto.createHash('sha256').update(key).digest('base64');
+  // 辞書順を分散させるためハッシュ値の5〜12文字目を使用
   const prefix = hashBase64.substring(4, 12);
   return prefix;
 }
@@ -24,22 +25,22 @@ function kvsKey(recordName) {
 
 function couponCodeKey({ couponGroupId, couponIndex }) {
   const recordName = `code_${couponGroupId}_${couponIndex}`;
-  return kvsKey(recordName);
+  return kvsKey(recordName); // 例: `xxx-coupon-code_shop001_42`
 }
 
 function couponUserStatusKey({ couponGroupId, hashedUserId }) {
   const recordName = `user_${couponGroupId}_${hashedUserId}`;
-  return kvsKey(recordName);
+  return kvsKey(recordName); // 例: `xxxx-coupon-user_shop001_uuuuuuuuu`
 }
 
 function couponIndexKey({ couponGroupId }) {
-  return `${SOLUTION_ID}-index_${couponGroupId}`;
+  return `${SOLUTION_ID}-index_${couponGroupId}`; // 例: coupon-index_shop001
 }
 
 function isFrequentAcquisition({ couponAcquisitionDate, logger }) {
   if (!couponAcquisitionDate) return false;
   const currentDate = new Date();
-  const diff = differenceInMinutes(currentDate, new Date(couponAcquisitionDate), 'floor');
+  const diff = differenceInMinutes(currentDate, new Date(couponAcquisitionDate), 'floor'); // 端数は切り捨て. 最小値は0になる
   logger.debug(
     `couponAcquisitionDate: ${couponAcquisitionDate}, currentDate: ${currentDate.toISOString()}, diff: ${diff}`
   );
@@ -80,6 +81,7 @@ async function updateUserStatus({ couponGroupId, hashedUserId, kvs, logger }) {
       `updateUserStatus succeeded. key: ${key}, couponAcquisitionDate: ${couponAcquisitionDate}`
     );
   } catch (err) {
+    // エラー時もクーポン払い出し処理自体は止めず、エラーログ出力だけ行う
     logger.error(
       `fetchUserStatus error. couponGroupId: ${couponGroupId}, hashedUserId: ${hashedUserId}, key: ${key}, couponAcquisitionDate: ${couponAcquisitionDate}, error: ${err.toString()}`
     );
@@ -91,6 +93,7 @@ async function fetchUserStatus({ couponGroupId, hashedUserId, kvs, logger }) {
   try {
     const v = await kvs.get({ key });
 
+    // 初取得の場合はkvs上にレコードが存在しないのでnullを返す
     if (!v || !v[key]) {
       return { couponAcquisitionDate: null };
     }
@@ -108,6 +111,7 @@ async function incrementAndFetchCouponIndex({ couponGroupId, hashedUserId, count
   const key = couponIndexKey({ couponGroupId });
   try {
     const couponIndex = await counter.increment({
+      // keyが存在しない場合は0とみなされ、最初は1を返す
       key,
       secondsToExpire: COUPON_INDEX_EXPIRE_SECONDS,
     });
@@ -152,8 +156,9 @@ export default async function (data, { MODULES }) {
     res.status(400).json(noRequiredParamErr('user_id'));
     return;
   }
-  const hashedUserId = generateHash(userId);
+  const hashedUserId = generateHash(userId); // リスク軽減のためにuser_idはハッシュ化してから扱う
 
+  // 前回の取得から一定時間経過しているかチェック
   if (FREQUENT_ACQUISITION_ERROR_MINUTES > 0) {
     const { couponAcquisitionDate, error: fetchUserStatusError } = await fetchUserStatus({
       couponGroupId,
@@ -183,6 +188,7 @@ export default async function (data, { MODULES }) {
     await updateUserStatus({ couponGroupId, hashedUserId, kvs, logger });
   }
 
+  // クーポン番号の取得
   const { couponCode, error: fetchCouponCodeError } = await fetchCouponCode({
     couponGroupId,
     couponIndex,
