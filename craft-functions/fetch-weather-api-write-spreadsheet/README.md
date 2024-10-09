@@ -13,4 +13,8 @@ Weather API から47都道府県ごとの天気情報を取得し、 Googleス�
 
 ## category
 
-外部連携,マーケティング,SERVER_SIDE_ACTION
+Weather API,Googleスプレッドシート,Craft Functions,SERVER_SIDE_ACTION
+
+## functionType
+
+http
