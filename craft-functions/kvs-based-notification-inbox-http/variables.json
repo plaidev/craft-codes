@@ -1,0 +1,9 @@
+[
+  {
+    "name": "KVS_KEY_SUFFIX",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Inbox通知用のKVSユーザーID接尾辞を指定します"
+  }
+]

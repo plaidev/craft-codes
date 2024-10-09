@@ -2,9 +2,10 @@
 
 ## title
 
-アクションテーブル×Craft kvsを使って通知のInbox機能を実現する
+[通知取得用] 通知のInbox機能
 
 ## blogUrl
+
 https://solution.karte.io/blog/2024/02/kvs-based-notification-inbox
 
 ## description
@@ -14,3 +15,7 @@ https://solution.karte.io/blog/2024/02/kvs-based-notification-inbox
 ## category
 
 Craft Functions,Craft KVS,アクションテーブル,接客サービス,CRAFT_ENDPOINT
+
+## functionType
+
+http
