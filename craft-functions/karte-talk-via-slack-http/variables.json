@@ -1,0 +1,44 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "SLACK_CHANNEL_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "通知対象のSlackチャンネルIDです"
+  },
+  {
+    "name": "SLACK_APP_USER_ID",
+    "value": "Uxxxxxxxxxx",
+    "type": "string",
+    "required": true,
+    "description": "Slack AppのメンバーIDです"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "KARTE_BOT_ID",
+    "value": "bot-",
+    "type": "string",
+    "required": true,
+    "description": "KARTE Talkの設定で作成したボットのbot_idです"
+  },
+  {
+    "name": "SOLUTION_ID",
+    "value": "karte_talk_via_slack",
+    "type": "string",
+    "required": true,
+    "description": "固定のソリューションIDです. KVSレコードを他の施策のものと区別するために利用されます"
+  }
+]

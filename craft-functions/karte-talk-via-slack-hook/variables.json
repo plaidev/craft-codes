@@ -21,27 +21,6 @@
     "description": "Slack Appの Bot User OAuth Tokenを登録したシークレット名です"
   },
   {
-    "name": "SLACK_APP_USER_ID",
-    "value": "Uxxxxxxxxxx",
-    "type": "string",
-    "required": true,
-    "description": "Slack AppのメンバーIDです"
-  },
-  {
-    "name": "KARTE_APP_TOKEN_SECRET",
-    "value": "",
-    "type": "string",
-    "required": true,
-    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
-  },
-  {
-    "name": "KARTE_BOT_ID",
-    "value": "bot-",
-    "type": "string",
-    "required": true,
-    "description": "KARTE Talkの設定で作成したボットのbot_idです"
-  },
-  {
     "name": "IGNORE_TALK_ACCOUNTS",
     "value": "",
     "type": "string",
