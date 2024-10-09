@@ -99,15 +99,6 @@ export default async function (data, { MODULES }) {
   const { secret, initLogger } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-
-  if (req.method === 'OPTIONS') {
-    res.status(204).end();
-    return;
-  }
-
   const { body } = req;
   if (!body) {
     res.status(400).json({ message: '[error] request has no body' });
@@ -126,7 +117,7 @@ export default async function (data, { MODULES }) {
   const targets = extractTargets(issueBody, { logger });
   if (targets.length === 0) return;
 
-  const githubUserName = body.jsoner.login;
+  const githubUserName = body.sender.login;
   const commonHeader = makeCommonHeader(issue, githubUserName, actionText);
 
   const noteMessages = makeNoteMessages(targets, commonHeader);
