@@ -1,23 +1,23 @@
 [
   {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
     "name": "HOW_MANY_MINUTES_AGO",
     "value": 3,
     "type": "number",
     "required": true,
-    "description": "集計対象期間です。「最大何分前から現在まで」を時間（分）で指定してください。"
+    "description": "「最大何分前から現在まで」のUU数を集計するかを指定します"
   },
   {
     "name": "COUNTER_KEY_PREFIX",
     "value": "item-view-uu",
     "type": "string",
     "required": true,
-    "description": "Craft Counterのキーに設定するプレフィックスです。"
-  },
-  {
-    "name": "LOG_LEVEL",
-    "value": "WARN",
-    "type": "string",
-    "required": true,
-    "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
+    "description": "Craft Counterのkeyのprefixを指定します"
   }
 ]

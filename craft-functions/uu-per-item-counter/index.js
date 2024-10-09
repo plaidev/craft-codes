@@ -60,7 +60,7 @@ async function incrementCount({ counter, logger, itemId, currentTimewindow }) {
 
 function noRequiredParamErr(param) {
   return {
-    craft_status_code: 400,
+    statusCode: 400,
     error: `"${param}" is required in the request body.`,
   };
 }
@@ -68,19 +68,29 @@ function noRequiredParamErr(param) {
 export default async function (data, { MODULES }) {
   const { counter, initLogger } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
+  const { req, res } = data;
 
-  if (data.kind !== 'karte/track-hook') {
-    logger.error(new Error('invalid kind. expected: karte/track-hook'));
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    res.status(204).end();
     return;
   }
 
-  const body = data.jsonPayload.data.hook_data.body;
+  const body = req.body;
   if (typeof body !== 'object') {
-    return { craft_status_code: 400, error: 'Invalid request body.' };
+    res.status(400).json({ error: 'Invalid request body.' });
+    return;
   }
 
   const { itemId, skipIncrement, skipGettingCount } = body;
-  if (!itemId) return noRequiredParamErr('itemId');
+  if (!itemId) {
+    const { statusCode, error } = noRequiredParamErr('itemId');
+    res.status(statusCode).json({ error });
+    return;
+  }
 
   const currentTimewindow = format(new Date(), TIMEWINDOW_FORMAT);
   const targetTimewindows = makeTargetTimewindows(HOW_MANY_MINUTES_AGO);
@@ -94,13 +104,15 @@ export default async function (data, { MODULES }) {
 
   if (skipGettingCount === true) {
     // incrementだけしたい場合はスキップ
-    return { craft_status_code: 200, count: null, error: null };
+    res.status(200).json({ count: null, error: null });
+    return;
   }
+
   const { statusCode, count, error } = await getCount({
     counter,
     logger,
     itemId,
     targetTimewindows,
   });
-  return { craft_status_code: statusCode, count, error };
+  res.status(statusCode).json({ count, error });
 }
