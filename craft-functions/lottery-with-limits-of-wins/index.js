@@ -224,10 +224,20 @@ async function determinePrize(rand, probabilities) {
  *          name or an error message.
  */
 export default async function (data, { MODULES }) {
+  const { req, res } = data;
   const { kvs, counter, initLogger, secret } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
   const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
   const token = secrets[KARTE_APP_TOKEN_SECRET];
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    res.status(204).end();
+    return;
+  }
 
   try {
     logger.debug('Starting the lucky draw process.');
@@ -235,39 +245,24 @@ export default async function (data, { MODULES }) {
     if (PRIZES.length !== LIMITS.length) {
       const errorMessage = 'PRIZES and LIMITS must have the same length.';
       logger.error(errorMessage);
-      return { craft_status_code: 500, error: errorMessage };
+      res.status(500).json({ error: errorMessage });
+      return;
     }
 
-    if (data.kind !== 'karte/track-hook') {
-      logger.error('Invalid request type. Expected "karte/track-hook".');
-      return { craft_status_code: 400, error: 'Invalid request type' };
-    }
-
-    const { jsonPayload } = data;
-    if (!jsonPayload?.data?.hook_data?.body) {
-      logger.error('Invalid payload: Missing required data');
-      return { craft_status_code: 400, error: 'Invalid payload' };
-    }
-
-    const {
-      body: { lotteryKey, userId },
-    } = jsonPayload.data.hook_data;
+    const { body } = req;
+    const { lotteryKey, userId } = body;
     if (!lotteryKey || !userId) {
       const missingKeyError = `Missing ${!lotteryKey ? 'lotteryKey' : 'userId'}`;
       logger.warn(missingKeyError);
-      return {
-        craft_status_code: 400,
-        error: `${missingKeyError} is required.`,
-      };
+      res.status(400).json({ error: `${missingKeyError} is required.` });
+      return;
     }
 
     const hasParticipated = await hasParticipatedRecently({ lotteryKey, userId, kvs, logger });
     if (hasParticipated) {
       logger.debug(`User ${userId} has participated recently.`);
-      return {
-        craft_status_code: 400,
-        error: 'User has participated recently.',
-      };
+      res.status(400).json({ error: 'User has participated recently.' });
+      return;
     }
 
     const rand = Math.random();
@@ -289,7 +284,8 @@ export default async function (data, { MODULES }) {
       });
       await setParticipationTime({ lotteryKey, userId, kvs, logger });
       logger.debug(`User ${userId} did not win any prize.`);
-      return { craft_status_code: 200, result: 'No prize won' };
+      res.status(200).json({ result: 'No prize won' });
+      return;
     }
 
     const { prize, index } = prizeResult;
@@ -310,15 +306,16 @@ export default async function (data, { MODULES }) {
         logger,
       });
       logger.debug(`Prize ${prize} has reached its limit.`);
-      return { craft_status_code: 200, result: 'No prize won' };
+      res.status(200).json({ result: 'No prize won' });
+      return;
     }
 
     await sendKarteEvent({ userId, lotteryKey, prize, message: '', token, logger });
     await setParticipationTime({ lotteryKey, userId, kvs, logger });
     logger.debug(`User ${userId} won prize: ${prize}. ${LIMITS[index] - count} left.`);
-    return { craft_status_code: 200, result: prize };
+    res.status(200).json({ result: prize });
   } catch (error) {
     logger.error(`Error in the lucky draw process: ${error.toString()}`);
-    return { craft_status_code: 500, error: `Internal Server Error: ${error.message}` };
+    res.status(500).json({ error: `Internal Server Error: ${error.message}` });
   }
 }
