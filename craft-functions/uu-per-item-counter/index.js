@@ -1,6 +1,6 @@
 import { format, subMinutes } from 'date-fns';
 
-const HOW_MANY_MINUTES_AGO = Number('<% HOW_MANY_MINUTES_AGO %>');
+const HOW_MANY_MINUTES_AGO = Number('<% HOW_MANY_MINUTES_AGO %>'); // 「最大何分前から現在まで」のUU数を集計するか？
 const COUNTER_KEY_PREFIX = '<% COUNTER_KEY_PREFIX %>';
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const TIMEWINDOW_FORMAT = 'yyyyMMddHHmm';
@@ -16,7 +16,7 @@ function counterKey({ timewindow, itemId }) {
  */
 function makeTargetTimewindows() {
   const targetTimewindows = [];
-  const agoArr = [...Array(HOW_MANY_MINUTES_AGO)].map((_, i) => i);
+  const agoArr = [...Array(HOW_MANY_MINUTES_AGO)].map((_, i) => i); // 3 -> [0, 1, 2]
   agoArr.forEach(ago =>
     targetTimewindows.push(format(subMinutes(new Date(), ago), TIMEWINDOW_FORMAT))
   );
@@ -48,7 +48,7 @@ async function incrementCount({ counter, logger, itemId, currentTimewindow }) {
   try {
     await counter.increment({
       key: counterKey({ timewindow: currentTimewindow, itemId }),
-      secondsToExpire: HOW_MANY_MINUTES_AGO * 60 + 60,
+      secondsToExpire: HOW_MANY_MINUTES_AGO * 60 + 60, // 参照されえないレコードは自動削除。60秒だけ余裕を持たせておく
     });
     logger.debug(`incrementCount succeeded. timewindow: ${currentTimewindow}. itemId: ${itemId}.`);
   } catch (err) {
@@ -98,10 +98,12 @@ export default async function (data, { MODULES }) {
   logger.debug(`targetTimewindows: ${JSON.stringify(targetTimewindows)}`);
 
   if (skipIncrement !== true) {
+    // getだけしたい場合はスキップ
     await incrementCount({ counter, logger, itemId, currentTimewindow });
   }
 
   if (skipGettingCount === true) {
+    // incrementだけしたい場合はスキップ
     res.status(200).json({ count: null, error: null });
     return;
   }
