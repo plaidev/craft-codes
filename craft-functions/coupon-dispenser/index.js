@@ -36,6 +36,7 @@ function couponUserStatusKey({ couponGroupId, hashedUserId }) {
 function couponIndexKey({ couponGroupId }) {
   return `${SOLUTION_ID}-index_${couponGroupId}`; // 例: coupon-index_shop001
 }
+
 function isFrequentAcquisition({ couponAcquisitionDate, logger }) {
   if (!couponAcquisitionDate) return false;
   const currentDate = new Date();
@@ -45,8 +46,9 @@ function isFrequentAcquisition({ couponAcquisitionDate, logger }) {
   );
   return diff < FREQUENT_ACQUISITION_ERROR_MINUTES;
 }
+
 function noRequiredParamErr(param) {
-  return { craft_status_code: 400, error: `"${param}" is required in the request body.` };
+  return { status: 400, error: `"${param}" is required in the request body.` };
 }
 
 async function fetchCouponCode({ couponGroupId, couponIndex, hashedUserId, kvs, logger }) {
@@ -65,6 +67,7 @@ async function fetchCouponCode({ couponGroupId, couponIndex, hashedUserId, kvs, 
     return { error: `fetch coupon code error.` };
   }
 }
+
 async function updateUserStatus({ couponGroupId, hashedUserId, kvs, logger }) {
   const key = couponUserStatusKey({ couponGroupId, hashedUserId });
   const couponAcquisitionDate = new Date();
@@ -84,6 +87,7 @@ async function updateUserStatus({ couponGroupId, hashedUserId, kvs, logger }) {
     );
   }
 }
+
 async function fetchUserStatus({ couponGroupId, hashedUserId, kvs, logger }) {
   const key = couponUserStatusKey({ couponGroupId, hashedUserId });
   try {
@@ -102,6 +106,7 @@ async function fetchUserStatus({ couponGroupId, hashedUserId, kvs, logger }) {
     return { error: `fetch user status error.` };
   }
 }
+
 async function incrementAndFetchCouponIndex({ couponGroupId, hashedUserId, counter, logger }) {
   const key = couponIndexKey({ couponGroupId });
   try {
@@ -125,19 +130,32 @@ async function incrementAndFetchCouponIndex({ couponGroupId, hashedUserId, count
 export default async function (data, { MODULES }) {
   const { kvs, counter, initLogger } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
+  const { req, res } = data;
 
-  // validation
-  if (data.kind !== 'karte/track-hook') {
-    logger.error(new Error('invalid kind. expected: karte/track-hook'));
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    res.status(204).end();
     return;
   }
-  const body = data.jsonPayload.data.hook_data.body;
+
+  const body = req.body;
   if (typeof body !== 'object') {
-    return { craft_status_code: 400, error: 'Invalid request body.' };
+    res.status(400).json({ error: 'Invalid request body.' });
+    return;
   }
+
   const { coupon_group_id: couponGroupId, user_id: userId } = body;
-  if (!couponGroupId) return noRequiredParamErr('coupon_group_id');
-  if (!userId) return noRequiredParamErr('user_id');
+  if (!couponGroupId) {
+    res.status(400).json(noRequiredParamErr('coupon_group_id'));
+    return;
+  }
+  if (!userId) {
+    res.status(400).json(noRequiredParamErr('user_id'));
+    return;
+  }
   const hashedUserId = generateHash(userId); // リスク軽減のためにuser_idはハッシュ化してから扱う
 
   // 前回の取得から一定時間経過しているかチェック
@@ -149,27 +167,28 @@ export default async function (data, { MODULES }) {
       logger,
     });
     if (fetchUserStatusError) {
-      return { craft_status_code: 500, error: fetchUserStatusError };
+      res.status(500).json({ error: fetchUserStatusError });
+      return;
     }
     if (couponAcquisitionDate && isFrequentAcquisition({ couponAcquisitionDate, logger })) {
       logger.debug(`too frequent acquisition error.`);
-      return { craft_status_code: 400, error: 'too frequent acquisition error.' };
+      res.status(400).json({ error: 'too frequent acquisition error.' });
+      return;
     }
   }
 
-  // クーポン番号の取得
   const { couponIndex, error: incrementAndFetchCouponIndexError } =
     await incrementAndFetchCouponIndex({ couponGroupId, hashedUserId, counter, logger });
   if (incrementAndFetchCouponIndexError) {
-    return { craft_status_code: 500, error: incrementAndFetchCouponIndexError };
+    res.status(500).json({ error: incrementAndFetchCouponIndexError });
+    return;
   }
 
-  // ユーザーのクーポン取得日を更新
   if (FREQUENT_ACQUISITION_ERROR_MINUTES > 0) {
     await updateUserStatus({ couponGroupId, hashedUserId, kvs, logger });
   }
 
-  // クーポンコードの取得
+  // クーポン番号の取得
   const { couponCode, error: fetchCouponCodeError } = await fetchCouponCode({
     couponGroupId,
     couponIndex,
@@ -178,7 +197,8 @@ export default async function (data, { MODULES }) {
     logger,
   });
   if (fetchCouponCodeError) {
-    return { craft_status_code: 500, error: fetchCouponCodeError };
+    res.status(500).json({ error: fetchCouponCodeError });
+    return;
   }
-  return { craft_status_code: 200, coupon_code: couponCode };
+  res.status(200).json({ coupon_code: couponCode });
 }
