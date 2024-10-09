@@ -95,17 +95,20 @@ async function sendNotes({ noteMessages, karteAppToken, logger }) {
 }
 
 export default async function (data, { MODULES }) {
+  const { req, res } = data;
   const { secret, initLogger } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
-  const { body } = data.jsonPayload.data.hook_data;
+  const { body } = req;
   if (!body) {
-    return logger.error('[error] request has no body');
+    res.status(400).json({ message: '[error] request has no body' });
+    return;
   }
 
   const { issue, action } = body;
   if (!issue || !issue.body) {
-    return logger.error('[error] request has no issue.body');
+    res.status(400).json({ message: '[error] request has no issue.body' });
+    return;
   }
   const actionText = mapActionType(action);
   if (!actionText) return;
@@ -122,4 +125,6 @@ export default async function (data, { MODULES }) {
   const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
   const karteAppToken = secrets[KARTE_APP_TOKEN_SECRET];
   await sendNotes({ noteMessages, commonHeader, karteAppToken, logger });
+
+  res.status(200).json({ message: 'Success' });
 }
