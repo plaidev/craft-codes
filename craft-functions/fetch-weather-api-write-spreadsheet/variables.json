@@ -1,5 +1,12 @@
 [
   {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
     "name": "WEATHER_API_KEY",
     "value": "",
     "type": "string",
@@ -14,13 +21,6 @@
     "description": "該当スプレッドシートのIDです。例:「https://docs.google.com/spreadsheets/d/#{SPREADSHEET_ID}」のSPREADSHEET_ID部分を指します。"
   },
   {
-    "name": "LOG_LEVEL",
-    "value": "DEBUG",
-    "type": "string",
-    "required": true,
-    "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
-  },
-  {
     "name": "SHEET_NAME",
     "value": "",
     "type": "string",
@@ -32,6 +32,6 @@
     "value": "",
     "type": "string",
     "required": true,
-    "description": "GoogleサービスアカウントのJSONキーを登録したシークレットの名前です。"
+    "description": "利用するGoogleサービスアカウントのJSONキーを登録したシークレットの名前です。"
   }
 ]
