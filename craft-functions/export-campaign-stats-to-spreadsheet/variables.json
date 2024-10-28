@@ -35,6 +35,13 @@
         "description": "対象Googleスプレッドシートのシート名です"
     },
     {
+        "name": "UPDATE_TYPE",
+        "value": "REPLACE",
+        "type": "string",
+        "required": true,
+        "description": "スプレッドシートの更新方式です。 REPLACE（置き換え） または APPEND（追加） を指定します"
+    },
+    {
         "name": "RELATIVE_START_DATE_DAYS_AGO",
         "value": "",
         "type": "number",
