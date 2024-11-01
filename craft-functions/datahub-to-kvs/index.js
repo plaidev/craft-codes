@@ -27,8 +27,12 @@ async function upsertData(key, row, kvs, logger, RetryableError) {
     await kvs.write({ key: _key, value: row, minutesToExpire: MINUTES_TO_EXPIRE });
     logger.debug(`kvs.write() succeeded. key: ${_key}`);
   } catch (err) {
-    logger.warn(`kvs.write() failed. key: ${_key}`);
-    throw new RetryableError(`kvs.write() failed. err: ${err.message}`);
+    logger.warn(`kvs.write() failed. key: ${_key},  err: ${err.message}`);
+
+    // kvsレコード上限超過エラーはリトライしない
+    if (err.toString().includes('value size should be less than')) return;
+
+    throw new RetryableError(`attempt to retry.`);
   }
 }
 
