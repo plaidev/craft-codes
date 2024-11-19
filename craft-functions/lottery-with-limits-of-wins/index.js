@@ -2,16 +2,20 @@ import crypto from 'crypto';
 import api from 'api';
 
 // Constants
+const LOG_LEVEL = 'DEBUG';
 const SOLUTION_ID = '<% SOLUTION_ID %>';
-const PRIZE_COUNT_EXPIRE_SECONDS = Number('<% PRIZE_COUNT_EXPIRE_SECONDS %>');
-const USER_PARTICIPATION_INTERVAL_MINUTES = Number('<% USER_PARTICIPATION_INTERVAL_MINUTES %>');
-const LOG_LEVEL = '<% LOG_LEVEL %>';
 const PRIZES = '<% PRIZES %>'.split(',').map(v => v.trim());
 const LIMITS = '<% LIMITS %>'.split(',').map(v => v.trim());
-const LOSE_PROBABILITY = '<% LOSE_PROBABILITY %>';
+const CAMPAIGN_START_DATE = new Date('<% CAMPAIGN_START_DATE %>');
+const CAMPAIGN_END_DATE = new Date('<% CAMPAIGN_END_DATE %>');
+const MIN_WIN_PROBABILITY = Number('<% MIN_WIN_PROBABILITY %>');
 const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_CAMPAIGN_ID = '<% KARTE_CAMPAIGN_ID %>';
+const PRIZE_COUNT_EXPIRE_SECONDS = Number('<% PRIZE_COUNT_EXPIRE_SECONDS %>');
+const USER_PARTICIPATION_INTERVAL_MINUTES = Number('<% USER_PARTICIPATION_INTERVAL_MINUTES %>');
 
-const karteApiClient = api('@dev-karte/v1.0#1bkcoiglscz8c35');
+const karteEventClient = api('@dev-karte/v1.0#2ee6yim1g4jq6m');
+const karteActionClient = api('@dev-karte/v1.0#1ehqt16lkm2a8jw');
 
 /**
  * Generates a hash prefix from a given key.
@@ -58,6 +62,7 @@ function generateCounterKey(lotteryKey, prize) {
  */
 async function incrementAndFetchCount({ lotteryKey, prize, counter, logger }) {
   const key = generateCounterKey(lotteryKey, prize);
+
   try {
     const count = await counter.increment({
       key,
@@ -143,8 +148,8 @@ async function setParticipationTime({ lotteryKey, userId, kvs, logger }) {
  */
 async function sendKarteEvent({ userId, lotteryKey, prize, message, token, logger }) {
   try {
-    karteApiClient.auth(token);
-    await karteApiClient.postV2TrackEventWrite({
+    karteEventClient.auth(token);
+    await karteEventClient.postV2TrackEventWrite({
       keys: { user_id: userId },
       event: {
         values: { lotteryKey, prize, message },
@@ -158,55 +163,86 @@ async function sendKarteEvent({ userId, lotteryKey, prize, message, token, logge
 }
 
 /**
- * Calculates the probabilities for each prize.
- * @param {object} params - The function parameters.
- * @param {string} params.lotteryKey - The lucky draw key.
- * @param {object} params.logger - The logger object.
- * @param {object} params.counter - The counter object.
- * @returns {Promise<number[]>} The probabilities for each prize.
- * @example
- * // If PRIZES = ['prize1', 'prize2', 'prize3'], LIMITS = [10, 20, 30], and LOSE_PROBABILITY = 0.7,
- * // and the current counts for each prize are [5, 15, 25],
- * // then the inventories will be [5, 5, 5] (remaining counts for each prize),
- * // and the probabilities will be [0.1, 0.1, 0.1] (probability of winning each prize).
- * // The remaining probability (0.7) is the probability of not winning any prize.
+ * Calculates the base winning probability based on remaining time and total inventory
+ * @param {object} params - The function parameters
+ * @param {Array<number>} params.currentCounts - Current inventory counts
+ * @param {object} params.logger - Logger object
+ * @returns {number} The base winning probability
  */
-async function calcProbabilities({ lotteryKey, logger, counter }) {
-  const keys = PRIZES.map(prize => generateCounterKey(lotteryKey, prize));
+function calculateBaseWinProbability({ currentCounts, logger }) {
   try {
-    const totalWinningCount = await counter.get({ keys });
-    const inventories = LIMITS.map((limit, index) => Math.max(0, limit - totalWinningCount[index]));
-    const totalInventory = inventories.reduce((prev, curr) => prev + curr, 0);
+    const now = new Date();
+    const totalCampaignTime = CAMPAIGN_END_DATE - CAMPAIGN_START_DATE;
+    const remainingTime = CAMPAIGN_END_DATE - now;
+    const timeRatio = Math.max(0, Math.min(1, remainingTime / totalCampaignTime)) * 0.5;
 
-    const probabilities = inventories.map(inventory =>
-      totalInventory > 0 ? (1 - LOSE_PROBABILITY) * (inventory / totalInventory) : 0
-    );
-    return probabilities;
+    const totalLimit = LIMITS.reduce((sum, limit) => sum + Number(limit), 0);
+    const totalUsed = currentCounts.reduce((sum, count) => sum + (count || 0), 0);
+    const inventoryRatio = Math.max(0, (totalLimit - totalUsed) / totalLimit);
+
+    const baseProb = (1 - timeRatio) * inventoryRatio;
+    return Math.max(MIN_WIN_PROBABILITY, Math.min(1, baseProb));
   } catch (err) {
-    const errorStr = `Error calculating probabilities, error: ${err.toString()}`;
-    logger.error(errorStr);
-    throw new Error(errorStr);
+    logger.error(`Error calculating base win probability: ${err.toString()}`);
+    return MIN_WIN_PROBABILITY;
   }
 }
 
 /**
- * Determines the prize based on the probabilities.
- * @param {number} rand - The random number.
- * @param {number[]} probabilities - The probabilities for each prize.
- * @returns {{prize: string, index: number} | null} The prize object containing
- *          the prize name and index, or null if no prize is won.
- * @example
- * // If probabilities = [0.1, 0.1, 0.1] and rand = 0.15,
- * // then the cumulative probabilities will be [0.1, 0.2, 0.3],
- * // and the function will return {prize: 'prize2', index: 1} because 0.15 < 0.2.
- * // If rand = 0.35, the function will return null because 0.35 > 0.3 (the total probability of winning any prize).
+ * Calculates prize-specific probabilities when a win occurs
+ * @param {object} params - The function parameters
+ * @param {Array<number>} params.currentCounts - Current inventory counts
+ * @param {object} params.logger - Logger object
+ * @returns {Array<number>} Array of probabilities for each prize
  */
-async function determinePrize(rand, probabilities) {
-  let cumulativeProbability = 0;
+function calculatePrizeProbabilities({ currentCounts, logger }) {
+  try {
+    const remainingInventories = LIMITS.map((limit, index) =>
+      Math.max(0, Number(limit) - (currentCounts[index] || 0))
+    );
 
+    logger.debug(`Prize calculation details:`, {
+      prizes: PRIZES,
+      limits: LIMITS,
+      currentCounts,
+      remainingInventories,
+    });
+
+    const totalRemaining = remainingInventories.reduce((sum, inv) => sum + inv, 0);
+    if (totalRemaining === 0) {
+      return new Array(PRIZES.length).fill(0);
+    }
+
+    return remainingInventories.map(inv => inv / totalRemaining);
+  } catch (err) {
+    logger.error(`Error calculating prize probabilities: ${err.toString()}`);
+    throw err;
+  }
+}
+
+/**
+ * Determines if a prize is won and which prize
+ * @param {object} params - The function parameters
+ * @param {Array<number>} params.currentCounts - Current inventory counts
+ * @param {object} params.logger - Logger object
+ * @returns {{prize: string, index: number} | null} The prize result
+ */
+function determinePrize({ currentCounts, logger }) {
+  const winRand = Math.random();
+  const baseWinProb = calculateBaseWinProbability({ currentCounts, logger });
+
+  if (winRand > baseWinProb) {
+    logger.debug(`No win. Random: ${winRand}, Probability: ${baseWinProb}`);
+    return null;
+  }
+
+  const prizeRand = Math.random();
+  const prizeProbabilities = calculatePrizeProbabilities({ currentCounts, logger });
+
+  let cumulativeProb = 0;
   for (let i = 0; i < PRIZES.length; i++) {
-    cumulativeProbability += probabilities[i];
-    if (rand < cumulativeProbability) {
+    cumulativeProb += prizeProbabilities[i];
+    if (prizeRand < cumulativeProb) {
       return { prize: PRIZES[i], index: i };
     }
   }
@@ -215,13 +251,42 @@ async function determinePrize(rand, probabilities) {
 }
 
 /**
+ * Disables the campaign when the last prize is won
+ * @param {object} params - The function parameters
+ * @param {string} params.token - Authentication token
+ * @param {object} params.logger - Logger object
+ * @returns {Promise<void>}
+ */
+async function disableCampaign({ token, logger }) {
+  try {
+    karteActionClient.auth(token);
+    await karteActionClient.postV2betaActionCampaignToggleenabled({
+      enabled: false,
+      id: KARTE_CAMPAIGN_ID,
+    });
+
+    logger.log(`Campaign disabled successfully as last prize was won.`);
+  } catch (err) {
+    logger.error(`Failed to disable campaign after last prize won: ${err.toString()}`);
+  }
+}
+
+/**
+ * Checks if all prizes have been exhausted
+ * @param {object} params - The function parameters
+ * @param {Array<number>} params.currentCounts - Current inventory counts
+ * @returns {boolean} Returns true if all prizes have been exhausted
+ */
+function checkAllPrizesExhausted({ currentCounts }) {
+  return LIMITS.every((limit, index) => (currentCounts[index] || 0) >= Number(limit));
+}
+
+/**
  * Main function to handle the lucky draw process.
  * @param {object} data - The input data.
  * @param {object} MODULES - The modules object.
  * @returns {Promise<{craft_status_code: number, result: string} |
  *                   {craft_status_code: number, error: string}>}
- *          The result object containing the status code and either the prize
- *          name or an error message.
  */
 export default async function (data, { MODULES }) {
   const { req, res } = data;
@@ -265,13 +330,13 @@ export default async function (data, { MODULES }) {
       return;
     }
 
-    const rand = Math.random();
-    const probabilities = await calcProbabilities({
-      lotteryKey,
+    const keys = PRIZES.map(prize => generateCounterKey(lotteryKey, prize));
+    const initialCounts = await counter.get({ keys });
+
+    const prizeResult = determinePrize({
+      currentCounts: initialCounts,
       logger,
-      counter,
     });
-    const prizeResult = await determinePrize(rand, probabilities);
 
     if (!prizeResult) {
       await sendKarteEvent({
@@ -308,6 +373,15 @@ export default async function (data, { MODULES }) {
       logger.debug(`Prize ${prize} has reached its limit.`);
       res.status(200).json({ result: 'No prize won' });
       return;
+    }
+
+    const updatedCounts = [...initialCounts];
+    updatedCounts[index] = count;
+    const allPrizesExhausted = checkAllPrizesExhausted({ currentCounts: updatedCounts });
+
+    if (allPrizesExhausted) {
+      await disableCampaign({ token, logger });
+      logger.log('Campaign ended as all prizes have been exhausted.');
     }
 
     await sendKarteEvent({ userId, lotteryKey, prize, message: '', token, logger });

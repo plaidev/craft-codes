@@ -1,31 +1,10 @@
 [
   {
     "name": "SOLUTION_ID",
-    "value": "lottery_with_limits_of_wins",
+    "value": "lottery-with-limits-of-wins",
     "type": "string",
     "required": true,
-    "description": "固定のソリューションIDです. KVSやCounterのレコードを他の施策のものと区別するために利用されます"
-  },
-  {
-    "name": "PRIZE_COUNT_EXPIRE_MINUTES",
-    "value": 43200,
-    "type": "number",
-    "required": true,
-    "description": "当たり数を管理するCounterの有効期限（秒）です。"
-  },
-  {
-    "name": "USER_PARTICIPATION_INTERVAL_MINUTES",
-    "value": 86400,
-    "type": "number",
-    "required": true,
-    "description": "同一ユーザーの連続参加禁止を解除するまでの時間（分）です。連続参加のチェックをしない場合は0を指定します。"
-  },
-  {
-    "name": "LOG_LEVEL",
-    "value": "WARN",
-    "type": "string",
-    "required": true,
-    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します。"
+    "description": "固定のソリューションIDです。KVSやCounterのレコードを他の施策のものと区別するために利用されます。"
   },
   {
     "name": "PRIZES",
@@ -42,17 +21,52 @@
     "description": "各当たり種別の上限数をカンマ区切りで指定します。"
   },
   {
-    "name": "LOSE_PROBABILITY",
-    "value": "0.5",
-    "type": "number",
-    "required": true,
-    "description": "はずれの確率を0から1の範囲で指定します。"
-  },
-  {
     "name": "KARTE_APP_TOKEN_SECRET",
     "value": "",
     "type": "string",
     "required": true,
     "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "KARTE_CAMPAIGN_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "くじ引き接客サービスのIDを指定します。"
+  },
+  {
+    "name": "CAMPAIGN_START_DATE",
+    "value": "2024-05-01T00:00:00Z",
+    "type": "string",
+    "required": true,
+    "description": "キャンペーンの開始日時を指定します。"
+  },
+  {
+    "name": "CAMPAIGN_END_DATE",
+    "value": "2024-05-31T23:59:59Z",
+    "type": "string",
+    "required": true,
+    "description": "キャンペーンの終了日時を指定します。"
+  },
+  {
+    "name": "MIN_WIN_PROBABILITY",
+    "value": 0.01,
+    "type": "number",
+    "required": true,
+    "description": "最小の当たり確率を指定します。"
+  },
+  {
+    "name": "PRIZE_COUNT_EXPIRE_SECONDS",
+    "value": 43200,
+    "type": "number",
+    "required": true,
+    "description": "当たり数を管理するCounterの有効期限（秒）です。"
+  },
+  {
+    "name": "USER_PARTICIPATION_INTERVAL_MINUTES",
+    "value": 86400,
+    "type": "number",
+    "required": true,
+    "description": "同一ユーザーの連続参加禁止を解除するまでの時間（分）です。連続参加のチェックをしない場合は0を指定します。"
   }
 ]
