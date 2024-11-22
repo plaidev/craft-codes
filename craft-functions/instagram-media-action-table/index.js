@@ -44,7 +44,7 @@ export default async function (data, { MODULES }) {
       const mediaDetails = await fetchMediaDetails(accessToken, GRAPH_API_VERSION, mediaId);
 
       const fetchedAt = new Date();
-      const expiresAt = new Date(fetchedAt.getTime() + 24 * 60 * 60 * 1000); // 有効期限を1日後に指定
+      const expiredAt = new Date(fetchedAt.getTime() + 24 * 60 * 60 * 1000); // 有効期限を1日後に指定
 
       const payload = {
         method: 'upsert',
@@ -60,7 +60,7 @@ export default async function (data, { MODULES }) {
           comments_count: mediaDetails.comments_count,
           timestamp: mediaDetails.timestamp,
           fetched_at: fetchedAt.toISOString(),
-          expires_at: expiresAt.toISOString(),
+          expired_at: expiredAt.toISOString(),
         },
       };
 
