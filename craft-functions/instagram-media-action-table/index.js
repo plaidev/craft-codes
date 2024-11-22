@@ -66,7 +66,7 @@ export default async function (data, { MODULES }) {
 
       await craftFunctions.invoke({
         functionId: TARGET_FUNCTION_ID,
-        data: { payload },
+        data: payload,
       });
     });
 
