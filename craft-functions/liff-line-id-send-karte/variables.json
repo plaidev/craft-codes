@@ -1,0 +1,38 @@
+[
+    {
+      "name": "LOG_LEVEL",
+      "value": "WARN",
+      "type": "string",
+      "required": true,
+      "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+    },
+    {
+      "name": "KARTE_APP_TOKEN_SECRET",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+    },
+    {
+      "name": "REF_TABLE_ID",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "LINE IDやutmパラメータなどが入る紐付けテーブルのIDです"
+    },
+    {
+      "name": "LINE_LOGIN_CHANNEL_ID",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "LINEログインチャネルのチャネルIDです"
+    },
+    {
+      "name": "KARTE_EVENT_NAME",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "KARTEで発生させるイベントの名称です"
+    }
+]
+  
