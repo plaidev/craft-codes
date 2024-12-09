@@ -1,0 +1,23 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "INFO",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "COOKIE_NAME",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "サーバーサイドCookieの名前です"
+  },
+  {
+    "name": "DOMAIN",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "サーバーサイドCookieのドメインです"
+  }
+]
