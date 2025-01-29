@@ -71,14 +71,14 @@ export default async function (data, { MODULES }) {
       await deleteRecords({ table, keys, karteClient });
     }
   } catch (err) {
-    const msg = `${method} failed. table: ${table}, error: ${JSON.stringify(err.data)}, status: ${err.status}.`;
+    const msg = `${method} failed. caller functionId: ${functionId}, table: ${table}, error: ${JSON.stringify(err.data)}, status: ${err.status}.`;
     if (
       err.status &&
       ((err.status >= 500 && err.status < 600) || [408, 429].includes(err.status))
     ) {
       throw new RetryableError(`[retry] ${msg}`, RETRY_TIMEOUT_SEC);
     }
-    logger.error(msg);
+    throw new Error(msg);
   }
   logger.debug(`${method} succeeded. table: ${table}, `);
 }
