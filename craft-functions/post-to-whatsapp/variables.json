@@ -1,0 +1,23 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "WHATSAPP_ACCESS_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "WhatsAppのaccess tokenを登録したシークレット名です"
+  },
+  {
+    "name": "PHONE_NUMBER_ID_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "WhatsAppのビジネスアカウントの電話番号IDを登録したシークレット名です"
+  }
+]
