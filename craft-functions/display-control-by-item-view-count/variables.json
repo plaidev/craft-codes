@@ -1,0 +1,16 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "INFO",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "COUNTER_KEY_PREFIX",
+    "value": "display-control-by-item-view-count",
+    "type": "string",
+    "required": true,
+    "description": "Craft Counterのキーに設定するプレフィックスです。"
+  }
+]
