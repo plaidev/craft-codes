@@ -1,0 +1,45 @@
+[
+    {
+      "name": "LOG_LEVEL",
+      "value": "WARN",
+      "type": "string",
+      "required": true,
+      "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+    },
+    {
+      "name": "KARTE_APP_TOKEN_SECRET",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+    },
+    {
+      "name": "CRAFT_SITES_NAME",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "Craft Sitesの一覧画面で、1番左側に表示されている該当サイトの名称です"
+    },
+    {
+      "name": "WEB_SITE_TITLE",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "llms.txtの先頭に出力する、サイトのタイトルです"
+    },
+    {
+      "name": "WEB_SITE_OVERVIEW",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "llms.txtに出力する、サイトの概要文です"
+    },
+    {
+      "name": "CATEGORY_NAME",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "llms.txtでサイトの概要の下に表示される、サイト内のカテゴリ名です"
+    }
+]
+  
