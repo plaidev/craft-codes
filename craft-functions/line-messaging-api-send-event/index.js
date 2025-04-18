@@ -8,16 +8,6 @@ const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
 const SEND_LINE_EVENT_LIST = '<% SEND_LINE_EVENT_LIST %>';
 const KARTE_EVENT_NAME = '<% KARTE_EVENT_NAME %>';
 
-async function extractLineSignature(headers) {
-  // rawHeadersはキーと値が交互に並んでいるため、2個飛ばしでループを回して"キー-値"ペアを確認
-  for (let i = 0; i < headers.length; i += 2) {
-    if (headers[i].toLowerCase() === 'x-line-signature') {
-      return headers[i + 1]; // "x-line-signature"の値を返す
-    }
-  }
-  return undefined;
-}
-
 async function verifySignature(lineChannelSecret, lineSignature, body) {
   const computedSignature = crypto
     .createHmac('SHA256', lineChannelSecret)
@@ -69,7 +59,7 @@ export default async function (data, { MODULES }) {
   sdk.auth(karteToken);
   const lineChannelSecret = secrets[LINE_MESSAGING_API_CHANNEL_SECRET];
 
-  const lineSignature = await extractLineSignature(req.rawHeaders);
+  const lineSignature = req.headers['x-line-signature'];
   const isValidSignature = await verifySignature(lineChannelSecret, lineSignature, req.body);
   if (!isValidSignature) {
     logger.warn('署名が一致しません。不正なリクエストの可能性があります。');
