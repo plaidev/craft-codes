@@ -1,45 +1,44 @@
 [
-    {
-      "name": "LOG_LEVEL",
-      "value": "WARN",
-      "type": "string",
-      "required": true,
-      "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
-    },
-    {
-      "name": "KARTE_APP_TOKEN_SECRET",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
-    },
-    {
-      "name": "REF_TABLE_ID",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "友達登録状況を格納するための紐付けテーブルのIDです"
-    },
-    {
-      "name": "LINE_MESSAGING_API_CHANNEL_SECRET",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "LINE公式アカウントのチャネルシークレットを登録したシークレット名です"
-    },
-    {
-      "name": "KARTE_EVENT_NAME",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "KARTEで発生させるイベント名です"
-    },
-    {
-      "name": "SEND_LINE_EVENT_LIST",
-      "value": "message,follow,unfollow,postback",
-      "type": "string",
-      "required": true,
-      "description": "LINEで発生したイベントのうち、KARTEに送信するものをまとめたカンマ区切りのリストです"
-    }
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "REF_TABLE_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "友達登録状況を格納するための紐付けテーブルのIDです"
+  },
+  {
+    "name": "LINE_MESSAGING_API_CHANNEL_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "LINE公式アカウントのチャネルシークレットを登録したシークレット名です"
+  },
+  {
+    "name": "KARTE_EVENT_NAME",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTEで発生させるイベント名です"
+  },
+  {
+    "name": "SEND_LINE_EVENT_LIST",
+    "value": "message,follow,unfollow,postback",
+    "type": "string",
+    "required": true,
+    "description": "LINEで発生したイベントのうち、KARTEに送信するものをまとめたカンマ区切りのリストです"
+  }
 ]
-  
