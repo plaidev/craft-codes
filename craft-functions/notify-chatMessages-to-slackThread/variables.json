@@ -1,0 +1,45 @@
+[
+    {
+      "name": "LOG_LEVEL",
+      "value": "WARN",
+      "type": "string",
+      "required": true,
+      "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します。"
+    },
+    {
+      "name": "KEY_PREFIX",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "KVSのキーを一意に設定するための接頭辞です。今回のケースだと次のような名前が考えられます。例) notify-chatMessages-to-slackThread"
+    },
+    {
+      "name": "GOOGLE_SERVICE_ACCOUNT_JSON_KEY",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "利用するGoogleサービスアカウントのJSONキーを登録したシークレットの名前です。"
+    },
+    {
+      "name": "SLACK_TOKEN_SECRET",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "Slackのトークンを登録したシークレットの名前です。"
+    },
+    {
+      "name": "GOOGLE_SHEET_ID",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "Google SheetsのIDです。例えばスプレッドシートのURLがhttps://docs.google.com/spreadsheets/d/123456789/edit の場合、123456789がそれに該当します"
+    },
+    {
+      "name": "KVS_DATA_VALIDITY_MINUTE",
+      "value": "",
+      "type": "number",
+      "required": true,
+      "description": "KVSのデータの有効期間です。分単位で指定します。"
+    }
+  ]
+  
