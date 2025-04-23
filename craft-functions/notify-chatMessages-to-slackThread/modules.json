@@ -1,0 +1,4 @@
+{
+  "@slack/web-api": "7.9.1",
+  "googleapis": "^122.0.0"
+}
