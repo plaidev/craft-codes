@@ -1,0 +1,23 @@
+[
+  {
+    "name": "FUNCTION_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "呼び出し先のファンクションのID"
+  },
+  {
+    "name": "LOG_LEVEL",
+    "value": "INFO",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルをERROR/WARN/INFO/DEBUGから指定"
+  },
+  {
+    "name": "SLACK_SIGNING_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Slackアプリのリクエスト検証に使用するSigning Secretの値です"
+  }
+]
