@@ -1,0 +1,9 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "INFO",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルをERROR/WARN/INFO/DEBUGから指定"
+  }
+]
