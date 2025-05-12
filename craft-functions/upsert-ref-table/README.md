@@ -14,7 +14,7 @@ KARTEの紐付けテーブルを更新するファンクションのテンプレ
 
 ## category
 
-Craft Functions,紐付けテーブル
+Craft Functions,紐付けテーブル,INVOKE_FROM_CRAFT_FUNCTIONS
 
 ## functionType 
 

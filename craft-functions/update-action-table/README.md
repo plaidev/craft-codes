@@ -10,7 +10,7 @@ https://solution.karte.io/blog/2024/11/exec-func-from-another-func/
 アクションテーブルレコードのupsertやdeleteをするファンクションです。テーブル更新をしたい別ファンクションからこのファンクションを呼び出すことで、適切なリトライ処理が実行されます。
 
 ## category
-Craft Functions,アクションテーブル
+Craft Functions,アクションテーブル,INVOKE_FROM_CRAFT_FUNCTIONS
 
 ## functionType 
 event
