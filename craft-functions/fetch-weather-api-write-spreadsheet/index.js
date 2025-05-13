@@ -84,7 +84,7 @@ async function fetchData({ location, rows, logger }) {
     const conditionText = responseData.current.condition.text;
     const { lat, lon } = responseData.location;
 
-    rows.push([location.prefecture, tempC, conditionText, lat, lon]);
+    rows.push([location.prefecture, location.location, tempC, conditionText, lat, lon]);
   } catch (error) {
     logger.debug('Error weather api fetch:', error);
     return null;
@@ -92,18 +92,8 @@ async function fetchData({ location, rows, logger }) {
 }
 
 export default async function (data, { MODULES }) {
-  const { req, res } = data;
   const { initLogger, secret } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
-
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-
-  if (req.method === 'OPTIONS') {
-    res.status(204).end();
-    return;
-  }
 
   // GoogleサービスアカウントのJSONキーをシークレットから取得
   const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET] });
@@ -119,15 +109,13 @@ export default async function (data, { MODULES }) {
   // spreadsheetを取得
   const sheets = google.sheets({ version: 'v4', auth: jwtClient });
 
-  const rows = [['prefecture', 'temp_c', 'tenki', 'lat', 'lon']];
+  const rows = [['prefecture', 'location', 'temp_c', 'tenki', 'lat', 'lon']];
 
   try {
     await Promise.all(LOCATIONS.map(location => fetchData({ location, rows, logger })));
     await updateSsValues(sheets, `${SHEET_NAME}!1:${LOCATIONS.length + 1}`, rows);
     logger.debug('Data fetch completed:', rows);
-    res.status(200).json({ message: 'Success' });
   } catch (error) {
     logger.debug('Data fetch Failed:', error);
-    res.status(500).json({ message: 'Data fetch Failed' });
   }
 }
