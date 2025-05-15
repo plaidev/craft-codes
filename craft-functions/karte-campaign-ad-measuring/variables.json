@@ -1,0 +1,23 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "TARGET_FUNCTION_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "紐付けテーブルの更新処理をするCraft FunctionsのファンクションIDです"
+  },
+  {
+    "name": "REF_TABLE_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "更新対象の紐付けテーブルのIDです"
+  }
+]
