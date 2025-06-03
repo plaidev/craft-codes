@@ -1,0 +1,23 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "INFO",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "LINE_CHANNEL_ACCESS_TOKEN",
+    "value": "KEISUKE_LINE_CHANNEL_ACCESS_TOKEN",
+    "type": "string",
+    "required": true,
+    "description": "LINEチャンネルアクセストークンを登録したシークレットの名前です"
+  },
+  {
+    "name": "KEY_PREFIX",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KVSのキーを一意に設定するための接頭辞です。今回のケースだと次のような名前が考えられます。例) management_line_rich_menus"
+  }
+]
