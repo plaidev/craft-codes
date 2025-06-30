@@ -1,0 +1,44 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します。"
+  },
+  {
+    "name": "SLACK_CHANNEL_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "内容を通知するSlackのチャンネルIDです。"
+  },
+  {
+    "name": "SLACK_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Slack OAuthトークンを登録したシークレットの名前です。"
+  },
+  {
+    "name": "PROJECT_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "本機能を利用するKARTEプロジェクトIDです。"
+  },
+  {
+    "name": "SLACK_MESSAGE_HEADER",
+    "value": "〇〇したユーザーのKARTE Live動画URLを通知します。",
+    "type": "string",
+    "required": true,
+    "description": "Slack通知の冒頭に表示する固定文言を指定します。"
+  },
+  {
+    "name": "SLACK_MESSAGE_NO_DATA",
+    "value": "KARTE Live動画URL通知対象である「〇〇したユーザー」は、存在しませんでした。",
+    "type": "string",
+    "required": true,
+    "description": "通知対象データが存在しなかった場合にSlack通知に表示する固定文言を指定します。"
+  }
+]
