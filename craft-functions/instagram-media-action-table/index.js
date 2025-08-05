@@ -4,6 +4,8 @@ const INSTAGRAM_BUSINESS_ACCOUNT_ID = '<% INSTAGRAM_BUSINESS_ACCOUNT_ID %>';
 const GRAPH_API_VERSION = '<% GRAPH_API_VERSION %>';
 const TARGET_FUNCTION_ID = '<% TARGET_FUNCTION_ID %>';
 const ACTION_TABLE_ID = '<% ACTION_TABLE_ID %>';
+const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const RETRY_TIMEOUT_SEC = 3600;
 
 async function fetchData(url) {
   const response = await fetch(url);
@@ -46,10 +48,9 @@ export default async function (data, { MODULES }) {
       const fetchedAt = new Date();
       const expiredAt = new Date(fetchedAt.getTime() + 24 * 60 * 60 * 1000); // 有効期限を1日後に指定
 
-      const payload = {
-        method: 'upsert',
+      const parameters = {
         table: ACTION_TABLE_ID,
-        fields: {
+        data: {
           media_id: mediaDetails.id,
           media_type: mediaDetails.media_type,
           media_product_type: mediaDetails.media_product_type,
@@ -66,7 +67,12 @@ export default async function (data, { MODULES }) {
 
       await craftFunctions.invoke({
         functionId: TARGET_FUNCTION_ID,
-        data: payload,
+        data: {
+          apiUrl: 'https://api.karte.io/v2beta/action/actionTable/records/upsert',
+          parameters,
+          tokenSecretName: KARTE_APP_TOKEN_SECRET,
+          retryTimeoutSec: RETRY_TIMEOUT_SEC,
+        },
       });
     });
 

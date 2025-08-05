@@ -1,6 +1,8 @@
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const TARGET_FUNCTION_ID = '<% TARGET_FUNCTION_ID %>';
 const REF_TABLE_ID = '<% REF_TABLE_ID %>';
+const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const RETRY_TIMEOUT_SEC = 3600;
 
 export default async function (data, { MODULES }) {
   const { req, res } = data;
@@ -23,8 +25,8 @@ export default async function (data, { MODULES }) {
       return res.status(400).send('Bad Request');
     }
 
-    const payload = {
-      tableId: REF_TABLE_ID,
+    const parameters = {
+      id: REF_TABLE_ID,
       rowKey: { tracking_id: trackingId },
       values: {
         event_name: eventName,
@@ -34,7 +36,12 @@ export default async function (data, { MODULES }) {
 
     await craftFunctions.invoke({
       functionId: TARGET_FUNCTION_ID,
-      data: payload,
+      data: {
+        apiUrl: 'https://api.karte.io/v2beta/track/refTable/row/upsert',
+        parameters,
+        tokenSecretName: KARTE_APP_TOKEN_SECRET,
+        retryTimeoutSec: RETRY_TIMEOUT_SEC,
+      },
     });
 
     logger.debug(`Function invoke succeeded: ${TARGET_FUNCTION_ID}`);

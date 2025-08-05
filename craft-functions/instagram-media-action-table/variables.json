@@ -39,6 +39,13 @@
     "value": "",
     "type": "string",
     "required": true,
-    "description": "Instagram Graph APIから取得したデータを渡して、アクションテーブルへのデータ投入処理を行うCraft FunctionsのファンクションIDです"
+    "description": "KARTEの更新系API call用ファンクションのファンクションIDです"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
   }
 ]
