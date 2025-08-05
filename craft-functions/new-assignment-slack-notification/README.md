@@ -2,15 +2,13 @@
 
 ## title
 
-KARTE Talk で新規アサインされた場合に Slack 通知する
+KARTE Talkで新規アサインされた場合にSlack通知する
 
 ## blogUrl
 https://solution.karte.io/blog/2023/12/new-assignment-slack-notification
 
 ## description
-
-KARTE Talk で担当者が割り当てられた時に、誰に割り当てられたのかを Slack 通知するためのサンプルコードです。
+KARTE Talkで担当者が割り当てられた時に、誰に割り当てられたのかをSlack通知するためのサンプルコードです。
 
 ## category
-
-外部連携,HOOK_V2
+Slack,Craft Functions,Talk,HOOK_V2

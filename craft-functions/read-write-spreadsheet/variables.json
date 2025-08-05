@@ -4,27 +4,25 @@
     "value": "WARN",
     "type": "string",
     "required": true,
-    "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
   },
   {
     "name": "SERVICE_ACCOUNT_KEY_SECRET",
     "value": "",
     "type": "string",
     "required": true,
-    "description": "Googleサービスアカウントを登録したシークレットの名前です。"
+    "description": "利用するGoogleサービスアカウントのJSONキーを登録したシークレットの名前です。"
   },
   {
     "name": "SPREADSHEET_ID",
     "value": "",
     "type": "string",
-    "required": true,
-    "description": "GoogleスプレッドシートIDです。"
+    "required": true
   },
   {
     "name": "SHEET_NAME",
     "value": "",
     "type": "string",
-    "required": true,
-    "description": "連携対象のGoogleスプレッドシートのシート名です。"
+    "required": true
   }
 ]

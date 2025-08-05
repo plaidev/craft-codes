@@ -13,4 +13,4 @@ Craft LINE Hookトリガーを利用してこのFunctionを実行することで
 
 ## category
 
-外部連携,CRAFT_LINE_HOOK
+LINE,Craft Functions,CRAFT_LINE_HOOK

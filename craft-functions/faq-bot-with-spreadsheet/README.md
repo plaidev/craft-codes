@@ -6,7 +6,7 @@ GoogleスプレッドシートのFAQ集を基に、ユーザーからの質問�
 
 ## blogUrl
 
-https://solution.karte.io/blog/2024/08/faq-bot-with-spreadsheet/
+https://solution.karte.io/blog/2024/09/faq-bot-with-spreadsheet/
 
 ## description
 

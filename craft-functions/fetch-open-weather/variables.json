@@ -1,16 +1,23 @@
 [
   {
-    "name": "KARTE_TOKEN_SECRET",
+    "name": "KARTE_APP_TOKEN_SECRET",
     "value": "",
     "type": "string",
     "required": true,
-    "description": "API v2 アプリのアクセストークンを登録したシークレットの名前です。"
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
   },
   {
     "name": "OPEN_WEATHER_API_KEY_SECRET",
     "value": "",
     "type": "string",
     "required": true,
-    "description": "OpenWeatherMapnのAPIキーを登録したシークレットの名前です。"
+    "description": "OpenWeatherMapのAPIキーを登録したシークレット名です"
+  },
+  {
+    "name": "KARTE_EVENT_NAME",
+    "value": "weather_information",
+    "type": "string",
+    "required": true,
+    "description": "KARTEで発生させるイベントの名前です"
   }
 ]

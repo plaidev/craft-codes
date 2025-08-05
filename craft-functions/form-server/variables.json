@@ -4,21 +4,21 @@
     "value": "WARN",
     "type": "string",
     "required": true,
-    "description": "ログレベル。DEBUG, INFO, WARN, ERROR, NONEのいずれかを指定"
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
   },
   {
     "name": "KARTE_APP_TOKEN_SECRET",
     "value": "",
     "type": "string",
     "required": true,
-    "description": "Craft Secretに保存したAPIトークンのキー名"
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
   },
   {
-    "name": "REFTABLE_ID",
+    "name": "REF_TABLE_ID",
     "value": "",
     "type": "string",
     "required": true,
-    "description": "紐づけテーブルのテーブルID"
+    "description": "更新対象の紐付けテーブルのIDです"
   },
   {
     "name": "FORM_FIELDS",

@@ -3,10 +3,10 @@ const MODEL = '<% MODEL %>';
 const CHAT_SENDER_ID = '<% CHAT_SENDER_ID %>';
 const CRAFT_SPEC_URI = '@dev-karte/xxxxxxxxxx';
 const TALK_SPEC_URI = '@dev-karte/yyyyyyyyyy';
-const CRAFT_APP_TOKEN_SECRET_NAME = '<% CRAFT_APP_TOKEN_SECRET_NAME %>';
+const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
 const MIN_CHAT_TEXT_LENGTH = Number('<% MIN_CHAT_TEXT_LENGTH %'); // この文字数以上のチャットメッセージのみ自動要約する
 
-async function fetchSummary({text, token, karteApiClientForCraftTypeApp}) {
+async function fetchSummary({ text, token, karteApiClientForCraftTypeApp }) {
   const sdk = karteApiClientForCraftTypeApp({
     token,
     specUri: CRAFT_SPEC_URI,
@@ -17,7 +17,7 @@ async function fetchSummary({text, token, karteApiClientForCraftTypeApp}) {
   const messages = [
     {
       role: 'user',
-      content: prompt
+      content: prompt,
     },
   ];
   const { data } = await sdk.postV2betaCraftAimodulesOpenaiChatCompletions({
@@ -27,12 +27,12 @@ async function fetchSummary({text, token, karteApiClientForCraftTypeApp}) {
     top_p: 0.95,
     frequency_penalty: 0,
     presence_penalty: 0,
-    max_tokens: 1000
+    max_tokens: 1000,
   });
   return data.content;
 }
 
-function postNote({user_id, text, token, karteApiClientForCraftTypeApp}) {
+function postNote({ userId, text, token, karteApiClientForCraftTypeApp }) {
   const sdk = karteApiClientForCraftTypeApp({
     token,
     specUri: TALK_SPEC_URI,
@@ -40,43 +40,40 @@ function postNote({user_id, text, token, karteApiClientForCraftTypeApp}) {
 
   return sdk.postV2betaTalkNoteSend({
     content: {
-      text
+      text,
     },
-    user_id: user_id,
+    user_id: userId,
     sender: {
       id: CHAT_SENDER_ID,
-      is_bot: true
-    }
+      is_bot: true,
+    },
   });
 }
 
 export default async function (data, { MODULES }) {
   const { initLogger, secret, karteApiClientForCraftTypeApp } = MODULES;
-  const logger = initLogger({logLevel: LOG_LEVEL});
+  const logger = initLogger({ logLevel: LOG_LEVEL });
 
-  if (data.kind !== 'karte/apiv2-hook') { 
-    logger.warn(`invalid function trigger: ${data.kind}`); 
-    return; 
+  if (data.kind !== 'karte/apiv2-hook') {
+    logger.warn(`invalid function trigger: ${data.kind}`);
+    return;
   }
 
   const userMessage = data.jsonPayload.data.content.text;
   if (userMessage.length < MIN_CHAT_TEXT_LENGTH) {
-    logger.debug(`skip: too short message.`); 
+    logger.debug(`skip: too short message.`);
     return;
   }
 
-  const secrets = await secret.get({keys: [ CRAFT_APP_TOKEN_SECRET_NAME ]});
-  const token = secrets[CRAFT_APP_TOKEN_SECRET_NAME];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
+  const token = secrets[KARTE_APP_TOKEN_SECRET];
 
-  const summary = await fetchSummary({text: userMessage, token, karteApiClientForCraftTypeApp});
+  const summary = await fetchSummary({ text: userMessage, token, karteApiClientForCraftTypeApp });
   if (summary) {
     logger.debug(`fetchSummary succeeded.`);
   }
 
-  let user_id = data.jsonPayload.data.user_id;
-  const visitor_id = data.jsonPayload.data.visitor_id;
-  if (!user_id) user_id = visitor_id;
-
+  const userId = data.jsonPayload.data.user_id || data.jsonPayload.data.visitor_id;
   const reply = `■自動要約: \n${summary}`;
-  return postNote({user_id, text: reply, token, karteApiClientForCraftTypeApp});
+  return postNote({ userId, text: reply, token, karteApiClientForCraftTypeApp });
 }

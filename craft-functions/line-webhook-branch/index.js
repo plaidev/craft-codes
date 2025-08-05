@@ -38,5 +38,4 @@ export default async function (data, { MODULES }) {
     throw new Error(`Request failed with status ${res.status}: ${txt}`);
   }
   logger.debug(`Request succeeded.`);
-  return;
 }

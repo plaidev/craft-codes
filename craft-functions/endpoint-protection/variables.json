@@ -8,7 +8,7 @@
   },
   {
     "name": "JWT_SECRET",
-    "value": "",
+    "value": "JWT_SECRET",
     "type": "string",
     "required": true,
     "description": "Craftシークレットに保存したJWT署名用秘密鍵のシークレット名です"

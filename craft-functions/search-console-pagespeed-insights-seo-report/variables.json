@@ -1,59 +1,58 @@
 [
-    {
-      "name": "LOG_LEVEL",
-      "value": "WARN",
-      "type": "string",
-      "required": true,
-      "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
-    },
-    {
-      "name": "SERVICE_ACCOUNT_KEY_SECRET",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "利用するGoogleサービスアカウントのJSONキーを登録したシークレットの名前です"
-    },
-    {
-      "name": "GCP_API_KEY",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "GCPプロジェクトで発行したAPIキーです"
-    },
-    {
-      "name": "SPREADSHEET_ID",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "出力先となるスプレッドシートのシートIDです"
-    },
-    {
-      "name": "SHEET_NAME",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "出力先となるスプレッドシートのシート名です"
-    },
-    {
-      "name": "SITE_URL",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "掲載順位を取得したいWebサイトのURLです"
-    },
-    {
-      "name": "DAY_BEFORE_END_DATE",
-      "value": "",
-      "type": "number",
-      "required": true,
-      "description": "掲載順位の比較対象となる日付を取得するために、終了日から何日前の日付を使用するかを指定します"
-    },
-    {
-      "name": "LOWER_LIMIT_IMPRESSIONS",
-      "value": "",
-      "type": "number",
-      "required": true,
-      "description": "サーチコンソールからデータを抽出する際の絞り込み条件となる表示回数の下限値です"
-    }
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "SERVICE_ACCOUNT_KEY_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "利用するGoogleサービスアカウントのJSONキーを登録したシークレットの名前です"
+  },
+  {
+    "name": "GCP_API_KEY",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "GCPプロジェクトで発行したAPIキーです"
+  },
+  {
+    "name": "SPREADSHEET_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "出力先となるスプレッドシートのシートIDです"
+  },
+  {
+    "name": "SHEET_NAME",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "出力先となるスプレッドシートのシート名です"
+  },
+  {
+    "name": "SITE_URL",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "掲載順位を取得したいWebサイトのURLです"
+  },
+  {
+    "name": "DAY_BEFORE_END_DATE",
+    "value": "",
+    "type": "number",
+    "required": true,
+    "description": "掲載順位の比較対象となる日付を取得するために、終了日から何日前の日付を使用するかを指定します"
+  },
+  {
+    "name": "LOWER_LIMIT_IMPRESSIONS",
+    "value": "",
+    "type": "number",
+    "required": true,
+    "description": "サーチコンソールからデータを抽出する際の絞り込み条件となる表示回数の下限値です"
+  }
 ]
-  

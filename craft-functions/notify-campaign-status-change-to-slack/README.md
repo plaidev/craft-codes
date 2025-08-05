@@ -13,4 +13,4 @@ KARTE の Hook v2 機能で KARTE 内で発生した接客サービスのステ�
 
 ## category
 
-外部連携,HOOK_V2
+Slack,Craft Functions,接客サービス,HOOK_V2

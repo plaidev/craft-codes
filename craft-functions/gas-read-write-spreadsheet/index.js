@@ -32,7 +32,7 @@ export default async function (data, { MODULES }) {
 
     // GETで受け取ったB1セルの値に1を加える
     const newCount = Number(currentCount) + 1;
-    
+
     // HTTP POST リクエストを送信して、スプレッドシートのB1セルを新しい値に更新
     await updateCurrentCount(newCount);
   } catch (error) {

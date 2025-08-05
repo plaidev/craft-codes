@@ -90,13 +90,9 @@ async function postMessageToSlack({
   let slackMessage;
 
   if (totalPosts > postThreshold * 100) {
-    slackMessage = `🚀 やったーーー😆「${SEARCH_WORD}」に関する投稿が大バズり中！なんと、指定した値の100倍(${
-      postThreshold * 100
-    }件)の投稿数を突破しました🎉\n\n直近${MINUTES_AGO}分の投稿数は驚異の${totalPosts}件です！📮`;
+    slackMessage = `🚀 やったーーー😆「${SEARCH_WORD}」に関する投稿が大バズり中！なんと、指定した値の100倍(${postThreshold * 100}件)の投稿数を突破しました🎉\n\n直近${MINUTES_AGO}分の投稿数は驚異の${totalPosts}件です！📮`;
   } else if (totalPosts > postThreshold * 10) {
-    slackMessage = `🔥 いい感じ！😁「${SEARCH_WORD}」に関する投稿が急増してるよ！指定した値の10倍(${
-      postThreshold * 10
-    }件)の投稿数を突破しました🎉\n\n直近${MINUTES_AGO}分の投稿数は${totalPosts}件です！📮`;
+    slackMessage = `🔥 いい感じ！😁「${SEARCH_WORD}」に関する投稿が急増してるよ！指定した値の10倍(${postThreshold * 10}件)の投稿数を突破しました🎉\n\n直近${MINUTES_AGO}分の投稿数は${totalPosts}件です！📮`;
   } else if (totalPosts > postThreshold) {
     slackMessage = `📈 「${SEARCH_WORD}」での投稿が盛り上がってるよ！指定した値の${postThreshold}件を超えました🎉\n\n直近${MINUTES_AGO}分の投稿数は${totalPosts}件です！📮`;
   }

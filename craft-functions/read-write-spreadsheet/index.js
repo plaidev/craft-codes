@@ -1,4 +1,4 @@
-import { google } from "googleapis";
+import { google } from 'googleapis';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>'; // GoogleサービスアカウントのJSONキーを登録したシークレットの名前
@@ -7,8 +7,8 @@ const SHEET_NAME = '<% SHEET_NAME %>'; // スプレッドシート内のシー�
 
 async function getSsValues(sheets, range) {
   const res = await sheets.spreadsheets.values.get({
-      spreadsheetId: SPREADSHEET_ID,
-      range,
+    spreadsheetId: SPREADSHEET_ID,
+    range,
   });
   return res.data.values || null;
 }
@@ -16,7 +16,7 @@ async function updateSsValues(sheets, range, values) {
   await sheets.spreadsheets.values.update({
     spreadsheetId: SPREADSHEET_ID,
     range,
-    valueInputOption: "USER_ENTERED", // Userの入力値と同様に扱う
+    valueInputOption: 'USER_ENTERED', // Userの入力値と同様に扱う
     resource: {
       values,
     },
@@ -33,15 +33,12 @@ export default async function (data, { MODULES }) {
   const jsonKey = JSON.parse(_jsonKey);
 
   // Google Drive APIの初期化
-  const jwtClient = new google.auth.JWT(
-    jsonKey.client_email,
-    null,
-    jsonKey.private_key,
-    ["https://www.googleapis.com/auth/spreadsheets"]
-  );
+  const jwtClient = new google.auth.JWT(jsonKey.client_email, null, jsonKey.private_key, [
+    'https://www.googleapis.com/auth/spreadsheets',
+  ]);
   await jwtClient.authorize();
 
-  const sheets = google.sheets({ version: "v4", auth: jwtClient });
+  const sheets = google.sheets({ version: 'v4', auth: jwtClient });
 
   // 現在のcountを取得
   const values = await getSsValues(sheets, `${SHEET_NAME}!A1:B1`);
@@ -52,6 +49,6 @@ export default async function (data, { MODULES }) {
   logger.debug(`currentCount: ${currentCount}`);
 
   // countを +1 して上書き
-  const newValues = [['count: ', currentCount+1]]
-  await updateSsValues(sheets, `${SHEET_NAME}!A1:B1`, newValues)
+  const newValues = [['count: ', currentCount + 1]];
+  await updateSsValues(sheets, `${SHEET_NAME}!A1:B1`, newValues);
 }

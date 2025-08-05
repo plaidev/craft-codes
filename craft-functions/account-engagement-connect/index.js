@@ -1,7 +1,7 @@
 import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const APP_TOKEN_SECRET = '<% APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
 const EVENT_NAME = '<% EVENT_NAME %>';
 const ACCOUNTENGAGEMENT_CLIENT_ID = '<% ACCOUNTENGAGEMENT_CLIENT_ID %>';
 const ACCOUNTENGAGEMENT_CLIENT_SECRET = '<% ACCOUNTENGAGEMENT_CLIENT_SECRET %>';
@@ -115,7 +115,7 @@ export default async function (data, { MODULES }) {
   const { cookie: aeCookie, visitor_id: visitorId } = data.jsonPayload.data;
   const secrets = await secret.get({
     keys: [
-      APP_TOKEN_SECRET,
+      KARTE_APP_TOKEN_SECRET,
       ACCOUNTENGAGEMENT_CLIENT_ID,
       ACCOUNTENGAGEMENT_CLIENT_SECRET,
       ACCOUNTENGAGEMENT_USERNAME,
@@ -124,7 +124,7 @@ export default async function (data, { MODULES }) {
     ],
   });
 
-  const token = secrets[APP_TOKEN_SECRET];
+  const token = secrets[KARTE_APP_TOKEN_SECRET];
   const clientId = secrets[ACCOUNTENGAGEMENT_CLIENT_ID];
   const clientSecret = secrets[ACCOUNTENGAGEMENT_CLIENT_SECRET];
   const username = secrets[ACCOUNTENGAGEMENT_USERNAME];

@@ -10,4 +10,4 @@ https://solution.karte.io/blog/2024/01/event-realtime-datahub-execute
 KARTEで特定のイベントが発生したことをトリガーとして、Craft Functionsを起動し、Datahubのデータセットにクエリをリアルタイム実行するためのサンプルコードです。
 
 ## category
-BigQuery, Craft Functions, Datahub, KARTEイベント, SERVER_SIDE_ACTION, Slack
+Slack,BigQuery,Craft Functions,Datahub,SERVER_SIDE_ACTION

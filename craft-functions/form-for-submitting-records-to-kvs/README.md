@@ -6,7 +6,7 @@ Craft KVSにデータを入稿するための管理画面
 
 ## blogUrl
 
-https://solution.karte.io/2024/09/form-for-submitting-records-to-kvs
+https://solution.karte.io/blog/2024/09/form-for-submitting-records-to-kvs/
 
 ## description
 

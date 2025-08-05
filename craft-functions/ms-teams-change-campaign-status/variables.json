@@ -4,20 +4,18 @@
     "value": "WARN",
     "type": "string",
     "required": true,
-    "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
   },
   {
     "name": "KARTE_APP_SECRET_NAME",
     "value": "",
     "type": "string",
-    "required": true,
-    "description": "API v2 アプリのアクセストークンを登録したシークレットの名前です。"
+    "required": true
   },
   {
     "name": "TEAMS_OUTGOING_WEBHOOK_SECRET_NAME",
     "value": "",
     "type": "string",
-    "required": true,
-    "description": "Team HMAC トークンを登録したシークレットの名前です。"
+    "required": true
   }
 ]

@@ -1,6 +1,7 @@
-const LINE_CHANNEL_ACCESS_TOKEN = '<% LINE_CHANNEL_ACCESS_TOKEN %>';
+const LINE_CHANNEL_ACCESS_TOKEN_SECRET = '<% LINE_CHANNEL_ACCESS_TOKEN_SECRET %>';
 const KVS_DATA_VALIDITY_MINUTE = '<% KVS_DATA_VALIDITY_MINUTE %>';
 const KEY_PREFIX = '<% KEY_PREFIX %>';
+const LOG_LEVEL = '<% LOG_LEVEL %>';
 const CREATE_LINE_RICH_MENU_ENDPOINT_URL = 'https://api.line.me/v2/bot/richmenu';
 const UPLOAD_LINE_RICH_MENU_IMAGE_ENDPOINT_URL = 'https://api-data.line.me/v2/bot/richmenu';
 const SET_DEFAULT_LINE_RICH_MENU_ENDPOINT_URL = 'https://api.line.me/v2/bot/user/all/richmenu';
@@ -76,22 +77,31 @@ async function setUserLineRichMenu(userIds, richMenuId, lineChannelAccessToken) 
   }
 }
 
-async function createLineRichMenu(richMenuJson, lineChannelAccessToken, imageBuffer, userIds, kvs) {
+async function createLineRichMenu(
+  richMenuJson,
+  lineChannelAccessToken,
+  imageBuffer,
+  userIds,
+  kvs,
+  action
+) {
   try {
     const richMenuId = await postLineRichMenuJson(richMenuJson, lineChannelAccessToken);
     await uploadLineRichMenuImage(richMenuId, lineChannelAccessToken, imageBuffer);
 
-    if (userIds.length > 0) {
+    if (action === 'setUserLineRichMenu' && userIds.length > 0) {
       await setUserLineRichMenu(userIds, richMenuId, lineChannelAccessToken);
       await kvs.write({
         key: `${KEY_PREFIX}-${richMenuId}`,
         value: {
           userIds,
         },
-        minutesToExpire: KVS_DATA_VALIDITY_MINUTE,
+        minutesToExpire: Number(KVS_DATA_VALIDITY_MINUTE),
       });
-    } else {
+    } else if (action === 'setDefaultLineRichMenu') {
       await setDefaultRichMenu(richMenuId, lineChannelAccessToken);
+    } else {
+      throw new Error('Invalid action');
     }
     return richMenuId;
   } catch (error) {
@@ -101,7 +111,7 @@ async function createLineRichMenu(richMenuJson, lineChannelAccessToken, imageBuf
 
 export default async function (data, { MODULES }) {
   const { initLogger, secret, kvs } = MODULES;
-  const logger = initLogger({ logLevel: 'INFO' });
+  const logger = initLogger({ logLevel: LOG_LEVEL });
   const { req, res } = data;
 
   try {
@@ -116,20 +126,41 @@ export default async function (data, { MODULES }) {
       return;
     }
 
-    const lineChannelAccessToken = (
-      await secret.get({
-        keys: [LINE_CHANNEL_ACCESS_TOKEN],
-      })
-    )[LINE_CHANNEL_ACCESS_TOKEN];
+    const secrets = await secret.get({
+      keys: [LINE_CHANNEL_ACCESS_TOKEN_SECRET],
+    });
+    const lineChannelAccessToken = secrets[LINE_CHANNEL_ACCESS_TOKEN_SECRET];
 
     const richMenuJson = req.body.richMenuJson;
     const imageBuffer = Buffer.from(req.body.base64Image, 'base64');
+    const action = req.body.action;
+
+    if (!richMenuJson || !imageBuffer || !action) {
+      res.status(400).json({ message: 'Invalid request' });
+      return;
+    }
+
     const userIds = req.body.userIds;
-    await createLineRichMenu(richMenuJson, lineChannelAccessToken, imageBuffer, userIds, kvs);
+
+    if (action === 'setUserLineRichMenu') {
+      if (!userIds || userIds.length === 0) {
+        res.status(400).json({ message: 'Invalid request' });
+        return;
+      }
+    }
+
+    await createLineRichMenu(
+      richMenuJson,
+      lineChannelAccessToken,
+      imageBuffer,
+      userIds,
+      kvs,
+      action
+    );
 
     res.status(200).json({ message: 'success' });
   } catch (error) {
-    logger.log('Unexpected error 500:', error);
+    logger.log('Unexpected error', error);
     res.status(500).json({ message: 'Internal Server Error' });
   }
 }

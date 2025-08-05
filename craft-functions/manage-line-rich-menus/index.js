@@ -1,5 +1,6 @@
-const LINE_CHANNEL_ACCESS_TOKEN = '<% LINE_CHANNEL_ACCESS_TOKEN %>';
+const LINE_CHANNEL_ACCESS_TOKEN_SECRET = '<% LINE_CHANNEL_ACCESS_TOKEN_SECRET %>';
 const KEY_PREFIX = '<% KEY_PREFIX %>';
+const LOG_LEVEL = '<% LOG_LEVEL %>';
 const SET_DEFAULT_LINE_RICH_MENU_ENDPOINT_URL = 'https://api.line.me/v2/bot/user/all/richmenu';
 const GET_LINE_RICH_MENU_ENDPOINT_URL = 'https://api.line.me/v2/bot/richmenu';
 const GET_ALL_LINE_RICH_MENU_ENDPOINT_URL = 'https://api.line.me/v2/bot/richmenu/list';
@@ -56,11 +57,8 @@ async function getLineRichMenu(richMenuId, lineChannelAccessToken, kvs) {
       key,
     });
 
-    let userIds = [];
-
-    if (kvsData[richMenuId]) {
-      userIds = kvsData[richMenuId].value.userIds;
-    }
+    const userIds = kvsData[key]?.value?.userIds || [];
+    const createdAt = kvsData[key]?.created_at || null;
 
     if (!richMenuResponse.ok) {
       throw new Error('Failed to get line rich menu');
@@ -70,7 +68,7 @@ async function getLineRichMenu(richMenuId, lineChannelAccessToken, kvs) {
     const imageBuffer = await richMenuImageResponse.arrayBuffer();
     const base64Image = Buffer.from(imageBuffer).toString('base64');
 
-    return { richMenuData, base64Image, userIds };
+    return { richMenuData, base64Image, userIds, createdAt };
   } catch (error) {
     throw new Error('Failed to get line rich menu');
   }
@@ -78,27 +76,30 @@ async function getLineRichMenu(richMenuId, lineChannelAccessToken, kvs) {
 
 async function getAllLineRichMenu(lineChannelAccessToken, kvs) {
   try {
-    const richMenusResponse = await fetch(GET_ALL_LINE_RICH_MENU_ENDPOINT_URL, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${lineChannelAccessToken}`,
-      },
-    });
+    const [richMenusResponse, defaultRichMenuResponse] = await Promise.all([
+      fetch(GET_ALL_LINE_RICH_MENU_ENDPOINT_URL, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${lineChannelAccessToken}`,
+        },
+      }),
+      fetch(GET_DEFAULT_LINE_RICH_MENU_ENDPOINT_URL, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${lineChannelAccessToken}`,
+        },
+      }),
+    ]);
 
-    const richMenus = await richMenusResponse.json();
-
-    if (!richMenusResponse.ok) {
-      throw new Error('Failed to get line rich menu');
+    if (!richMenusResponse.ok || !defaultRichMenuResponse.ok) {
+      throw new Error('Failed to fetch rich menu data');
     }
 
-    const defaultRichMenuResponse = await fetch(GET_DEFAULT_LINE_RICH_MENU_ENDPOINT_URL, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${lineChannelAccessToken}`,
-      },
-    });
+    const [richMenus, defaultRichMenu] = await Promise.all([
+      richMenusResponse.json(),
+      defaultRichMenuResponse.json(),
+    ]);
 
-    const defaultRichMenu = await defaultRichMenuResponse.json();
     const richMenusData = await Promise.all(
       richMenus.richmenus.map(async richMenu => {
         const key = `${KEY_PREFIX}-${richMenu.richMenuId}`;
@@ -106,10 +107,13 @@ async function getAllLineRichMenu(lineChannelAccessToken, kvs) {
           key,
         });
 
+        const userIds = kvsData[key]?.value?.userIds || [];
+        const createdAt = kvsData[key]?.created_at || null;
+
         let menuType = 'default';
         if (richMenu.richMenuId === defaultRichMenu.richMenuId) {
           menuType = 'default';
-        } else if (kvsData[key]) {
+        } else if (userIds.length > 0) {
           menuType = 'user';
         } else {
           menuType = 'none';
@@ -118,6 +122,7 @@ async function getAllLineRichMenu(lineChannelAccessToken, kvs) {
         return {
           ...richMenu,
           menuType,
+          createdAt,
         };
       })
     );
@@ -144,7 +149,7 @@ async function deleteLineRichMenu(richMenuId, lineChannelAccessToken) {
   }
 }
 
-async function deleteDefaultLineRichMenu(lineChannelAccessToken) {
+async function unSetDefaultLineRichMenu(lineChannelAccessToken) {
   try {
     const res = await fetch(DELETE_DEFAULT_LINE_RICH_MENU_ENDPOINT_URL, {
       method: 'DELETE',
@@ -163,7 +168,7 @@ async function deleteDefaultLineRichMenu(lineChannelAccessToken) {
 
 export default async function (data, { MODULES }) {
   const { initLogger, secret, kvs } = MODULES;
-  const logger = initLogger({ logLevel: 'INFO' });
+  const logger = initLogger({ logLevel: LOG_LEVEL });
   const { req, res } = data;
   try {
     setCorsHeaders(res);
@@ -172,23 +177,24 @@ export default async function (data, { MODULES }) {
       return;
     }
 
-    const lineChannelAccessToken = (
-      await secret.get({
-        keys: [LINE_CHANNEL_ACCESS_TOKEN],
-      })
-    )[LINE_CHANNEL_ACCESS_TOKEN];
+    const secrets = await secret.get({
+      keys: [LINE_CHANNEL_ACCESS_TOKEN_SECRET],
+    });
+    const lineChannelAccessToken = secrets[LINE_CHANNEL_ACCESS_TOKEN_SECRET];
 
     const richMenuId = req.query.id;
     switch (req.method) {
       case 'GET': {
         if (richMenuId) {
-          const { richMenuData, base64Image, userIds } = await getLineRichMenu(
+          const { richMenuData, base64Image, userIds, createdAt } = await getLineRichMenu(
             richMenuId,
             lineChannelAccessToken,
             kvs
           );
 
-          res.status(200).json({ message: 'success', richMenuData, base64Image, userIds });
+          res
+            .status(200)
+            .json({ message: 'success', richMenuData, base64Image, userIds, createdAt });
         } else {
           const richMenuResponse = await getAllLineRichMenu(lineChannelAccessToken, kvs);
           res.status(200).json({ message: 'success', richMenuResponse });
@@ -202,12 +208,16 @@ export default async function (data, { MODULES }) {
       }
 
       case 'DELETE': {
-        if (richMenuId) {
+        const action = req.body.action;
+        if (action === 'deleteLineRichMenu') {
           await deleteLineRichMenu(richMenuId, lineChannelAccessToken);
+        } else if (action === 'unSetDefaultLineRichMenu') {
+          await unSetDefaultLineRichMenu(lineChannelAccessToken);
         } else {
-          await deleteDefaultLineRichMenu(lineChannelAccessToken);
+          res.status(400).json({ message: 'Invalid request' });
+          return;
         }
-        
+
         res.status(200).json({ message: 'success' });
         break;
       }
@@ -216,7 +226,7 @@ export default async function (data, { MODULES }) {
         break;
     }
   } catch (error) {
-    logger.log('Unexpected error 500:', error);
+    logger.log('Unexpected error', error);
     res.status(500).json({ message: 'Internal Server Error' });
   }
 }

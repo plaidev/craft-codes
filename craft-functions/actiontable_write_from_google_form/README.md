@@ -13,7 +13,7 @@ https://solution.karte.io/blog/2023/12/actiontable-write-from-googleform
 
 ## category
 
-アクションテーブル,Craft Functions,Google Form,CRAFT_ENDPOINT
+Googleフォーム,Craft Functions,アクションテーブル,CRAFT_ENDPOINT
 
 ## functionType
 

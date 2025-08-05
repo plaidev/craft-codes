@@ -4,7 +4,7 @@
     "value": "WARN",
     "type": "string",
     "required": true,
-    "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
   },
   {
     "name": "PER_DATA_TIMEOUT_SEC",

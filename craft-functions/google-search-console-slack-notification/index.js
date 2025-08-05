@@ -20,7 +20,7 @@ async function createSearchConsoleClient(saKeyJson) {
 
   const searchConsole = google.searchconsole({
     version: 'v1',
-    auth: client
+    auth: client,
   });
 
   return searchConsole;
@@ -77,10 +77,10 @@ function getStartDateAndEndDate(dayBeforeEndDate) {
 
 // Slackへメッセージを送信する関数
 async function sendSlackMessage(channelId, message, { slackClient }) {
-    await slackClient.chat.postMessage({
-        channel: channelId,
-        text: message,
-    });
+  await slackClient.chat.postMessage({
+    channel: channelId,
+    text: message,
+  });
 }
 
 export default async function (data, { MODULES }) {
@@ -89,10 +89,7 @@ export default async function (data, { MODULES }) {
 
   // Search ConsoleとSlackのシークレットを取得
   const secrets = await secret.get({
-    keys: [
-      SERVICE_ACCOUNT_KEY_SECRET,
-      SLACK_TOKEN_SECRET
-      ],
+    keys: [SERVICE_ACCOUNT_KEY_SECRET, SLACK_TOKEN_SECRET],
   });
 
   const saKeyJson = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET]);
@@ -103,7 +100,12 @@ export default async function (data, { MODULES }) {
 
   const { startDate, endDate } = getStartDateAndEndDate(DAY_BEFORE_END_DATE);
 
-  const startDatePageRanking = await getPageRankingOnDate(searchConsole, SITE_URL, PAGE_URL, startDate);
+  const startDatePageRanking = await getPageRankingOnDate(
+    searchConsole,
+    SITE_URL,
+    PAGE_URL,
+    startDate
+  );
   const endDatePageRanking = await getPageRankingOnDate(searchConsole, SITE_URL, PAGE_URL, endDate);
 
   if (startDatePageRanking === null || endDatePageRanking === null) {
@@ -125,5 +127,4 @@ export default async function (data, { MODULES }) {
   変動幅: ${changePageRanking} 位`;
 
   await sendSlackMessage(SLACK_CHANNEL_ID, message, { slackClient });
-
 }

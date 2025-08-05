@@ -14,7 +14,7 @@ Slackアプリでのボタン操作を受け取り、接客の公開非公開状
 
 ## category
 
-KARTE Action,Craft Functions,Slack,CRAFT_ENDPOINT
+Slack,Craft Functions,接客サービス,CRAFT_ENDPOINT
 
 ## functionType
 

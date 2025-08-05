@@ -1,30 +1,30 @@
 [
-    {
-        "name": "LOG_LEVEL",
-        "value": "INFO",
-        "type": "string",
-        "required": true,
-        "description": "LOG_LEVELの設定をします"
-    },
-    {
-        "name": "REF_TABLE_ID",
-        "value": "",
-        "type": "string",
-        "required": true,
-        "description": "紐付けテーブルのIDを指定します"
-    },
-    {
-        "name": "ACCESS_TOKEN_SECRET",
-        "value": "",
-        "type": "string",
-        "required": true,
-        "description": "KARTEのAPIアクセストークンを登録したシークレット名を指定します"
-    },
-    {
-        "name": "GROUP_ID_FIELD",
-        "value": "",
-        "type": "string",
-        "required": true,
-        "description": "対象グループのIDが格納されたフィールドの名前を指定します"
-    }
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "REF_TABLE_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "更新対象の紐付けテーブルのIDです"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "GROUP_ID_FIELD",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "対象グループのIDが格納されたフィールドの名前を指定します"
+  }
 ]

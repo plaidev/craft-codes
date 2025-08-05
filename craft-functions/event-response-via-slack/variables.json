@@ -1,45 +1,44 @@
 [
-    {
-      "name": "LOG_LEVEL",
-      "value": "WARN",
-      "type": "string",
-      "required": true,
-      "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
-    },
-    {
-      "name": "SLACK_CHANNEL_ID",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "通知対象のSlackチャンネルIDです"
-    },
-    {
-      "name": "SLACK_TOKEN_SECRET",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "Slack Appの Bot User OAuth Tokenを登録したシークレット名です"
-    },
-    {
-      "name": "SLACK_APP_ID",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "Slack App管理画面のBasic Informationで確認できるApp IDです"
-    },
-    {
-      "name": "SLACK_APP_MEMBER_ID",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "Slackにアプリを追加したチャンネルから確認できる、アプリのメンバーIDです"
-    },
-    {
-      "name": "KVS_EXPIRE_MINUTES",
-      "value": "",
-      "type": "number",
-      "required": true,
-      "description": "KVSに保存するSlackの返信内容の保持期間を分で指定します"
-    }
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "SLACK_CHANNEL_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "通知対象のSlackチャンネルIDです"
+  },
+  {
+    "name": "SLACK_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Slack Appの Bot User OAuth Tokenを登録したシークレット名です"
+  },
+  {
+    "name": "SLACK_APP_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Slack App管理画面のBasic Informationで確認できるApp IDです"
+  },
+  {
+    "name": "SLACK_APP_MEMBER_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Slackにアプリを追加したチャンネルから確認できる、アプリのメンバーIDです"
+  },
+  {
+    "name": "KVS_EXPIRE_MINUTES",
+    "value": "",
+    "type": "number",
+    "required": true,
+    "description": "KVSに保存するSlackの返信内容の保持期間を分で指定します"
+  }
 ]
-  

@@ -1,4 +1,4 @@
-import { google } from "googleapis";
+import { google } from 'googleapis';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
@@ -7,7 +7,7 @@ async function updateSsValues(sheets, spreadsheetId, range, values) {
   await sheets.spreadsheets.values.update({
     spreadsheetId,
     range,
-    valueInputOption: "USER_ENTERED",
+    valueInputOption: 'USER_ENTERED',
     resource: {
       values,
     },
@@ -35,7 +35,7 @@ async function appendRow(sheets, spreadsheetId, sheetName, values) {
   await sheets.spreadsheets.values.append({
     spreadsheetId,
     range: `${sheetName}!A:Z`,
-    valueInputOption: "USER_ENTERED",
+    valueInputOption: 'USER_ENTERED',
     resource: {
       values: [values.map(item => item.value)],
     },
@@ -61,15 +61,12 @@ export default async function (data, { MODULES }) {
   const jsonKey = JSON.parse(_jsonKey);
 
   // Google Drive APIの初期化
-  const jwtClient = new google.auth.JWT(
-    jsonKey.client_email,
-    null,
-    jsonKey.private_key,
-    ["https://www.googleapis.com/auth/spreadsheets"]
-  );
+  const jwtClient = new google.auth.JWT(jsonKey.client_email, null, jsonKey.private_key, [
+    'https://www.googleapis.com/auth/spreadsheets',
+  ]);
   await jwtClient.authorize();
 
-  const sheets = google.sheets({ version: "v4", auth: jwtClient });
+  const sheets = google.sheets({ version: 'v4', auth: jwtClient });
 
   // イベントが発生するたびに、そのデータを格納する行を構築して追加
   await appendRow(sheets, spreadsheetId, sheetName, record);

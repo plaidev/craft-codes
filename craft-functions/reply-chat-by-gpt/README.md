@@ -13,4 +13,4 @@ KARTE のウェブチャットでは、Webhook/API 経由で外部 Bot サーバ
 
 ## category
 
-外部連携,カスタマーサポート,HOOK_V2
+ChatGPT,Talk,HOOK_V2

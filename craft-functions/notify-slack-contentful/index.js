@@ -1,15 +1,13 @@
 import { JSDOM } from 'jsdom';
+
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const DEF_SUPPORT_IO_RELEASE_NOTE_URL = "https://support.karte.io/release-notes/";
+const NOTIFY_MESSAGE = '<% NOTIFY_MESSAGE %>';
+const DEF_SUPPORT_IO_RELEASE_NOTE_URL = 'https://support.karte.io/release-notes/';
 
-//通知を飛ばしたいSlackアプリのIncoming Webhookを配列で持つ。本来はトリガー側でコントロールしたい。
-const SLACK_WEBHOOK_URL = [
-// Slack webhook URLを代入する
- "xxxxxxxx"
-];
+const SLACK_WEBHOOK_URL = 'xxxxxxxx';
 
 
-async function getOgImage(logger,url){
+async function getOgImage(logger, url) {
   try {
     // 指定されたURLからHTMLを取得
     const response = await fetch(url);
@@ -21,52 +19,51 @@ async function getOgImage(logger,url){
 
     // OGPタグを返却
     const ogImageUrl = document.querySelector('meta[property="og:image"]').content;
-    logger.debug('url',url);
-    logger.debug('ogImageUrl',ogImageUrl);
+    logger.debug('url', url);
+    logger.debug('ogImageUrl', ogImageUrl);
     return ogImageUrl;
   } catch (error) {
     logger.error('Get OGP failed', error);
   }
 }
 
-async function createPost(logger, contentful){
+async function createPost(logger, contentful) {
   logger.debug('createPost start');
-  const ogImageUrl = await getOgImage(logger, DEF_SUPPORT_IO_RELEASE_NOTE_URL + contentful.entrySys.id)
+  const ogImageUrl = await getOgImage(logger, DEF_SUPPORT_IO_RELEASE_NOTE_URL + contentful.entrySys.id);
   const slackMessage = JSON.stringify(
-     {
-        "blocks": [
-         {
-          "type": "section",
-          "text": {
-           "type": "mrkdwn",
-           "text": "リリースノートが公開されました :tada: \n"
-                  + "*<https://support.karte.io/release-notes/" + contentful.entrySys.id + "|" + contentful.title + ">*"
+    {
+      'blocks': [
+        {
+          'type': 'section',
+          'text': {
+            'type': 'mrkdwn',
+            'text': NOTIFY_MESSAGE
           }
-         },
-         {
-          "type": "image",
-          "image_url": ogImageUrl,
-          "alt_text": "Relase note image"
-         }
-        ]
-      }
-    );
+        },
+        {
+          'type': 'image',
+          'image_url': ogImageUrl,
+          'alt_text': 'Relase note image'
+        }
+      ]
+    }
+  );
   logger.debug('slackMessage', slackMessage);
   return slackMessage;
 }
 
-async function notificateSlack(logger, targetSlackWebhook, slackMessage){
+async function notificateSlack(logger, targetSlackWebhook, slackMessage) {
   logger.debug('notificateSlack start');
   try {
     const res = await fetch(targetSlackWebhook, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: slackMessage
-      }
+    }
     );
-    logger.ingo('POST slack webhook. Response is: ',res);
+    logger.debug('POST slack webhook. Response is: ', res);
   } catch (e) {
     logger.error('post slack error', e);
   }
@@ -74,20 +71,17 @@ async function notificateSlack(logger, targetSlackWebhook, slackMessage){
 
 export default async function (data, { MODULES }) {
   const { initLogger } = MODULES;
-  const logger = initLogger({logLevel: LOG_LEVEL});
+  const logger = initLogger({ logLevel: LOG_LEVEL });
   logger.debug('start');
-  const contentful = data.jsonPayload.data.hook_data.body; 
-  if(!contentful){
+  const contentful = data.jsonPayload.data.hook_data.body;
+  if (!contentful) {
     logger.error('contentful paylodが空です。');
     return;
   }
   try {
-      for(let i = 0; i <= SLACK_WEBHOOK_URL.length; i++)  {
-        let targetSlackWebhook = SLACK_WEBHOOK_URL[i];
-        logger.debug('target webhook', targetSlackWebhook);
-        await notificateSlack(logger, targetSlackWebhook, await createPost(logger, contentful));
-      } 
-  }catch (e){
+    logger.debug('target webhook', SLACK_WEBHOOK_URL);
+    await notificateSlack(logger, SLACK_WEBHOOK_URL, await createPost(logger, contentful));
+  } catch (e) {
     logger.error(e);
   }
 }

@@ -13,4 +13,4 @@ KARTE Talk の管理画面でエンドユーザーからチャットメッセー
 
 ## category
 
-外部連携,カスタマーサポート,HOOK_V2
+ChatGPT,Craft Functions,Talk,HOOK_V2

@@ -6,7 +6,7 @@ Craft FunctionsとKARTE Datahubを使って、Messageの配信ログをGoogleス
 
 ## blogUrl
 
-https://solution.karte.io/blog/2024/08/Message-log-push-to-spreadsheet/
+https://solution.karte.io/blog/2024/08/message-log-push-to-spreadsheet/
 
 ## description
 
