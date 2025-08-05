@@ -13,4 +13,4 @@ Craft FunctionsからGoogleスプレッドシート上のシートを読み書�
 
 ## category
 
-外部連携
+Googleスプレッドシート,Craft Functions

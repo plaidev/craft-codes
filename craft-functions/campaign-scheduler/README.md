@@ -13,7 +13,7 @@ KARTE の接客サービスを Google Calendar に登録された予定に応じ
 
 ## category
 
-機能拡張,CRAFT_SCHEDULER
+Googleカレンダー,Craft Functions,接客サービス,CRAFT_SCHEDULER
 
 # 詳細説明
 

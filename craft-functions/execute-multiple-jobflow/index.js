@@ -13,10 +13,10 @@ const LOG_LEVEL = '<% LOG_LEVEL %>';
 const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
 
 // 終了したトリガーを判別し、実行するターゲットを取り出す
-async function getTargetsToExecute(TARGET_JOBFLOWS, dataId) {
-  let jobQueue = [];
+async function getTargetsToExecute(jobflowId) {
+  const jobQueue = [];
   TARGET_JOBFLOWS.forEach((jobflow, index) => {
-    if (dataId === jobflow.trigger) {
+    if (jobflowId === jobflow.trigger) {
       jobQueue.push(index);
     }
   });
@@ -33,10 +33,10 @@ async function executeJobflows(appToken, targetsToExecute, logger) {
 
     const res = await Promise.allSettled(
       targetsToExecute.map(
-        jobflow_id =>
+        jobflowId =>
           jobflowsApi
-            .postV2DatahubJobflowExec({ jobflow_id })
-            .then(result => ({ ...result, jobflow_id })) // resultにはジョブフローIDが記載されていないため、追記する
+            .postV2DatahubJobflowExec({ jobflowId })
+            .then(result => ({ ...result, jobflowId })) // resultにはジョブフローIDが記載されていないため、追記する
       )
     );
     // ジョブフローの実行レスポンスを出力する
@@ -53,10 +53,13 @@ export default async function (data, { MODULES }) {
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
   // 終了したジョブフローを判別する
-  const targetsToExecute = await getTargetsToExecute(TARGET_JOBFLOWS, data.jsonPayload.data.id);
+  const jobflowId = data.jsonPayload.data.id;
+  const targetsToExecute = await getTargetsToExecute(jobflowId);
   // 終了したジョブフローが登録されていない場合、処理終了。
   if (targetsToExecute.length === 0) {
-    logger.debug('TARGET_JOBFLOWSに登録されているtirggerのジョブフローが一つも終了しませんでした');
+    logger.debug(
+      `the job flow not registered in the trigger of TARGET_JOBFLOWS. jobflowId: ${jobflowId}`
+    );
     return;
   }
   // APIトークンを設定する

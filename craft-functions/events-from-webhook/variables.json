@@ -1,17 +1,17 @@
 [
   {
     "name": "LOG_LEVEL",
-    "value": "ERROR",
+    "value": "WARN",
     "type": "string",
     "required": true,
-    "description": "ERROR/WARN/INFO/DEBUGから出力するログレベルを指定します"
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
   },
   {
     "name": "KARTE_APP_TOKEN_SECRET",
     "value": "",
     "type": "string",
     "required": true,
-    "description": "KARTE API v2アプリのtokenを登録したシークレット名"
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
   },
   {
     "name": "EVENT_NAME",

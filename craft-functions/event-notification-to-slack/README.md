@@ -13,4 +13,4 @@ KARTE の Datahub クエリ機能で KARTE のイベント数の変化をモニ�
 
 ## category
 
-外部連携,Datahub,DATAHUB_JOB_FLOW_CONNECTOR
+Slack,Craft Functions,DATAHUB_JOB_FLOW_CONNECTOR

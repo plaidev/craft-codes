@@ -13,4 +13,4 @@ https://solution.karte.io/blog/2023/12/jobflow-error-slack-notification
 
 ## category
 
-Slack,Craft Functions,Datahub,ジョブフロー,CRAFT_ENDPOINT
+Slack,Craft Functions,Datahub,HOOK_V2

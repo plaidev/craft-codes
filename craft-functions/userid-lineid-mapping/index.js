@@ -5,7 +5,7 @@ const LINE_LOGIN_CHANNEL_ID = '<% LINE_LOGIN_CHANNEL_ID %>'; // LINEログイン
 const LINE_CHANNEL_SECRET_NAME = '<% LINE_CHANNEL_SECRET_NAME %>'; // シークレットマネージャーに登録したLINEログインチャネルシークレットの名前
 const REDIRECT_URI = '<% REDIRECT_URI %>'; // LINEログイン後にリダイレクトされる画面のURL
 const REF_TABLE_ID = '<% REF_TABLE_ID %>'; // 紐付けテーブルのテーブルID
-const KARTE_API_TOKEN_SECRET = '<% KARTE_API_TOKEN_SECRET %>'; // API v2アプリのトークンを登録したシークレット
+const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>'; // API v2アプリのトークンを登録したシークレット
 
 const sdk = api('@dev-karte/v1.0#4013y24lvyu582u');
 
@@ -100,10 +100,10 @@ export default async function (data, { MODULES }) {
 
   try {
     const secrets = await secret.get({
-      keys: [KARTE_API_TOKEN_SECRET, LINE_CHANNEL_SECRET_NAME],
+      keys: [KARTE_APP_TOKEN_SECRET, LINE_CHANNEL_SECRET_NAME],
     });
 
-    const karteToken = secrets[KARTE_API_TOKEN_SECRET];
+    const karteToken = secrets[KARTE_APP_TOKEN_SECRET];
     const clientSecret = secrets[LINE_CHANNEL_SECRET_NAME];
     sdk.auth(karteToken);
 

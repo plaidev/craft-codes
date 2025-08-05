@@ -1,7 +1,6 @@
 {
-    "googleapis": "133.0.0",
-    "google-auth-library": "9.4.2",
-    "date-fns": "2.30.0",
-    "jsdom": "24.0.0"
+  "googleapis": "133.0.0",
+  "google-auth-library": "9.4.2",
+  "date-fns": "2.30.0",
+  "jsdom": "24.0.0"
 }
-  

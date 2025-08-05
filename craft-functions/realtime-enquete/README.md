@@ -13,7 +13,7 @@ https://solution.karte.io/blog/2023/10/realtime-enquete-with-counter
 
 ## category
 
-施策実装,CRAFT_ENDPOINT
+Craft Functions,Craft Counter,CRAFT_ENDPOINT
 
 ## functionType
 

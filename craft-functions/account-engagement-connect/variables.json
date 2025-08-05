@@ -1,0 +1,58 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "EVENT_NAME",
+    "value": "",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "ACCOUNTENGAGEMENT_CLIENT_ID",
+    "value": "",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "ACCOUNTENGAGEMENT_CLIENT_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "ACCOUNTENGAGEMENT_USERNAME",
+    "value": "",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "ACCOUNTENGAGEMENT_PASSWORD",
+    "value": "",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "ACCOUNTENGAGEMENT_BUSINESS_UNIT_ID",
+    "value": "",
+    "type": "string",
+    "required": true
+  },
+  {
+    "name": "PROSPECTFIELDS",
+    "value": "",
+    "type": "string",
+    "required": true
+  }
+]

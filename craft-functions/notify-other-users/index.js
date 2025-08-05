@@ -1,7 +1,8 @@
 import api from 'api';
+
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const EVENT_NAME = '<% EVENT_NAME %>'; // 送信するイベント名を指定する
-const APP_TOKEN_SECRET = '<% APP_TOKEN_SECRET %>'; // シークレット名を指定する
+const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>'; // シークレット名を指定する
 const karteApiClient = api('@dev-karte/v1.0#1jvnhd6llgekil84');
 
 export default async function (data, { MODULES }) {
@@ -13,8 +14,8 @@ export default async function (data, { MODULES }) {
     return;
   }
 
-  const secrets = await secret.get({ keys: [ APP_TOKEN_SECRET ] });
-  const token = secrets[ APP_TOKEN_SECRET ];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
+  const token = secrets[KARTE_APP_TOKEN_SECRET];
   karteApiClient.auth(token);
 
   const userId = data.jsonPayload.data.related_user_id; // イベントを送信するユーザーのIDを指定する

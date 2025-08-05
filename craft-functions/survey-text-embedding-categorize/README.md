@@ -5,8 +5,7 @@
 スプレッドシート上のテキスト群をCraft AI Modulesで自動分類する
 
 ## blogUrl
-
-https://solution.karte.io/blog/2024/05/survey-text-embedding-categorize/
+https://solution.karte.io/blog/2024/05/survey-word-embedding-categorize/
 
 ## description
 

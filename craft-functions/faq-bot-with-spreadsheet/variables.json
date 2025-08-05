@@ -1,73 +1,72 @@
 [
-    {
-      "name": "LOG_LEVEL",
-      "value": "WARN",
-      "type": "string",
-      "required": true,
-      "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
-    },
-    {
-      "name": "KARTE_AI_APP_TOKEN_SECRET",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "CRAFTタイプのKARTE API v2アプリのtokenを登録したシークレット名です"
-    },
-    {
-      "name": "KARTE_TALK_APP_TOKEN_SECRET",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "BOTタイプのKARTE API v2アプリのtokenを登録したシークレット名です"
-    },
-    {
-      "name": "HELP_MESSAGE",
-      "value": "解決しない場合は右記までお問い合わせください。https://example.com/HELP_MESSAGE",
-      "type": "string",
-      "required": true,
-      "description": "Craft AI Modulesで解決できなかった場合に送信するチャットメッセージです"
-    },
-    {
-      "name": "AI_WARNING_MESSAGE",
-      "value": "この回答はAIによって生成されました。正確性を確認するために必要な情報は必ずご自身でご確認ください。",
-      "type": "string",
-      "required": true,
-      "description": "回答がAIによって生成されたものであり、正確でない可能性がある事に関しての注意喚起の文言です"
-    },
-    {
-      "name": "BOT_ID",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "エンドユーザーに回答を送信する際のBOTの名前です"
-    },
-    {
-      "name": "MODEL",
-      "value": "gpt4",
-      "type": "string",
-      "required": true,
-      "description": "Craft AI ModulesのMODELです"
-    },
-    {
-      "name": "SPREADSHEET_ID",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "対象GoogleスプレッドシートのIDです"
-    },
-    {
-      "name": "RANGE",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "Googleスプレッドシートの読み取り範囲です"
-    },
-    {
-      "name": "SERVICE_ACCOUNT_KEY_SECRET",
-      "value": "gpt4",
-      "type": "string",
-      "required": true,
-      "description": "利用するGoogleサービスアカウントのJSONキーを登録したシークレットの名前です"
-    }
-  ]
-  
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "KARTE_AI_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "CRAFTタイプのKARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "KARTE_TALK_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "BOTタイプのKARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "HELP_MESSAGE",
+    "value": "解決しない場合は右記までお問い合わせください。https://example.com/HELP_MESSAGE",
+    "type": "string",
+    "required": true,
+    "description": "Craft AI Modulesで解決できなかった場合に送信するチャットメッセージです"
+  },
+  {
+    "name": "AI_WARNING_MESSAGE",
+    "value": "この回答はAIによって生成されました。正確性を確認するために必要な情報は必ずご自身でご確認ください。",
+    "type": "string",
+    "required": true,
+    "description": "回答がAIによって生成されたものであり、正確でない可能性がある事に関しての注意喚起の文言です"
+  },
+  {
+    "name": "BOT_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "エンドユーザーに回答を送信する際のBOTの名前です"
+  },
+  {
+    "name": "MODEL",
+    "value": "gpt4",
+    "type": "string",
+    "required": true,
+    "description": "Craft AI ModulesのMODELです"
+  },
+  {
+    "name": "SPREADSHEET_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "対象GoogleスプレッドシートのIDです"
+  },
+  {
+    "name": "RANGE",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Googleスプレッドシートの読み取り範囲です"
+  },
+  {
+    "name": "SERVICE_ACCOUNT_KEY_SECRET",
+    "value": "gpt4",
+    "type": "string",
+    "required": true,
+    "description": "利用するGoogleサービスアカウントのJSONキーを登録したシークレットの名前です"
+  }
+]

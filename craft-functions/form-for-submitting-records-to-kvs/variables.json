@@ -8,14 +8,14 @@
   },
   {
     "name": "ALLOWED_ORIGIN",
-    "value": "https://xxx.yyy.zzz",
+    "value": "https://example.com",
     "type": "string",
     "required": true,
     "description": "ファンクションへのHTTPリクエストを許可するオリジンです。"
   },
   {
     "name": "SHARED_KEY",
-    "value": "xxx",
+    "value": "",
     "type": "string",
     "required": true,
     "description": "ファンクションへのHTTPリクエストの際に利用する簡易的なキーです。フロントエンドはSites Authenticationを利用するようにしてください。"

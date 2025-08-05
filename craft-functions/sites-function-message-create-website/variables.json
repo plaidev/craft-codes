@@ -1,52 +1,51 @@
 [
-    {
-      "name": "LOG_LEVEL",
-      "value": "WARN",
-      "type": "string",
-      "required": true,
-      "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
-    },
-    {
-      "name": "KARTE_APP_TOKEN_SECRET",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
-    },
-    {
-      "name": "KARTE_TAG",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "Craft Siteでhtmlファイルに挿入したKARTEの計測タグです"
-    },
-    {
-      "name": "SITE_NAME",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "Craft Sitesのサイト名です"
-    },
-    {
-      "name": "DETAILS_PAGE_FOLDER",
-      "value": "/test/details/",
-      "type": "string",
-      "required": true,
-      "description": "メールから作成した詳細ページが格納されるCraft Sites上のディレクトリパスです"
-    },
-    {
-      "name": "LIST_PAGE_PATH",
-      "value": "/test/index.html",
-      "type": "string",
-      "required": true,
-      "description": "メールから作成した詳細ページが一覧にまとまったCraft Sites上のHTMLファイルのパスです"
-    },
-    {
-      "name": "DEFAULT_IMAGE_URL",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "メールから画像を取得しようとした際に失敗した場合に使用するデフォルト画像のURLです"
-    }
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "KARTE_TAG",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Craft Siteでhtmlファイルに挿入したKARTEの計測タグです"
+  },
+  {
+    "name": "SITE_NAME",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Craft Sitesのサイト名です"
+  },
+  {
+    "name": "DETAILS_PAGE_FOLDER",
+    "value": "/test/details/",
+    "type": "string",
+    "required": true,
+    "description": "メールから作成した詳細ページが格納されるCraft Sites上のディレクトリパスです"
+  },
+  {
+    "name": "LIST_PAGE_PATH",
+    "value": "/test/index.html",
+    "type": "string",
+    "required": true,
+    "description": "メールから作成した詳細ページが一覧にまとまったCraft Sites上のHTMLファイルのパスです"
+  },
+  {
+    "name": "DEFAULT_IMAGE_URL",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "メールから画像を取得しようとした際に失敗した場合に使用するデフォルト画像のURLです"
+  }
 ]
-  

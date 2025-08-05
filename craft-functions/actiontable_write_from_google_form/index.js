@@ -1,16 +1,16 @@
 import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const SECRET_NAME = '<% SECRET_NAME %>';
+const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
 const karteApiClient = api('@dev-karte/v1.0#1ehqt16lkm2a8jw');
-const TABLE_ID = '<% TABLE_ID %>';
+const ACTION_TABLE_ID = '<% ACTION_TABLE_ID %>';
 
 export default async function (data, { MODULES }) {
   const { initLogger, secret } = MODULES;
   const { req, res } = data;
   const logger = initLogger({ logLevel: LOG_LEVEL });
-  const secrets = await secret.get({ keys: [SECRET_NAME] });
-  const token = secrets[SECRET_NAME];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
+  const token = secrets[KARTE_APP_TOKEN_SECRET];
   karteApiClient.auth(token);
 
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -28,14 +28,14 @@ export default async function (data, { MODULES }) {
 
   try {
     await karteApiClient.postV2betaActionActiontableRecordsUpsert({
-      table: TABLE_ID,
+      table: ACTION_TABLE_ID,
       data: {
         pageurl: pageUrl,
         salescount: salesCount,
         others,
       },
     });
-    logger.log(`${TABLE_ID} is updated`);
+    logger.log(`${ACTION_TABLE_ID} is updated`);
     res.status(200).json({ message: 'Success' });
   } catch (e) {
     logger.error(e);

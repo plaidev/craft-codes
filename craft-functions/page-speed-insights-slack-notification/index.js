@@ -54,13 +54,25 @@ async function getPerformanceData(strategy, logger) {
     const url = buildPageSpeedApiUrl(strategy);
     const data = await fetchData(url);
     return {
-      lcp: formatFieldData(data.loadingExperience?.metrics?.LARGEST_CONTENTFUL_PAINT_MS?.percentile ?? 'none', 1000),
-      fid: formatFieldData(data.loadingExperience?.metrics?.FIRST_INPUT_DELAY_MS?.percentile ?? 'none', 1),
-      cls: formatFieldData(data.loadingExperience?.metrics?.CUMULATIVE_LAYOUT_SHIFT_SCORE?.percentile ?? 'none', 100),
-      score: Math.round((data.lighthouseResult?.categories?.performance?.score ?? 0) * 100)
+      lcp: formatFieldData(
+        data.loadingExperience?.metrics?.LARGEST_CONTENTFUL_PAINT_MS?.percentile ?? 'none',
+        1000
+      ),
+      fid: formatFieldData(
+        data.loadingExperience?.metrics?.FIRST_INPUT_DELAY_MS?.percentile ?? 'none',
+        1
+      ),
+      cls: formatFieldData(
+        data.loadingExperience?.metrics?.CUMULATIVE_LAYOUT_SHIFT_SCORE?.percentile ?? 'none',
+        100
+      ),
+      score: Math.round((data.lighthouseResult?.categories?.performance?.score ?? 0) * 100),
     };
   } catch (error) {
-    logger.error(`[${strategy}] PageSpeed Insights APIの呼び出し時にエラーが発生しました:`, error.message);
+    logger.error(
+      `[${strategy}] PageSpeed Insights APIの呼び出し時にエラーが発生しました:`,
+      error.message
+    );
     return null;
   }
 }
@@ -69,9 +81,14 @@ async function getPerformanceData(strategy, logger) {
 function buildSlackMessage(url, pcData, mobileData) {
   const currentDate = new Date().toLocaleDateString('ja-JP');
   let resultMessage;
-  if (pcData.lcp > 2.5 || mobileData.lcp > 2.5 || 
-      pcData.fid > 100 || mobileData.fid > 100 || 
-      pcData.cls > 0.1 || mobileData.cls > 0.1) {
+  if (
+    pcData.lcp > 2.5 ||
+    mobileData.lcp > 2.5 ||
+    pcData.fid > 100 ||
+    mobileData.fid > 100 ||
+    pcData.cls > 0.1 ||
+    mobileData.cls > 0.1
+  ) {
     resultMessage = 'コアウェブバイタルの主な指標に不合格があります:pleading_face:';
   } else {
     resultMessage = 'コアウェブバイタルの主な指標は全て合格です:hugging_face:';
@@ -115,7 +132,7 @@ export default async function (data, { MODULES }) {
   const { initLogger, secret } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
-  const secrets = await secret.get({ keys: [ SLACK_TOKEN_SECRET ] });
+  const secrets = await secret.get({ keys: [SLACK_TOKEN_SECRET] });
   const token = secrets[SLACK_TOKEN_SECRET];
 
   const slackClient = new WebClient(token);
@@ -132,5 +149,4 @@ export default async function (data, { MODULES }) {
   // メッセージを作成して送信する
   const message = buildSlackMessage(URL_TO_ANALYZE, pcData, mobileData);
   await sendSlackMessage(SLACK_CHANNEL_ID, message, { slackClient, logger });
-
 }

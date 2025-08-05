@@ -1,0 +1,23 @@
+[
+  {
+      "name": "LOG_LEVEL",
+      "value": "WARN",
+      "type": "string",
+      "required": true,
+      "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+      "name": "ENDPOINT_URL",
+      "value": "",
+      "type": "string",
+      "required": true,
+      "description": "外部ポイントシステムが用意したAPIのエンドポイントURLを指定します"
+  },
+  {
+      "name": "GET_INTERVAL",
+      "value": "60",
+      "type": "number",
+      "required": true,
+      "description": "同一ユーザーへのポイント付与を制御する秒数を指定します"
+  }
+]

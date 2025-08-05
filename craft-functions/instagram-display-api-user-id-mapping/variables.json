@@ -1,45 +1,44 @@
 [
-    {
-      "name": "LOG_LEVEL",
-      "value": "WARN",
-      "type": "string",
-      "required": true,
-      "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
-    },
-    {
-      "name": "KARTE_APP_TOKEN_SECRET",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
-    },
-    {
-      "name": "REF_TABLE_ID",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "更新対象の紐付けテーブルのIDです"
-    },
-    {
-      "name": "INSTAGRAM_APP_ID",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "作成したInstagramアプリのIDです"
-    },
-    {
-      "name": "INSTAGRAM_APP_SECRET",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "Instagram App Secretを登録したシークレット名です"
-    },
-    {
-      "name": "REDIRECT_URI",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "Instagram認証後に遷移するページのURLです"
-    }
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "REF_TABLE_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "更新対象の紐付けテーブルのIDです"
+  },
+  {
+    "name": "INSTAGRAM_APP_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "作成したInstagramアプリのIDです"
+  },
+  {
+    "name": "INSTAGRAM_APP_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Instagram App Secretを登録したシークレット名です"
+  },
+  {
+    "name": "REDIRECT_URI",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Instagram認証後に遷移するページのURLです"
+  }
 ]
-  

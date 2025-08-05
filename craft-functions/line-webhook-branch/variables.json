@@ -1,16 +1,16 @@
 [
   {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
     "name": "TARGET_URL",
     "value": "",
     "type": "string",
     "required": true,
     "description": "LINEのWebhookを送信したい外部サービスのエンドポイントURLです。"
-  },
-  {
-    "name": "LOG_LEVEL",
-    "value": "WARN",
-    "type": "string",
-    "required": true,
-    "description": "ERROR/WARN/INFO/DEBUGから出力するログレベルを指定します。"
   }
 ]

@@ -1,73 +1,72 @@
 [
-    {
-      "name": "LOG_LEVEL",
-      "value": "WARN",
-      "type": "string",
-      "required": true,
-      "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
-    },
-    {
-      "name": "SERVICE_ACCOUNT_KEY_SECRET",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "利用するGoogleサービスアカウントのJSONキーを登録したシークレットの名前です"
-    },
-    {
-      "name": "SPREADSHEET_ID",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "対象GoogleスプレッドシートのIDです"
-    },
-    {
-      "name": "SHEET_NAME",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "対象Googleスプレッドシートのシート名です"
-    },
-    {
-      "name": "OAUTH2_CLIENT_CREDENTIALS_SECRET",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "OAuth 2.0 クライアント ID作成時に取得したJSONキーを登録したシークレットの名前です"
-    },
-    {
-      "name": "REFRESH_TOKEN_SECRET",
-      "value": "",
-      "type": "string",
-      "required": true,
-      "description": "リフレッシュトークンを登録したシークレットの名前です"
-    },
-    {
-      "name": "START_YEAR",
-      "value": "",
-      "type": "number",
-      "required": true,
-      "description": "計測開始年月の年を数字で指定します"
-    },
-    {
-      "name": "START_MONTH",
-      "value": "",
-      "type": "number",
-      "required": true,
-      "description": "計測開始年月の月を数字で指定します"
-    },
-    {
-      "name": "END_YEAR",
-      "value": "",
-      "type": "number",
-      "required": true,
-      "description": "計測終了年月の年を数字で指定します"
-    },
-    {
-      "name": "END_MONTH",
-      "value": "",
-      "type": "number",
-      "required": true,
-      "description": "計測終了年月の月を数字で指定します"
-    }
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "SERVICE_ACCOUNT_KEY_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "利用するGoogleサービスアカウントのJSONキーを登録したシークレットの名前です"
+  },
+  {
+    "name": "SPREADSHEET_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "対象GoogleスプレッドシートのIDです"
+  },
+  {
+    "name": "SHEET_NAME",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "対象Googleスプレッドシートのシート名です"
+  },
+  {
+    "name": "OAUTH2_CLIENT_CREDENTIALS_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "OAuth 2.0 クライアント ID作成時に取得したJSONキーを登録したシークレットの名前です"
+  },
+  {
+    "name": "REFRESH_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "リフレッシュトークンを登録したシークレットの名前です"
+  },
+  {
+    "name": "START_YEAR",
+    "value": "",
+    "type": "number",
+    "required": true,
+    "description": "計測開始年月の年を数字で指定します"
+  },
+  {
+    "name": "START_MONTH",
+    "value": "",
+    "type": "number",
+    "required": true,
+    "description": "計測開始年月の月を数字で指定します"
+  },
+  {
+    "name": "END_YEAR",
+    "value": "",
+    "type": "number",
+    "required": true,
+    "description": "計測終了年月の年を数字で指定します"
+  },
+  {
+    "name": "END_MONTH",
+    "value": "",
+    "type": "number",
+    "required": true,
+    "description": "計測終了年月の月を数字で指定します"
+  }
 ]
-  

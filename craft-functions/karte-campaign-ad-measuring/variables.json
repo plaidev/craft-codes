@@ -19,5 +19,12 @@
     "type": "string",
     "required": true,
     "description": "更新対象の紐付けテーブルのIDです"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
   }
 ]

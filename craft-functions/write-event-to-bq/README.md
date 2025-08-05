@@ -13,7 +13,7 @@ KARTE Craft でサーバーサイドアクションで受け取ったデータ�
 
 ## category
 
-外部連携,SERVER_SIDE_ACTION
+BigQuery,Craft Functions,SERVER_SIDE_ACTION
 
 # 使い方
 

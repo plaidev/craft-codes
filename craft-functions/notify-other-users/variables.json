@@ -4,20 +4,19 @@
     "value": "WARN",
     "type": "string",
     "required": true,
-    "description": "ログレベルです。DEBUG,INFO,WARN,ERROR,NONEのいずれかを指定してください。"
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
   },
   {
     "name": "EVENT_NAME",
     "value": "",
     "type": "string",
-    "required": true,
-    "description": "KARTEに送信するイベント名です。"
+    "required": true
   },
   {
-    "name": "APP_TOKEN_SECRET",
+    "name": "KARTE_APP_TOKEN_SECRET",
     "value": "",
     "type": "string",
     "required": true,
-    "description": "API v2 アプリのアクセストークンを登録したシークレットの名前です。"
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
   }
 ]

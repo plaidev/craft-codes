@@ -13,7 +13,7 @@ https://solution.karte.io/blog/2023/12/eventwrite-from-googleform
 
 ## category
 
-イベント発火,Craft Functions,Google Form,CRAFT_ENDPOINT
+Googleフォーム,Craft Functions,KARTEイベント,CRAFT_ENDPOINT
 
 ## functionType
 
