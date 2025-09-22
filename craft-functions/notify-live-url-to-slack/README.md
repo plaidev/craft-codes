@@ -6,7 +6,7 @@
 
 ## blogUrl
 
-https://solution.karte.io/blog/2025/06/notify-live-url-to-slack/
+https://solution.karte.io/blog/2025/07/notify-live-url-to-slack/
 
 ## description
 
