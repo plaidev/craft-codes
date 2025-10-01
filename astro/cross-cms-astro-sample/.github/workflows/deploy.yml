@@ -1,0 +1,97 @@
+name: Build & Deploy to KARTE Craft Sites
+
+on:
+  # 手動実行
+  workflow_dispatch:
+  # CMSからのWebhookトリガー
+  repository_dispatch:
+    types: [cms_update]
+  # mainブランチへのプッシュ（マージ）時
+  push:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ソースコード取得
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Node.jsセットアップ
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # パッケージインストール
+      - name: Install dependencies
+        run: npm ci
+
+      # Astroビルド
+      - name: Build Astro
+        run: npm run build
+        env:
+          CMS_CDN_API_ACCESS_TOKEN: ${{ vars.CMS_CDN_API_ACCESS_TOKEN }}
+          CMS_CDN_API_HOST: ${{ vars.CMS_CDN_API_HOST }}
+          CMS_BLOG_MODEL_ID: ${{ vars.CMS_BLOG_MODEL_ID }}
+
+      # Craft Sites にファイルをアップロード
+      - name: Upload files to KARTE
+        env:
+          SITES_API_TOKEN: ${{ secrets.SITES_API_TOKEN }}
+          SITE_NAME: ${{ vars.SITE_NAME }}
+        run: |
+          DIST_DIR="dist"
+
+          # dist内のファイルを一括でアップロード
+          find $DIST_DIR -type f | while read file; do
+            RELATIVE_PATH=${file#$DIST_DIR} # dist以下の相対パス
+            echo "Uploading: $RELATIVE_PATH to $SITE_NAME"
+            
+            # ファイルアップロード
+            curl --silent --show-error --fail \
+              --request POST \
+              --url https://api.karte.io/v2beta/craft/sites/file/upload \
+              --header "accept: application/json" \
+              --header "authorization: Bearer $SITES_API_TOKEN" \
+              --header "content-type: multipart/form-data" \
+              --form siteName=$SITE_NAME \
+              --form path=$RELATIVE_PATH \
+              --form file=@"$file"
+            
+            # ファイルの可視性を更新
+            echo "Updating visibility for: $RELATIVE_PATH"
+            curl --silent --show-error --fail \
+              --request POST \
+              --url https://api.karte.io/v2beta/craft/sites/content/updateVisibility \
+              --header "accept: application/json" \
+              --header "authorization: Bearer $SITES_API_TOKEN" \
+              --header "content-type: application/json" \
+              --data "{
+                \"isPublic\": true,
+                \"kickHookV2\": false,
+                \"siteName\": \"$SITE_NAME\",
+                \"path\": \"$RELATIVE_PATH\"
+              }"
+          done
+
+      # Craft Sites側のCDNキャッシュを削除
+      - name: Invalidate Craft Sites cache
+        env:
+          SITES_API_TOKEN: ${{ secrets.SITES_API_TOKEN }}
+          SITE_NAME: ${{ vars.SITE_NAME }}
+        run: |
+          curl --silent --show-error --fail \
+            --request POST \
+            --url https://api.karte.io/v2beta/craft/sites/content/invalidate \
+            --header "accept: application/json" \
+            --header "authorization: Bearer $SITES_API_TOKEN" \
+            --header "content-type: application/json" \
+            --data "{
+              \"siteName\": \"$SITE_NAME\",
+              \"pathPattern\": \"/*\"
+            }"

@@ -1,0 +1,59 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { fetchAllBlogContents } from '../../utils/fetchAllBlogContents.js';
+
+const allPosts = await fetchAllBlogContents();
+const tags = [...new Set(allPosts.map((post) => post.tags).flat())];
+const pageTitle = "タグインデックス";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <div class="tags">
+    {tags.map((tag) => (
+      <p class="tag"><a href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}>{tag}</a></p>
+    ))}
+  </div>
+</BaseLayout>
+<style>
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .tag {
+    margin: 0;
+    padding: 0;
+  }
+
+  .tag a {
+    display: inline-block;
+    background: linear-gradient(135deg, #2aab9f, #26a69a);
+    color: white;
+    text-decoration: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(42, 171, 159, 0.2);
+  }
+
+  .tag a:hover {
+    background: linear-gradient(135deg, #26a69a, #2aab9f);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(42, 171, 159, 0.3);
+  }
+
+  @media (max-width: 768px) {
+    .tags {
+      gap: 0.8rem;
+    }
+
+    .tag a {
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+    }
+  }
+</style>

@@ -1,0 +1,35 @@
+---
+import "../../styles/global.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostsList from "../../components/PostsList.astro";
+import { fetchAllBlogContents } from '../../utils/fetchAllBlogContents.js';
+
+const allPosts = await fetchAllBlogContents();
+const pageTitle = "記事一覧";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <div class="description">
+    <p>Craft Cross CMSで入稿したブログ記事の一覧です。</p>
+  </div>
+  <PostsList posts={allPosts} />
+</BaseLayout>
+
+<style>
+  .description {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .description p {
+    color: #666;
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .description p {
+      font-size: 1rem;
+    }
+  }
+</style>
