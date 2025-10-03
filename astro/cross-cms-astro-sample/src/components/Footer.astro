@@ -1,0 +1,55 @@
+---
+---
+<footer>
+  <div class="container">
+    <p>&copy; 2025 Craft Blog. All rights reserved.</p>
+    <p>Powered by <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a></p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+    color: white;
+    padding: 2rem 0;
+    margin-top: auto;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+  }
+
+  .container p {
+    margin: 0.5rem 0;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+  }
+
+  .container a {
+    color: #a0aec0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .container a:hover {
+    color: white;
+  }
+
+  @media (max-width: 768px) {
+    footer {
+      padding: 1.5rem 0;
+    }
+
+    .container {
+      padding: 0 1rem;
+    }
+
+    .container p {
+      font-size: 0.8rem;
+    }
+  }
+</style>

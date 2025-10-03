@@ -1,0 +1,272 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import "../styles/global.css";
+
+const { post } = Astro.props;
+---
+
+<BaseLayout pageTitle={post.title}>
+  <article class="blog-post">
+    <header class="post-header">
+      <div class="post-meta">
+        <time class="post-date">{new Date(post.pubDate).toLocaleDateString('ja-JP')}</time>
+        <span class="post-author">by {post.author}</span>
+      </div>
+      <p class="post-description">{post.description}</p>
+      <div class="post-tags">
+        {post.tags.map((tag: String) => (
+          <a href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`} class="tag">{tag}</a>
+        ))}
+      </div>
+    </header>
+    
+    {post.image && post.image.src && (
+      <div class="post-image">
+        <img src={post.image.src} alt={post.image.altText || post.title} />
+      </div>
+    )}
+    
+    <div class="post-content" set:html={post.content.html}></div>
+  </article>
+</BaseLayout>
+<style>
+  .blog-post {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .post-header {
+    margin-bottom: 2.5rem;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 2rem;
+  }
+
+  .post-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin: 0 0 1rem 0;
+    line-height: 1.2;
+  }
+
+  .post-meta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    color: #718096;
+    font-size: 0.95rem;
+  }
+
+  .post-date {
+    font-weight: 500;
+  }
+
+  .post-author {
+    font-weight: 500;
+  }
+
+  .post-description {
+    font-size: 1.2rem;
+    color: #4a5568;
+    font-style: italic;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.6;
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .tag {
+    background: #2aab9f;
+    color: white;
+    text-decoration: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+  }
+
+  .tag:hover {
+    background: #26a69a;
+  }
+
+  .post-image {
+    margin: 2rem 0;
+    text-align: center;
+  }
+
+  .post-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .post-content {
+    font-size: 1.1rem;
+    color: #2d3748;
+    line-height: 1.8;
+  }
+
+  /* ブログコンテンツ内のスタイル */
+  .post-content h1,
+  .post-content h2,
+  .post-content h3,
+  .post-content h4,
+  .post-content h5,
+  .post-content h6 {
+    color: #2d3748;
+    font-weight: 600;
+    margin: 2rem 0 1rem 0;
+    line-height: 1.3;
+  }
+
+  .post-content h2 {
+    font-size: 1.8rem;
+    border-bottom: 2px solid #2aab9f;
+    padding-bottom: 0.5rem;
+  }
+
+  .post-content h3 {
+    font-size: 1.5rem;
+  }
+
+  .post-content p {
+    margin: 1.5rem 0;
+  }
+
+  .post-content ul,
+  .post-content ol {
+    margin: 1.5rem 0;
+    padding-left: 2rem;
+  }
+
+  .post-content li {
+    margin: 0.5rem 0;
+  }
+
+  .post-content blockquote {
+    border-left: 4px solid #2aab9f;
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    background: #f7fafc;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+  }
+
+  .post-content code {
+    background: #f1f5f9;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: #e53e3e;
+  }
+
+  .post-content pre {
+    background: #2d3748;
+    color: #e2e8f0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+
+  .post-content pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+  }
+
+  .post-content a {
+    color: #2aab9f;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+
+  .post-content a:hover {
+    color: #26a69a;
+  }
+
+  @media (max-width: 768px) {
+    .post-title {
+      font-size: 2rem;
+    }
+
+    .post-meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .post-description {
+      font-size: 1.1rem;
+    }
+
+    .post-content {
+      font-size: 1rem;
+    }
+
+    .post-content h2 {
+      font-size: 1.5rem;
+    }
+
+    .post-content h3 {
+      font-size: 1.3rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .post-title {
+      font-size: 1.75rem;
+    }
+
+    .post-description {
+      font-size: 1rem;
+    }
+
+    .post-content {
+      font-size: 0.95rem;
+    }
+  }
+</style>
+<style is:global>
+  /* ブログ記事内の画像スタイル */
+  .post-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 1.5rem 0;
+  }
+
+  /* テーブルスタイル */
+  .post-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .post-content th,
+  .post-content td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .post-content th {
+    background: #f7fafc;
+    font-weight: 600;
+    color: #2d3748;
+  }
+</style>

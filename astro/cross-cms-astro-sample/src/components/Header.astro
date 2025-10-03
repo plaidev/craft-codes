@@ -1,0 +1,64 @@
+---
+import Navigation from './Navigation.astro';
+---
+
+<header>
+  <div class="container">
+    <div class="logo">
+      <a href="/">Craft Blog</a>
+    </div>
+    <nav>
+      <Navigation />
+    </nav>
+  </div>
+</header>
+
+<style>
+  header {
+    background: linear-gradient(135deg, #2aab9f 0%, #1e7a6b 100%);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    transition: transform 0.3s ease;
+  }
+
+  .logo a:hover {
+    transform: scale(1.05);
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 1rem;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .logo a {
+      font-size: 1.5rem;
+    }
+  }
+</style>

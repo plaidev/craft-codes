@@ -1,0 +1,63 @@
+---
+
+---
+
+<div class="nav-links">
+  <a href="/">ホーム</a>
+  <a href="/posts/">記事一覧</a>
+  <a href="/tags/">タグ</a>
+</div>
+
+<style>
+  .nav-links {
+    display: flex;
+    gap: 0;
+    align-items: center;
+  }
+
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 0.8rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* アクティブページのスタイル */
+  .nav-links a[aria-current="page"] {
+    background: rgba(255, 255, 255, 0.25);
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .nav-links {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .nav-links a {
+      padding: 0.6rem 1rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .nav-links {
+      width: 100%;
+    }
+
+    .nav-links a {
+      flex: 1;
+      text-align: center;
+      padding: 0.7rem 0.5rem;
+      font-size: 0.85rem;
+    }
+  }
+</style>

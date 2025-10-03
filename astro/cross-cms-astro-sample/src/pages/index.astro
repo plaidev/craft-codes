@@ -1,0 +1,96 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const pageTitle = "Craft Cross CMSデモサイト";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <p>
+    Craft Cross
+    CMSを使用したブログ記事のデモサイトです。次のような構成で実装されています。
+  </p>
+  <table class="tech-stack">
+    <thead>
+      <tr>
+        <th>項目</th>
+        <th>技術スタック</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>CMS</td>
+        <td>Craft Cross CMS</td>
+      </tr>
+      <tr>
+        <td>ホスティング</td>
+        <td>Craft Sites</td>
+      </tr>
+      <tr>
+        <td>開発フレームワーク</td>
+        <td>Astro</td>
+      </tr>
+    </tbody>
+  </table>
+</BaseLayout>
+
+<style>
+  .tech-stack {
+    width: 100%;
+    max-width: 600px;
+    margin: 2rem auto;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .tech-stack th,
+  .tech-stack td {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .tech-stack th {
+    background: #e6f3f1;
+    color: #2d3748;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .tech-stack td:first-child {
+    background: #f8f9fa;
+    font-weight: 500;
+    color: #4a5568;
+    width: 40%;
+  }
+
+  .tech-stack td:last-child {
+    color: #2d3748;
+  }
+
+  .tech-stack tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .tech-stack tbody tr:hover {
+    background: #f7fafc;
+  }
+
+  @media (max-width: 768px) {
+    .tech-stack th,
+    .tech-stack td {
+      padding: 0.8rem 1rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .tech-stack th,
+    .tech-stack td {
+      padding: 0.6rem 0.8rem;
+      font-size: 0.85rem;
+    }
+  }
+</style>

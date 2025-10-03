@@ -1,0 +1,24 @@
+---
+import PostLayout from "../../layouts/PostLayout.astro";
+import { fetchAllBlogContents } from '../../utils/fetchAllBlogContents.js';
+import { fetchBlogContent } from "../../utils/fetchBlogContent.js";
+
+export async function getStaticPaths() {
+  const allPosts = await fetchAllBlogContents();
+  console.log(`[posts/[id].astro] allPosts[].id: ${allPosts.map((post) => post.id).join(', ')}`);
+
+  return allPosts.map((post) => {
+    return {
+      params: { id: post.id },
+      props: { post_id: post.id },
+    };
+  });
+}
+
+const { post_id } = Astro.props;
+const post = await fetchBlogContent(post_id);
+console.log(`post: ${JSON.stringify(post)}`);
+---
+
+<PostLayout post={post}>
+</PostLayout>

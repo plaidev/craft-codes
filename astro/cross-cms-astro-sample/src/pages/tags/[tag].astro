@@ -1,0 +1,68 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostsList from "../../components/PostsList.astro";
+import { fetchAllBlogContents } from '../../utils/fetchAllBlogContents.js';
+
+export async function getStaticPaths() {
+  const allPosts = await fetchAllBlogContents();
+
+  const uniqueTags = [...new Set(allPosts.map((post: any) => post.tags).flat())];
+
+  return uniqueTags.map((tag) => {
+    const slug = tag.toLowerCase().replace(/\s+/g, '-');
+    console.log(`Generating path for tag: ${tag}, slug: ${slug}`);
+    const filteredPosts = allPosts.filter((post: any) => post.tags.includes(tag));
+    return {
+      params: { tag: slug },
+      props: { posts: filteredPosts },
+    };
+  });
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<BaseLayout pageTitle={`タグ: ${tag}`}>
+  <div class="tag-description">
+    <p><span class="tag-name">{tag}</span> のタグが付いた記事一覧</p>
+    <p class="posts-count">{posts.length}件の記事があります</p>
+  </div>
+  <PostsList posts={posts} />
+</BaseLayout>
+
+<style>
+  .tag-description {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .tag-description p {
+    margin: 0.5rem 0;
+  }
+
+  .tag-name {
+    background: #2aab9f;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  .posts-count {
+    color: #666;
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 768px) {
+    .tag-name {
+      font-size: 1rem;
+      padding: 0.3rem 0.6rem;
+    }
+
+    .posts-count {
+      font-size: 0.9rem;
+    }
+  }
+</style>

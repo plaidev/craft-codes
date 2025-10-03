@@ -1,0 +1,26 @@
+---
+import PostsListItem from './PostsListItem.astro';
+const { posts } = Astro.props;
+---
+
+<div class="posts-list">
+  {posts.map((post: any) => (
+    <PostsListItem post={post} />
+  ))}
+</div>
+
+<style>
+  .posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    .posts-list {
+      gap: 1rem;
+    }
+  }
+</style>
