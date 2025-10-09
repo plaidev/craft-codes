@@ -1,0 +1,51 @@
+[
+    {
+        "name": "LOG_LEVEL",
+        "value": "WARN",
+        "type": "string",
+        "required": true,
+        "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+    },
+    {
+        "name": "KARTE_APP_TOKEN_SECRET",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+    },
+    {
+        "name": "TARGET_MODEL_ID",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "Craft RAGに同期する対象のCraft Cross CMS モデルIDです"
+    },
+    {
+        "name": "CMS_CONTENT_FIELDS",
+        "value": "title,content,category",
+        "type": "string",
+        "required": true,
+        "description": "RAGファイルに含めるCMS側フィールド名をカンマ区切りで指定します（例: title,content,category）"
+    },
+    {
+        "name": "SITE_NAME",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "Craft Sitesのサイト名です"
+    },
+    {
+        "name": "SITE_DIR_PATH",
+        "value": "/rag/",
+        "type": "string",
+        "required": true,
+        "description": "Craft Sitesにアップロードするファイルのディレクトリパスです（例: /rag/）"
+    },
+    {
+        "name": "RAG_CORPUS_ID",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "Craft RAGのコーパスIDです"
+    }
+]
