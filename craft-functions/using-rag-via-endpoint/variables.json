@@ -1,0 +1,37 @@
+[
+    {
+        "name": "LOG_LEVEL",
+        "value": "WARN",
+        "type": "string",
+        "required": true,
+        "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+    },
+    {
+        "name": "ALLOWED_ORIGINS",
+        "value": "*",
+        "type": "string",
+        "required": true,
+        "description": "CORS許可対象のオリジンをカンマ区切りで設定してください（例：https://example.com,https://test.com または * ですべて許可）"
+    },
+    {
+        "name": "RAG_CORPUS_ID",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "利用するCraft RAGコーパスのIDを設定してください"
+    },
+    {
+        "name": "AI_MODEL",
+        "value": "gemini-2.5-flash-lite",
+        "type": "string",
+        "required": true,
+        "description": "テキスト生成時に利用するCraft AI ModulesのLLMモデル名を設定してください"
+    },
+    {
+        "name": "SYSTEM_PROMPT",
+        "value": "あなたはKARTE Craft Functions Copilotです。Craftの質問について答えてください",
+        "type": "string",
+        "required": true,
+        "description": "テキスト生成時に使用するシステムプロンプトを設定してください"
+    }
+]
