@@ -114,8 +114,9 @@ export default async function (data, { MODULES }) {
     return;
   }
 
+  let response;
   try {
-    const response = await fetch(apiUrl, {
+    response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -123,19 +124,19 @@ export default async function (data, { MODULES }) {
       },
       body: JSON.stringify(parameters),
     });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      const msg = `API request failed. caller functionId: ${functionId}, status: ${response.status}, error: ${errorText}`;
-      throwSuitableError({ msg, status: response.status, RetryableError, retryTimeoutSec });
-    }
-
-    logger.debug(
-      `API request to ${apiUrl} executed successfully. caller functionId: ${functionId}`
-    );
   } catch (err) {
-    const msg = `Failed to execute API request to ${apiUrl}. caller functionId: ${functionId}, error: ${err.message}`;
+    const msg = `[NETWORK_ERROR] Failed to connect to API endpoint ${apiUrl}. caller functionId: ${functionId}, error: ${err.message}`;
     const status = err.status || (err.code === 'ECONNRESET' ? 500 : null);
+    logger.error(msg);
     throwSuitableError({ msg, status, RetryableError, retryTimeoutSec });
   }
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    const msg = `[HTTP_STATUS_ERROR] API returned error status ${response.status}. caller functionId: ${functionId}, apiUrl: ${apiUrl}, responseBody: ${errorText}`;
+    logger.error(msg);
+    throwSuitableError({ msg, status: response.status, RetryableError, retryTimeoutSec });
+  }
+
+  logger.debug(`API request to ${apiUrl} executed successfully. caller functionId: ${functionId}`);
 }
