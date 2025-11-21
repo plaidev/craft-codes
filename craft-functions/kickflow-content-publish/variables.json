@@ -1,0 +1,30 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "CMS_MODEL_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "コンテンツ設定のJSONプレビューに書かれている「modelId」の値を指定します"
+  },
+  {
+    "name": "CONTENT_ID_FIELD_CODE",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "チケットの入力項目の中でコンテンツIDが記載されている部分のフィールドコードを指定します"
+  }
+]
