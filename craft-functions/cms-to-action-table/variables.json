@@ -1,0 +1,37 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します。"
+  },
+  {
+    "name": "TARGET_MODEL_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "同期対象となるCraft Cross CMSのモデルIDです。"
+  },
+  {
+    "name": "ACTION_TABLE_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "データを同期する先のアクションテーブルのIDです。"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "API v2アプリのアクセストークンを格納したシークレットの名前です。"
+  },
+  {
+    "name": "TARGET_CMS_FIELDS",
+    "value": "title,description,image,link_url",
+    "type": "string",
+    "required": true,
+    "description": "アクションテーブルに同期する対象のCMS側フィールド群です。カンマ区切り文字列で指定します。"
+  }
+]
