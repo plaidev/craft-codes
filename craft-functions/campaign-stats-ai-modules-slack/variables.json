@@ -1,0 +1,58 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "SLACK_CHANNEL_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "通知対象のSlackチャンネルIDです"
+  },
+  {
+    "name": "SLACK_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Slack Appの Bot User OAuth Tokenを登録したシークレット名です"
+  },
+  {
+    "name": "AGGREGATION_RANGE",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Fetch settings and stats for all services APIのrangeの設定値を指定します"
+  },
+  {
+    "name": "RELATIVE_START_DATE_DAYS_AGO",
+    "value": "",
+    "type": "number",
+    "required": true,
+    "description": "Fetch settings and stats for all services API のstart_dateとend_dateの設定値を「現在のN日前から1日前まで」という相対日時で指定します\""
+  },
+  {
+    "name": "ABSOLUTE_START_DATE",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Fetch settings and stats for all services APIのstart_dateをYYYY-MM-DDの形式で直接指定します"
+  },
+  {
+    "name": "ABSOLUTE_END_DATE",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Fetch settings and stats for all services APIのend_dateをYYYY-MM-DDの形式で直接指定します"
+  }
+]
