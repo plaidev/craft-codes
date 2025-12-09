@@ -1,0 +1,30 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "TARGET_IMPORT_PATH",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Craft Sitesで作成したPDFファイルをアップロードするディレクトリを前後にスラッシュ付きで指定します"
+  },
+  {
+    "name": "CORPUS_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Craft RAGの一覧画面に表示されている該当のRAGのIDを指定します"
+  }
+]
