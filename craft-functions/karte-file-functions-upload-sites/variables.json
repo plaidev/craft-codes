@@ -1,0 +1,51 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "SITE_NAME",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Craft Sitesの一覧画面で1番左側に表示されている該当サイトの名称を入力します"
+  },
+  {
+    "name": "CRAFT_SITE_DOMAIN",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Craft Sitesで作成された該当のサイトのドメインを入力します"
+  },
+  {
+    "name": "UPLOAD_DIRECTORY",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Craft Sitesのサイト上で作成したファイルアップロード用のディレクトリ名を入力します"
+  },
+  {
+    "name": "ALLOWED_ORIGIN",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTEの接客を配信しているサイトのトップページのURLを指定します"
+  },
+  {
+    "name": "AUTO_PUBLISH_AFTER_UPLOAD",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Craft Sitesへのファイルアップロード時にそれを公開するかどうかをtrueまたはfalseのbooleanで指定します"
+  }
+]
