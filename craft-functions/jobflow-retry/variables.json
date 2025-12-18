@@ -1,0 +1,51 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "INFO",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "KARTE_API_TOKEN_JOBFLOW_HOOK",
+    "type": "string",
+    "required": true,
+    "description": "AAPI v2アプリのトークンを登録したシークレット名を指定します"
+  },
+  {
+    "name": "SOLUTION_ID_FOR_KVS_KEY",
+    "value": "JOBFLOW_RETRY",
+    "type": "string",
+    "required": true,
+    "description": "KVS内でリトライ状態を管理するための識別子で、他の設定と重複しない名称を指定します"
+  },
+  {
+    "name": "TARGET_JOBFLOW_IDS",
+    "value": true,
+    "type": "string",
+    "required": true,
+    "description": "リトライ対象のジョブフローIDをカンマ区切り文字列で指定し、指定が無い場合はすべてのジョブフローが対象となります"
+  },
+  {
+    "name": "EXCLUDED_JOBFLOW_IDS",
+    "value": true,
+    "type": "string",
+    "required": true,
+    "description": "リトライ対象外のジョブフローIDをカンマ区切り文字列で指定します"
+  },
+  {
+    "name": "RETRY_LIMIT",
+    "value": 3,
+    "type": "number",
+    "required": true,
+    "description": "ジョブフローのリトライ回数の上限値を数字で指定します"
+  },
+  {
+    "name": "RETRY_TIMEOUT",
+    "value": 50,
+    "type": "number",
+    "required": true,
+    "description": "ジョブフローのリトライに対するタイムアウトまでの分数を指定します"
+  }
+]
