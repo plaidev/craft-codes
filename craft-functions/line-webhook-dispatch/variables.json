@@ -1,0 +1,30 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します。"
+  },
+  {
+    "name": "LINE_CHANNEL_SECRET_KEY",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Craft Secretに登録した「LINE Messaging APIのチャネルシークレット」のシークレットキー名を指定します。"
+  },
+  {
+    "name": "TARGET_URLS",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Webhookを転送したい先のURLを指定します。カンマ区切りで複数指定可能です。"
+  },
+  {
+    "name": "TARGET_FUNCTION_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "外部APIにデータを送信するためのファンクションのFunction IDを指定します。"
+  }
+]
