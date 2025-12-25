@@ -1,0 +1,51 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "SITE_NAME",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Craft Sitesの一覧画面で左側に表示されている、もしくは該当のサイトを見た際に左上に表示されているサイト名を指定します"
+  },
+  {
+    "name": "UPLOAD_DIRECTORY",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Craft Sitesのサイト上で作成したファイルアップロード用のディレクトリ名を指定します"
+  },
+  {
+    "name": "PUBLICATION_STATUS",
+    "value": "true",
+    "type": "boolean",
+    "required": true,
+    "description": "Craft Sitesへのファイルアップロード時にそれを公開したい場合はtrue、非公開にしたい場合はfalseのbooleanで指定します"
+  },
+  {
+    "name": "MAKE_SUMMARY_PROMPT",
+    "value": "あなたは優秀なレビュー要約者です。ポジティブなレビューをメインにしつつ、ネガティブやレビューも多少は交えて、渡されるレビュー群を150文字以内で要約してください。",
+    "type": "string",
+    "required": true,
+    "description": "Craft AI Modulesに要約を生成してもらう際、どのような立場や形式で答えてもらいたいか、どのぐらいの文字数にしてほしいかなどをプロンプトで指定します"
+  },
+  {
+    "name": "GEMINI_MODEL",
+    "value": "gemini-2.5-flash",
+    "type": "string",
+    "required": true,
+    "description": "gemini-2.5-flashやgemini-2.5-proなど、利用する生成AIのモデル名を指定します"
+  }
+]
