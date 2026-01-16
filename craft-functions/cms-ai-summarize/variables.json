@@ -1,0 +1,51 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します。"
+  },
+  {
+    "name": "CMS_MODEL_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Craft CMSのモデルIDを指定します。"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "API v2アプリのアクセストークンを格納したシークレットの名前です。"
+  },
+  {
+    "name": "GEMINI_MODEL",
+    "value": "gemini-2.5-flash",
+    "type": "string",
+    "required": false,
+    "description": "使用するGeminiモデルの名前を指定します。"
+  },
+  {
+    "name": "TARGET_CMS_MODEL_TITLE",
+    "value": "title",
+    "type": "string",
+    "required": true,
+    "description": "Craft CMSのタイトルフィールドの名前を指定します。"
+  },
+  {
+    "name": "TARGET_CMS_MODEL_BODY",
+    "value": "body",
+    "type": "string",
+    "required": true,
+    "description": "Craft CMSの本文フィールドの名前を指定します。"
+  },
+  {
+    "name": "UPDATE_CMS_MODEL_FIELD",
+    "value": "ai_summary",
+    "type": "string",
+    "required": true,
+    "description": "Craft CMSの要約フィールドの名前を指定します。"
+  }
+]
