@@ -1,0 +1,58 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "SERVICE_ACCOUNT_KEY_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "利用するGoogleサービスアカウントのJSONキーを登録したシークレットの名前です"
+  },
+  {
+    "name": "CMS_MODEL_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "コンテンツ設定のJSONプレビューに書かれている「modelId」の値を指定します"
+  },
+  {
+    "name": "SHOPIFY_WEBHOOK_SHARED_SECRET_NAME",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "ShopifyのWebhook設定画面で取得できる署名用シークレットを登録したシークレットの名称を指定します"
+  },
+  {
+    "name": "SHOPIFY_SHOP_PUBLIC_DOMAIN",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "一般ユーザーから見えるShopifyを使用したWebサイトのドメインを指定します"
+  },
+  {
+    "name": "MERCHANT_CENTER_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Google Merchant Centerの画面で右上に表示されている10桁のIDを指定します"
+  },
+  {
+    "name": "MERCHANT_DATASOURCE_PATH",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Google Merchant CenterにGCPプロジェクトを紐付けた際に発行される「accounts/xxxxx/dataSources/yyyyy」形式のデータソースパスを指定します"
+  }
+]
