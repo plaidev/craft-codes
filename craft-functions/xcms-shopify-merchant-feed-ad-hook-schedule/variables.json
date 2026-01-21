@@ -1,0 +1,72 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "SERVICE_ACCOUNT_KEY_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "利用するGoogleサービスアカウントのJSONキーを登録したシークレットの名前です"
+  },
+  {
+    "name": "CMS_MODEL_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "コンテンツ設定のJSONプレビューに書かれている「modelId」の値を指定します"
+  },
+  {
+    "name": "SHOPIFY_APP_CLIENT_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Shopifyのdev dashboardで作成したアプリのクライアントIDを指定します"
+  },
+  {
+    "name": "SHOPIFY_APP_CLIENT_SECRET_NAME",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Shopifyのdev dashboardで作成したアプリのクライアントシークレットを登録したシークレット名を指定します"
+  },
+  {
+    "name": "SHOPIFY_SHOP_INTERNAL_DOMAIN",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "「xxxxxx..myshopify.com」の形式になっている、ショップの内部ドメインを指定します"
+  },
+  {
+    "name": "MERCHANT_CENTER_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Google Merchant Centerの画面で右上に表示されている10桁のIDを指定します"
+  },
+  {
+    "name": "MERCHANT_DATASOURCE_PATH",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Google Merchant CenterにGCPプロジェクトを紐付けた際に発行される「accounts/xxxxx/dataSources/yyyyy」形式のデータソースパスを指定します"
+  },
+  {
+    "name": "RETENTION_DAYS",
+    "value": "",
+    "type": "number",
+    "required": true,
+    "description": "スケジュール実行でGoogle Merchant Centerに入稿する際、実行日時から遡って何日前までに更新されたCraft Cross CMSのコンテンツを対象とするかを指定します"
+  }
+]
