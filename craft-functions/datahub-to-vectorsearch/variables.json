@@ -1,0 +1,72 @@
+[
+    {
+        "name": "LOG_LEVEL",
+        "value": "WARN",
+        "type": "string",
+        "required": true,
+        "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+    },
+    {
+        "name": "INDEX_ID",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "Craft Vector SearchのインデックスIDです"
+    },
+    {
+        "name": "DIMENSION_NUM",
+        "value": "1408",
+        "type": "number",
+        "required": true,
+        "description": "出力次元数です。Craft Vector Searchインデックスの次元数と同じ値を設定してください"
+    },
+    {
+        "name": "HEADER_COLUMNS",
+        "value": "id,title,content,category",
+        "type": "string",
+        "required": true,
+        "description": "Datahubクエリ結果のカラム名をカンマ区切りで指定します。カラムの順番も一致させてください（例: 'id,title,content,category,_delete'）"
+    },
+    {
+        "name": "ID_FIELD",
+        "value": "id",
+        "type": "string",
+        "required": true,
+        "description": "Vector Searchのデータポイントのキーとして使用するフィールド名です"
+    },
+    {
+        "name": "TEXT_FIELDS",
+        "value": "item_name,description",
+        "type": "string",
+        "required": false,
+        "description": "ベクトル化するテキストデータが含まれるフィールド名です。カンマ区切りで複数のフィールドを指定でき、それらが結合されてベクトル化されます（例: 'item_name,description'）。空の場合は画像のみのembeddingが行われます"
+    },
+    {
+        "name": "NAMESPACE_FIELDS",
+        "value": "category,brand",
+        "type": "string",
+        "required": false,
+        "description": "namespace検索に使用するフィールド名をカンマ区切りで指定します（例: 'category,brand'）"
+    },
+    {
+        "name": "IMAGE_URL_FIELD",
+        "value": "",
+        "type": "string",
+        "required": false,
+        "description": "画像のURLが含まれるフィールド名です。指定された場合、MultiModal Embeddingを使用してテキストと画像の両方を考慮したベクトルを生成します。空の場合はテキストのみのEmbeddingを使用します"
+    },
+    {
+        "name": "BM25_MODEL_URL",
+        "value": "",
+        "type": "string",
+        "required": false,
+        "description": "BM25モデルファイルの公開URLです。スパースベクトルによるキーワード検索を使用する場合に設定します。空の場合はキーワード検索を使用しません"
+    },
+    {
+        "name": "PARTITION_NAME",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "Vector Searchのpartitionに使用するベース名です。テキストデータは'${PARTITION_NAME}_text'、画像データは'${PARTITION_NAME}_image'としてpartitionが設定されます"
+    }
+]
