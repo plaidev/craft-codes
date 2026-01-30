@@ -7,13 +7,6 @@
     "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
   },
   {
-    "name": "KARTE_APP_TOKEN_SECRET",
-    "value": "",
-    "type": "string",
-    "required": true,
-    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
-  },
-  {
     "name": "LINE_LOGIN_CHANNEL_ID",
     "value": "",
     "type": "string",
@@ -39,6 +32,20 @@
     "value": "",
     "type": "string",
     "required": true,
-    "description": "データを投入する紐付けテーブルのテーブルIDです"
+    "description": "更新対象の紐付けテーブルのテーブルIDを指定します"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "API v2アプリのトークンを登録したシークレットの名称を指定します"
+  },
+  {
+    "name": "TARGET_FUNCTION_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "紐付けテーブルやアクションテーブル更新など、KARTEの更新系APIを呼び出すCraft FunctionsのファンクションIDです"
   }
 ]

@@ -1,13 +1,10 @@
-import api from 'api';
-
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const LINE_LOGIN_CHANNEL_ID = '<% LINE_LOGIN_CHANNEL_ID %>'; // LINEログインチャネルのチャネルID
 const LINE_CHANNEL_SECRET_NAME = '<% LINE_CHANNEL_SECRET_NAME %>'; // シークレットマネージャーに登録したLINEログインチャネルシークレットの名前
 const REDIRECT_URI = '<% REDIRECT_URI %>'; // LINEログイン後にリダイレクトされる画面のURL
-const REF_TABLE_ID = '<% REF_TABLE_ID %>'; // 紐付けテーブルのテーブルID
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>'; // API v2アプリのトークンを登録したシークレット
-
-const sdk = api('@dev-karte/v1.0#4013y24lvyu582u');
+const REF_TABLE_ID = '<% REF_TABLE_ID %>'; // 更新対象の紐付けテーブルID
+const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>'; // API v2アプリのトークンを登録したシークレット名
+const TARGET_FUNCTION_ID = '<% TARGET_FUNCTION_ID %>'; // 紐付けテーブル更新用ファンクションのID
 
 // Webサイトから取得した認可コードを使ってIDトークンを取得する
 async function fetchTokens(authorizationCode, clientSecret, logger) {
@@ -68,72 +65,49 @@ async function verifyIdToken(idToken, logger) {
   }
 }
 
-// 紐付けテーブルにデータを投入する
-async function upsertKarteRefTable(websiteUserId, lineId, logger) {
-  try {
-    const response = await sdk.postV2betaTrackReftableRowUpsert({
-      id: REF_TABLE_ID,
-      rowKey: { user_id: websiteUserId },
-      values: { line_id: lineId },
-    });
-
-    return response;
-  } catch (error) {
-    logger.error(`Error upserting KARTE ref table: ${error.message}`);
-    throw error;
-  }
-}
-
 export default async function (data, { MODULES }) {
-  const { initLogger, secret } = MODULES;
+  const { initLogger, secret, craftFunctions } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
-
   const { req, res } = data;
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-  if (req.method === 'OPTIONS') {
-    res.status(204).end();
-    return;
-  }
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') return res.status(204).end();
 
   try {
-    const secrets = await secret.get({
-      keys: [KARTE_APP_TOKEN_SECRET, LINE_CHANNEL_SECRET_NAME],
-    });
-
-    const karteToken = secrets[KARTE_APP_TOKEN_SECRET];
+    const secrets = await secret.get({ keys: [LINE_CHANNEL_SECRET_NAME] });
     const clientSecret = secrets[LINE_CHANNEL_SECRET_NAME];
-    sdk.auth(karteToken);
 
     const { authorizationCode, websiteUserId } = req.body;
-
     if (!authorizationCode || !websiteUserId) {
-      logger.warn('Missing authorizationCode or websiteUserId');
-      res.status(400).json({ message: 'Missing authorizationCode or websiteUserId' });
-      return;
+      return res.status(400).json({ message: 'Missing parameters' });
     }
 
     const tokenData = await fetchTokens(authorizationCode, clientSecret, logger);
-    if (!tokenData) {
-      res.status(400).json({ message: 'Error in fetchTokens' });
-      return;
-    }
+    if (!tokenData) return res.status(400).json({ message: 'Line token fetch failed' });
 
-    const { id_token: idToken } = tokenData;
+    const retrievedLineId = await verifyIdToken(tokenData.id_token, logger);
+    if (!retrievedLineId) return res.status(401).json({ message: 'Line ID verify failed' });
 
-    const retrievedLineId = await verifyIdToken(idToken, logger);
-    if (!retrievedLineId) {
-      res.status(401).json({ message: 'Error in verifyIdToken' });
-      return;
-    }
+    await craftFunctions.invoke({
+      functionId: TARGET_FUNCTION_ID,
+      data: {
+        apiUrl: 'https://api.karte.io/v2beta/track/refTable/row/upsert',
+        tokenSecretName: KARTE_APP_TOKEN_SECRET,
+        parameters: {
+          id: REF_TABLE_ID,
+          rowKey: { user_id: websiteUserId },
+          values: { line_id: retrievedLineId },
+        },
+        retryTimeoutSec: 3600,
+      },
+    });
 
-    await upsertKarteRefTable(websiteUserId, retrievedLineId, logger);
-
-    res.status(200).json({ message: 'Data inserted successfully' });
+    res.status(200).json({ message: 'Processing started' });
   } catch (err) {
-    logger.error(`Error in lineid mapping process: ${err.toString()}`);
+    logger.error(`Error: ${err.toString()}`);
     res.status(500).json({ message: 'Internal Server Error' });
   }
 }
