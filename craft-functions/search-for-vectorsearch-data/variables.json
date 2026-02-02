@@ -1,0 +1,44 @@
+[
+    {
+        "name": "LOG_LEVEL",
+        "value": "WARN",
+        "type": "string",
+        "required": true,
+        "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+    },
+    {
+        "name": "ALLOWED_ORIGINS",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "CORSを許可するオリジンのカンマ区切りリストです。全て許可する場合は「*」を指定します"
+    },
+    {
+        "name": "ENDPOINT_ID",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "Craft Vector SearchのエンドポイントIDです"
+    },
+    {
+        "name": "DIMENSION_NUM",
+        "value": "1408",
+        "type": "number",
+        "required": true,
+        "description": "出力次元数です。Craft Vector Searchインデックスの次元数と同じ値を設定してください"
+    },
+    {
+        "name": "PARTITION_NAME",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "Vector Searchのpartitionに使用するベース名です。データ投入時と同じ値を設定します。テキストデータは'${PARTITION_NAME}_text'、画像データは'${PARTITION_NAME}_image'としてpartitionが設定されます。"
+    },
+    {
+        "name": "BM25_MODEL_URL",
+        "value": "",
+        "type": "string",
+        "required": false,
+        "description": "BM25モデルファイルのURL（JSON形式）です。未設定の場合はセマンティック検索のみを実行します"
+    }
+]
