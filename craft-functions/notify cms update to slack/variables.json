@@ -1,0 +1,58 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": false,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します。"
+  },
+  {
+    "name": "SLACK_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": false,
+    "description": "Slack OAuthトークンを登録したシークレットの名前です。"
+  },
+  {
+    "name": "SLACK_CHANNEL_ID",
+    "value": "",
+    "type": "string",
+    "required": false,
+    "description": "配信したいSlackチャンネルのIDです。"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": false,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です。"
+  },
+  {
+    "name": "TARGET_MODEL_IDS",
+    "value": "",
+    "type": "string",
+    "required": false,
+    "description": "対象のCMSモデルのIDです。（複数指定する場合はカンマ区切りで指定します）"
+  },
+  {
+    "name": "DISPLAY_MESSAGE_FIELDS",
+    "value": "",
+    "type": "string",
+    "required": false,
+    "description": "メッセージに表示したいコンテンツのフィールド名です。（複数指定する場合はカンマ区切りで指定します）"
+  },
+  {
+    "name": "KARTE_PROJECT_ID",
+    "value": "",
+    "type": "string",
+    "required": false,
+    "description": "KARTEのプロジェクトIDです。送信メッセージ内のリンク埋め込みに使用します。"
+  },
+  {
+    "name": "CMS_COLLECTION_ID",
+    "value": "",
+    "type": "string",
+    "required": false,
+    "description": "Craft Cross CMSのコレクションIDです。送信メッセージ内のリンク埋め込みに使用します。"
+  }
+]
