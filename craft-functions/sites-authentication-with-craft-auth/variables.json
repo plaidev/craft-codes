@@ -1,0 +1,44 @@
+[
+    {
+        "name": "LOG_LEVEL",
+        "value": "WARN",
+        "type": "string",
+        "required": true,
+        "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+    },
+    {
+        "name": "AUTH_KEY_SECRET",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "署名鍵のシークレット名です。Craft Secret Managerのシークレット一覧にある CSP_{{サイト名(大文字)}} という名前を指定します"
+    },
+    {
+        "name": "URL_PREFIX",
+        "value": "https://example.com/",
+        "type": "string",
+        "required": true,
+        "description": "閲覧を許可するサイト範囲をURLのprefixで指定します。署名付きCookieの適用範囲となります"
+    },
+    {
+        "name": "REQUIRED_ROLE",
+        "value": "",
+        "type": "string",
+        "required": false,
+        "description": "コンテンツの閲覧に必要なロール名です。Craft Authで設定したロール名を指定します。空の場合は、ロールチェックを行いません"
+    },
+    {
+        "name": "EXPIRES_MINUTES",
+        "value": "1440",
+        "type": "string",
+        "required": true,
+        "description": "署名付きCookieの有効期限（分）です。デフォルトは1,440分（1日）です"
+    },
+    {
+        "name": "ALLOWED_ORIGINS",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "CORSの許可対象ドメインです。Craft Sites側サイトのドメインを指定します。複数指定する場合はカンマ区切りで指定します（例: https://example1.com,https://example2.com）"
+    }
+]
