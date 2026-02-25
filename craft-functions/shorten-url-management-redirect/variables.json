@@ -1,0 +1,51 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "REF_TABLE_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "更新対象の紐付けテーブルのIDです"
+  },
+  {
+    "name": "TARGET_FUNCTION_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "紐付けテーブルやアクションテーブル更新など、KARTEの更新系APIを呼び出すCraft FunctionsのファンクションIDです"
+  },
+  {
+    "name": "DEFAULT_REDIRECT_URL",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KVSに有効な値が見つからない場合にリダイレクトされるページのURLを指定します"
+  },
+  {
+    "name": "RETRY_TIMEOUT_SEC",
+    "value": "",
+    "type": "number",
+    "required": true,
+    "description": "KARTEの更新系APIを呼び出すCraft Functionsのファンクションの処理失敗時に、どれだけの時間リトライを繰り返すかを秒数で指定します"
+  },
+  {
+    "name": "SOLUTION_ID",
+    "value": "shorten-url",
+    "type": "string",
+    "required": true,
+    "description": "KVS内でレコードを識別するためのソリューション名。他機能のデータと重複しない一意の名前を設定してください（例: shorten-url）。"
+  }
+]
