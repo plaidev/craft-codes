@@ -1,0 +1,44 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "CUSTOM_DOMAIN_BASE",
+    "value": "https://example.com/short/",
+    "type": "string",
+    "required": true,
+    "description": "短縮URLの大元となる自社ドメインとそれに続くディレクトリ構造を指定します"
+  },
+  {
+    "name": "KVS_EXPIRE_MINUTES",
+    "value": 525960000,
+    "type": "number",
+    "required": true,
+    "description": "Craft KVSのレコードの生存期間（分）です"
+  },
+  {
+    "name": "ALLOWED_ORIGINS",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "アクセスを許可するドメインをカンマ区切りで指定します"
+  },
+  {
+    "name": "REQUIRED_ROLE",
+    "value": "",
+    "type": "string",
+    "required": false,
+    "description": "コンテンツの閲覧に必要なロール名です。Craft Authで設定したロール名を指定します。空の場合は、ロールチェックを行いません"
+  },
+  {
+    "name": "SOLUTION_ID",
+    "value": "shorten-url",
+    "type": "string",
+    "required": true,
+    "description": "KVS内でレコードを識別するためのソリューション名。他機能のデータと重複しない一意の名前を設定してください（例: shorten-url）。"
+  }
+]
