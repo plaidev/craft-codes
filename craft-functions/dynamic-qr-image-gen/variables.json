@@ -1,0 +1,44 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "required": true,
+    "type": "string",
+    "value": "WARN",
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "IMAGE_TYPE",
+    "required": true,
+    "type": "string",
+    "value": "png",
+    "description": "QRコードの出力形式です。'png', 'jpeg', 'webp'から指定します"
+  },
+  {
+    "name": "QR_MARGIN",
+    "required": true,
+    "type": "number",
+    "value": "2",
+    "description": "QRコード周囲の余白の大きさです。0〜10の整数で、'2'の場合2ドット分の余白ができます"
+  },
+  {
+    "name": "DOT_SCALE",
+    "required": true,
+    "type": "number",
+    "value": "8",
+    "description": "1ドットあたりのピクセル数です。1〜20の整数です"
+  },
+  {
+    "name": "DOT_COLOR",
+    "required": true,
+    "type": "string",
+    "value": "#000000",
+    "description": "ドットの色です。#000000で黒になります"
+  },
+  {
+    "name": "BACK_COLOR",
+    "required": true,
+    "type": "string",
+    "value": "#FFFFFF",
+    "description": "背景の色です。#FFFFFFで白になります"
+  }
+]
