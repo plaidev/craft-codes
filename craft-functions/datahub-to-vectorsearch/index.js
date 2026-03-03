@@ -15,7 +15,11 @@ const NAMESPACE_FIELDS = '<% NAMESPACE_FIELDS %>';
 const IMAGE_URL_FIELD = '<% IMAGE_URL_FIELD %>';
 const BM25_MODEL_URL = '<% BM25_MODEL_URL %>';
 const PARTITION_NAME = '<% PARTITION_NAME %>';
+
+const MULTI_MODAL_EMBEDDING_MODEL = 'multimodalembedding@001'; // gcpEmbeddingsMultiで使用するモデルを指定
 const USE_MULTI_EMBEDDING = true; // 画像を利用せず gcpEmbeddingsText() を使いたい場合は false を設定
+const TEXT_EMBEDDING_MODEL = 'gemini-embedding-001'; // gcpEmbeddingsText() で使用するモデルを指定。必要に応じて変更してください
+
 const RETRY_TIMEOUT_SEC = 3600;
 const DELETE_FLAG_FIELD = '__delete';
 
@@ -198,6 +202,7 @@ async function generateTextEmbedding(text, aiModules, logger) {
       const result = await aiModules.gcpEmbeddingsMulti({
         text,
         dimension: DIMENSION_NUM,
+        model: MULTI_MODAL_EMBEDDING_MODEL,
       });
       return result.predictions[0].textEmbedding;
     }
@@ -213,6 +218,7 @@ async function generateTextEmbedding(text, aiModules, logger) {
       parameters: {
         outputDimensionality: DIMENSION_NUM,
       },
+      model: TEXT_EMBEDDING_MODEL,
     });
     return result.predictions[0].embeddings.values;
   } catch (err) {
@@ -246,6 +252,7 @@ async function generateEmbeddings(text, image, aiModules, logger) {
     const embeddingParams = {
       bytesBase64Encoded: image,
       dimension: DIMENSION_NUM,
+      model: MULTI_MODAL_EMBEDDING_MODEL,
     };
 
     // テキストもある場合は同時に処理
