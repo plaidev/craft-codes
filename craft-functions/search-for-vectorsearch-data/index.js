@@ -11,7 +11,10 @@ const ENDPOINT_ID = '<% ENDPOINT_ID %>';
 const DIMENSION_NUM = Number('<% DIMENSION_NUM %>');
 const PARTITION_NAME = '<% PARTITION_NAME %>';
 const BM25_MODEL_URL = '<% BM25_MODEL_URL %>';
-const USE_MULTI_EMBEDDING = true; // データ投入時と同じ設定にする
+
+const MULTI_MODAL_EMBEDDING_MODEL = 'multimodalembedding@001'; // gcpEmbeddingsMultiで使用するモデルを指定
+const USE_MULTI_EMBEDDING = true; // 画像を利用せず gcpEmbeddingsText() を使いたい場合は false を設定。データ投入時と同じ設定にする
+const TEXT_EMBEDDING_MODEL = 'gemini-embedding-001'; // gcpEmbeddingsText() で使用するモデルを指定。必要に応じて変更してください
 
 async function getBM25Model(logger) {
   try {
@@ -106,6 +109,7 @@ async function getTextEmbedding(text, aiModules, logger) {
       const embeddingParams = {
         dimension: DIMENSION_NUM,
         text,
+        model: MULTI_MODAL_EMBEDDING_MODEL,
       };
       const result = await aiModules.gcpEmbeddingsMulti(embeddingParams);
       return result.predictions[0].textEmbedding;
@@ -122,6 +126,7 @@ async function getTextEmbedding(text, aiModules, logger) {
       parameters: {
         outputDimensionality: DIMENSION_NUM,
       },
+      model: TEXT_EMBEDDING_MODEL,
     });
     return result.predictions[0].embeddings.values;
   } catch (error) {
