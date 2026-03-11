@@ -1,0 +1,72 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "KARTE_TALK_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "BOTタイプのKARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "SYSTEM_PROMPT",
+    "value": "あなたは親切で丁寧なチャットオペレーターです。以下のFAQ情報を参考にして、次のエンドユーザーからの質問に対して、回答を提供してください。回答はプレーンテキストで行ってください。",
+    "type": "string",
+    "required": true,
+    "description": "Geminiのシステムプロンプト。FAQ情報を参考に回答を生成する指示を記述してください"
+  },
+  {
+    "name": "AI_WARNING_MESSAGE",
+    "value": "この回答はAIによって生成されました。正確性を確認するために必要な情報は必ずご自身でご確認ください。",
+    "type": "string",
+    "required": false,
+    "description": "回答がAIによって生成されたものであり、正確でない可能性がある事に関しての注意喚起の文言です。設定した場合はAI生成回答の末尾に付加されます"
+  },
+  {
+    "name": "BOT_HELP_MESSAGE",
+    "value": "関連するFAQが見つかりませんでした。",
+    "type": "string",
+    "required": false,
+    "description": "Craft RAGで関連FAQが見つからなかった場合に送信するチャットメッセージです"
+  },
+  {
+    "name": "BOT_ERROR_MESSAGE",
+    "value": "エラーが発生しました。しばらく時間をおいてから再度お試しください。",
+    "type": "string",
+    "required": true,
+    "description": "エラーが発生した場合に送信するチャットメッセージです"
+  },
+  {
+    "name": "CHANGE_OPERATOR_MESSAGE",
+    "value": "オペレーターに変更します。",
+    "type": "string",
+    "required": false,
+    "description": "BOTが回答できなかった場合にオペレーターに変更するチャットメッセージです"
+  },
+  {
+    "name": "OPERATOR_ID",
+    "value": "",
+    "type": "string",
+    "required": false,
+    "description": "BOTが回答できなかった場合に引き継ぐオペレーターのIDです。指定しなかった場合は引き続きBOTが回答します"
+  },
+  {
+    "name": "BOT_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "エンドユーザーに回答を送信する際のBOTのIDです"
+  },
+  {
+    "name": "CORPUS_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "FAQが登録されているCraft RAGのコーパスIDです"
+  }
+]
