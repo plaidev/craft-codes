@@ -1,0 +1,37 @@
+[
+    {
+        "name": "LOG_LEVEL",
+        "value": "WARN",
+        "type": "string",
+        "required": true,
+        "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+    },
+    {
+        "name": "ACCESS_TOKEN_SECRET",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "MCPクライアント認証用のBearer tokenを登録したシークレット名です"
+    },
+    {
+        "name": "MCP_TOOL_NAME",
+        "value": "query_faq_content",
+        "type": "string",
+        "required": true,
+        "description": "MCPクライアントから呼び出すツール名です。半角英数小文字、アンダースコア、ハイフンのみ利用できます（例: query_faq_content）"
+    },
+    {
+        "name": "MCP_TOOL_DESCRIPTION",
+        "value": "例: Craft RAGに格納されたサービスのFAQコンテンツから最適なナレッジを取得するツールです",
+        "type": "string",
+        "required": true,
+        "description": "MCPツールの説明文です。MCPクライアント側でツール選択に利用されます"
+    },
+    {
+        "name": "RAG_CORPUS_ID",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "検索対象とするCraft RAGのコーパスIDです"
+    }
+]
