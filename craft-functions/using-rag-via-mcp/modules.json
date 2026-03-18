@@ -1,0 +1,4 @@
+{
+    "@modelcontextprotocol/sdk": "1.17.2",
+    "zod": "3.25.76"
+}
