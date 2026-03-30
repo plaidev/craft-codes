@@ -2,7 +2,7 @@
 
 ## title
 
-Vector Search と Document DB を使ったドキュメント検索API（記事レコメンド＋実現可否判定）
+karte-solution-agent（Vector Search と Document DB を使ったドキュメント検索API／記事レコメンド＋実現可否判定）
 
 ## blogUrl
 
