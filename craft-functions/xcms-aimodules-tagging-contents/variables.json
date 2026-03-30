@@ -1,0 +1,58 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "CONTENT_CMS_MODEL_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "記事コンテンツが入稿されたCraft Cross CMSのモデルIDを指定します"
+  },
+  {
+    "name": "TAG_FIELD_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "記事コンテンツが入稿されたモデルでタグに設定されているフィールドIDを指定します"
+  },
+  {
+    "name": "TAG_CMS_MODEL_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "タグが入稿されたCraft Cross CMSのモデルIDを指定します"
+  },
+  {
+    "name": "TAG_NAME_FIELD_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "タグが入稿されたモデルでタグ名に設定されているフィールドIDを指定します"
+  },
+  {
+    "name": "GEMINI_MODEL",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "gemini-2.5-flashやgemini-2.5-proなど、利用する生成AIのモデル名を指定します"
+  },
+  {
+    "name": "SYSTEM_INSTRUCTION",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "どのような観点でタグを選ぶべきかそのためのプロンプトを入力します"
+  }
+]
