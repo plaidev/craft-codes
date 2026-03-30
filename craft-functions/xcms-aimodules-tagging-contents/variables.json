@@ -42,6 +42,20 @@
     "description": "タグが入稿されたモデルでタグ名に設定されているフィールドIDを指定します"
   },
   {
+    "name": "ARTICLE_TITLE_FIELD_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "記事コンテンツが入稿されたモデルでタイトルに設定されているフィールドIDを指定します"
+  },
+  {
+    "name": "ARTICLE_BODY_FIELD_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "記事コンテンツが入稿されたモデルで本文（テキストまたはリッチテキスト）に設定されているフィールドIDを指定します"
+  },
+  {
     "name": "GEMINI_MODEL",
     "value": "",
     "type": "string",
