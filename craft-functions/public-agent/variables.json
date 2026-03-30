@@ -1,0 +1,86 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "ALLOWED_ORIGINS",
+    "value": "*",
+    "type": "string",
+    "required": true,
+    "description": "CORSで許可するオリジン（カンマ区切り）。ブラウザから呼び出す場合はCraft Sites等のオリジンを列挙してください"
+  },
+  {
+    "name": "INDEX_ENDPOINT_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Craft Vector SearchのインデックスエンドポイントIDです。インデックス投入時に払い出したIDと一致させます"
+  },
+  {
+    "name": "RATE_LIMIT_PER_DAY",
+    "value": "10",
+    "type": "string",
+    "required": false,
+    "description": "feasibilityCheck（実現可否判定）を1 visitor あたり1日に実行できる上限回数です"
+  },
+  {
+    "name": "IP_RATE_LIMIT_PER_DAY",
+    "value": "20",
+    "type": "string",
+    "required": false,
+    "description": "feasibilityCheck の同一IPあたりの1日上限回数です"
+  },
+  {
+    "name": "FEASIBILITY_MODEL",
+    "value": "gemini-2.5-flash",
+    "type": "string",
+    "required": true,
+    "description": "実現可否判定で利用するCraft AI Modulesのモデル名（例）。環境に合わせて変更してください"
+  },
+  {
+    "name": "BLOG_PUBLIC_BASE_URL",
+    "value": "https://example.com/blog",
+    "type": "string",
+    "required": true,
+    "description": "ブログ記事の公開ベースURL（末尾に/blogを含めない場合はパスを調整してください）。記事カードのリンク生成に使います"
+  },
+  {
+    "name": "DEVELOPER_DOCS_BASE_URL",
+    "value": "https://developers.example.com",
+    "type": "string",
+    "required": true,
+    "description": "developer_doc タイプのドキュメントの公開ベースURLです"
+  },
+  {
+    "name": "KARTE_USER_API_URL",
+    "value": "https://api.karte.io/v2beta/track/user/get",
+    "type": "string",
+    "required": true,
+    "description": "ユーザー属性取得に使うKARTE APIのURL（通常は変更不要）"
+  },
+  {
+    "name": "KARTE_USER_LOOKUP_SECRET_KEY_NAME",
+    "value": "MY_KARTE_API_TOKEN",
+    "type": "string",
+    "required": true,
+    "description": "Craft Secret Managerに登録したKARTE APIトークンのシークレット名（サンプル値です。実際の名前に変更してください）"
+  },
+  {
+    "name": "INTERNAL_EMAIL_DOMAINS",
+    "value": "example.com",
+    "type": "string",
+    "required": false,
+    "description": "社内メールドメインのカンマ区切り一覧（サンプル）。ログの社内外判定に使います。不要なら空にできます"
+  },
+  {
+    "name": "VECTOR_MIN_DISTANCE",
+    "value": "0.10",
+    "type": "string",
+    "required": false,
+    "description": "Vector Searchの近傍結果を採用する最小類似度しきい値（0〜1）"
+  }
+]
