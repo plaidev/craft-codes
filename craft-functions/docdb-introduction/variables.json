@@ -1,0 +1,23 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "ACCESS_TOKEN",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "APIアクセス用のトークンです。リクエスト時にAuthorizationヘッダーでBearerトークンとして送信します"
+  },
+  {
+    "name": "COLLECTION_NAME",
+    "value": "products",
+    "type": "string",
+    "required": true,
+    "description": "検索対象のコレクション名です"
+  }
+]
