@@ -1,0 +1,17 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "ログレベルです。DEBUG,INFO,WARN,ERRORのいずれかを指定してください。"
+  },
+  {
+    "name": "APPEND_HASH_PREFIX",
+    "value": false,
+    "type": "boolean",
+    "required": true,
+    "description": "Primary Keyにハッシュ値のプレフィックスを付与するかどうか。ホットスポット問題の回避に有効です。"
+  }
+]
+
