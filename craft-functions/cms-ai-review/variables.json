@@ -1,0 +1,65 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。DEBUG/LOG/WARN/ERRORから指定します"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2トークンを登録したシークレット名を指定します"
+  },
+  {
+    "name": "GEMINI_MODEL",
+    "value": "gemini-3-flash-preview",
+    "type": "string",
+    "required": false,
+    "description": "使用するGeminiモデル名を指定します"
+  },
+  {
+    "name": "REVIEW_TARGET_FIELDS",
+    "value": "title,body",
+    "type": "string",
+    "required": true,
+    "description": "レビュー対象のCMSフィールドキーをカンマ区切りで指定します（例: title,body,excerpt）"
+  },
+  {
+    "name": "SLACK_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Slack Bot Tokenを登録したシークレット名を指定します"
+  },
+  {
+    "name": "SLACK_CHANNEL_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "通知先のSlackチャンネルIDを指定します"
+  },
+  {
+    "name": "KARTE_PROJECT_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTEプロジェクトIDを指定します"
+  },
+  {
+    "name": "CMS_COLLECTION_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "CMSコレクションIDを指定します"
+  },
+  {
+    "name": "CUSTOM_REVIEW_CRITERIA",
+    "value": "",
+    "type": "string",
+    "required": false,
+    "description": "カスタムレビュー観点を指定します（空の場合はデフォルトの観点を使用）"
+  }
+]
