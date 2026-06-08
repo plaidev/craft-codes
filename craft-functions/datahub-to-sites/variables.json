@@ -1,0 +1,51 @@
+[
+    {
+        "name": "LOG_LEVEL",
+        "value": "WARN",
+        "type": "string",
+        "required": true,
+        "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+    },
+    {
+        "name": "SITE_NAME",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "MarkdownをアップロードするCraft Sitesのサイト名です"
+    },
+    {
+        "name": "SITE_DIR_PATH",
+        "value": "/rag",
+        "type": "string",
+        "required": true,
+        "description": "MarkdownをアップロードするCraft Sitesのディレクトリへのパスです。最後の / は不要です"
+    },
+    {
+        "name": "KARTE_APP_TOKEN_SECRET",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+    },
+    {
+        "name": "HEADER_COLUMNS",
+        "value": "",
+        "type": "string",
+        "required": true,
+        "description": "DatahubクエリのCSVヘッダーカラム名をカンマ区切りで指定します（例：id,title,content,category）"
+    },
+    {
+        "name": "FILE_NAME_COLUMN",
+        "value": "id",
+        "type": "string",
+        "required": true,
+        "description": "出力ファイル名として使用するカラム名です"
+    },
+    {
+        "name": "RETRY_TIMEOUT_SEC",
+        "value": "3600",
+        "type": "number",
+        "required": true,
+        "description": "リトライのタイムアウト時間(秒)です。リトライ可能エラー発生時のリトライ処理をいつまで実行するかを指定します"
+    }
+]
