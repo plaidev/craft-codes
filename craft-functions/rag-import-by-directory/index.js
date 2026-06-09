@@ -59,7 +59,7 @@ export default async function (data, { MODULES }) {
     const DIRECTORY_PATH = splitData[1];
     const RAG_CORPUS_ID = splitData[2];
 
-    // パスがスラッシュで始まり、スラッシュで終わることを確認
+    // パスがスラッシュで始まりスラッシュで終わることを確認
     let normalizedPath = DIRECTORY_PATH;
     if (!normalizedPath.startsWith('/')) {
       normalizedPath = `/${normalizedPath}`;
