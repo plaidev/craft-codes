@@ -10,7 +10,7 @@ https://solution.karte.io/blog/2026/06/datahub-to-rag/
 
 ## description
 
-Datahubクエリで指定したディレクトリ内のファイル群をCraft RAGにインポートします。
+Datahubクエリで指定したCraft Sites上のディレクトリ内のファイル群をCraft RAGにインポートします。
 
 ## category
 
