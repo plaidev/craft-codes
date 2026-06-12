@@ -1,0 +1,37 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "required": false,
+    "type": "string",
+    "value": "DEBUG",
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "GEMINI_MODEL",
+    "required": false,
+    "type": "string",
+    "value": "gemini-2.5-flash",
+    "description": "使用するGeminiモデルの名前を指定します"
+  },
+  {
+    "name": "CHAT_SENDER_ID",
+    "required": false,
+    "type": "string",
+    "value": "",
+    "description": "ノート投稿時のBot送信者IDです"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "required": false,
+    "type": "string",
+    "value": "KARTE_API_TOKEN_CHAT_AUTO_SUMMARY_GEMINI",
+    "description": "KARTE API v2アプリのアクセストークンを登録したシークレット名です"
+  },
+  {
+    "name": "MIN_CHAT_TEXT_LENGTH",
+    "required": false,
+    "type": "number",
+    "value": 100,
+    "description": "この文字数以上のチャットメッセージのみ自動要約します"
+  }
+]
