@@ -1,0 +1,51 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "LINE_CHANNEL_ACCESS_TOKEN_SECRET_NAME",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "LINEチャネルアクセストークンを登録したシークレット名です"
+  },
+  {
+    "name": "SERVICE_ACCOUNT_KEY_SECRET_NAME",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "GCS認証用のサービスアカウントキーを登録したシークレット名です"
+  },
+  {
+    "name": "BUCKET_NAME",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "保存先のGoogle Cloud Storageのバケット名です"
+  },
+  {
+    "name": "FILE_PATH",
+    "value": "line_followers.jsonl",
+    "type": "string",
+    "required": true,
+    "description": "GCSに保存するファイルパスです"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET_NAME",
+    "value": "",
+    "type": "string",
+    "required": false,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "JOBFLOW_ID",
+    "value": "",
+    "type": "string",
+    "required": false,
+    "description": "GCSアップロード後に実行するDatahubジョブフローIDです"
+  }
+]
