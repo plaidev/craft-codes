@@ -1,0 +1,44 @@
+[
+  {
+    "name": "CMS_MODEL_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "翻訳対象のCraft Cross CMSのモデルIDです。コンテンツのJSONプレビューなどから確認できます。"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "API v2アプリのアクセストークンを保存したCraft Secret Managerのシークレット名です。"
+  },
+  {
+    "name": "REQUEST_TRANSLATION_FIELD",
+    "value": "request_translation",
+    "type": "string",
+    "required": true,
+    "description": "Craft Cross CMSに設定した、翻訳をトリガーするチェックボックスフィールドのフィールドIDです。"
+  },
+  {
+    "name": "SOURCE_LANGUAGE_CODE",
+    "value": "ja",
+    "type": "string",
+    "required": true,
+    "description": "翻訳元の言語コードです（例: ja, en, zh）。"
+  },
+  {
+    "name": "AI_MODEL",
+    "value": "gemini-2.5-flash",
+    "type": "string",
+    "required": true,
+    "description": "翻訳に使用するAIモデルです。利用可能なモデルは https://craft.developers.karte.io/craft-ai-modules/models/ を確認してください。"
+  },
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "ログの出力レベルです。ERROR / WARN / INFO / DEBUG から指定します。"
+  }
+]
