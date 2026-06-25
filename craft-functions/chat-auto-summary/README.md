@@ -5,16 +5,15 @@
 チャットメッセージを要約する AI Bot を Craft AI Modules で実装する
 
 ## blogUrl
-
-https://solution.karte.io/blog/2023/07/chat-summary-ai-bot/
+https://solution.karte.io/blog/2023/07/chat-summary-ai-bot
 
 ## description
 
-エンドユーザーから送信されたチャットメッセージを自動要約します。
+KARTE で配信したウェブチャットでエンドユーザーから受信したチャットメッセージが長文なとき、オペレーターがそれを読み解くのに時間がかかることがあります。そんな課題を解決するために、Craft AI Modules を使ったメッセージ自動要約機能を実装しました。
 
 ## category
 
-Craft Functions,Craft AI Modules
+Craft Functions,Craft AI Modules,Talk,HOOK_V2
 
 ## functionType
 

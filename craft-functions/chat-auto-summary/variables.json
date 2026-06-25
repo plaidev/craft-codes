@@ -21,13 +21,6 @@
     "description": "ノート投稿時のBot送信者IDです"
   },
   {
-    "name": "TALK_SPEC_URI",
-    "value": "@dev-karte/v1.0#ja8rb1jlswsjoo1",
-    "type": "string",
-    "required": true,
-    "description": "KARTE API v2のspec URIです。古くなった場合はDeveloper Portalの最新値を設定してください"
-  },
-  {
     "name": "KARTE_APP_TOKEN_SECRET",
     "value": "",
     "type": "string",
