@@ -3,9 +3,9 @@ import api from 'api';
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const GEMINI_MODEL = '<% GEMINI_MODEL %>';
 const CHAT_SENDER_ID = '<% CHAT_SENDER_ID %>';
-const TALK_SPEC_URI = '<% TALK_SPEC_URI %>';
 const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
 const MIN_CHAT_TEXT_LENGTH = Number('<% MIN_CHAT_TEXT_LENGTH %>'); // この文字数以上のチャットメッセージのみ自動要約する
+const TALK_SPEC_URI = '@dev-karte/v1.0#ja8rb1jlswsjoo1';
 
 async function fetchSummary(aiModules, text) {
   const prompt = `次の文章の要点を3点抽出し、それを箇条書きでまとめてください。マークダウン記法は使わないでください。 "${text}"`;
