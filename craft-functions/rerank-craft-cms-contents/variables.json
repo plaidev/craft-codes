@@ -1,0 +1,51 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "ログレベルです。DEBUG,INFO,WARN,ERRORのいずれかを指定してください。"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "API v2アプリのアクセストークンを格納したシークレットの名前です。"
+  },
+  {
+    "name": "KARTE_CDN_API_SUBDOMAIN",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "CDN APIを呼び出す際のエンドポイントに使用するサブドメインの値です。"
+  },
+  {
+    "name": "CMS_MODEL_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Craft CMSのモデルIDを指定します。"
+  },
+  {
+    "name": "RERANK_TOP_N_NUM",
+    "value": "3",
+    "type": "number",
+    "required": true,
+    "description": "Rerank APIから返却する件数を指定します。"
+  },
+  {
+    "name": "CMS_FIELD_FOR_TITLE",
+    "value": "title",
+    "type": "string",
+    "required": true,
+    "description": "Rerank APIへ渡すtitleプロパティに利用する、CMSのフィールド名を指定します。"
+  },
+  {
+    "name": "CMS_FIELD_FOR_CONTENT",
+    "value": "description",
+    "type": "string",
+    "required": true,
+    "description": "Rerank APIへ渡すcontentプロパティに利用する、CMSのフィールド名を指定します。"
+  }
+]
