@@ -1,0 +1,72 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "KVS_PREFIX_RANGE",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "処理対象のKVSキー範囲（スラッシュ区切り）。形式: 開始位置/終了位置。例: prefix-001/prefix-999。誤った範囲設定は影響が大きいため慎重に指定してください"
+  },
+  {
+    "name": "KVS_WRITE_FUNCTION_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "ワーカー（kvs-bulk-update-write）のファンクションIDです。管理画面のURLに含まれるIDを指定します"
+  },
+  {
+    "name": "KVS_CURSOR_KEY",
+    "value": "kvs-bulk-update-cursor",
+    "type": "string",
+    "required": true,
+    "description": "ジョブ状態（処理カーソルと処理開始時刻）を保存するKVSキーです。必ず処理対象のprefix範囲外のキーを指定してください"
+  },
+  {
+    "name": "MERGE_VALUE",
+    "value": "{}",
+    "type": "string",
+    "required": true,
+    "description": "各レコードのvalueにshallow mergeするJSONオブジェクト文字列です。例: {\"feature_x_enabled\": false}。マージ不要（TTL/key更新のみ）の場合は {} を指定します"
+  },
+  {
+    "name": "KVS_MINUTES_TO_EXPIRE",
+    "value": 44640,
+    "type": "number",
+    "required": true,
+    "description": "書き戻し時に一律設定する有効期限（分）を指定します。"
+  },
+  {
+    "name": "KEY_OPERATION",
+    "value": "none",
+    "type": "string",
+    "required": true,
+    "description": "keyの更新方法を、none（key変更なし）、replace_with_manual（置換対象をKEY_PREFIX_REPLACE_VALUEで置換）、replace_with_hash_prefix（置換対象を元keyのハッシュ値で置換）のいずれかから指定します"
+  },
+  {
+    "name": "KEY_PREFIX_REPLACE_TARGET",
+    "value": "",
+    "type": "string",
+    "required": false,
+    "description": "置換対象を指定する正規表現です（KEY_OPERATIONがreplace_*のとき必須）。例: prefix付与は ^ 、prefix削除/付け替えは ^old- 。String.prototype.replace準拠で先頭一致は ^ で固定します"
+  },
+  {
+    "name": "KEY_PREFIX_REPLACE_VALUE",
+    "value": "",
+    "type": "string",
+    "required": false,
+    "description": "KEY_OPERATION=replace_with_manual のときに置換対象を置き換える文字列です。空文字を指定すると置換対象を削除します"
+  },
+  {
+    "name": "DRY_RUN",
+    "value": false,
+    "type": "boolean",
+    "required": true,
+    "description": "ドライラン。true の場合、KVS への書き込みをスキップしログのみ出力します。カーソルキーには-dryrunサフィックスが付与されます。本番実行前に true で実行して動作を確認することを推奨します"
+  }
+]
