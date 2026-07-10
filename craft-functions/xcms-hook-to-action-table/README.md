@@ -2,11 +2,11 @@
 
 ## title
 
-Craft Cross CMSのコンテンツをDatahubのアクションテーブルへリアルタイム同期する
+Craft Cross CMSで公開したコンテンツをアクションテーブルに同期する
 
 ## blogUrl
 
-https://solution.karte.io/blog/2025/11/xcms-to-action-table/
+https://solution.karte.io/blog/2025/11/xcms-hook-to-action-table/
 
 ## description
 

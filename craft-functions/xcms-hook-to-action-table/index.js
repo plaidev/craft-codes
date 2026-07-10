@@ -82,8 +82,9 @@ async function upsertToActionTable(content, logger, shortEventType) {
     targetFields.forEach(field => {
       const value = content[field];
 
-      if (value && typeof value === 'object' && value.src) {
-        data[field] = value.src;
+      if (value && typeof value === 'object') {
+        // 構造化されたフィールドは一律文字列変換して保存する
+        data[field] = JSON.stringify(value);
       } else {
         data[field] = value;
       }
