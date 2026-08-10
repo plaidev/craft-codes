@@ -6,7 +6,7 @@
 
 ## blogUrl
 
-https://solution.karte.io/blog/2026/06/kvs-bulk-update/
+https://solution.karte.io/blog/2026/07/kvs-bulk-update/
 
 ## description
 

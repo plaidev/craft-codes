@@ -6,7 +6,7 @@ Craft AI Modulesを使ってWebページを自動スクレイピングした結�
 
 ## blogUrl
 
-https://solution.karte.io/blog/2026/06/web-scraping-with-craft-ai-modules/
+https://solution.karte.io/blog/2026/07/web-scraping-with-craft-ai-modules/
 
 ## description
 

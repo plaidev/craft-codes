@@ -5,7 +5,7 @@
 Web 上のユーザー行動をトリガーにして外部に Webhook リクエストを飛ばす
 
 ## blogUrl
-https://solution.karte.io/blog/2023/10/craft-webhook
+https://solution.karte.io/blog/2023/06/craft-webhook/
 
 ## description
 
