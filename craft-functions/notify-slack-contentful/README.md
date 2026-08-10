@@ -6,7 +6,7 @@
 
 ## blogUrl
 
-https://solution.karte.io/blog/2024/06/notify-slack-contentful/
+https://solution.karte.io/blog/2024/07/notify-slack-contentful-article-publication/
 
 ## description
 

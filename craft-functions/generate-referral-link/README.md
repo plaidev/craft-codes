@@ -6,7 +6,7 @@
 
 ## blogUrl
 
-https://solution.karte.io/blog/2026/06/generate-referral-link/
+https://solution.karte.io/blog/2026/07/generate-referral-link/
 
 ## description
 
