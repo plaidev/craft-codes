@@ -1,0 +1,79 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "ALLOWED_ORIGINS",
+    "value": "*",
+    "type": "string",
+    "required": true,
+    "description": "CORS許可対象のオリジンをカンマ区切りで設定してください（例: https://craft-sites.example.com）。* で全許可も可能です"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
+  },
+  {
+    "name": "CMS_MODEL_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "入稿先のCraft Cross CMSモデルIDです（例: 6a868b1f0c6d22cf1cc86067）"
+  },
+  {
+    "name": "GEMINI_MODEL",
+    "value": "gemini-3.5-flash",
+    "type": "string",
+    "required": true,
+    "description": "gemini-3.5-flashやgemini-2.5-proなど、利用する生成AIのモデル名を指定します"
+  },
+  {
+    "name": "METADATA_SYSTEM_INSTRUCTION",
+    "value": "あなたはSEOとAIO（AI Overview）に精通したコンテンツ設計の専門家です。与えられた記事ジャンル・キーワード・筆者プロフィールをもとに、次の3つをまとめて作成してください。(1) 検索意図に合致しクリックされやすい日本語の記事タイトル（30〜60文字程度）(2) Craft Cross CMSの記事URL末尾に使うスラッグ（小文字の英数字とハイフンのみ。日本語はローマ字または英語に変換）(3) 検索結果で読まれる日本語のメタディスクリプション（120〜160文字程度。タイトルと補完関係になるよう書く）。スラッグはタイトルと対応させ、メタディスクリプションはタイトルの内容と重複しすぎないようにしてください。",
+    "type": "string",
+    "required": true,
+    "description": "タイトル・スラッグ・メタディスクリプションをまとめて生成するためのシステムプロンプトです"
+  },
+  {
+    "name": "BODY_SYSTEM_INSTRUCTION",
+    "value": "あなたはSEO・AIO（AI Overview）を意識した記事本文を書くプロのコンテンツライターです。確定したタイトル・メタディスクリプションと入力情報をもとに、Markdown形式の記事本文を日本語で作成してください。",
+    "type": "string",
+    "required": true,
+    "description": "本文生成専用のシステムプロンプトです"
+  },
+  {
+    "name": "METADATA_MAX_OUTPUT_TOKENS",
+    "value": "1024",
+    "type": "string",
+    "required": true,
+    "description": "タイトル・スラッグ・メタディスクリプション生成の最大出力トークン数です"
+  },
+  {
+    "name": "BODY_MAX_OUTPUT_TOKENS",
+    "value": "8192",
+    "type": "string",
+    "required": true,
+    "description": "本文生成の最大出力トークン数です"
+  },
+  {
+    "name": "METADATA_TEMPERATURE",
+    "value": "0.5",
+    "type": "string",
+    "required": true,
+    "description": "タイトル・スラッグ・メタディスクリプション生成の温度パラメータです（0.0〜1.0）"
+  },
+  {
+    "name": "BODY_TEMPERATURE",
+    "value": "0.7",
+    "type": "string",
+    "required": true,
+    "description": "本文生成の温度パラメータです（0.0〜1.0）"
+  }
+]
