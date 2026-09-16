@@ -4,8 +4,8 @@ import { subDays, format } from 'date-fns';
 import { toZonedTime } from 'date-fns-tz';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
-const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
+const SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% SERVICE_ACCOUNT_KEY_SECRET_NAME %>';
 const SPREADSHEET_ID = '<% SPREADSHEET_ID %>';
 const DATA_SHEET_NAME = '<% SHEET_NAME %>';
 const UPDATE_TYPE = '<% UPDATE_TYPE %>';
@@ -263,9 +263,9 @@ export default async function (data, { MODULES }) {
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
   const secrets = await secret.get({
-    keys: [KARTE_APP_TOKEN_SECRET, SERVICE_ACCOUNT_KEY_SECRET],
+    keys: [KARTE_APP_TOKEN_SECRET_NAME, SERVICE_ACCOUNT_KEY_SECRET_NAME],
   });
-  const appToken = secrets[KARTE_APP_TOKEN_SECRET];
+  const appToken = secrets[KARTE_APP_TOKEN_SECRET_NAME];
 
   const sdk = api('@dev-karte/v1.0#1ehqt16lkm2a8jw');
   sdk.auth(appToken);
@@ -279,7 +279,7 @@ export default async function (data, { MODULES }) {
   logger.debug(`startDate: ${startDate}, endDate: ${endDate}, range: ${AGGREGATION_RANGE}`);
 
   // スプレッドシートにアクセスするための認証を通す
-  const _jsonKey = secrets[SERVICE_ACCOUNT_KEY_SECRET];
+  const _jsonKey = secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME];
   const jsonKey = JSON.parse(_jsonKey);
   const sheets = await getSsClient(jsonKey);
 

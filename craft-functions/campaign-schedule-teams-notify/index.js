@@ -1,7 +1,7 @@
 import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const APP_TOKEN_SECRET = '<% APP_TOKEN_SECRET %>';
+const APP_TOKEN_SECRET_NAME = '<% APP_TOKEN_SECRET_NAME %>';
 const TEAMS_INCOMING_WEBHOOK = '<% TEAMS_INCOMING_WEBHOOK %>';
 const PROJECT_ID = '<% PROJECT_ID %>';
 const URL_KARTE = 'https://admin.karte.io/p/';
@@ -91,8 +91,8 @@ async function fetchCampaignInfo(logger, karteApiToken, value) {
 export default async function (data, { MODULES }) {
   const { initLogger, secret } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
-  const token = await secret.get({ keys: [APP_TOKEN_SECRET], });
-  const karteApiToken = token[APP_TOKEN_SECRET];
+  const token = await secret.get({ keys: [APP_TOKEN_SECRET_NAME], });
+  const karteApiToken = token[APP_TOKEN_SECRET_NAME];
 
   if (data.kind === 'karte/jobflow') {
     const { notificationMessage, campaign, campaignId, campaignUrl } = await fetchCampaignInfo(logger, karteApiToken, data.jsonPayload.data.value);

@@ -7,14 +7,14 @@
         "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
     },
     {
-        "name": "KARTE_APP_TOKEN_SECRET",
+        "name": "KARTE_APP_TOKEN_SECRET_NAME",
         "value": "",
         "type": "string",
         "required": true,
         "description": "KARTE API v2アプリのtokenを登録したシークレット名です"
     },
     {
-        "name": "SERVICE_ACCOUNT_KEY_SECRET",
+        "name": "SERVICE_ACCOUNT_KEY_SECRET_NAME",
         "value": "",
         "type": "string",
         "required": true,

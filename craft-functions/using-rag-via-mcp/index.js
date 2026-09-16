@@ -3,7 +3,7 @@ import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/
 import { z } from 'zod';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const ACCESS_TOKEN_SECRET = '<% ACCESS_TOKEN_SECRET %>';
+const ACCESS_TOKEN_SECRET_NAME = '<% ACCESS_TOKEN_SECRET_NAME %>';
 const MCP_TOOL_NAME = '<% MCP_TOOL_NAME %>';
 const MCP_TOOL_DESCRIPTION = '<% MCP_TOOL_DESCRIPTION %>';
 const RAG_CORPUS_ID = '<% RAG_CORPUS_ID %>';
@@ -21,8 +21,8 @@ function isValidHttpMethod(req, res) {
 
 async function getTokenFromSecretManager(secret, logger) {
   try {
-    const secrets = await secret.get({ keys: [ACCESS_TOKEN_SECRET] });
-    return secrets[ACCESS_TOKEN_SECRET];
+    const secrets = await secret.get({ keys: [ACCESS_TOKEN_SECRET_NAME] });
+    return secrets[ACCESS_TOKEN_SECRET_NAME];
   } catch (error) {
     logger.error(`Failed to get token from Secret Manager. error: ${error.message}`);
     return null;

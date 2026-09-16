@@ -1,6 +1,6 @@
 import { WebClient } from '@slack/web-api';
 
-const SLACK_TOKEN_SECRET = '<% SLACK_TOKEN_SECRET %>';
+const SLACK_TOKEN_SECRET_NAME = '<% SLACK_TOKEN_SECRET_NAME %>';
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 
 export default async function (data, { MODULES }) {
@@ -12,8 +12,8 @@ export default async function (data, { MODULES }) {
   const notificationText = data.jsonPayload.data.notification_text; // 通知文面
 
   // Slackトークンの取得
-  const secrets = await secret.get({ keys: [SLACK_TOKEN_SECRET] });
-  const token = secrets[SLACK_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [SLACK_TOKEN_SECRET_NAME] });
+  const token = secrets[SLACK_TOKEN_SECRET_NAME];
 
   // Slack Web APIクライアントの初期化
   const slackClient = new WebClient(token);

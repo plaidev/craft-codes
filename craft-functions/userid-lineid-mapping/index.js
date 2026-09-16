@@ -3,7 +3,7 @@ const LINE_LOGIN_CHANNEL_ID = '<% LINE_LOGIN_CHANNEL_ID %>'; // LINEログイン
 const LINE_CHANNEL_SECRET_NAME = '<% LINE_CHANNEL_SECRET_NAME %>'; // シークレットマネージャーに登録したLINEログインチャネルシークレットの名前
 const REDIRECT_URI = '<% REDIRECT_URI %>'; // LINEログイン後にリダイレクトされる画面のURL
 const REF_TABLE_ID = '<% REF_TABLE_ID %>'; // 更新対象の紐付けテーブルID
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>'; // API v2アプリのトークンを登録したシークレット名
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>'; // API v2アプリのトークンを登録したシークレット名
 const TARGET_FUNCTION_ID = '<% TARGET_FUNCTION_ID %>'; // 紐付けテーブル更新用ファンクションのID
 
 // Webサイトから取得した認可コードを使ってIDトークンを取得する
@@ -95,7 +95,7 @@ export default async function (data, { MODULES }) {
       functionId: TARGET_FUNCTION_ID,
       data: {
         apiUrl: 'https://api.karte.io/v2beta/track/refTable/row/upsert',
-        tokenSecretName: KARTE_APP_TOKEN_SECRET,
+        tokenSecretName: KARTE_APP_TOKEN_SECRET_NAME,
         parameters: {
           id: REF_TABLE_ID,
           rowKey: { user_id: websiteUserId },

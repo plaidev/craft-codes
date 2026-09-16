@@ -3,7 +3,7 @@ import api from 'api';
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const TARGET_MODEL_ID = '<% TARGET_MODEL_ID %>';
 const ACTION_TABLE_ID = '<% ACTION_TABLE_ID %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const TARGET_CMS_FIELDS = '<% TARGET_CMS_FIELDS %>';
 const RETRY_TIMEOUT_SEC = 3600;
 
@@ -40,8 +40,8 @@ function throwSuitableError({ msg, status, RetryableError, retryTimeoutSec }) {
  * @returns {Promise<string>}
  */
 async function getAuthToken(secret) {
-  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  return secrets[KARTE_APP_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+  return secrets[KARTE_APP_TOKEN_SECRET_NAME];
 }
 
 /**

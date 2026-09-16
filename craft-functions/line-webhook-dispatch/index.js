@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const LINE_CHANNEL_SECRET_KEY = '<% LINE_CHANNEL_SECRET_KEY %>';
+const LINE_CHANNEL_SECRET_NAME = '<% LINE_CHANNEL_SECRET_NAME %>';
 const TARGET_URLS = '<% TARGET_URLS %>';
 const TARGET_FUNCTION_ID = '<% TARGET_FUNCTION_ID %>';
 
@@ -36,8 +36,8 @@ export default async function (data, { MODULES }) {
   const logger = initLogger({ logLevel: LOG_LEVEL });
   const { req, res } = data;
 
-  const secrets = await secret.get({ keys: [LINE_CHANNEL_SECRET_KEY] });
-  const lineChannelSecret = secrets[LINE_CHANNEL_SECRET_KEY];
+  const secrets = await secret.get({ keys: [LINE_CHANNEL_SECRET_NAME] });
+  const lineChannelSecret = secrets[LINE_CHANNEL_SECRET_NAME];
   const lineSignature = req.headers['x-line-signature'];
 
   const isValidSignature = verifySignature(lineChannelSecret, lineSignature, req.rawBody);

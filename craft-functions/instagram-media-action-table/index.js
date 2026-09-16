@@ -1,10 +1,10 @@
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const INSTAGRAM_ACCESS_TOKEN_SECRET = '<% INSTAGRAM_ACCESS_TOKEN_SECRET %>';
+const INSTAGRAM_ACCESS_TOKEN_SECRET_NAME = '<% INSTAGRAM_ACCESS_TOKEN_SECRET_NAME %>';
 const INSTAGRAM_BUSINESS_ACCOUNT_ID = '<% INSTAGRAM_BUSINESS_ACCOUNT_ID %>';
 const GRAPH_API_VERSION = '<% GRAPH_API_VERSION %>';
 const TARGET_FUNCTION_ID = '<% TARGET_FUNCTION_ID %>';
 const ACTION_TABLE_ID = '<% ACTION_TABLE_ID %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const RETRY_TIMEOUT_SEC = 3600;
 
 async function fetchData(url) {
@@ -32,9 +32,9 @@ export default async function (data, { MODULES }) {
 
   try {
     const secrets = await secret.get({
-      keys: [INSTAGRAM_ACCESS_TOKEN_SECRET],
+      keys: [INSTAGRAM_ACCESS_TOKEN_SECRET_NAME],
     });
-    const accessToken = secrets[INSTAGRAM_ACCESS_TOKEN_SECRET];
+    const accessToken = secrets[INSTAGRAM_ACCESS_TOKEN_SECRET_NAME];
 
     const mediaIds = await fetchMediaIds(
       accessToken,
@@ -70,7 +70,7 @@ export default async function (data, { MODULES }) {
         data: {
           apiUrl: 'https://api.karte.io/v2beta/action/actionTable/records/upsert',
           parameters,
-          tokenSecretName: KARTE_APP_TOKEN_SECRET,
+          tokenSecretName: KARTE_APP_TOKEN_SECRET_NAME,
           retryTimeoutSec: RETRY_TIMEOUT_SEC,
         },
       });

@@ -21,7 +21,7 @@
     "description": "更新対象となるランキング管理用JSONファイル(ranking.json)のパスです"
   },
   {
-    "name": "KARTE_APP_TOKEN_SECRET",
+    "name": "KARTE_APP_TOKEN_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,

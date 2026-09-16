@@ -1,7 +1,7 @@
 import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const CMS_MODEL_ID = '<% CMS_MODEL_ID %>';
 const CONTENT_ID_FIELD_CODE = '<% CONTENT_ID_FIELD_CODE %>';
 
@@ -54,8 +54,8 @@ export default async function (data, { MODULES }) {
     return res.status(200).send({ message: `Event type ${eventType} ignored.` });
   }
 
-  const token = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  const karteApiToken = token[KARTE_APP_TOKEN_SECRET];
+  const token = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+  const karteApiToken = token[KARTE_APP_TOKEN_SECRET_NAME];
 
   const cmsApi = api('@dev-karte/v1.0#n0jmhx43zga');
   cmsApi.auth(karteApiToken);

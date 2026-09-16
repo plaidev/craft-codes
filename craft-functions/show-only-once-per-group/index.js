@@ -2,7 +2,7 @@ import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const REF_TABLE_ID = '<% REF_TABLE_ID %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const GROUP_ID_FIELD = '<% GROUP_ID_FIELD %>';
 
 const karteApiClient = api('@dev-karte/v1.0#yeekp16lpj2g7af');
@@ -11,8 +11,8 @@ export default async function (data, { MODULES }) {
   const { initLogger, secret } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
-  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  const token = secrets[KARTE_APP_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+  const token = secrets[KARTE_APP_TOKEN_SECRET_NAME];
   karteApiClient.auth(token);
 
   const groupId = data.jsonPayload.data[GROUP_ID_FIELD];

@@ -1,9 +1,9 @@
 import api from 'api';
 import { WebClient } from '@slack/web-api';
 
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const SLACK_CHANNEL_ID = '<% SLACK_CHANNEL_ID %>';
-const SLACK_TOKEN_SECRET = '<% SLACK_TOKEN_SECRET %>';
+const SLACK_TOKEN_SECRET_NAME = '<% SLACK_TOKEN_SECRET_NAME %>';
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const TARGET_MODEL_IDS = '<% TARGET_MODEL_IDS %>';
 const DISPLAY_MESSAGE_FIELDS = '<% DISPLAY_MESSAGE_FIELDS %>';
@@ -65,7 +65,7 @@ async function postSlackMessage(channelId, msg, token, logger) {
 export default async function (data, { MODULES }) {
   const { initLogger, secret } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
-  const secrets = await secret.get({ keys: [SLACK_TOKEN_SECRET, KARTE_APP_TOKEN_SECRET] });
+  const secrets = await secret.get({ keys: [SLACK_TOKEN_SECRET_NAME, KARTE_APP_TOKEN_SECRET_NAME] });
 
   // karte hookトリガーであることのバリデーションを行う
   if (data.kind !== 'karte/apiv2-hook') {
@@ -99,7 +99,7 @@ export default async function (data, { MODULES }) {
     // CMSコンテンツの情報を抽出
     const contentId = payloadData.id;
 
-    const karteAppToken = secrets[KARTE_APP_TOKEN_SECRET];
+    const karteAppToken = secrets[KARTE_APP_TOKEN_SECRET_NAME];
     const contentData = await fetchCmsContent(modelId, contentId, karteAppToken, logger);
     logger.debug(`Fetched Content data: ${JSON.stringify(contentData)}`);
 
@@ -115,6 +115,6 @@ export default async function (data, { MODULES }) {
   const url = `\n\nhttps://admin.karte.io/cms/${CMS_COLLECTION_ID}?tabId=${modelId}&project=${KARTE_PROJECT_ID}`;
   msg += url;
 
-  const slackToken = secrets[SLACK_TOKEN_SECRET];
+  const slackToken = secrets[SLACK_TOKEN_SECRET_NAME];
   await postSlackMessage(SLACK_CHANNEL_ID, msg, slackToken, logger);
 }

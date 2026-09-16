@@ -1,12 +1,12 @@
 import crypto from 'crypto';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const SLACK_SIGNING_SECRET = '<% SLACK_SIGNING_SECRET %>';
+const SLACK_SIGNING_SECRET_NAME = '<% SLACK_SIGNING_SECRET_NAME %>';
 const FUNCTION_ID = '<% FUNCTION_ID %>';
 
 async function isSlackSignatureValid(req, secret, logger) {
-  const secretValues = await secret.get({ keys: [SLACK_SIGNING_SECRET] });
-  const slackSigningSecret = secretValues[SLACK_SIGNING_SECRET];
+  const secretValues = await secret.get({ keys: [SLACK_SIGNING_SECRET_NAME] });
+  const slackSigningSecret = secretValues[SLACK_SIGNING_SECRET_NAME];
   const slackSignature = req.headers['x-slack-signature'];
   const slackRequestTimestamp = Number(req.headers['x-slack-request-timestamp']);
   const hasValidSecret = Boolean(slackSigningSecret);

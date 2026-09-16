@@ -7,8 +7,8 @@
     "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
   },
   {
-    "name": "JWT_SECRET",
-    "value": "JWT_SECRET",
+    "name": "JWT_SECRET_NAME",
+    "value": "JWT_SECRET_NAME",
     "type": "string",
     "required": true,
     "description": "Craftシークレットに保存したJWT署名用秘密鍵のシークレット名です"

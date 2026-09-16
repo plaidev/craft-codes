@@ -7,14 +7,14 @@
     "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
   },
   {
-    "name": "SLACK_TOKEN_SECRET",
+    "name": "SLACK_TOKEN_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,
     "description": "Slack Appの Bot User OAuth Tokenを登録したシークレット名です"
   },
   {
-    "name": "SERVICE_ACCOUNT_KEY_SECRET",
+    "name": "SERVICE_ACCOUNT_KEY_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,

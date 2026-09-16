@@ -2,7 +2,7 @@ import { randomUUID } from 'crypto';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const ALLOWED_ORIGINS = '<% ALLOWED_ORIGINS %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const TARGET_FUNCTION_ID = '<% TARGET_FUNCTION_ID %>';
 const KARTE_EVENT_NAME = '<% KARTE_EVENT_NAME %>';
 
@@ -38,7 +38,7 @@ export default async function (data, { MODULES }) {
       functionId: TARGET_FUNCTION_ID,
       data: {
         apiUrl: 'https://api.karte.io/v2/track/event/write',
-        tokenSecretName: KARTE_APP_TOKEN_SECRET,
+        tokenSecretName: KARTE_APP_TOKEN_SECRET_NAME,
         parameters: {
           keys: { user_id: userId },
           event: {

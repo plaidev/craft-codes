@@ -54,7 +54,7 @@ import { jest, describe, beforeEach, it, xit, expect } from '@jest/globals';
 import main, { __forTest } from '.';
 
 const { hashPassword, generateToken, verifyToken, signin, constants } = __forTest;
-const { JWT_SECRET } = constants;
+const { JWT_SECRET_NAME } = constants;
 
 const kvsMock = {
   get: jest.fn(),
@@ -65,7 +65,7 @@ const loggerMock = {
   error: jest.fn(),
 };
 const craftSecretsMock = {
-  get: jest.fn().mockResolvedValue({ [JWT_SECRET]: JWT_SECRET }),
+  get: jest.fn().mockResolvedValue({ [JWT_SECRET_NAME]: JWT_SECRET_NAME }),
 };
 
 const setupMocks = () => {
@@ -119,7 +119,7 @@ describe('Authentication Module', () => {
       it('1.1.2 should process verify action correctly', async () => {
         const token = generateToken({
           payload: { username: 'testuser', role: 'user' },
-          secret: JWT_SECRET,
+          secret: JWT_SECRET_NAME,
           expiresIn: 3600,
         });
         const req = {
@@ -382,7 +382,7 @@ describe('Authentication Module', () => {
           password: 'password',
           kvs: kvsMock,
           logger: loggerMock,
-          secret: JWT_SECRET,
+          secret: JWT_SECRET_NAME,
         });
         expect(result.token).toBeDefined();
       });
@@ -398,7 +398,7 @@ describe('Authentication Module', () => {
           password: 'password',
           kvs: kvsMock,
           logger: loggerMock,
-          secret: JWT_SECRET,
+          secret: JWT_SECRET_NAME,
         });
         expect(result.error).toBe('Invalid username or password');
       });
@@ -411,7 +411,7 @@ describe('Authentication Module', () => {
           password: 'invalidpassword',
           kvs: kvsMock,
           logger: loggerMock,
-          secret: JWT_SECRET,
+          secret: JWT_SECRET_NAME,
         });
         expect(result.error).toBe('Invalid username or password');
       });
@@ -426,10 +426,10 @@ describe('Authentication Module', () => {
       it('3.1.1 should return authenticated as true', () => {
         const token = generateToken({
           payload: { username: 'testuser', role: 'user' },
-          secret: JWT_SECRET,
+          secret: JWT_SECRET_NAME,
           expiresIn: 3600,
         });
-        const result = verifyToken(token, JWT_SECRET);
+        const result = verifyToken(token, JWT_SECRET_NAME);
         expect(result.authenticated).toBe(true);
       });
     });
@@ -438,7 +438,7 @@ describe('Authentication Module', () => {
     describe('3.2 when an invalid token is provided', () => {
       // 3.2.1 無効な形式のトークンが提供された場合のエラーハンドリング
       it('3.2.1 should return authenticated as false and an error message when an invalid token format is provided', () => {
-        const result = verifyToken('invalidtoken', JWT_SECRET);
+        const result = verifyToken('invalidtoken', JWT_SECRET_NAME);
         expect(result.authenticated).toBe(false);
         expect(result.error).toContain('Authentication error');
       });
@@ -450,7 +450,7 @@ describe('Authentication Module', () => {
           secret: 'invalidsecret',
           expiresIn: 3600,
         });
-        const result = verifyToken(token, JWT_SECRET);
+        const result = verifyToken(token, JWT_SECRET_NAME);
         expect(result.authenticated).toBe(false);
         expect(result.error).toContain('Authentication error');
       });
@@ -459,10 +459,10 @@ describe('Authentication Module', () => {
       it('3.2.3 should return authenticated as false and an error message when an expired token is provided', () => {
         const token = generateToken({
           payload: { username: 'testuser', role: 'user' },
-          secret: JWT_SECRET,
+          secret: JWT_SECRET_NAME,
           expiresIn: -1,
         });
-        const result = verifyToken(token, JWT_SECRET);
+        const result = verifyToken(token, JWT_SECRET_NAME);
         expect(result.authenticated).toBe(false);
         expect(result.error).toContain('Authentication error');
       });
@@ -477,7 +477,7 @@ describe('Authentication Module', () => {
       it('4.1.1 should generate a token when valid payload, secret, and expiresIn are provided', () => {
         const token = generateToken({
           payload: { username: 'testuser', role: 'user' },
-          secret: JWT_SECRET,
+          secret: JWT_SECRET_NAME,
           expiresIn: 3600,
         });
         expect(token).toBeDefined();

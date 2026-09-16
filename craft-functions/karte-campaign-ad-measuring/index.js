@@ -1,7 +1,7 @@
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const TARGET_FUNCTION_ID = '<% TARGET_FUNCTION_ID %>';
 const REF_TABLE_ID = '<% REF_TABLE_ID %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const RETRY_TIMEOUT_SEC = 3600;
 
 export default async function (data, { MODULES }) {
@@ -39,7 +39,7 @@ export default async function (data, { MODULES }) {
       data: {
         apiUrl: 'https://api.karte.io/v2beta/track/refTable/row/upsert',
         parameters,
-        tokenSecretName: KARTE_APP_TOKEN_SECRET,
+        tokenSecretName: KARTE_APP_TOKEN_SECRET_NAME,
         retryTimeoutSec: RETRY_TIMEOUT_SEC,
       },
     });

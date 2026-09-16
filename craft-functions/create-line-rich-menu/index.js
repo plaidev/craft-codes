@@ -1,4 +1,4 @@
-const LINE_CHANNEL_ACCESS_TOKEN_SECRET = '<% LINE_CHANNEL_ACCESS_TOKEN_SECRET %>';
+const LINE_CHANNEL_ACCESS_TOKEN_SECRET_NAME = '<% LINE_CHANNEL_ACCESS_TOKEN_SECRET_NAME %>';
 const KVS_DATA_VALIDITY_MINUTE = '<% KVS_DATA_VALIDITY_MINUTE %>';
 const KEY_PREFIX = '<% KEY_PREFIX %>';
 const LOG_LEVEL = '<% LOG_LEVEL %>';
@@ -127,9 +127,9 @@ export default async function (data, { MODULES }) {
     }
 
     const secrets = await secret.get({
-      keys: [LINE_CHANNEL_ACCESS_TOKEN_SECRET],
+      keys: [LINE_CHANNEL_ACCESS_TOKEN_SECRET_NAME],
     });
-    const lineChannelAccessToken = secrets[LINE_CHANNEL_ACCESS_TOKEN_SECRET];
+    const lineChannelAccessToken = secrets[LINE_CHANNEL_ACCESS_TOKEN_SECRET_NAME];
 
     const richMenuJson = req.body.richMenuJson;
     const imageBuffer = Buffer.from(req.body.base64Image, 'base64');

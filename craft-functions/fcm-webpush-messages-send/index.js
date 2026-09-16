@@ -2,7 +2,7 @@ import { initializeApp, getApps } from 'firebase-admin/app';
 import { google } from 'googleapis';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const FIREBASE_SERVICE_ACCOUNT_KEY_SECRET = '<% FIREBASE_SERVICE_ACCOUNT_KEY_SECRET %>';
+const FIREBASE_SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% FIREBASE_SERVICE_ACCOUNT_KEY_SECRET_NAME %>';
 const REQUEST_URI = '<% REQUEST_URI %>';
 
 function createMessage(token, title, body, icon, link) {
@@ -51,8 +51,8 @@ export default async function (data, { MODULES }) {
     initializeApp();
   }
 
-  const secrets = await secret.get({ keys: [FIREBASE_SERVICE_ACCOUNT_KEY_SECRET] });
-  const _jsonKey = secrets[FIREBASE_SERVICE_ACCOUNT_KEY_SECRET];
+  const secrets = await secret.get({ keys: [FIREBASE_SERVICE_ACCOUNT_KEY_SECRET_NAME] });
+  const _jsonKey = secrets[FIREBASE_SERVICE_ACCOUNT_KEY_SECRET_NAME];
   const jsonKey = JSON.parse(_jsonKey);
 
   const message = createMessage(token, title, body, icon, link);

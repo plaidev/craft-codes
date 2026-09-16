@@ -2,10 +2,10 @@ import { WebClient } from '@slack/web-api';
 import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const GEMINI_MODEL = '<% GEMINI_MODEL %>';
 const REVIEW_TARGET_FIELDS = '<% REVIEW_TARGET_FIELDS %>';
-const SLACK_TOKEN_SECRET = '<% SLACK_TOKEN_SECRET %>';
+const SLACK_TOKEN_SECRET_NAME = '<% SLACK_TOKEN_SECRET_NAME %>';
 const SLACK_CHANNEL_ID = '<% SLACK_CHANNEL_ID %>';
 const KARTE_PROJECT_ID = '<% KARTE_PROJECT_ID %>';
 const CMS_COLLECTION_ID = '<% CMS_COLLECTION_ID %>';
@@ -207,11 +207,11 @@ ${url}`;
 
 async function getTokens(secret) {
   const secrets = await secret.get({
-    keys: [KARTE_APP_TOKEN_SECRET, SLACK_TOKEN_SECRET],
+    keys: [KARTE_APP_TOKEN_SECRET_NAME, SLACK_TOKEN_SECRET_NAME],
   });
   return {
-    karteToken: secrets[KARTE_APP_TOKEN_SECRET],
-    slackToken: secrets[SLACK_TOKEN_SECRET],
+    karteToken: secrets[KARTE_APP_TOKEN_SECRET_NAME],
+    slackToken: secrets[SLACK_TOKEN_SECRET_NAME],
   };
 }
 
@@ -284,9 +284,9 @@ export default async function (data, { MODULES }) {
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
   const missingVars = validateRequiredVars({
-    KARTE_APP_TOKEN_SECRET,
+    KARTE_APP_TOKEN_SECRET_NAME,
     REVIEW_TARGET_FIELDS,
-    SLACK_TOKEN_SECRET,
+    SLACK_TOKEN_SECRET_NAME,
     SLACK_CHANNEL_ID,
     KARTE_PROJECT_ID,
     CMS_COLLECTION_ID,

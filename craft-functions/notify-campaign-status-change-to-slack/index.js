@@ -2,7 +2,7 @@ import { WebClient } from '@slack/web-api';
 
 const KARTE_PROJECT_ID = '<% KARTE_PROJECT_ID %>'; // KARTEプロジェクトIDを指定
 const SLACK_CHANNEL_ID = '<% SLACK_CHANNEL_ID %>'; // 送信先のチャンネルIDを指定
-const SLACK_TOKEN_SECRET = '<% SLACK_TOKEN_SECRET %>';
+const SLACK_TOKEN_SECRET_NAME = '<% SLACK_TOKEN_SECRET_NAME %>';
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 
 export default async function (data, { MODULES }) {
@@ -14,8 +14,8 @@ export default async function (data, { MODULES }) {
     return;
   }
 
-  const secrets = await secret.get({ keys: [SLACK_TOKEN_SECRET] });
-  const token = secrets[SLACK_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [SLACK_TOKEN_SECRET_NAME] });
+  const token = secrets[SLACK_TOKEN_SECRET_NAME];
 
   // Slack Web APIクライアントの初期化
   const slackClient = new WebClient(token);

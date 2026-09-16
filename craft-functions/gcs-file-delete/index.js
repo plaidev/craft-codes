@@ -1,7 +1,7 @@
 import { Storage } from '@google-cloud/storage';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
+const SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% SERVICE_ACCOUNT_KEY_SECRET_NAME %>';
 
 export default async function (data, { MODULES }) {
   const { initLogger, secret } = MODULES;
@@ -14,12 +14,12 @@ export default async function (data, { MODULES }) {
 
   try {
     const secrets = await secret.get({
-      keys: [SERVICE_ACCOUNT_KEY_SECRET],
+      keys: [SERVICE_ACCOUNT_KEY_SECRET_NAME],
     });
 
     let key;
     try {
-      key = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET]);
+      key = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME]);
     } catch (jsonError) {
       logger.error('Failed to parse key string to JSON:', jsonError);
       return;

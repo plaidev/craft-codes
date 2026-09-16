@@ -1,5 +1,5 @@
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const LINE_ACCESS_TOKEN_SECRET = '<% LINE_ACCESS_TOKEN_SECRET %>';
+const LINE_ACCESS_TOKEN_SECRET_NAME = '<% LINE_ACCESS_TOKEN_SECRET_NAME %>';
 const LINK_ENDPOINT = 'https://api.line.me/v2/bot/richmenu/bulk/link';
 const UNLINK_ENDPOINT = 'https://api.line.me/v2/bot/richmenu/bulk/unlink';
 
@@ -20,10 +20,10 @@ function parseDataFromPayload(valueString) {
 }
 
 async function fetchLineToken(secret) {
-  const secrets = await secret.get({ keys: [LINE_ACCESS_TOKEN_SECRET] });
-  const lineToken = secrets[LINE_ACCESS_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [LINE_ACCESS_TOKEN_SECRET_NAME] });
+  const lineToken = secrets[LINE_ACCESS_TOKEN_SECRET_NAME];
   if (!lineToken) {
-    throw new Error(`シークレット "${LINE_ACCESS_TOKEN_SECRET}" が見つかりません。`);
+    throw new Error(`シークレット "${LINE_ACCESS_TOKEN_SECRET_NAME}" が見つかりません。`);
   }
   return lineToken;
 }

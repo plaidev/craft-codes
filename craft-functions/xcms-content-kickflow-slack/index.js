@@ -1,8 +1,8 @@
 import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
-const KICKFLOW_ACCESSTOKEN_SECRET = '<% KICKFLOW_ACCESSTOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
+const KICKFLOW_ACCESSTOKEN_SECRET_NAME = '<% KICKFLOW_ACCESSTOKEN_SECRET_NAME %>';
 const CMS_MODEL_ID = '<% CMS_MODEL_ID %>';
 const KARTE_PROJECT_ID = '<% KARTE_PROJECT_ID %>';
 const CMS_COLLECTION_ID = '<% CMS_COLLECTION_ID %>';
@@ -104,10 +104,10 @@ export default async function (data, { MODULES }) {
   }
 
   const secrets = await secret.get({
-    keys: [KARTE_APP_TOKEN_SECRET, KICKFLOW_ACCESSTOKEN_SECRET],
+    keys: [KARTE_APP_TOKEN_SECRET_NAME, KICKFLOW_ACCESSTOKEN_SECRET_NAME],
   });
-  const karteAppToken = secrets[KARTE_APP_TOKEN_SECRET];
-  const kickflowAccessToken = secrets[KICKFLOW_ACCESSTOKEN_SECRET];
+  const karteAppToken = secrets[KARTE_APP_TOKEN_SECRET_NAME];
+  const kickflowAccessToken = secrets[KICKFLOW_ACCESSTOKEN_SECRET_NAME];
 
   const cmsHookData = data.jsonPayload.data;
   const contentId = cmsHookData?.sys?.raw?.contentId;

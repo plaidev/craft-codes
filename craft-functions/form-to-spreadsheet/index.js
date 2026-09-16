@@ -1,7 +1,7 @@
 import { google } from 'googleapis';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
+const SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% SERVICE_ACCOUNT_KEY_SECRET_NAME %>';
 const SPREADSHEET_ID = '<% SPREADSHEET_ID %>';
 const SHEET_NAME = '<% SHEET_NAME %>';
 const SHEET_RANGE = '<% SHEET_RANGE %>';
@@ -30,8 +30,8 @@ export default async function (data, { MODULES }) {
   });
 
   try {
-    const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET] });
-    const _jsonKey = secrets[SERVICE_ACCOUNT_KEY_SECRET];
+    const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET_NAME] });
+    const _jsonKey = secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME];
     const jsonKey = JSON.parse(_jsonKey);
 
     const jwtClient = new google.auth.JWT(jsonKey.client_email, null, jsonKey.private_key, [

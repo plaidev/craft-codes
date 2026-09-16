@@ -12,7 +12,7 @@ const FIELDS = FIELD_CONFIG.map(field => field.name);
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const SOLUTION_ID = '<% SOLUTION_ID %>';
 const AI_MODEL = '<% AI_MODEL %>';
-const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
+const SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% SERVICE_ACCOUNT_KEY_SECRET_NAME %>';
 const BUCKET_NAME = '<% BUCKET_NAME %>';
 
 function formatDataToJSONLines(data) {
@@ -127,8 +127,8 @@ export default async function (data, { MODULES }) {
     result = extractFields(document, selectors);
   }
 
-  const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET] });
-  const saKeyJson = secrets[SERVICE_ACCOUNT_KEY_SECRET];
+  const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET_NAME] });
+  const saKeyJson = secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME];
   const storage = new Storage({ credentials: JSON.parse(saKeyJson) });
   const bucket = storage.bucket(BUCKET_NAME);
 

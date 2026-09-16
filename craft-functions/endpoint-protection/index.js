@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 // Constants
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const JWT_SECRET = '<% JWT_SECRET %>';
+const JWT_SECRET_NAME = '<% JWT_SECRET_NAME %>';
 const EXPIRE_SEC = parseInt('<% EXPIRE_SEC %>', 10) || 3600;
 const SOLUTION_ID = '<% SOLUTION_ID %>';
 
@@ -94,8 +94,8 @@ async function signin({ username, password, kvs, logger, secret }) {
 export default async function (data, { MODULES }) {
   const { initLogger, kvs, secret: craftSecrets } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
-  const secrets = await craftSecrets.get({ keys: [JWT_SECRET] });
-  const secret = secrets[JWT_SECRET];
+  const secrets = await craftSecrets.get({ keys: [JWT_SECRET_NAME] });
+  const secret = secrets[JWT_SECRET_NAME];
   const { req, res } = data;
 
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -172,7 +172,7 @@ export const __forTest = {
   signin,
   constants: {
     LOG_LEVEL,
-    JWT_SECRET,
+    JWT_SECRET_NAME,
     EXPIRE_SEC,
   },
 };

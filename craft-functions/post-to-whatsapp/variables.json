@@ -7,14 +7,14 @@
     "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
   },
   {
-    "name": "WHATSAPP_ACCESS_TOKEN_SECRET",
+    "name": "WHATSAPP_ACCESS_TOKEN_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,
     "description": "WhatsAppのaccess tokenを登録したシークレット名です"
   },
   {
-    "name": "PHONE_NUMBER_ID_SECRET",
+    "name": "PHONE_NUMBER_ID_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,

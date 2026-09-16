@@ -7,7 +7,7 @@
     "description": "出力するログのレベルです。DEBUG/LOG/WARN/ERRORから指定します"
   },
   {
-    "name": "KARTE_APP_TOKEN_SECRET",
+    "name": "KARTE_APP_TOKEN_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,
@@ -28,7 +28,7 @@
     "description": "レビュー対象のCMSフィールドキーをカンマ区切りで指定します（例: title,body,excerpt）"
   },
   {
-    "name": "SLACK_TOKEN_SECRET",
+    "name": "SLACK_TOKEN_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,

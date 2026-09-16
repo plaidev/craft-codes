@@ -1,9 +1,9 @@
 import { google } from 'googleapis';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const OAUTH2_CLIENT_CREDENTIALS_SECRET = '<% OAUTH2_CLIENT_CREDENTIALS_SECRET %>';
-const REFRESH_TOKEN_SECRET = '<% REFRESH_TOKEN_SECRET %>';
-const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
+const OAUTH2_CLIENT_CREDENTIALS_SECRET_NAME = '<% OAUTH2_CLIENT_CREDENTIALS_SECRET_NAME %>';
+const REFRESH_TOKEN_SECRET_NAME = '<% REFRESH_TOKEN_SECRET_NAME %>';
+const SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% SERVICE_ACCOUNT_KEY_SECRET_NAME %>';
 const SPREADSHEET_ID = '<% SPREADSHEET_ID %>';
 const SHEET_NAME = '<% SHEET_NAME %>';
 const START_YEAR = '<% START_YEAR %>';
@@ -222,11 +222,11 @@ export default async function (data, { MODULES }) {
 
   try {
     const secrets = await secret.get({
-      keys: [OAUTH2_CLIENT_CREDENTIALS_SECRET, REFRESH_TOKEN_SECRET, SERVICE_ACCOUNT_KEY_SECRET],
+      keys: [OAUTH2_CLIENT_CREDENTIALS_SECRET_NAME, REFRESH_TOKEN_SECRET_NAME, SERVICE_ACCOUNT_KEY_SECRET_NAME],
     });
-    const oAuth2CredentialSecretData = secrets[OAUTH2_CLIENT_CREDENTIALS_SECRET];
-    const refreshToken = secrets[REFRESH_TOKEN_SECRET];
-    const saKeyJson = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET]);
+    const oAuth2CredentialSecretData = secrets[OAUTH2_CLIENT_CREDENTIALS_SECRET_NAME];
+    const refreshToken = secrets[REFRESH_TOKEN_SECRET_NAME];
+    const saKeyJson = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME]);
     const sheets = await createSheetsClient(saKeyJson);
 
     const {

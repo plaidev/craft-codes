@@ -3,7 +3,7 @@ import { BigQuery } from '@google-cloud/bigquery';
 // この変数に利用するデータセット、テーブル名を指定する
 const GOOGLE_CLOUD_BQ_DATASET = '<% GOOGLE_CLOUD_BQ_DATASET %>';
 const GOOGLE_CLOUD_BQ_TABLE = '<% GOOGLE_CLOUD_BQ_TABLE %>';
-const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
+const SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% SERVICE_ACCOUNT_KEY_SECRET_NAME %>';
 
 /**
  * サービスアカウントキー（JSON形式）からClient Configを生成する
@@ -60,8 +60,8 @@ export default async function (data, { MODULES }) {
   const datetime = getBQDatetimeString(new Date(Number(strDatetime) * 1000));
   const rows = [{ visitor_id: vid, datetime, url }];
 
-  const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET] });
-  const saKeyJson = secrets[SERVICE_ACCOUNT_KEY_SECRET];
+  const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET_NAME] });
+  const saKeyJson = secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME];
 
   const clientConfig = getClientConfig(saKeyJson);
   const bigquery = new BigQuery(clientConfig);

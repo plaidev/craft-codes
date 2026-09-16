@@ -1,8 +1,8 @@
 import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_API_TOKEN_SECRET_FROM = '<%KARTE_API_TOKEN_SECRET_FROM%>'; // 接客サービス複製元プロジェクトでKARTE API v2アプリのtokenを登録したシークレット名
-const KARTE_API_TOKEN_SECRET_TO = '<%KARTE_API_TOKEN_SECRET_TO%>'; // 接客サービス複製先プロジェクトでKARTE API v2アプリのtokenを登録したシークレット名
+const KARTE_API_TOKEN_SECRET_NAME_FROM = '<%KARTE_API_TOKEN_SECRET_NAME_FROM%>'; // 接客サービス複製元プロジェクトでKARTE API v2アプリのtokenを登録したシークレット名
+const KARTE_API_TOKEN_SECRET_NAME_TO = '<%KARTE_API_TOKEN_SECRET_NAME_TO%>'; // 接客サービス複製先プロジェクトでKARTE API v2アプリのtokenを登録したシークレット名
 const SEGMENT_ID_MAP = '<%SEGMENT_ID_MAP%>'; // 複製元プロジェクトのセグメントIDと複製先プロジェクトのセグメントIDの組み合わせ
 
 const sdkFrom = api('@dev-karte/v1.0#1kus635lt838w9s');
@@ -94,11 +94,11 @@ export default async function (data, { MODULES }) {
 
   // 複製元プロジェクトのキーを取得
   const secrets = await secret.get({
-    keys: [KARTE_API_TOKEN_SECRET_FROM, KARTE_API_TOKEN_SECRET_TO],
+    keys: [KARTE_API_TOKEN_SECRET_NAME_FROM, KARTE_API_TOKEN_SECRET_NAME_TO],
   });
-  const tokenFrom = secrets[KARTE_API_TOKEN_SECRET_FROM];
+  const tokenFrom = secrets[KARTE_API_TOKEN_SECRET_NAME_FROM];
   // 複製先プロジェクトのキーを取得
-  const tokenTo = secrets[KARTE_API_TOKEN_SECRET_TO];
+  const tokenTo = secrets[KARTE_API_TOKEN_SECRET_NAME_TO];
 
   sdkFrom.auth(tokenFrom);
   sdkTo.auth(tokenTo);

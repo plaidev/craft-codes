@@ -1,7 +1,7 @@
 import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const KARTE_APP_SPEC_URI_CMS = '@dev-karte/v1.0#4inqt6kmj2q3mtr';
 const KARTE_CDN_API_SUBDOMAIN = '<% KARTE_CDN_API_SUBDOMAIN %>';
 const CMS_MODEL_ID = '<% CMS_MODEL_ID %>';
@@ -10,8 +10,8 @@ const CMS_FIELD_FOR_TITLE = '<% CMS_FIELD_FOR_TITLE %>';
 const CMS_FIELD_FOR_CONTENT = '<% CMS_FIELD_FOR_CONTENT %>';
 
 async function getToken(secret) {
-  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  return secrets[KARTE_APP_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+  return secrets[KARTE_APP_TOKEN_SECRET_NAME];
 }
 
 async function getCraftCMSContents(client) {

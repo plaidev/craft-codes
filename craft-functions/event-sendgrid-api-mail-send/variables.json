@@ -7,7 +7,7 @@
     "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
   },
   {
-    "name": "SENDGRID_API_KEY_SECRET",
+    "name": "SENDGRID_API_KEY_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,

@@ -1,11 +1,11 @@
 import { google } from 'googleapis';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const INSTAGRAM_ACCESS_TOKEN_SECRET = '<% INSTAGRAM_ACCESS_TOKEN_SECRET %>';
+const INSTAGRAM_ACCESS_TOKEN_SECRET_NAME = '<% INSTAGRAM_ACCESS_TOKEN_SECRET_NAME %>';
 const INSTAGRAM_BUSINESS_ACCOUNT_ID = '<% INSTAGRAM_BUSINESS_ACCOUNT_ID %>';
 const GRAPH_API_VERSION = '<% GRAPH_API_VERSION %>';
 const HASHTAG = '<% HASHTAG %>';
-const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
+const SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% SERVICE_ACCOUNT_KEY_SECRET_NAME %>';
 const SPREADSHEET_ID = '<% SPREADSHEET_ID %>';
 const SHEET_NAME = '<% SHEET_NAME %>';
 
@@ -140,11 +140,11 @@ export default async function (data, { MODULES }) {
 
   try {
     const secrets = await secret.get({
-      keys: [SERVICE_ACCOUNT_KEY_SECRET, INSTAGRAM_ACCESS_TOKEN_SECRET],
+      keys: [SERVICE_ACCOUNT_KEY_SECRET_NAME, INSTAGRAM_ACCESS_TOKEN_SECRET_NAME],
     });
-    const saKeyJson = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET]);
+    const saKeyJson = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME]);
     const sheets = await createSheetsClient(saKeyJson);
-    const accessToken = secrets[INSTAGRAM_ACCESS_TOKEN_SECRET];
+    const accessToken = secrets[INSTAGRAM_ACCESS_TOKEN_SECRET_NAME];
 
     const hashtagId = await fetchHashtagId({
       apiVersion: GRAPH_API_VERSION,

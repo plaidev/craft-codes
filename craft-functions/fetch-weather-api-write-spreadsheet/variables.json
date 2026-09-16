@@ -28,7 +28,7 @@
     "description": "連携対象のGoogleスプレッドシートのシート名です。"
   },
   {
-    "name": "SERVICE_ACCOUNT_KEY_SECRET",
+    "name": "SERVICE_ACCOUNT_KEY_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,

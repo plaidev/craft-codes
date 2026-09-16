@@ -14,7 +14,7 @@
     "description": "CORSを許可するWebサイトのオリジンを指定します（例: https://example.com）。ドメイン名の後ろに / やパスは含めないでください。カンマ区切りで複数指定もできます"
   },
   {
-    "name": "KARTE_APP_TOKEN_SECRET",
+    "name": "KARTE_APP_TOKEN_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,

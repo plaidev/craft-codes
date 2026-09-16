@@ -14,7 +14,7 @@
     "description": "内容を通知するSlackのチャンネルIDです。"
   },
   {
-    "name": "SLACK_TOKEN_SECRET",
+    "name": "SLACK_TOKEN_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,

@@ -2,7 +2,7 @@ import { google } from 'googleapis';
 import { subDays, format } from 'date-fns';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
+const SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% SERVICE_ACCOUNT_KEY_SECRET_NAME %>';
 const GA4_PROPERTY_ID = '<% GA4_PROPERTY_ID %>';
 const DAY_BEFORE_END_DATE = '<% DAY_BEFORE_END_DATE %>';
 const SPREADSHEET_ID = '<% SPREADSHEET_ID %>';
@@ -224,8 +224,8 @@ export default async function (data, { MODULES }) {
   const { initLogger, secret } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
-  const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET] });
-  const saKeyJson = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET]);
+  const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET_NAME] });
+  const saKeyJson = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME]);
 
   const authClient = new google.auth.GoogleAuth({
     credentials: saKeyJson,

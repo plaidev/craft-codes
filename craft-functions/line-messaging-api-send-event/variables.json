@@ -7,7 +7,7 @@
     "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
   },
   {
-    "name": "KARTE_APP_TOKEN_SECRET",
+    "name": "KARTE_APP_TOKEN_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,
@@ -21,7 +21,7 @@
     "description": "友達登録状況を格納するための紐付けテーブルのIDです"
   },
   {
-    "name": "LINE_MESSAGING_API_CHANNEL_SECRET",
+    "name": "LINE_MESSAGING_API_CHANNEL_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,

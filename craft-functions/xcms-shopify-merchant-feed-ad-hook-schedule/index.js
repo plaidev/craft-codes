@@ -2,12 +2,12 @@ import api from 'api';
 import { JWT } from 'google-auth-library';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const CMS_MODEL_ID = '<% CMS_MODEL_ID %>';
 const SHOPIFY_APP_CLIENT_ID = '<% SHOPIFY_APP_CLIENT_ID %>';
 const SHOPIFY_APP_CLIENT_SECRET_NAME = '<% SHOPIFY_APP_CLIENT_SECRET_NAME %>';
 const SHOPIFY_SHOP_INTERNAL_DOMAIN = '<% SHOPIFY_SHOP_INTERNAL_DOMAIN %>';
-const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
+const SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% SERVICE_ACCOUNT_KEY_SECRET_NAME %>';
 const MERCHANT_CENTER_ID = '<% MERCHANT_CENTER_ID %>';
 const MERCHANT_DATASOURCE_PATH = '<% MERCHANT_DATASOURCE_PATH %>';
 const RETENTION_DAYS = '<% RETENTION_DAYS %>';
@@ -399,12 +399,12 @@ async function handleCmsHook({ data, secrets, shopifyToken, RetryableError, logg
   const contentId = data.jsonPayload.data?.sys?.raw?.contentId || data.jsonPayload.data?.id;
   if (!contentId) return;
 
-  const jsonKey = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET]);
+  const jsonKey = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME]);
 
   const contentData = await fetchCmsContent({
     modelId: CMS_MODEL_ID,
     contentId,
-    token: secrets[KARTE_APP_TOKEN_SECRET],
+    token: secrets[KARTE_APP_TOKEN_SECRET_NAME],
     logger,
   });
 
@@ -440,7 +440,7 @@ async function handleCmsHook({ data, secrets, shopifyToken, RetryableError, logg
 async function handleScheduler({ secrets, shopifyToken, RetryableError, logger }) {
   const rawContentList = await fetchCmsContentList({
     modelId: CMS_MODEL_ID,
-    token: secrets[KARTE_APP_TOKEN_SECRET],
+    token: secrets[KARTE_APP_TOKEN_SECRET_NAME],
     logger,
   });
 
@@ -452,7 +452,7 @@ async function handleScheduler({ secrets, shopifyToken, RetryableError, logger }
   );
 
   logger.log(`[Batch] Processing ${targetItems.length} items (including potential deletes).`);
-  const jsonKey = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET]);
+  const jsonKey = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME]);
 
   for (let i = 0; i < targetItems.length; i += 1) {
     const item = targetItems[i];
@@ -496,7 +496,7 @@ export default async function (data, { MODULES }) {
 
   try {
     const secrets = await secret.get({
-      keys: [KARTE_APP_TOKEN_SECRET, SHOPIFY_APP_CLIENT_SECRET_NAME, SERVICE_ACCOUNT_KEY_SECRET],
+      keys: [KARTE_APP_TOKEN_SECRET_NAME, SHOPIFY_APP_CLIENT_SECRET_NAME, SERVICE_ACCOUNT_KEY_SECRET_NAME],
     });
 
     const shopifyToken = await getShopifyAccessToken({

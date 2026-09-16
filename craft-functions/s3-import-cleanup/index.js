@@ -1,8 +1,8 @@
 import { S3Client, DeleteObjectCommand } from '@aws-sdk/client-s3';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const ACCESS_KEY_SECRET = '<% ACCESS_KEY_SECRET %>';
-const SECRET_ACCESS_KEY_SECRET = '<% SECRET_ACCESS_KEY_SECRET %>';
+const ACCESS_KEY_SECRET_NAME = '<% ACCESS_KEY_SECRET_NAME %>';
+const SECRET_ACCESS_KEY_SECRET_NAME = '<% SECRET_ACCESS_KEY_SECRET_NAME %>';
 
 export default async function (data, { MODULES }) {
 
@@ -13,16 +13,16 @@ export default async function (data, { MODULES }) {
     return;
   }
 
-  if (!ACCESS_KEY_SECRET || !SECRET_ACCESS_KEY_SECRET) {
+  if (!ACCESS_KEY_SECRET_NAME || !SECRET_ACCESS_KEY_SECRET_NAME) {
     logger.error('アクセスキーまたはシークレットアクセスキーのシークレット名が設定されていません');
     return;
   }
 
   const secrets = await secret.get({
-    keys: [ACCESS_KEY_SECRET, SECRET_ACCESS_KEY_SECRET],
+    keys: [ACCESS_KEY_SECRET_NAME, SECRET_ACCESS_KEY_SECRET_NAME],
   });
-  const accessKeyId = secrets[ACCESS_KEY_SECRET];
-  const secretAccessKey = secrets[SECRET_ACCESS_KEY_SECRET];
+  const accessKeyId = secrets[ACCESS_KEY_SECRET_NAME];
+  const secretAccessKey = secrets[SECRET_ACCESS_KEY_SECRET_NAME];
 
 
   const value = data.jsonPayload.data.value;

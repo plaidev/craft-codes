@@ -1,4 +1,4 @@
-const LINE_CHANNEL_ACCESS_TOKEN_SECRET = '<% LINE_CHANNEL_ACCESS_TOKEN_SECRET %>';
+const LINE_CHANNEL_ACCESS_TOKEN_SECRET_NAME = '<% LINE_CHANNEL_ACCESS_TOKEN_SECRET_NAME %>';
 const KEY_PREFIX = '<% KEY_PREFIX %>';
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const SET_DEFAULT_LINE_RICH_MENU_ENDPOINT_URL = 'https://api.line.me/v2/bot/user/all/richmenu';
@@ -178,9 +178,9 @@ export default async function (data, { MODULES }) {
     }
 
     const secrets = await secret.get({
-      keys: [LINE_CHANNEL_ACCESS_TOKEN_SECRET],
+      keys: [LINE_CHANNEL_ACCESS_TOKEN_SECRET_NAME],
     });
-    const lineChannelAccessToken = secrets[LINE_CHANNEL_ACCESS_TOKEN_SECRET];
+    const lineChannelAccessToken = secrets[LINE_CHANNEL_ACCESS_TOKEN_SECRET_NAME];
 
     const richMenuId = req.query.id;
     switch (req.method) {

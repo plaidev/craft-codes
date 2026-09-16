@@ -1,6 +1,6 @@
 import { WebClient } from '@slack/web-api';
 
-const SLACK_TOKEN_SECRET = '<% SLACK_TOKEN_SECRET %>';
+const SLACK_TOKEN_SECRET_NAME = '<% SLACK_TOKEN_SECRET_NAME %>';
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 
 // メールアドレスからSlackユーザーIDを取得する関数
@@ -37,8 +37,8 @@ export default async function (data, { MODULES }) {
   const { initLogger, secret } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
-  const secrets = await secret.get({ keys: [SLACK_TOKEN_SECRET] });
-  const token = secrets[SLACK_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [SLACK_TOKEN_SECRET_NAME] });
+  const token = secrets[SLACK_TOKEN_SECRET_NAME];
 
   const slackClient = new WebClient(token);
 

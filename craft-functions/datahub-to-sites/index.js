@@ -3,7 +3,7 @@ import api from 'api';
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const SITE_NAME = '<% SITE_NAME %>';
 const SITE_DIR_PATH = '<% SITE_DIR_PATH %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const HEADER_COLUMNS = '<% HEADER_COLUMNS %>'.split(',').map(v => v.trim());
 const FILE_NAME_COLUMN = '<% FILE_NAME_COLUMN %>';
 const RETRY_TIMEOUT_SEC = Number('<% RETRY_TIMEOUT_SEC %>');
@@ -88,8 +88,8 @@ export default async function (data, { MODULES }) {
   const { value } = data.jsonPayload.data;
 
   try {
-    const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-    const token = secrets[KARTE_APP_TOKEN_SECRET];
+    const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+    const token = secrets[KARTE_APP_TOKEN_SECRET_NAME];
 
     const rowData = parseDatahubRow(value);
     const markdown = parseDatahubRowToMarkdown(rowData);

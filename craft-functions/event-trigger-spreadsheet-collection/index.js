@@ -1,7 +1,7 @@
 import { google } from 'googleapis';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
+const SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% SERVICE_ACCOUNT_KEY_SECRET_NAME %>';
 
 async function updateSsValues(sheets, spreadsheetId, range, values) {
   await sheets.spreadsheets.values.update({
@@ -56,8 +56,8 @@ export default async function (data, { MODULES }) {
   if (!spreadsheetId) return logger.error(`"spreadsheet_id" is required in data.`);
 
   // GoogleサービスアカウントのJSONキーをシークレットから取得
-  const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET] });
-  const _jsonKey = secrets[SERVICE_ACCOUNT_KEY_SECRET];
+  const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET_NAME] });
+  const _jsonKey = secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME];
   const jsonKey = JSON.parse(_jsonKey);
 
   // Google Drive APIの初期化

@@ -1,7 +1,7 @@
 import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const TARGET_IMPORT_PATH = '<% TARGET_IMPORT_PATH %>';
 const CORPUS_ID = '<% CORPUS_ID %>';
 
@@ -14,8 +14,8 @@ export default async function (data, { MODULES }) {
     return;
   }
 
-  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  const appToken = secrets[KARTE_APP_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+  const appToken = secrets[KARTE_APP_TOKEN_SECRET_NAME];
 
   const pdfHookData = data.jsonPayload.data;
   const siteName = pdfHookData.ret.siteName;

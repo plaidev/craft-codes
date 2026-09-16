@@ -1,5 +1,5 @@
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const CHANNEL_ACCESS_TOKEN_SECRET = '<% CHANNEL_ACCESS_TOKEN_SECRET %>';
+const CHANNEL_ACCESS_TOKEN_SECRET_NAME = '<% CHANNEL_ACCESS_TOKEN_SECRET_NAME %>';
 const KVS_PREFIX = 'line-push-msg';
 const LINE_API_ENDPOINT = 'https://api.line.me/v2/bot/message/push';
 
@@ -92,8 +92,8 @@ export default async function (data, { MODULES }) {
   }
   let channelAccessToken;
   try {
-    const secrets = await secret.get({ keys: [CHANNEL_ACCESS_TOKEN_SECRET] });
-    channelAccessToken = secrets[CHANNEL_ACCESS_TOKEN_SECRET];
+    const secrets = await secret.get({ keys: [CHANNEL_ACCESS_TOKEN_SECRET_NAME] });
+    channelAccessToken = secrets[CHANNEL_ACCESS_TOKEN_SECRET_NAME];
   } catch (e) {
     logger.error('Failed to get CHANNEL_ACCESS_TOKEN from secret manager.', {
       error: e.message,

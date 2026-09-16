@@ -1,6 +1,6 @@
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const WHATSAPP_ACCESS_TOKEN_SECRET = '<% WHATSAPP_ACCESS_TOKEN_SECRET %>';
-const PHONE_NUMBER_ID_SECRET = '<% PHONE_NUMBER_ID_SECRET %>';
+const WHATSAPP_ACCESS_TOKEN_SECRET_NAME = '<% WHATSAPP_ACCESS_TOKEN_SECRET_NAME %>';
+const PHONE_NUMBER_ID_SECRET_NAME = '<% PHONE_NUMBER_ID_SECRET_NAME %>';
 
 // Cloud APIエラーコード
 // https://developers.facebook.com/docs/whatsapp/cloud-api/support/error-codes/
@@ -80,10 +80,10 @@ export default async function (data, { MODULES }) {
 
   // アクセストークンと送信元の電話番号IDを取得
   const secrets = await secret.get({
-    keys: [WHATSAPP_ACCESS_TOKEN_SECRET, PHONE_NUMBER_ID_SECRET],
+    keys: [WHATSAPP_ACCESS_TOKEN_SECRET_NAME, PHONE_NUMBER_ID_SECRET_NAME],
   });
-  const whatsappAccessToken = secrets[WHATSAPP_ACCESS_TOKEN_SECRET];
-  const phoneNumberId = secrets[PHONE_NUMBER_ID_SECRET];
+  const whatsappAccessToken = secrets[WHATSAPP_ACCESS_TOKEN_SECRET_NAME];
+  const phoneNumberId = secrets[PHONE_NUMBER_ID_SECRET_NAME];
 
   // メッセージデータの準備
   const phoneNumber = JSON.stringify(data.jsonPayload.data.value);

@@ -4,8 +4,8 @@ import { WebClient } from '@slack/web-api';
 import { subDays, format } from 'date-fns';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
-const SLACK_TOKEN_SECRET = '<% SLACK_TOKEN_SECRET %>';
+const SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% SERVICE_ACCOUNT_KEY_SECRET_NAME %>';
+const SLACK_TOKEN_SECRET_NAME = '<% SLACK_TOKEN_SECRET_NAME %>';
 const SLACK_CHANNEL_ID = '<% SLACK_CHANNEL_ID %>';
 const SITE_URL = '<% SITE_URL %>';
 const PAGE_URL = '<% PAGE_URL %>';
@@ -89,13 +89,13 @@ export default async function (data, { MODULES }) {
 
   // Search ConsoleとSlackのシークレットを取得
   const secrets = await secret.get({
-    keys: [SERVICE_ACCOUNT_KEY_SECRET, SLACK_TOKEN_SECRET],
+    keys: [SERVICE_ACCOUNT_KEY_SECRET_NAME, SLACK_TOKEN_SECRET_NAME],
   });
 
-  const saKeyJson = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET]);
+  const saKeyJson = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME]);
   const searchConsole = await createSearchConsoleClient(saKeyJson);
 
-  const token = secrets[SLACK_TOKEN_SECRET];
+  const token = secrets[SLACK_TOKEN_SECRET_NAME];
   const slackClient = new WebClient(token);
 
   const { startDate, endDate } = getStartDateAndEndDate(DAY_BEFORE_END_DATE);

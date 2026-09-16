@@ -3,7 +3,7 @@ import api from 'api';
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const KARTE_PROJECT_ID = '<% KARTE_PROJECT_ID %>';
 const TALK_BOT_ID = '<% TALK_BOT_ID %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 
 function mapActionType(action) {
   switch (action) {
@@ -122,8 +122,8 @@ export default async function (data, { MODULES }) {
 
   const noteMessages = makeNoteMessages(targets, commonHeader);
 
-  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  const karteAppToken = secrets[KARTE_APP_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+  const karteAppToken = secrets[KARTE_APP_TOKEN_SECRET_NAME];
   await sendNotes({ noteMessages, commonHeader, karteAppToken, logger });
 
   res.status(200).json({ message: 'Success' });

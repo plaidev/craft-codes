@@ -2,7 +2,7 @@ import { google } from 'googleapis';
 import { subDays, format } from 'date-fns';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
+const SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% SERVICE_ACCOUNT_KEY_SECRET_NAME %>';
 const DAY_BEFORE_END_DATE = '<% DAY_BEFORE_END_DATE %>';
 const SITE_URL = '<% SITE_URL %>';
 const ROW_LIMIT = '<% ROW_LIMIT %>';
@@ -242,8 +242,8 @@ export default async function (data, { MODULES }) {
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
   try {
-    const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET] });
-    const saKeyJson = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET]);
+    const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET_NAME] });
+    const saKeyJson = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME]);
 
     const searchConsole = await createSearchConsoleClient(saKeyJson);
     const analyticsDataClient = await createAnalyticsDataClient(saKeyJson);

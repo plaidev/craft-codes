@@ -4,7 +4,7 @@ import { format, subMinutes } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const DELAY_MIN = Number('<% DELAY_MIN %>');
 const SOLUTION_ID = '<% SOLUTION_ID %>';
 const karteApiClient = api('@dev-karte/v1.0#ja8rb1jlswsjoo1');
@@ -101,8 +101,8 @@ async function checkMessages(logger, targetIds) {
 }
 
 async function autoChatClose(logger, kvs, secret) {
-  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  const token = secrets[KARTE_APP_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+  const token = secrets[KARTE_APP_TOKEN_SECRET_NAME];
   karteApiClient.auth(token);
   const timeUserSentMessage = getTimeBefore();
   const key = kvsKey(timeUserSentMessage);

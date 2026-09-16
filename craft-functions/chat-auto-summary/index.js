@@ -3,7 +3,7 @@ import api from 'api';
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const GEMINI_MODEL = '<% GEMINI_MODEL %>';
 const CHAT_SENDER_ID = '<% CHAT_SENDER_ID %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const MIN_CHAT_TEXT_LENGTH = Number('<% MIN_CHAT_TEXT_LENGTH %>'); // この文字数以上のチャットメッセージのみ自動要約する
 const TALK_SPEC_URI = '@dev-karte/v1.0#ja8rb1jlswsjoo1';
 
@@ -46,8 +46,8 @@ export default async function (data, { MODULES }) {
     return;
   }
 
-  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  const token = secrets[KARTE_APP_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+  const token = secrets[KARTE_APP_TOKEN_SECRET_NAME];
 
   const summary = await fetchSummary(aiModules, userMessage);
   if (summary) {

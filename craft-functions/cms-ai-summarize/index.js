@@ -2,7 +2,7 @@ import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const CMS_MODEL_ID = '<% CMS_MODEL_ID %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const KARTE_APP_SPEC_URI_CMS = '@dev-karte/v1.0#n0jmhx43zga';
 const GEMINI_MODEL = '<% GEMINI_MODEL %>';
 const TARGET_CMS_MODEL_TITLE = '<% TARGET_CMS_MODEL_TITLE %>';
@@ -45,8 +45,8 @@ ${body}
 };
 
 async function getToken(secret) {
-  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  return secrets[KARTE_APP_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+  return secrets[KARTE_APP_TOKEN_SECRET_NAME];
 }
 
 async function fetchByContentId(token, contentId) {

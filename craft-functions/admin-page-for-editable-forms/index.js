@@ -2,7 +2,7 @@ import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const CORS_ALLOWED_DOMAIN = '<% CORS_ALLOWED_DOMAIN %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const FORM_SITE_NAME = '<% FORM_SITE_NAME %>';
 const FORM_DIR_PATH = '<% FORM_DIR_PATH %>';
 
@@ -65,8 +65,8 @@ export default async function (data, { MODULES }) {
     return res.status(204).send('');
   }
 
-  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  const token = secrets[KARTE_APP_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+  const token = secrets[KARTE_APP_TOKEN_SECRET_NAME];
 
   const sites = api('@dev-karte/v1.0#3q52o2glxb1kejp');
   sites.auth(token);

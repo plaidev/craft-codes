@@ -7,7 +7,7 @@
     "description": "翻訳対象のCraft Cross CMSのモデルIDです。コンテンツのJSONプレビューなどから確認できます。"
   },
   {
-    "name": "KARTE_APP_TOKEN_SECRET",
+    "name": "KARTE_APP_TOKEN_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,

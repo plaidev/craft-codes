@@ -21,7 +21,7 @@
         "description": "MarkdownをアップロードするCraft Sitesのディレクトリへのパスです。最後の / は不要です"
     },
     {
-        "name": "KARTE_APP_TOKEN_SECRET",
+        "name": "KARTE_APP_TOKEN_SECRET_NAME",
         "value": "",
         "type": "string",
         "required": true,

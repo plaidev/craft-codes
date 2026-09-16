@@ -1,10 +1,10 @@
 import { google } from 'googleapis';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
+const SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% SERVICE_ACCOUNT_KEY_SECRET_NAME %>';
 const SPREADSHEET_ID = '<% SPREADSHEET_ID %>';
 const SHEET_NAME = '<% SHEET_NAME %>';
-const CHANNEL_ACCESS_TOKEN_SECRET = '<% CHANNEL_ACCESS_TOKEN_SECRET %>';
+const CHANNEL_ACCESS_TOKEN_SECRET_NAME = '<% CHANNEL_ACCESS_TOKEN_SECRET_NAME %>';
 const HEADER = [
   'キャンペーンID',
   '集計開始日',
@@ -100,11 +100,11 @@ export default async function (data, { MODULES }) {
   const rows = jobflowData.value.replace(/\n/g, '\n').split('\n').slice(1);
 
   const secrets = await secret.get({
-    keys: [SERVICE_ACCOUNT_KEY_SECRET, CHANNEL_ACCESS_TOKEN_SECRET],
+    keys: [SERVICE_ACCOUNT_KEY_SECRET_NAME, CHANNEL_ACCESS_TOKEN_SECRET_NAME],
   });
-  const saKeyJson = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET]);
+  const saKeyJson = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME]);
   const sheets = await createSheetsClient(saKeyJson);
-  const messagingApiChannelAccessTokenSecret = secrets[CHANNEL_ACCESS_TOKEN_SECRET];
+  const messagingApiChannelAccessTokenSecret = secrets[CHANNEL_ACCESS_TOKEN_SECRET_NAME];
 
   const rowPromises = rows.map(async row => {
     const columns = row.split(',');

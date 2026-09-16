@@ -2,16 +2,16 @@ import { WebClient } from '@slack/web-api';
 
 // variables.jsonから読み込む変数を定義
 const SLACK_CHANNEL_ID = '<% SLACK_CHANNEL_ID %>';
-const SLACK_TOKEN_SECRET = '<% SLACK_TOKEN_SECRET %>';
+const SLACK_TOKEN_SECRET_NAME = '<% SLACK_TOKEN_SECRET_NAME %>';
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const SLACK_MESSAGE_HEADER = '<% SLACK_MESSAGE_HEADER %>';
 const SLACK_MESSAGE_NO_DATA = '<% SLACK_MESSAGE_NO_DATA %>';
 
 async function getSlackToken(secret) {
   const secrets = await secret.get({
-    keys: [SLACK_TOKEN_SECRET],
+    keys: [SLACK_TOKEN_SECRET_NAME],
   });
-  return secrets[SLACK_TOKEN_SECRET];
+  return secrets[SLACK_TOKEN_SECRET_NAME];
 }
 
 /**

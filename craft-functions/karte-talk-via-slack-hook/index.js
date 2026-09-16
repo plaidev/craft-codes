@@ -2,7 +2,7 @@ import { WebClient } from '@slack/web-api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const SLACK_CHANNEL_ID = '<% SLACK_CHANNEL_ID %>';
-const SLACK_TOKEN_SECRET = '<% SLACK_TOKEN_SECRET %>';
+const SLACK_TOKEN_SECRET_NAME = '<% SLACK_TOKEN_SECRET_NAME %>';
 const IGNORE_TALK_ACCOUNTS = '<% IGNORE_TALK_ACCOUNTS %>';
 const SOLUTION_ID = '<% SOLUTION_ID %>';
 const KVS_EXPIRE_MINUTES = Number('<% KVS_EXPIRE_MINUTES %>');
@@ -82,8 +82,8 @@ async function handleTalkHook(data, { secret, kvs, logger }) {
     text = `[ユーザー ${_userId} からのメッセージ] \n ${content.text}`;
   }
 
-  const secrets = await secret.get({ keys: [SLACK_TOKEN_SECRET] });
-  const slackToken = secrets[SLACK_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [SLACK_TOKEN_SECRET_NAME] });
+  const slackToken = secrets[SLACK_TOKEN_SECRET_NAME];
   const slack = new WebClient(slackToken);
   await sendToSlack(_userId, text, { kvs, slack, logger });
 }

@@ -2,7 +2,7 @@ import api from 'api';
 import crypto from 'crypto';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const SOLUTION_ID_FOR_KVS_KEY = '<% SOLUTION_ID_FOR_KVS_KEY %>';
 const TARGET_JOBFLOW_IDS = '<% TARGET_JOBFLOW_IDS %>'; // カンマ区切り。空なら全対象
 const EXCLUDED_JOBFLOW_IDS = '<% EXCLUDED_JOBFLOW_IDS %>'; // カンマ区切り。最優先で除外
@@ -115,8 +115,8 @@ export default async function (data, { MODULES }) {
 
   logger.log(`Retrying jobflow ${jobflowId}. Attempt: ${currentRetryCount + 1}`);
 
-  const karteSecrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  const karteAppToken = karteSecrets[KARTE_APP_TOKEN_SECRET];
+  const karteSecrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+  const karteAppToken = karteSecrets[KARTE_APP_TOKEN_SECRET_NAME];
 
   await executeJobflow(karteAppToken, jobflowId, logger);
 

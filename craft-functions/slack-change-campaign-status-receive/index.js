@@ -2,10 +2,10 @@ import { WebClient } from '@slack/web-api';
 import api from 'api';
 
 /* KARTE API V2 Setting - ACCESS TOKEN */
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 
 /* Slack App - Bot User OAuth Token */
-const SLACK_TOKEN_SECRET = '<% SLACK_TOKEN_SECRET %>';
+const SLACK_TOKEN_SECRET_NAME = '<% SLACK_TOKEN_SECRET_NAME %>';
 
 /* KARTE Project ID */
 const PROJECT_ID = '<% PROJECT_ID %>';
@@ -220,10 +220,10 @@ export default async function (data, { MODULES }) {
   }
 
   const tokens = await secret.get({
-    keys: [KARTE_APP_TOKEN_SECRET, SLACK_TOKEN_SECRET],
+    keys: [KARTE_APP_TOKEN_SECRET_NAME, SLACK_TOKEN_SECRET_NAME],
   });
-  const karteApiToken = tokens[KARTE_APP_TOKEN_SECRET];
-  const slackToken = tokens[SLACK_TOKEN_SECRET];
+  const karteApiToken = tokens[KARTE_APP_TOKEN_SECRET_NAME];
+  const slackToken = tokens[SLACK_TOKEN_SECRET_NAME];
 
   const payloadFromSlack = parseArgumentPayload(logger, req);
 

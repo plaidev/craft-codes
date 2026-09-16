@@ -2,7 +2,7 @@ import { WebClient } from '@slack/web-api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const KARTE_PROJECT_ID = '<% KARTE_PROJECT_ID %>';
-const SLACK_TOKEN_SECRET = '<% SLACK_TOKEN_SECRET %>';
+const SLACK_TOKEN_SECRET_NAME = '<% SLACK_TOKEN_SECRET_NAME %>';
 const SLACK_CHANNEL_ID = '<% SLACK_CHANNEL_ID %>';
 const MINIMUM_CHANGE_PERCENTAGE = '<% MINIMUM_CHANGE_PERCENTAGE %>';
 
@@ -15,8 +15,8 @@ export default async function (data, { MODULES }) {
     return;
   }
 
-  const secrets = await secret.get({ keys: [SLACK_TOKEN_SECRET] });
-  const token = secrets[SLACK_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [SLACK_TOKEN_SECRET_NAME] });
+  const token = secrets[SLACK_TOKEN_SECRET_NAME];
   const slackClient = new WebClient(token);
 
   // 改行エスケープ文字を実際の改行に置き換えてから行に分割する
