@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Craft AI Content Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- ヘッダー -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-dot"></span>
+        <span class="logo-text">Craft AI Manager</span>
+      </div>
+      <div class="user-info">
+        <span class="badge">ログイン済み</span>
+        <span class="user-name">Editor User</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main class="main-container">
+    <div class="page-title">
+      <h1>記事骨子・素案ジェネレーター</h1>
+      <p>検索インテントを満たすSEO骨子の自動作成と、一次情報（EEAT）の肉付けワークフロー</p>
+    </div>
+
+    <!-- 1. 設定入力フォーム -->
+    <section class="card form-section">
+      <h2 class="section-title">1. プロンプト＆設定パラメータ</h2>
+      <form id="generator-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="product-name">対象テーマ / 店舗・企画名 <span class="required">*</span></label>
+            <input type="text" id="product-name" placeholder="例：東京のおすすめラーメン20選" required>
+          </div>
+
+          <div class="form-group">
+            <label for="keywords">狙いたいキーワード <span class="required">*</span></label>
+            <input type="text" id="keywords" placeholder="例：東京, ラーメン, おすすめ, 醤油" required>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="product-desc">記事の概要・特徴</label>
+            <textarea id="product-desc" rows="2" placeholder="例：都内の絶品醤油・豚骨ラーメン店を厳選。スープのこだわりやアクセス、混雑傾向を網羅"></textarea>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="author-info">著者プロフィール・実績（EEAT）</label>
+            <input type="text" id="author-info" placeholder="例：年間800杯・通算8,000杯を完食しているラーメンマニア">
+          </div>
+
+          <div class="form-group">
+            <label for="target-persona">ターゲット / ペルソナ</label>
+            <input type="text" id="target-persona" placeholder="例：週末に東京で本当に美味しいラーメンを探している20〜40代">
+          </div>
+
+          <div class="form-group">
+            <label for="tone-manner">トーン＆マナー</label>
+            <select id="tone-manner">
+              <option value="親しみやすい・レビュー風">親しみやすい・レビュー風</option>
+              <option value="論理的・専門的">論理的・専門的（こだわり解説）</option>
+              <option value="ガイド・まとめ風">ガイド・まとめ風</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" id="btn-generate" class="btn btn-primary">
+            <span class="btn-text">AIで記事骨子・素案を生成する</span>
+            <span class="spinner" id="generate-spinner" hidden></span>
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- 2. プレビュー＆編集エリア -->
+    <section class="card preview-section" id="preview-section">
+      <div class="preview-header">
+        <h2 class="section-title">2. 生成結果プレビュー＆編集</h2>
+        <!-- <div class="view-toggle">
+          <button type="button" class="toggle-btn active" data-view="all">全体プレビュー</button>
+          <button type="button" class="toggle-btn" data-view="eeat">一次情報枠のみ表示</button>
+        </div> -->
+      </div>
+
+      <!-- SEO構成サマリー -->
+      <div class="seo-summary-card">
+        <div class="summary-item">
+          <span class="summary-label">想定タイトル</span>
+          <input type="text" id="output-title" class="input-editable" value="生成待ち..." />
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">URLスラッグ (Permalinks)</span>
+          <input type="text" id="output-slug" class="input-editable" value="生成待ち..." placeholder="例: tokyo-ramen-20" />
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">メタディスクリプション</span>
+          <textarea id="output-meta" class="input-editable" rows="2">生成待ち...</textarea>
+        </div>
+      </div>
+
+      <!-- エディタ本体 -->
+      <div class="editor-container">
+        <div class="editor-toolbar">
+          <span class="editor-status">AI生成本文</span>
+          <div class="word-count">文字数: <span id="char-count">0</span> 文字</div>
+        </div>
+        <textarea id="editor-body" class="editor-textarea" placeholder="ここに骨子および本文素案が生成されます..."></textarea>
+      </div>
+    </section>
+
+    <!-- 3. 入稿アクションエリア -->
+    <section class="card action-section">
+      <div class="action-inner">
+        <p class="action-note">※ 下書き（Draft）としてCraft Cross CMSへ入稿されます</p>
+        <button type="button" id="btn-publish" class="btn btn-accent" disabled>
+          Craft Cross CMSに入稿する (API v2)
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- トースト通知 -->
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="index.js"></script>
+</body>
+</html>

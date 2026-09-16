@@ -1,0 +1,21 @@
+:root {
+  --color-primary: #4a5568;
+  --color-secondary: #718096;
+  --color-background: #ffffff;
+  --color-text-primary: #2d3748;
+  --color-text-secondary: #4a5568;
+}
+
+.bg-custom-background {
+  background-color: var(--color-background);
+}
+.text-custom-primary {
+  color: var(--color-text-primary);
+}
+.text-custom-secondary {
+  color: var(--color-text-secondary);
+}
+.hover\:text-custom-primary:hover {
+  color: var(--color-primary);
+}
+

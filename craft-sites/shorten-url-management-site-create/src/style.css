@@ -1,0 +1,273 @@
+:root {
+  --primary-color: #2aab9f;
+  --secondary-color: #666;
+  --bg-color: #f4f7f9;
+  --card-bg: #ffffff;
+  --text-color: #333;
+  --border-color: #ced4da;
+  --success-color: #28a745;
+}
+
+body {
+  font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo,
+    sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  margin: 0;
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--card-bg);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  color: var(--secondary-color);
+  font-size: 15px;
+}
+
+h3 {
+  font-size: 19px;
+  margin-bottom: 20px;
+  border-left: 5px solid var(--primary-color);
+  padding-left: 12px;
+  color: #444;
+}
+
+.form-section {
+  margin-bottom: 40px;
+}
+
+.field {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.required {
+  color: #e74c3c;
+  font-size: 11px;
+  vertical-align: top;
+  margin-left: 4px;
+}
+
+.optional {
+  color: #999;
+  font-size: 11px;
+  font-weight: normal;
+  margin-left: 4px;
+}
+
+input[type='text'],
+input[type='url'],
+select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 16px;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.1);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* 任意項目の枠 */
+.optional-container {
+  background: #fdfdfd;
+  border: 1px solid #eee;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 15px;
+}
+
+.optional-title {
+  font-size: 12px;
+  color: #999;
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+/* プレビューエリア */
+.preview-area {
+  background: #f0f9f8;
+  border: 2px dashed #2aab9f;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.preview-header {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+#urlPreview {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  color: #555;
+  word-break: break-all;
+  min-height: 1.4em;
+}
+
+.actions {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 18px 60px;
+  border: none;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3);
+  transition:
+    transform 0.2s,
+    opacity 0.2s;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* 結果表示モーダル */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  text-align: center;
+  max-width: 550px;
+  width: 90%;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.success-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--success-color);
+  color: white;
+  border-radius: 50%;
+  font-size: 35px;
+  line-height: 60px;
+  margin: 0 auto 20px;
+}
+
+.copy-field {
+  display: flex;
+  margin: 25px 0;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.copy-field input {
+  flex: 1;
+  border: none;
+  border-radius: 0;
+  padding: 12px;
+  background: #f8f9fa;
+  font-size: 14px;
+}
+
+#copyBtn {
+  background: #333;
+  color: white;
+  border: none;
+  padding: 0 25px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#copyBtn:hover {
+  background: #000;
+}
+
+.btn-secondary {
+  background: none;
+  border: 1px solid var(--border-color);
+  padding: 12px 30px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.btn-secondary:hover {
+  background: #f8f9fa;
+}

@@ -1,0 +1,574 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+  color: #333;
+}
+
+/* ヘッダー全体 */
+header {
+  background-color: #333;
+  padding: 10px 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  text-align: center;
+}
+
+header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+header .logo a {
+  color: #fff;
+  font-size: 1.5em;
+  text-decoration: none;
+}
+
+header .nav-links {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+header .nav-links li {
+  margin: 0 15px;
+}
+
+header .nav-links li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1em;
+  transition: color 0.3s;
+}
+
+header .nav-links li a:hover {
+  color: #007bff;
+}
+
+/* ハンバーガーメニュー */
+.hamburger-menu {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 24px;
+}
+
+.hamburger-menu span {
+  display: block;
+  width: 30px;
+  height: 3px;
+  background-color: #fff;
+}
+
+#hero {
+  position: relative;
+  text-align: center;
+  margin: 0;
+  padding-top: 30px;
+}
+
+.hero-content {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 400px; /* 任意の高さに調整 */
+  overflow: hidden; /* 画像のオーバーフローを隠す */
+}
+
+#hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 画像を横長にして表示 */
+  display: block;
+  margin: 0; /* 画像の周りに余白をつけない */
+}
+
+#hero h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3em;
+  color: #000; /* テキストの色を黒に設定 */
+  white-space: nowrap; /* テキストを1行に表示 */
+}
+
+section {
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.product {
+  flex: 1 1 calc(25% - 20px);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+form input,
+form textarea,
+form button {
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+form button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+}
+
+footer ul {
+  list-style: none;
+  padding: 0;
+}
+
+footer ul li {
+  display: inline;
+  margin: 0 10px;
+}
+
+footer ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+#commitment {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.commitment-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.commitment-item {
+  flex: 1;
+  text-align: center;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.commitment-item img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.commitment-item h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.commitment-item p {
+  font-size: 1em;
+  color: #666;
+}
+
+.commitment-item:hover {
+  transform: translateY(-5px);
+}
+
+#strengths {
+  padding: 60px 20px;
+  background-color: #fff;
+  text-align: center; /* セクション全体のテキストを中央揃え */
+}
+
+.strength-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.strength-item img {
+  width: 48%;
+  height: 350px; /* 画像の縦幅を350pxに設定 */
+  object-fit: cover; /* 画像が引き伸ばされずに表示されるようにする */
+  border-radius: 10px;
+}
+
+.strength-text {
+  width: 48%;
+  padding: 20px;
+  text-align: left;
+}
+
+.reverse {
+  flex-direction: row-reverse;
+}
+
+.strength-item h3 {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.strength-item p {
+  font-size: 1.2em;
+  color: #666;
+}
+
+#products {
+  padding: 60px 20px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.product-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4列表示 */
+  gap: 20px;
+}
+
+.product-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+}
+
+.product-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.product-item h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.product-item p {
+  font-size: 1em;
+  color: #666;
+}
+
+#testimonials {
+  padding: 60px 20px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.testimonial-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: nowrap; /* 子要素が折り返さないように設定 */
+}
+
+.testimonial-item {
+  flex: 1 1 33.33%; /* 3列表示のための計算 */
+  max-width: 33.33%; /* 最大幅を設定 */
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.testimonial-item img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; /* 画像を丸く切り抜く */
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.testimonial-item h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.testimonial-item p {
+  font-size: 1em;
+  color: #666;
+}
+
+#process {
+  padding: 60px 20px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.process-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* PCでの4列表示 */
+  gap: 20px;
+}
+
+.process-step {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.process-step img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.process-step h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.process-step p {
+  font-size: 1em;
+  color: #666;
+}
+
+#faq {
+  padding: 60px 20px;
+  background-color: #f9f9f9;
+  text-align: center; /* 見出しを中央揃え */
+}
+
+.faq-container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left; /* 質問と回答を左揃え */
+}
+
+.faq-item {
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.faq-item p {
+  margin: 0;
+  font-size: 1.1em;
+  color: #333;
+}
+
+.faq-item strong {
+  color: #007bff;
+}
+
+#contact-form {
+  padding: 60px 20px;
+  background-color: #f9f9f9;
+  text-align: center; /* 見出しを中央揃え */
+}
+
+#contact-form form {
+  max-width: 600px; /* フォーム全体の最大幅を設定 */
+  margin: 0 auto;
+  text-align: left; /* 入力欄とボタンのテキストを左揃え */
+}
+
+#contact-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1em;
+  color: #333;
+}
+
+#contact-form input[type='text'],
+#contact-form input[type='tel'],
+#contact-form input[type='email'],
+#contact-form textarea {
+  width: 100%;
+  max-width: 500px; /* 入力欄の最大幅を設定 */
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+#contact-form textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.form-action {
+  text-align: center; /* 送信ボタンを中央寄せ */
+}
+
+#contact-form button {
+  width: 100%;
+  max-width: 200px; /* 送信ボタンの最大幅を設定 */
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+#contact-form button:hover {
+  background-color: #0056b3;
+}
+
+/* モバイル対応のスタイル */
+@media (max-width: 767px) {
+  /* ハンバーガーメニュー */
+  .nav-links {
+    display: none !important;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    flex-direction: column;
+    align-items: center;
+    z-index: 999;
+  }
+
+  .nav-links.show {
+    display: flex !important; /* ハンバーガーメニューがクリックされたときに表示 */
+  }
+
+  .hamburger-menu {
+    display: flex;
+  }
+
+  .mobile-sample-button {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 1.2em;
+    text-decoration: none;
+    z-index: 1000;
+  }
+
+  /* ヒーローセクション */
+  #hero {
+    padding-top: 55px;
+  }
+
+  #hero h1 {
+    font-size: 2em;
+    white-space: normal; /* テキストを複数行で表示 */
+    padding: 0 10px; /* テキストが画面端に接しないようにパディングを追加 */
+  }
+
+  /* コミットメントセクション */
+  .commitment-container {
+    flex-direction: column;
+  }
+
+  .commitment-item {
+    margin-bottom: 20px;
+  }
+
+  /* ストレングスセクション */
+  .strength-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .strength-item img,
+  .strength-text {
+    width: 100%;
+  }
+
+  .strength-text {
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  /* プロダクトセクション */
+  .product-container {
+    grid-template-columns: repeat(2, 1fr); /* 2列表示 */
+  }
+
+  /* テスティモニアルセクション */
+  .testimonial-container {
+    flex-direction: column;
+    flex-wrap: wrap; /* モバイルでは折り返しを許可 */
+  }
+
+  .testimonial-item {
+    flex: 1 1 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  /* プロセスセクション */
+  .process-container {
+    grid-template-columns: 1fr; /* モバイルでは1列表示 */
+  }
+
+  /* FAQセクション */
+  .faq-container {
+    padding: 0 10px;
+  }
+}

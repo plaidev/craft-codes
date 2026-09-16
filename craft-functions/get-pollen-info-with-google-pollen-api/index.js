@@ -2,15 +2,15 @@ import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
-const EVENT_NAME = '<% EVENT_NAME% >';
-const GOOGLEMAPSAPIKEY = '<% GOOGLEMAPSAPIKEY %>';
+const EVENT_NAME = '<% EVENT_NAME %>';
+const GOOGLE_MAPS_APIKEY = '<% GOOGLE_MAPS_APIKEY %>';
 const FIELD = '<% FIELD %>';
 const karteApiClient = api('@dev-karte/v1.0#1jvnhd6llgekil84');
 
 async function fetchPollenInfo(latitude, longitude, logger) {
   try {
     const pollenInfo = await fetch(
-      `https://pollen.googleapis.com/v1/forecast:lookup?key=${GOOGLEMAPSAPIKEY}&location.longitude=${longitude}&location.latitude=${latitude}&days=1`,
+      `https://pollen.googleapis.com/v1/forecast:lookup?key=${GOOGLE_MAPS_APIKEY}&location.longitude=${longitude}&location.latitude=${latitude}&days=1`,
       {
         method: 'GET',
       }
@@ -56,7 +56,7 @@ export default async function (data, { MODULES }) {
 
   const latitude = body.latitude;
   const longitude = body.longitude;
-  if (!latitude || !longitude) {
+  if (latitude === undefined || latitude === null || longitude === undefined || longitude === null) {
     logger.error('latitudeかlongitudeのいずれかが存在しません');
     res.status(400).json({ message: 'latitudeかlongitudeのいずれかが存在しません' });
     return;

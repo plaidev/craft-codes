@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>ランキング</title>
+    <link href="./lib/tailwindcss@2.0/tailwind.min.css" rel="stylesheet">
+    <script src="./lib/vue@3/vue.global.prod.js"></script>
+</head>
+
+<body class="min-h-screen">
+    <div id="app">
+        <div class="flex flex-col min-h-screen">
+            <header class="bg-white p-4 z-10 shadow-md">
+                <div class="container mx-auto flex justify-between items-center">
+                    <div class="logo">
+                        <img src="./images/logo.png" alt="PLAID Solution" class="h-8">
+                    </div>
+                </div>
+            </header>
+            <main class="flex-grow">
+                <div>
+                    <div>
+                        <section class="relative">
+                            <div class="relative h-96 bg-cover bg-center"
+                                style="background-image: url('./images/cover.jpeg')">
+                            </div>
+                        </section>
+                        <div class="bg-white py-16">
+                            <div class="container mx-auto px-4">
+                                <h2 class="text-2xl font-bold mb-4">ランキング</h2>
+                                <div class="flex flex-wrap gap-x-5 gap-y-10">
+                                    <a v-for="(product, index) in products" :key="product.id"
+                                        class="w-52 bg-white overflow-hidden h-[500px] flex flex-col"
+                                        :href="product.page_url">
+                                        <div class="relative flex-shrink-0">
+                                            <div
+                                                class="absolute flex justify-center items-center w-6 h-6 bg-gray-400 rounded-full top-1 left-1">
+                                                <span class="text-white text-xs font-semibold">{{ index + 1 }}</span>
+                                            </div>
+                                            <img :src="product.image_url" :alt="product.name"
+                                                class="max-w-full h-64 mx-auto">
+                                        </div>
+                                        <div class="p-1 flex flex-col flex-grow">
+                                            <h3 class="text-l font-semibold mb-1">{{ product.name }}</h3>
+                                            <div class="flex justify-between items-center mt-auto">
+                                                <div>
+                                                    <span class="text-l font-bold">¥{{ formatPrice(product.price)
+                                                        }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer class="bg-custom-background text-custom-primary p-4">
+                <div class="container mx-auto">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center space-x-2">
+                            <img src="./images/logo.png" alt="PLAID Solution" class="h-6">
+                            <span class="text-custom-secondary text-sm">EC Demo Site</span>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="./index.js" type="module"></script>
+
+
+</body>
+
+</html>

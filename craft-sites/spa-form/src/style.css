@@ -1,0 +1,9 @@
+._header {
+  background-image: url('./cover.png');
+  background-size: cover;
+  height: 13vh;
+}
+
+._progress::-webkit-progress-value {
+  transition: width 0.5s ease;
+}

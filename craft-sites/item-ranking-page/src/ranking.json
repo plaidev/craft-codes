@@ -1,0 +1,75 @@
+{
+    "updated_at": 1717984344160,
+    "products": [
+        {
+            "rank": 1,
+            "name": "デニムジャケット",
+            "page_url": "https://example.com/items/001/",
+            "image_url": "https://placehold.jp/703e3e/ffffff/350x430.png?text=001",
+            "price": 9800
+        },
+        {
+            "rank": 2,
+            "name": "フラワープリントワンピース",
+            "page_url": "https://example.com/items/002/",
+            "image_url": "https://placehold.jp/703e3e/ffffff/350x430.png?text=002",
+            "price": 12600
+        },
+        {
+            "rank": 3,
+            "name": "クルーネックニット",
+            "page_url": "https://example.com/items/003/",
+            "image_url": "https://placehold.jp/703e3e/ffffff/350x430.png?text=003",
+            "price": 5800
+        },
+        {
+            "rank": 4,
+            "name": "セットアップ",
+            "page_url": "https://example.com/items/004/",
+            "image_url": "https://placehold.jp/703e3e/ffffff/350x430.png?text=004",
+            "price": 9800
+        },
+        {
+            "rank": 5,
+            "name": "チェスターコート",
+            "page_url": "https://example.com/items/005/",
+            "image_url": "https://placehold.jp/703e3e/ffffff/350x430.png?text=005",
+            "price": 15600
+        },
+        {
+            "rank": 6,
+            "name": "チェスターコート",
+            "page_url": "https://example.com/items/006/",
+            "image_url": "https://placehold.jp/703e3e/ffffff/350x430.png?text=006",
+            "price": 24900
+        },
+        {
+            "rank": 7,
+            "name": "オフショルダーワンピース",
+            "page_url": "https://example.com/items/007/",
+            "image_url": "https://placehold.jp/703e3e/ffffff/350x430.png?text=007",
+            "price": 5900
+        },
+        {
+            "rank": 8,
+            "name": "セットアップ",
+            "page_url": "https://example.com/items/008/",
+            "image_url": "https://placehold.jp/703e3e/ffffff/350x430.png?text=008",
+            "price": 5900
+        },
+        {
+            "rank": 9,
+            "name": "シャツ",
+            "page_url": "https://example.com/items/009/",
+            "image_url": "https://placehold.jp/703e3e/ffffff/350x430.png?text=009",
+            "price": 3900
+        },
+        {
+            "rank": 10,
+            "name": "カットソー",
+            "page_url": "https://example.com/items/010/",
+            "image_url": "https://placehold.jp/703e3e/ffffff/350x430.png?text=010",
+            "price": 3980
+        }
+    ]
+}

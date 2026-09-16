@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="none">
+  <title>管理画面にログイン</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="login-wrapper">
+      <div class="login-box">
+        <header class="login-header">
+          <h1>管理画面にログイン</h1>
+          <p>Craft Authに登録したユーザーのメールアドレスとパスワードでログインしてください</p>
+        </header>
+
+        <form id="loginForm" class="login-form">
+          <div class="field">
+            <label for="email" class="label">メールアドレス</label>
+            <input type="email" id="email" name="email" class="input" required autocomplete="email">
+          </div>
+
+          <div class="field">
+            <label for="password" class="label">パスワード</label>
+            <input type="password" id="password" name="password" class="input" required autocomplete="current-password">
+          </div>
+
+          <div class="field">
+            <p id="error-message" class="error-message"></p>
+          </div>
+
+          <div class="field">
+            <button id="submit" type="submit" class="button">
+              <span class="button-text">ログイン</span>
+              <span class="loading-spinner" style="display: none;">ログイン中...</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="./index.js" type="module"></script>
+</body>
+
+</html>

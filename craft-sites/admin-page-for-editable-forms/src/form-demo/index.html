@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="none"> <!--Google検索などの対象にしたい場合は消す-->
+    <title>編集可能なフォーム</title>
+    <link rel="stylesheet" href="../lib/bulma/bulma.min.css">
+    <script src="../lib/vue@3/vue.global.prod.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app" v-cloak="">
+        <section v-if="title" class="section">
+            <div class="container">
+                <h1 class="title">{{ title }}</h1>
+                <form class="form">
+                    <div v-for="(field, index) in fields" :key="index" class="field">
+                        <label class="label">{{ field.label }}</label>
+                        <div class="control">
+                            <input v-if="['text', 'email', 'number', 'password'].includes(field.type)"
+                                v-model="formData[field.name]" :type="field.type" :placeholder="field.placeholder"
+                                class="input" :name="field.name">
+                            <textarea v-else-if="field.type === 'textarea'" v-model="formData[field.name]"
+                                :placeholder="field.placeholder" class="textarea" :name="field.name"></textarea>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button @click="submitForm" class="button is-primary"
+                                :class="{'is-loading':isLoading}">送信</button>
+                        </div>
+                    </div>
+                </form>
+                <div v-if="errorMessage" class="notification is-danger mt-3">
+                    {{ errorMessage }}
+                </div>
+                <div v-if="successMessage" class="notification is-success mt-3">
+                    {{ successMessage }}
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="../common.js" type="module"></script>
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="none" />
+  <title>診断コンテンツ</title>
+  <link rel="stylesheet" href="./style.css" />
+  <!-- Start KARTE Tag -->
+  <script>
+    !(function (n) {
+      if (!window[n]) {
+        var o = (window[n] = function () {
+          var n = [].slice.call(arguments);
+          return o.x ? o.x.apply(0, n) : o.q.push(n);
+        });
+        (o.q = []),
+          (o.i = Date.now()),
+          (o.allow = function () {
+            o.o = "allow";
+          }),
+          (o.deny = function () {
+            o.o = "deny";
+          });
+      }
+    })("krt");
+  </script>
+  <!-- End KARTE Compatible Tag -->
+  <!-- プロジェクトで発行する計測タグに置き換えてください -->
+  <script async src="https://cdn-edge.karte.io/xxxxxxxxxx/edge.js"></script>
+  <!-- End KARTE Tag -->
+</head>
+
+<body>
+  <div id="app" v-cloak class="container">
+    <div v-if="currentPage === 'start'" class="start-page">
+      <img :src="startPage.image" alt="startPage image" />
+      <h1>{{ startPage.title }}</h1>
+      <p>{{ startPage.description }}</p>
+      <button class="start-button" @click="startDiagnosis">
+        {{ startPage.buttonText }}
+      </button>
+    </div>
+    <div v-else>
+      <div v-if="isLoading" class="loading">
+        <img :src="loadingPage.image" alt="Loading" class="loading-image" />
+        <p class="loading-text">{{ loadingPage.text }}</p>
+      </div>
+      <div v-else-if="!canShowResult">
+        <div v-if="currentQuestion">
+          <div class="question">
+            <p>{{ currentQuestion.question }}</p>
+            <img :src="currentQuestion.image" alt="question image" />
+            <div class="choices">
+              <button v-for="choice in currentQuestion.choices" :key="choice.id" class="choice-button"
+                @click="selectAnswer(choice.id)">
+                {{ choice.text }}
+              </button>
+            </div>
+          </div>
+          <a v-if="currentIndex > 0" href="#" class="back-link" @click.prevent="goBack">← 戻る</a>
+        </div>
+      </div>
+      <div v-else>
+        <div class="result">
+          <p v-if="!isErrorPage">{{ resultPage.title }}</p>
+          <h2>{{ getResult().text }}</h2>
+          <img :src="getResult().image" alt="result image" />
+          <p class="result-description">{{ getResult().description }}</p>
+          <button class="start-button" @click="reset">
+            {{ resultPage.retryButtonText }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="./lib/vue@3/vue.global.js"></script>
+  <script src="./lib/axios/axios.min.js"></script>
+  <script src="./index.js" type="module"></script>
+</body>
+
+</html>

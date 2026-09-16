@@ -1,0 +1,369 @@
+/* KARTE Brand Theme Palette */
+:root {
+  --primary-color: #2AAB9F;        /* KARTE Emerald Green */
+  --primary-hover: #23948A;
+  --primary-light: #E6F7F5;
+  --text-dark: #222529;
+  --text-muted: #64748B;
+  --bg-main: #F8FAFC;
+  --card-bg: #FFFFFF;
+  --border-color: #E2E8F0;
+  --accent-eeat: #FEF3C7;           /* 一次情報ハイライト（黄） */
+  --accent-eeat-border: #F59E0B;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-dark);
+  line-height: 1.6;
+  padding-bottom: 60px;
+}
+
+/* Header */
+.app-header {
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 32px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.logo-dot {
+  width: 12px;
+  height: 12px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.badge {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  padding: 4px 10px;
+  border-radius: var(--radius-lg);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.user-name {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+/* Container & Cards */
+.main-container {
+  max-width: 1000px;
+  margin: 32px auto 0;
+  padding: 0 20px;
+}
+
+.page-title {
+  margin-bottom: 24px;
+}
+
+.page-title h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.page-title p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.section-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--text-dark);
+}
+
+/* Form Styles */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group.full-width {
+  grid-column: span 2;
+}
+
+label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.required {
+  color: #E11D48;
+}
+
+input[type="text"], textarea, select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(42, 171, 159, 0.15);
+}
+
+/* ボタン配置エリア（2カラム分広げてカード全体の中央へ配置） */
+.form-actions {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  grid-column: 1 / -1; /* グリッドの左端から右端まで全幅を使う */
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--radius-lg);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+/* 生成ボタン */
+#btn-generate {
+  width: 100%;
+  max-width: 380px;
+  padding: 14px 28px;
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(42, 171, 159, 0.25);
+}
+
+#btn-generate:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(42, 171, 159, 0.35);
+}
+
+#btn-generate:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: #FFFFFF;
+}
+
+.btn-accent {
+  background-color: var(--text-dark);
+  color: #FFFFFF;
+}
+
+.btn-accent:hover:not(:disabled) {
+  background-color: #000000;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Spinner */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Preview Section */
+.preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.view-toggle {
+  display: flex;
+  background: var(--bg-main);
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  gap: 4px;
+}
+
+.toggle-btn {
+  padding: 6px 12px;
+  border: none;
+  background: transparent;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+.toggle-btn.active {
+  background: var(--card-bg);
+  color: var(--primary-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.seo-summary-card {
+  background: var(--primary-light);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.summary-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--primary-hover);
+  text-transform: uppercase;
+}
+
+.input-editable {
+  background: #FFFFFF;
+  font-weight: 600;
+}
+
+.editor-container {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.editor-toolbar {
+  background: var(--bg-main);
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.editor-textarea {
+  border: none;
+  border-radius: 0;
+  padding: 16px;
+  min-height: 320px;
+  font-family: inherit;
+  line-height: 1.7;
+  resize: vertical;
+}
+
+/* Action Section */
+.action-section {
+  background: var(--card-bg);
+}
+
+.action-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: var(--text-dark);
+  color: #FFFFFF;
+  padding: 14px 24px;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  z-index: 1000;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

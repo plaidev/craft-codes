@@ -1,0 +1,24 @@
+._card {
+  max-width: 600px !important;
+  min-width: 300px !important;
+  background-color: white;
+}
+
+._loading {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 0.25em solid #ccc;
+  border-top-color: #00d1b2;
+  animation: spinner 1.5s linear infinite;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+[v-cloak] {
+  display: none;
+}

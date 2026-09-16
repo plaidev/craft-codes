@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="none"> <!--Google検索などの対象にしたい場合は消す-->
+    <title>現在混雑しています - Web待合室</title>
+    <link rel="stylesheet" href="./lib/bulma/bulma.min.css">
+    <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand p-3">
+            <div class="navbar-item">
+                <img src="./assets/logo.png">
+            </div>
+        </div>
+    </nav>
+    <div id="app" v-cloak class="section has-background-light">
+        <div class="_card container p-6 is-flex is-flex-direction-column is-justify-content-center">
+            <div class="title is-3 has-text-centered">このWebサイトは現在混雑しています。順番にご案内しますので、少々お待ちください。</div>
+            <div class="content">
+                <p>表示された待ち時間が経過した後で、順次Webサイトにアクセス可能になります。</p>
+                <ul>
+                    <li>時間になったら、自動で対象ページにリダイレクトされます</li>
+                    <li>お待ちの間は、このページを閉じないようにしてください</li>
+                    <li>別の端末やWebブラウザで開いた場合、並び直しになり待ち時間がリセットされることがあります</li>
+                </ul>
+            </div>
+            <div class="subtitle has-text-centered has-text-weight-bold">アクセス可能時刻の目安</div>
+            <div v-if="isLoading" class="is-flex is-justify-content-center">
+                <div class="_loading"></div>
+            </div>
+            <div v-if="!isLoading">
+                <div class="is-size-1 has-text-centered">
+                    {{timeWindowHHMM}}
+                </div>
+                <progress class="progress is-small is-primary mt-4" max="100"></progress>
+            </div>
+        </div>
+    </div>
+    <script src="./lib/vue@3/vue.global.js"></script>
+    <script src="./index.js" type="module"></script>
+</body>
+
+</html>

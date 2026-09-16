@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="none" />
+  <title>LINE公式アカウント友だち追加ページ</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    
+    <div id="loading">
+      <div class="loader"></div>
+      <p>友だち追加中...</p>
+    </div>
+
+    <div id="complete">
+      <p>友だち追加が完了しました<br>画面を閉じます。</p>
+    </div>
+
+  </div>
+
+  <script charset="utf-8" src="./lib/line-liff/sdk.js"></script>
+  <script src="./lib/qrcodejs/qrcode.min.js"></script>
+  <script src="index.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="none"> <!--Google検索などの対象にしたい場合は消す-->
+    <title>Craft Sites カスタムダッシュボードサンプル</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./lib/bulma/bulma.min.css">
+    <link rel="stylesheet" href="./gridjs/mermaid.min.css" />
+</head>
+
+<body class="has-background-light">
+    <header class="p-4">
+        <h1 class="title is-size-4 mx-3">
+            アンケート回答データ（サンプル）
+            <span id="loading">
+                <span class="_loading-box"></span>
+                <span class="_loading-box"></span>
+                <span class="_loading-box"></span>
+            </span>
+        </h1>
+        <div id="error" class="_error"></div>
+    </header>
+    <div class="_charts is-flex is-flex-wrap-wrap">
+        <figure id="avg_satisfaction_level" class="_charts-container">
+            <figcaption class="has-text-weight-bold">
+                お買い物の満足度（平均）
+                <span class="_updated-at"></span>
+            </figcaption>
+            <div class="_chart _bignum">
+                <div></div>
+            </div>
+        </figure>
+        <figure id="satisfaction_level" class="_charts-container">
+            <figcaption class="has-text-weight-bold">
+                お買い物 満足度
+                <span class="_updated-at"></span>
+            </figcaption>
+            <div class="_chart _pie"></div>
+        </figure>
+        <figure id="reason_for_purchasing" class="_charts-container">
+            <figcaption class="has-text-weight-bold">
+                商品の購入を決めた理由（複数選択可）
+                <span class="_updated-at"></span>
+            </figcaption>
+            <div class="_chart _bar"></div>
+        </figure>
+        <figure id="other_reason_for_purchasing" class="_charts-container">
+            <figcaption class="has-text-weight-bold">
+                [商品の購入を決めた理由 > その他] のフリーコメント
+                <span class="_updated-at"></span>
+            </figcaption>
+            <div class="_chart _table"></div>
+        </figure>
+    </div>
+    <script src="./echarts/echarts.min.js"></script>
+    <script src="./gridjs/gridjs.umd.js"></script>
+    <script src="./index.js" type="module"></script>
+    <script src="./dummy.js" type="module"></script>
+</body>
+
+</html>

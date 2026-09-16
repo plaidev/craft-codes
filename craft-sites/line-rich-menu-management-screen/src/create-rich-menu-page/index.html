@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>LINEリッチメニュー作成</title>
+    <script src="../lib/vue@3/vue.global.prod.js"></script>
+    <link rel="stylesheet" href="../lib/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="../lib/bootstrap/bootstrap-icons.css" />
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="container-sm mt-3 mb-5">
+        <h1 class="card-title mb-4">
+          LINEリッチメニュー作成フォーム
+          <a :href="listPageUrl" class="btn btn-primary ms-4">一覧画面はこちらから</a>
+        </h1>
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <create-rich-menu-form />
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./index.js"></script>
+  </body>
+</html>

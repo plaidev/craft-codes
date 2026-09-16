@@ -1,0 +1,45 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+#app {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+h1 {
+  color: #2aab9f;
+}
+p {
+  color: #333;
+}
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+input[type='text'],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+button {
+  background-color: #2aab9f;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#error_message {
+  color: red;
+  margin-bottom: 10px;
+}
+#message {
+  color: blue;
+  margin-bottom: 10px;
+}

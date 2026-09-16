@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>LINEリッチメニュー管理画面</title>
+    <link rel="stylesheet" href="../../lib/bootstrap/bootstrap.min.css" />
+    <script src="../../lib/vue@3/vue.global.prod.js"></script>
+  </head>
+
+  <body>
+    <div id="app" class="container my-5">
+      <div v-if="isLoading" class="text-center my-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-3">ローディング中...</p>
+      </div>
+
+      <div v-else-if="fetchError" class="alert alert-danger">
+        <strong>データ取得エラー</strong><br />
+        <small>{{ fetchError }}</small>
+      </div>
+
+      <div v-else-if="menus === null" class="alert alert-warning">
+        リッチメニューが見つかりません
+      </div>
+
+      <div v-else class="card shadow-sm">
+        <div class="card-header bg-light">
+          <div class="d-flex align-items-center">
+            <h4 class="mb-0">{{ menu.name }}</h4>
+            <span v-if="menuType === 'default'" class="badge bg-primary ms-3"
+              >デフォルトリッチメニュー</span
+            >
+            <span v-if="menuType === 'user'" class="badge bg-success ms-3"
+              >ユーザー単位のリッチメニュー</span
+            >
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="card h-100">
+                <div class="card-header bg-light">
+                  <h5 class="mb-0">基本情報</h5>
+                </div>
+                <div class="card-body">
+                  <div v-if="createdAt">
+                    <dl class="row mb-0">
+                      <dt class="col-sm-4">配信日時</dt>
+                      <dd class="col-sm-8">{{ createdAt }}</dd>
+                    </dl>
+                  </div>
+                  <dl class="row mb-0">
+                    <dt class="col-sm-4">Rich Menu ID</dt>
+                    <dd class="col-sm-8">{{ menu.richMenuId }}</dd>
+
+                    <dt class="col-sm-4">表示文言</dt>
+                    <dd class="col-sm-8">{{ menu.chatBarText }}</dd>
+
+                    <dt class="col-sm-4">サイズ</dt>
+                    <dd class="col-sm-8">{{ menu.size.width }} x {{ menu.size.height }}px</dd>
+
+                    <dt class="col-sm-4">エリア数</dt>
+                    <dd class="col-sm-8">{{ menu.areas.length }}</dd>
+                    <dt v-if="userIds.length > 0" class="col-sm-4">リンクしているユーザー</dt>
+                    <dd v-for="userId in userIds" class="col-sm-8">{{ userId }}</dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="card h-100">
+                <div class="card-header bg-light">
+                  <h5 class="mb-0">プレビュー</h5>
+                </div>
+                <div class="card-body text-center">
+                  <img
+                    v-if="imageUrl"
+                    :src="imageUrl"
+                    alt="リッチメニュー画像"
+                    class="img-fluid rounded shadow-sm"
+                    style="max-width: 100%"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mb-4">
+            <div class="card-header bg-light">
+              <h5 class="mb-0">エリア設定</h5>
+            </div>
+            <div class="card-body">
+              <div
+                v-for="(area, index) in menu.areas"
+                :key="area.id"
+                class="border rounded p-3 mb-3"
+              >
+                <h6 class="mb-3">エリア {{ String.fromCharCode(65 + index) }}</h6>
+                <div class="row">
+                  <div class="col-md-6">
+                    <h6 class="text-muted mb-2">位置情報</h6>
+                    <dl class="row mb-0">
+                      <dt class="col-sm-4">X座標</dt>
+                      <dd class="col-sm-8">{{ area.bounds.x }}</dd>
+
+                      <dt class="col-sm-4">Y座標</dt>
+                      <dd class="col-sm-8">{{ area.bounds.y }}</dd>
+
+                      <dt class="col-sm-4">幅</dt>
+                      <dd class="col-sm-8">{{ area.bounds.width }}</dd>
+
+                      <dt class="col-sm-4">高さ</dt>
+                      <dd class="col-sm-8">{{ area.bounds.height }}</dd>
+                    </dl>
+                  </div>
+                  <div class="col-md-6">
+                    <h6 class="text-muted mb-2">アクション設定</h6>
+                    <dl class="row mb-0">
+                      <dt class="col-sm-4">タイプ</dt>
+                      <dd class="col-sm-8">{{ area.action.type }}</dd>
+                      <template v-for="(value, key) in area.action" :key="key">
+                        <template v-if="key !== 'type'">
+                          <dt class="col-sm-4">{{ key }}</dt>
+                          <dd class="col-sm-8">{{ value }}</dd>
+                        </template>
+                      </template>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mx-4">
+            <div class="d-flex gap-3">
+              <button
+                v-if="menuType !== 'default'"
+                class="btn btn-primary"
+                @click="setDefaultMenu(menu.richMenuId)"
+              >
+                デフォルトリッチメニューに設定
+              </button>
+              <button
+                v-if="menuType === 'default'"
+                class="btn btn-secondary"
+                @click="unSetDefaultRichMenu"
+              >
+                デフォルトリッチメニューを解除
+              </button>
+              <button class="btn btn-danger" @click="deleteMenu(menu.richMenuId)">削除</button>
+            </div>
+            <button class="btn btn-dark" @click="goBack(false, '')">戻る</button>
+          </div>
+          <div v-if="isFailed" class="alert alert-danger mt-3">
+            処理に失敗しました
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./detail.js"></script>
+  </body>
+</html>

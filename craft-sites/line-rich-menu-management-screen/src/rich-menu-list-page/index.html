@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>LINEリッチメニュー管理画面</title>
+    <script src="../lib/vue@3/vue.global.prod.js"></script>
+    <link rel="stylesheet" href="../lib/bootstrap/bootstrap.min.css" />
+  </head>
+  <body>
+    <div id="app" class="container my-5">
+      <div
+        v-if="showSuccessMessage"
+        class="alert alert-success alert-dismissible fade show"
+        role="alert"
+      >
+        <span v-if="methodType === 'createRichMenu'">リッチメニューの作成に成功しました</span>
+        <span v-if="methodType === 'setDefaultRichMenu'"
+          >デフォルトリッチメニューの設定に成功しました</span
+        >
+        <span v-if="methodType === 'unSetDefaultRichMenu'"
+          >デフォルトリッチメニューの解除に成功しました</span
+        >
+        <span v-if="methodType === 'deleteRichMenu'">リッチメニューの削除に成功しました</span>
+      </div>
+
+      <h1 class="card-title mb-4">
+        リッチメニュー一覧
+        <a :href="formPageUrl" class="btn btn-primary ms-4">リッチメニュー作成フォームはこちら</a>
+      </h1>
+
+      <div v-if="isLoading" class="text-center my-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-3">ローディング中...</p>
+      </div>
+
+      <div v-else-if="fetchError" class="alert alert-danger">
+        <strong>データ取得エラー</strong><br />
+        <small>{{ fetchError }}</small>
+      </div>
+
+      <div v-else-if="menus.length === 0" class="alert alert-warning">
+        リッチメニューが見つかりません
+      </div>
+
+      <div v-else>
+        <div class="alert alert-info mt-3 mb-4" role="alert">
+          <strong>リッチメニューの表示ルールについて</strong><br />
+          ユーザー単位で配信されたリッチメニューは、<strong>デフォルトのリッチメニューよりも優先</strong>して表示されます。<br />
+          また、<strong>同じユーザーに複数のリッチメニューが配信されている場合</strong>は、<strong>配信日時が新しい方が優先</strong>されて表示されます。
+          <a
+            href="https://developers.line.biz/ja/docs/messaging-api/rich-menus-overview/#rich-menu-scope"
+            target="_blank"
+            rel="noopener noreferrer"
+            >詳細はこちら</a
+          >
+        </div>
+        <ul class="list-group">
+          <li
+            v-for="menu in menus"
+            :key="menu.richMenuId"
+            @click="goToDetail(menu.richMenuId)"
+            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3"
+          >
+            <div>
+              <h5 class="mb-1">
+                {{ menu.name }}<span
+                  v-if="menu.menuType === 'default'"
+                  class="badge bg-primary ms-3"
+                  >配信中（デフォルトリッチメニュー）</span
+                ><span v-if="menu.menuType === 'user'" class="badge bg-success ms-3"
+                  >配信中（ユーザー単位のリッチメニュー）</span
+                >
+              </h5>
+              <div v-if="menu.createdAt">
+                <small class="text-muted">配信日時：{{ menu.createdAt }}</small>
+              </div>
+              <small class="text-muted">{{ menu.richMenuId }}</small>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <script src="./index.js"></script>
+  </body>
+</html>

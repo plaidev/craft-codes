@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>お天気ソリューション</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <link href="./lib/tailwindcss@2.0/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./lib/font-awesome/6.0.0-beta3/css/brands.min.css" />
+  <link rel="stylesheet" href="./lib/font-awesome/6.0.0-beta3/css/fontawesome.min.css" />
+  <script src="./lib/vue@3/vue.global.prod.js"></script>
+</head>
+
+<body class="min-h-screen">
+  <div id="app">
+    <div class="flex flex-col min-h-screen">
+      <header class="bg-white p-4 z-10 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+          <div class="logo">
+            <img src="assets/images/logo.png" alt="PLAID Solution" class="h-8">
+          </div>
+        </div>
+      </header>
+      <main class="flex-grow">
+        <div>
+          <div v-if="!isAcceptedToGetLocation" class="bg-white p-4 text-center">
+            <div class="max-w-screen-xl mx-auto flex justify-center items-center">
+              <p class="text-md font-bold text-custom-primary">
+                ブラウザの位置情報取得を許可すると、現在地の天気情報を取得できます。
+              </p>
+              <button @click="handleLocationPermission"
+                class="ml-4 px-4 py-1 bg-white text-custom-primary border border-gray-300 rounded-md text-sm hover:bg-gray-100">
+                許可する
+              </button>
+            </div>
+          </div>
+          <div v-if="isLoading" class="text-center py-8">読み込み中...</div>
+          <div v-else-if="error" class="text-center py-8 text-red-500">{{ error }}</div>
+          <div v-else>
+            <section class="relative">
+              <div class="relative h-96 bg-cover bg-center" :style="{ backgroundImage: backgroundImage }">
+                <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+                <div class="absolute bottom-0 left-0 w-full p-6">
+                  <div class="container mx-auto">
+                    <div v-if="weatherData" class="flex items-end space-x-4 text-white">
+                      <div class="text-5xl">{{ weatherData.forecasts[0].day.iconPhrase }}</div>
+                      <div>
+                        <div class="text-3xl font-bold">
+                          <span class="text-red-500">{{ weatherData.forecasts[0].temperature.maximum.value }}</span>
+                          <span class="text-xs align-top">°C</span>
+                          /
+                          <span class="text-blue-300">{{ weatherData.forecasts[0].temperature.minimum.value }}</span>
+                          <span class="text-xs align-top">°C</span>
+                        </div>
+                        <p class="text-sm">
+                          降水確率 {{ weatherData.forecasts[0].day.precipitationProbability }}%
+                        </p>
+                      </div>
+                    </div>
+                    <div class="mt-4 max-w-2xl text-white">
+                      <p class="text-lg mb-2">{{ advice[0] }}</p>
+                      <p class="text-sm">{{ advice[1] }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div v-if="weatherData" class="bg-white py-8">
+                <div class="container mx-auto px-4">
+                  <div class="flex justify-between">
+                    <div v-for="(forecast, index) in weatherData.forecasts.slice(1, 7)" :key="index"
+                      class="text-center">
+                      <div class="text-sm font-bold text-gray-600 mb-2">
+                        {{ new Date(forecast.date).toLocaleDateString('ja', { weekday: 'short' }) }}
+                      </div>
+                      <div class="text-3xl mb-2">{{ forecast.day.iconPhrase }}</div>
+                      <div class="text-sm">
+                        <span class="text-red-500">{{ forecast.temperature.maximum.value }}</span>
+                        <span class="text-xs">°C</span>
+                        /
+                        <span class="text-blue-300">{{ forecast.temperature.minimum.value }}</span>
+                        <span class="text-xs">°C</span>
+                      </div>
+                      <div class="text-xs text-gray-500 mt-1">
+                        ({{ Math.max(forecast.day.rainProbability, forecast.night.rainProbability) }}%)
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <div class="bg-white py-8">
+              <div class="container mx-auto px-4">
+                <h2 class="text-2xl font-bold mb-4">おすすめ商品</h2>
+                <div class="flex flex-wrap">
+                  <div v-for="product in products" :key="product.id" class="w-full md:w-1/2 lg:w-1/3 p-2">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden h-[500px] flex flex-col">
+                      <div class="relative flex-shrink-0">
+                        <img :src="'assets/' + product.images[0]" :alt="product.name" class="w-full h-64 object-cover">
+                        <span v-if="product.discount"
+                          class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-sm">
+                          {{ product.discount }}% OFF
+                        </span>
+                      </div>
+                      <div class="p-4 flex flex-col flex-grow">
+                        <h3 class="text-lg font-semibold mb-2">{{ product.name }}</h3>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow">{{ product.description }}</p>
+                        <div class="flex justify-between items-center mt-auto">
+                          <div>
+                            <span class="text-lg font-bold">¥{{ formatPrice((100 - product.discount) * product.price /
+                              100 || product.price) }}</span>
+                            <span v-if="product.discount" class="text-sm text-gray-500 line-through ml-2">¥{{
+                              formatPrice(product.price) }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer class="bg-custom-background text-custom-primary p-4">
+        <div class="container mx-auto">
+          <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+              <img src="assets/images/logo.png" alt="PLAID Solution" class="h-6" />
+              <span class="text-custom-secondary text-sm">EC Demo Site</span>
+            </div>
+            <div class="flex space-x-4">
+              <a v-for="(icon, index) in ['facebook-f', 'twitter', 'linkedin-in', 'instagram', 'youtube']" :key="index"
+                :href="'https://www.' + icon.split('-')[0] + '.com'" target="_blank" rel="noopener noreferrer"
+                class="text-custom-primary hover:text-custom-secondary">
+                <i :class="'fab fa-' + icon"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <script src="./main.js" type="module"></script>
+</body>
+
+</html>

@@ -5,10 +5,10 @@ const LINE_CHANNEL_SECRET_KEY = '<% LINE_CHANNEL_SECRET_KEY %>';
 const TARGET_URLS = '<% TARGET_URLS %>';
 const TARGET_FUNCTION_ID = '<% TARGET_FUNCTION_ID %>';
 
-function verifySignature(lineChannelSecret, lineSignature, body) {
+function verifySignature(lineChannelSecret, lineSignature, rawBody) {
   const computedSignature = crypto
     .createHmac('SHA256', lineChannelSecret)
-    .update(JSON.stringify(body))
+    .update(rawBody, 'utf8')
     .digest('base64');
   return lineSignature === computedSignature;
 }
@@ -40,7 +40,7 @@ export default async function (data, { MODULES }) {
   const lineChannelSecret = secrets[LINE_CHANNEL_SECRET_KEY];
   const lineSignature = req.headers['x-line-signature'];
 
-  const isValidSignature = verifySignature(lineChannelSecret, lineSignature, req.body);
+  const isValidSignature = verifySignature(lineChannelSecret, lineSignature, req.rawBody);
 
   if (!isValidSignature) {
     logger.warn('署名が一致しません。');
