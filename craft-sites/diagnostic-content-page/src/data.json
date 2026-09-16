@@ -1,0 +1,104 @@
+{
+  "content": {
+    "startPage": {
+      "title": "あなたにぴったりな旅行先は？",
+      "description": "簡単な質問に答えるだけであなたの気分にぴったりな旅行先をオススメします。",
+      "image": "./image/travel.jpeg",
+      "buttonText": "診断スタート"
+    },
+    "loadingPage": {
+      "image": "./image/flower.jpeg",
+      "text": "分析中..."
+    },
+    "resultPage": {
+      "title": "あなたにおすすめの旅行先は...",
+      "retryButtonText": "もう一度やる"
+    },
+    "resultPageError": {
+      "text": "診断結果が見つかりませんでした。",
+      "image": "./image/error.jpeg"
+    }
+  },
+  "questions": [
+    {
+      "id": "1",
+      "question": "Q.リラックスできる場所は？",
+      "image": "./image/travel2.jpeg",
+      "type": "radio",
+      "choices": [
+        { "id": "A", "text": "緑がいっぱいの山" },
+        { "id": "B", "text": "日差しがまぶしい海" }
+      ]
+    },
+    {
+      "id": "2",
+      "question": "Q.好きな音楽は？",
+      "image": "./image/travel3.jpeg",
+      "type": "radio",
+      "choices": [
+        { "id": "A", "text": "クラシック" },
+        { "id": "B", "text": "ロック" }
+      ]
+    },
+    {
+      "id": "3",
+      "question": "Q.昨日食べたごはんは？",
+      "image": "./image/travel4.jpeg",
+      "type": "radio",
+      "choices": [
+        { "id": "A", "text": "和食" },
+        { "id": "B", "text": "洋食" }
+      ]
+    }
+  ],
+  "diagnosisResults": {
+    "1A_2A_3A": {
+      "id": "001",
+      "text": "日本の京都",
+      "description": "歴史ある寺社仏閣と美しい自然が織りなす古都。四季折々の魅力があります。",
+      "image": "./image/kyoto.jpeg"
+    },
+    "1A_2A_3B": {
+      "id": "002",
+      "text": "スイスのアルプス",
+      "description": "雄大な山々に囲まれた静寂の大自然。ハイキングや登山で自然を満喫できます。",
+      "image": "./image/alps.jpeg"
+    },
+    "1A_2B_3A": {
+      "id": "003",
+      "text": "アメリカのイエローストーン国立公園",
+      "description": "野生動物と地熱現象が楽しめる大自然。熱水泉や間欠泉など見所も多い。",
+      "image": "./image/yellowstone.jpeg"
+    },
+    "1A_2B_3B": {
+      "id": "004",
+      "text": "カナダのバンフ国立公園",
+      "description": "エメラルドグリーンの湖と雄大な山々の絶景。ハイキングやカヌーなどのアクティビティも充実。",
+      "image": "./image/banff.jpeg"
+    },
+    "1B_2A_3A": {
+      "id": "005",
+      "text": "ギリシャのサントリーニ島",
+      "description": "白壁の家々と青い海が織りなす絶景。夕日が美しい世界でも有数の人気スポット。",
+      "image": "./image/santorini.jpeg"
+    },
+    "1B_2A_3B": {
+      "id": "006",
+      "text": "ハワイのマウイ島",
+      "description": "美しいビーチとゆったりとした時間が流れる楽園。シュノーケリングやサーフィンなどマリンスポーツも人気。",
+      "image": "./image/maui.jpeg"
+    },
+    "1B_2B_3A": {
+      "id": "007",
+      "text": "オーストラリアのゴールドコースト",
+      "description": "青い海とサーファーズパラダイスが楽しめる都市。テーマパークや動物園なども人気の観光スポット。",
+      "image": "./image/goldcoast.jpeg"
+    },
+    "1B_2B_3B": {
+      "id": "008",
+      "text": "スペインのイビサ島",
+      "description": "美しいビーチとナイトライフが楽しめるリゾート地。昼は海水浴、夜はクラブでパーティーを楽しめます。",
+      "image": "./image/ibiza.jpeg"
+    }
+  }
+}

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="none"> <!--Google検索などの対象にしたい場合は消す-->
+  <title>フォーム編集用管理画面</title>
+  <link rel="stylesheet" href="../../lib/bulma/bulma.min.css">
+  <script src="../../lib/vue@3/vue.global.prod.js"></script>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" v-cloak>
+    <div class="container p-5">
+      <h1 class="title">フォーム編集用管理画面</h1>
+      <div class="form">
+        <div class="field mb-5">
+          <label class="label">フォームID</label>
+          <div class="control">
+            <input class="input mr-3" type="text" v-model="form.form_id" placeholder="対象フォームのフォルダ名を入力"
+              @change="updateFormId" style="width: 500px;">
+            <button class="button is-info" @click="loadForm" :class="{'is-loading': isLoading}">現在のフォーム設定を反映</button>
+          </div>
+          <div class="mt-1">
+            URL: <a v-if="targetFormUrl" :href="targetFormUrl" target="_blank">{{targetFormUrl}}</a>
+          </div>
+        </div>
+        <hr>
+        <div class="field mb-5">
+          <label class="label">フォームタイトル</label>
+          <div class="control">
+            <input class="input" type="text" v-model="form.title" placeholder="フォームタイトルを入力">
+          </div>
+        </div>
+        <div class="field mb-5">
+          <label class="label">項目一覧</label>
+          <div class="control">
+            <table class="table is-fullwidth" style="border: 1px solid lightgray;">
+              <thead>
+                <tr>
+                  <th>ラベル</th>
+                  <th>name</th>
+                  <th>タイプ</th>
+                  <th>プレースホルダー</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(field, index) in form.fields" :key="index">
+                  <td><input class="input" type="text" v-model="field.label"></td>
+                  <td><input class="input" type="text" v-model="field.name"></td>
+                  <td>
+                    <div class="select">
+                      <select v-model="field.type">
+                        <option value="text">テキスト</option>
+                        <option value="email">メールアドレス</option>
+                        <option value="number">数値</option>
+                        <option value="password">パスワード</option>
+                        <option value="textarea">テキストエリア</option>
+                      </select>
+                    </div>
+                  </td>
+                  <td><input class="input" type="text" v-model="field.placeholder"></td>
+                  <td>
+                    <button v-if="index > 0" class="button is-link" @click="moveFieldUp(index)">↑</button>
+                  </td>
+                  <td>
+                    <button v-if="index < form.fields.length - 1" class="button is-link"
+                      @click="moveFieldDown(index)">↓</button>
+                  </td>
+                  <td>
+                    <button class="button is-danger" @click="deleteField(index)">削除</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input class="input" type="text" v-model="newField.label"></td>
+                  <td><input class="input" type="text" v-model="newField.name"></td>
+                  <td>
+                    <div class="select">
+                      <select v-model="newField.type">
+                        <option value selected></option>
+                        <option value="text">テキスト</option>
+                        <option value="email">メールアドレス</option>
+                        <option value="number">数値</option>
+                        <option value="password">パスワード</option>
+                        <option value="textarea">テキストエリア</option>
+                      </select>
+                    </div>
+                  </td>
+                  <td><input class="input" type="text" v-model="newField.placeholder"></td>
+                  <td>
+                    <button class="button is-primary" @click="addField" :disabled="!isNewFieldAddable">追加</button>
+                  </td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="field">
+          <div class="control" style="display: flex; justify-content: space-between;">
+            <button class="button is-light" onclick="backToListPage()">一覧ページに戻る</button>
+            <button :class="{'is-loading': isLoading}" class="button is-primary" @click="saveForm"
+              :disabled="isLoading || !form.fields.length">
+              <span>保存</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-if="errorMessage" class="notification is-danger mt-3">
+      {{ errorMessage }}
+    </div>
+    <div v-if="successMessage" class="notification is-success mt-3">
+      {{ successMessage }}
+    </div>
+  </div>
+  <script src="./detail.js" type="module"></script>
+</body>
+
+</html>

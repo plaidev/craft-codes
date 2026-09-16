@@ -7,12 +7,12 @@ const GITHUB_REPOSITORY_NAME = '<% GITHUB_REPOSITORY_NAME %>';
 
 async function createIssue(title, userName, body, labels, octokit, logger) {
   try {
-    const response = await octokit.request('POST /repos/{owner}/{repo}/issues', {
+    await octokit.request('POST /repos/{owner}/{repo}/issues', {
       owner: GITHUB_ACCOUNT_NAME,
       repo: GITHUB_REPOSITORY_NAME,
-      title: title,
+      title,
       body: `**ユーザー名：**\n${userName}様\n**お問合せ内容:**\n${body}`,
-      labels: labels,
+      labels,
     });
   } catch (error) {
     logger.error(`GitHub issueの作成に失敗しました。error: ${error}`);
@@ -40,10 +40,10 @@ export default async function (data, { MODULES }) {
   const labels = label ? label.split(',') : [];
 
   const secrets = await secret.get({ keys: [GITHUB_ACCESS_TOKEN] });
-  const access_token = secrets[GITHUB_ACCESS_TOKEN];
+  const accessToken = secrets[GITHUB_ACCESS_TOKEN];
 
   const octokit = new Octokit({
-    auth: access_token,
+    auth: accessToken,
   });
 
   await createIssue(title, userName, body, labels, octokit, logger);

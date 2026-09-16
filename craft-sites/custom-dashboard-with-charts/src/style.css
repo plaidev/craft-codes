@@ -1,0 +1,92 @@
+._error {
+  font-size: 10px;
+  font-weight: bold;
+  color: red;
+}
+
+._charts {
+  background-color: lightgray;
+  gap: 16px;
+  padding: 30px;
+}
+
+._charts-container {
+  max-width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  flex-grow: 1;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+._charts-container figcaption {
+  margin-bottom: 10px;
+}
+
+._chart {
+  min-height: 400px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+._bignum {
+  font-size: 60px;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+._pie {
+  width: 500px;
+  max-width: 100%;
+}
+
+._bar {
+  width: 1200px;
+  max-width: 100%;
+}
+
+._table {
+  width: 600px;
+  max-width: 100%;
+}
+
+._updated-at {
+  font-size: 12px;
+  color: darkgray;
+}
+
+._loading-box {
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+  margin: 0px 2px;
+  background-color: rgb(42, 171, 159);
+  animation-name: fadeOutIn;
+  animation-duration: 500ms;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+._loading-box:nth-child(1) {
+  animation-delay: 250ms;
+}
+
+._loading-box:nth-child(2) {
+  animation-delay: 500ms;
+}
+
+._loading-box:nth-child(3) {
+  animation-delay: 750ms;
+}
+
+@keyframes fadeOutIn {
+  0% {
+    background-color: rgba(42, 171, 159, 1);
+  }
+
+  100% {
+    background-color: rgba(42, 171, 159, 0);
+  }
+}

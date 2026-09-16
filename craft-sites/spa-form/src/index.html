@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="none"> <!--Google検索などの対象にしたい場合は消す-->
+    <title>アンケートフォーム（サンプル）</title>
+    <link rel="stylesheet" href="./lib/bulma/bulma.min.css">
+    <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+    <div id="app">
+        <header class="_header p-4 is-flex is-justify-content-flex-end is-align-items-flex-start">
+            <div class="buttons">
+                <a class="button is-primary" href="https://example.com">資料請求</a>
+                <a class="button is-light" href="https://example.com">お問合せ</a>
+            </div>
+        </header>
+
+        <div class="container py-6">
+            <div>
+                <h1 class="title has-text-centered">アンケートフォーム（サンプル）</h1>
+                <p class="has-text-centered mb-4">アンケートにご協力ください。</p>
+            </div>
+            <div class="column is-8 is-offset-2 p-5 has-background-light">
+                <progress v-if="currentStep < 4" class="progress _progress is-primary" :value="currentStep-1"
+                    max="2"></progress>
+                <form @submit.prevent="submitForm">
+                    <div v-if="currentStep === 1">
+                        <p class="mb-2 has-text-danger is-size-7">
+                            「*」は回答必須項目です。
+                        </p>
+                        <div class="field">
+                            <label class="label" for="companyName">企業名<span
+                                    class="has-text-danger ml-1">*</span></label>
+                            <input class="input" type="text" id="companyName" v-model="form.companyName" required
+                                placeholder="株式会社プレイド">
+                        </div>
+                        <div class="field">
+                            <label class="label" for="fullName">氏名<span class="has-text-danger ml-1">*</span></label>
+                            <input class="input" type="text" id="fullName" v-model="form.fullName" required
+                                placeholder="プレイド太郎">
+                        </div>
+                        <div class="field">
+                            <p class="label">顧客満足度<span class="has-text-danger ml-1">*</span></p>
+                            <div class="control">
+                                <label class="radio" for="satisfied">満足
+                                    <input type="radio" id="satisfied" value="満足" v-model="form.selectSatification">
+                                </label>
+                                <label class="radio" for="somewhat_satisfied">やや満足
+                                    <input type="radio" id="somewhat_satisfied" value="やや満足"
+                                        v-model="form.selectSatification">
+                                </label>
+                                <label class="radio" for="somewhat_dissatisfied">やや不満
+                                    <input type="radio" id="somewhat_dissatisfied" value="やや不満"
+                                        v-model="form.selectSatification">
+                                </label>
+                                <label class="radio" for="dissatisfied">不満
+                                    <input type="radio" id="dissatisfied" value="不満" v-model="form.selectSatification">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="comment">ご意見</label>
+                            <textarea class="textarea" id="comment" v-model="form.comment" required
+                                placeholder="任意回答"></textarea>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="gender">性別</label>
+                            <div class="select">
+                                <select id="gender" v-model="form.gender">
+                                    <option value="male">男性</option>
+                                    <option value="female">女性</option>
+                                    <option value="other">その他</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="age">年齢</label>
+                            <input class="input" type="number" id="age" v-model="form.age" required
+                                placeholder="半角数字以外で入力できません">
+                        </div>
+
+                        <button class="button" :class="{ 'is-primary': isSendableP1}" @click.prevent="nextStep"
+                            :disabled="!isSendableP1">次へ</button>
+                    </div>
+
+                    <div v-if="currentStep === 2">
+                        <div class="field">
+                            <label class="label" for="email">Eメール<span class="has-text-danger ml-1">*</span></label>
+                            <input class="input" type="email" id="email" v-model="form.email" required
+                                placeholder="abcde@gkaisya.co.jp">
+                        </div>
+                        <div class="field">
+                            <label class="label" for="tel">電話番号<span class="has-text-danger ml-1">*</span></label>
+                            <input class="input" type="tel" id="tel" v-model="form.tel" required
+                                placeholder="-無しで数値のみで入力してください">
+                        </div>
+                        <div class="field">
+                            <label class="label" for="birthday">生年月日<span class="has-text-danger ml-1">*</span></label>
+                            <input class="input" type="date" id="birthday" v-model="form.birthday" required>
+                        </div>
+                        <div class="buttons">
+                            <button class="button" @click.prevent="prevStep">戻る</button>
+                            <button class="button" :class="{ 'is-primary': isSendableP2}" @click.prevent="nextStep"
+                                :disabled="!isSendableP2">次へ</button>
+                        </div>
+                    </div>
+
+                    <div v-if="currentStep === 3">
+                        <h2 class="subtitle has-text-centered">以下の内容で送信します</h2>
+                        <div class="field">
+                            <label class="label" for="companyName">企業名<span
+                                    class="has-text-danger ml-1">*</span></label>
+                            <p>{{ form.companyName }}</p>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="fullName">氏名<span class="has-text-danger ml-1"></span></label>
+                            <p>{{ form.fullName || '未回答' }}</p>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="selectSatification">顧客満足度<span
+                                    class="has-text-danger ml-1">*</span></label>
+                            <p>{{ form.selectSatification }}</p>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="comment">ご意見</label>
+                            <p>{{ form.comment || '未回答' }}</p>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="gender">性別</label>
+                            <p>{{ form.gender || '未回答' }}</p>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="age">年齢</label>
+                            <p>{{ form.age || '未回答' }}</p>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="email">Eメール<span class="has-text-danger ml-1">*</span></label>
+                            <p>{{ form.email }}</p>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="tel">電話番号<span class="has-text-danger ml-1">*</span></label>
+                            <p>{{ form.tel }}</p>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="birthday">生年月日<span class="has-text-danger ml-1">*</span></label>
+                            <p>{{ form.birthday }}</p>
+                        </div>
+                        <div class="buttons">
+                            <button class="button" @click.prevent="prevStep">戻る</button>
+                            <button v-if="!loading" class="button is-primary" type="submit">送信</button>
+                            <button v-else class="button is-primary is-loading" type="submit">送信</button>
+                        </div>
+                        <h2 v-if="errorMsg" class="has-text-danger">{{errorMsg}}</h2>
+                    </div>
+                    <div v-if="currentStep === 4">
+                        <h1 class="subtitle has-text-centered">アンケートへのご協力ありがとうございました！</h1>
+                        <p class="has-text-centered">このままページを閉じてください</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="./lib/vue@3/vue.global.js"></script>
+    <script src="./index.js" type="module"></script>
+</body>
+
+</html>

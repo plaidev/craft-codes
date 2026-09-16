@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../lib/vue@3/vue.global.prod.js"></script>
+  <title>コンテンツ管理画面</title>
+  <link rel="stylesheet" href="../lib/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="../lib/font-awesome/all.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 class="text-primary">フォーム設定一覧</h1>
+    </div>
+    <div id="app">
+      <div v-if="isLoading" class="text-center">
+        <i class="fas fa-spinner fa-spin loading-icon"></i> ローディング中...
+      </div>
+      <div v-else-if="fetchError" class="text-center error-message">
+        データ取得エラー<br>
+        <small>{{ fetchError }}</small>
+      </div>
+      <div v-else-if="forms.length === 0" class="text-center">
+        フォームが見つかりません
+      </div>
+      <ul v-else class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center" v-for="(form, key) in forms"
+          :key="key" @click="goToDetail(form.value.formId)">
+          <div>
+            <h5 class="mb-1">{{ form.value.title }}</h5>
+            <small class="text-muted">最終変更: {{ formatDate(form.created_at)
+              }}</small>
+          </div>
+          <i class="fas fa-chevron-right text-secondary"></i>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <script src="../lib/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="./index.js" type="module"></script>
+</body>
+
+</html>

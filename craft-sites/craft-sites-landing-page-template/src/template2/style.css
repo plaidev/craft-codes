@@ -1,0 +1,406 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  overflow-x: hidden; /* 横スクロールを防ぐ */
+}
+
+h1,
+h2,
+h3 {
+  color: #333;
+  text-align: center; /* 見出しを中心寄せ */
+}
+
+/* ヘッダー全体 */
+header {
+  background-color: #333;
+  padding: 10px 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  text-align: center;
+}
+
+header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+header .logo a {
+  color: #fff;
+  font-size: 1.5em;
+  text-decoration: none;
+}
+
+header .nav-links {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+header .nav-links li {
+  margin: 0 15px;
+}
+
+header .nav-links li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1em;
+  transition: color 0.3s;
+}
+
+header .nav-links li a:hover {
+  color: #007bff;
+}
+
+/* ハンバーガーメニュー */
+.hamburger-menu {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 24px;
+}
+
+.hamburger-menu span {
+  display: block;
+  width: 30px;
+  height: 3px;
+  background-color: #fff;
+}
+
+/* キービジュアルセクション */
+#hero {
+  position: relative;
+  text-align: center;
+  margin: 0;
+  padding-top: 30px;
+}
+
+.hero-content {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 400px; /* 任意の高さに調整 */
+  overflow: hidden; /* 画像のオーバーフローを隠す */
+}
+
+#hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 画像を横長にして表示 */
+  display: block;
+  margin: 0; /* 画像の周りに余白をつけない */
+}
+
+#hero h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3em;
+  color: #000; /* テキストの色を黒に設定 */
+  white-space: nowrap; /* テキストを1行に表示 */
+}
+
+/* セクション全体 */
+section {
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.testimonial-container,
+.strength-container,
+.benefit-container,
+.plan-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: nowrap;
+}
+
+/* 私たちが指導しますセクション */
+#trainers {
+  padding: 60px 20px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.trainer-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4列表示にする設定 */
+  gap: 20px;
+}
+
+.trainer-item {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.trainer-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%; /* 画像を丸く切り抜く */
+  margin-bottom: 15px;
+  object-fit: cover;
+}
+
+.trainer-item h3 {
+  font-size: 1.5em;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.trainer-item p {
+  font-size: 1em;
+  color: #666;
+}
+
+/* モバイル対応 */
+@media (max-width: 767px) {
+  .trainer-container {
+    grid-template-columns: repeat(2, 1fr); /* 2列表示に変更 */
+  }
+
+  .trainer-item {
+    margin-bottom: 20px;
+  }
+}
+
+.testimonial-item,
+.strength-item,
+.benefit-item,
+.plan-item {
+  flex: 1 1 33%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.testimonial-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%; /* 画像を丸く切り抜く */
+  margin-bottom: 15px;
+  object-fit: cover; /* 画像が枠に収まるように調整 */
+}
+.strength-item img,
+.benefit-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.plan-item h3 {
+  font-size: 1.5em;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.plan-item p {
+  font-size: 1em;
+  color: #666;
+}
+
+/* 上達する理由部分のスタイル */
+.reason-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.reason-item img {
+  width: 48%;
+  max-width: 100%; /* 画像の最大幅を100%に設定 */
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover; /* 画像が引き伸ばされずに表示されるようにする */
+}
+
+.reason-text {
+  width: 48%;
+  padding: 20px;
+  text-align: left;
+}
+
+.reverse {
+  flex-direction: row-reverse;
+}
+
+.reason-item h3 {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.reason-item p {
+  font-size: 1.2em;
+  color: #666;
+}
+
+/* FAQセクション */
+#faq {
+  padding: 60px 20px;
+  background-color: #f9f9f9;
+}
+
+.faq-container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.faq-item {
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.faq-item p {
+  margin: 0;
+  font-size: 1.1em;
+  color: #333;
+}
+
+.faq-item strong {
+  color: #007bff;
+}
+
+/* フッター */
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+}
+
+footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer ul li {
+  display: inline;
+  margin: 0 10px;
+}
+
+footer ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* モバイル対応のスタイル */
+@media (max-width: 767px) {
+  /* ハンバーガーメニュー */
+  .nav-links {
+    display: none !important;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    flex-direction: column;
+    align-items: center;
+    z-index: 999;
+  }
+
+  .nav-links.show {
+    display: flex !important; /* ハンバーガーメニューがクリックされたときに表示 */
+  }
+
+  .hamburger-menu {
+    display: flex;
+  }
+
+  .mobile-cta-button {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 1.2em;
+    text-decoration: none;
+    z-index: 1000;
+  }
+
+  /* ヒーローセクション */
+  #hero {
+    padding-top: 55px;
+  }
+
+  #hero h1 {
+    font-size: 2em;
+    white-space: normal; /* テキストを複数行で表示 */
+    padding: 0 10px; /* テキストが画面端に接しないようにパディングを追加 */
+  }
+
+  /* 上達する理由部分のスタイル */
+  .reason-item {
+    flex-direction: column; /* モバイルでは縦に並べる */
+    text-align: center;
+  }
+
+  .reason-item img,
+  .reason-text {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .reason-text {
+    padding: 10px 0;
+  }
+
+  .testimonial-container,
+  .strength-container,
+  .plan-container {
+    flex-direction: column;
+  }
+
+  .testimonial-item,
+  .strength-item,
+  .plan-item {
+    margin-bottom: 20px;
+  }
+
+  .benefit-container {
+    flex-direction: column;
+  }
+
+  .benefit-item {
+    margin-bottom: 20px;
+  }
+
+  /* モバイル対応 - 事例の縦1列表示 */
+  .testimonial-container {
+    flex-direction: column;
+  }
+
+  .testimonial-item {
+    margin-bottom: 20px;
+  }
+}

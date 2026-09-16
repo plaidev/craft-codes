@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>KARTEイベント手動送信</title>
+  <script src="./lib/vue@2/vue.js"></script>
+  <link rel="stylesheet" href="./lib/bulma/bulma.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div id="app">
+    <h1 class="title">KARTEイベント手動送信</h1>
+    <p>
+      イベントを送信したいユーザーIDを指定して、API経由でイベントを手動で発生させることができます。
+    </p>
+    <section id="form">
+      <label for="user_id" style="margin-top: 20px">ユーザーID:</label>
+      <input type="text" v-model="user_id" name="user_id" /><br /><br />
+
+      <label for="event_name">イベント名:</label>
+      <input type="text" v-model="event_name" name="event_name" /><br /><br />
+
+      <label for="values">フィールド（JSON文字列を入力）:</label>
+      <textarea v-model="values" name="values"></textarea><br /><br />
+
+      <button id="submit" class="button is-success" v-on:click="submit">イベント送信</button><br /><br />
+
+      <p id="error_message">{{error_message}}</p>
+      <p id="message">{{message}}</p>
+    </section>
+  </div>
+  <script type="module" src="./main.js"></script>
+</body>
+
+</html>

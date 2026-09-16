@@ -49,6 +49,12 @@ export default async function (data, { MODULES }) {
 
     logger.debug('[Success] Request completed.');
   } catch (err) {
+    if (err instanceof RetryableError || err.name === 'RetryableError') {
+      throw err;
+    }
+    if (err instanceof Error && err.message.startsWith('Request failed:')) {
+      throw err;
+    }
     const msg = `[NETWORK_ERROR] ${err.message}`;
     logger.error(msg);
     throwSuitableError({ msg, status: err.status || 500, RetryableError });

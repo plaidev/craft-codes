@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="none">
+  <title>メール配信設定</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="layout">
+    <div class="page">
+      <!-- 自社ロゴ・サービス名に差し替えてください -->
+      <p class="brand">サービス名</p>
+
+      <main class="card">
+        <!-- ローディング -->
+        <div id="view-loading" class="result-view">
+          <div class="loading-spinner" aria-hidden="true"></div>
+          <h1 class="result-title">読み込み中</h1>
+          <p class="result-message">設定情報を取得しています。</p>
+        </div>
+
+        <!-- 設定フォーム -->
+        <div id="view-form" hidden>
+          <header class="card-header">
+            <h1 class="title">メール配信設定</h1>
+            <p class="subtitle">メールの受信設定を変更できます。</p>
+          </header>
+
+          <div class="meta" aria-label="対象のメールアドレス">
+            <span class="meta-label">対象メールアドレス</span>
+            <span class="meta-value" id="masked-email">—</span>
+          </div>
+
+          <form id="settings-form">
+            <div class="setting-row">
+              <div class="setting-text">
+                <span class="setting-label" id="optout-label">メールマガジン</span>
+                <span class="setting-desc" id="optout-desc">新着情報やキャンペーンなどのお知らせをお届けします。</span>
+              </div>
+              <label class="toggle-switch">
+                <input
+                  type="checkbox"
+                  id="optout-toggle"
+                  checked
+                  role="switch"
+                  aria-labelledby="optout-label"
+                  aria-describedby="optout-desc notice-text toggle-hint"
+                >
+                <span class="slider" aria-hidden="true"></span>
+              </label>
+            </div>
+
+            <p id="notice-text" class="footnote">
+              配信停止のお手続き後も、反映までの間はメールが配信される場合があります。ご了承ください。
+            </p>
+            <button type="submit" id="btn-save" class="btn-primary" disabled>設定を保存する</button>
+            <div id="toggle-hint-wrap" class="save-hint-wrap">
+              <p id="toggle-hint" class="save-hint" aria-hidden="true">
+                保存すると、このメールアドレスへのメールマガジン配信が停止されます。
+              </p>
+            </div>
+          </form>
+        </div>
+
+        <!-- 完了画面 -->
+        <div id="view-success" class="result-view" hidden>
+          <div class="result-icon result-icon--success" aria-hidden="true">✓</div>
+          <h1 class="result-title">設定を保存しました</h1>
+          <p id="success-message" class="result-message"></p>
+          <button type="button" id="btn-back-to-settings" class="btn-primary">設定に戻る</button>
+        </div>
+
+        <!-- 失敗画面 -->
+        <div id="view-error" class="result-view" hidden>
+          <div class="result-icon result-icon--error" aria-hidden="true">!</div>
+          <h1 class="result-title" id="error-title">読み込みに失敗しました</h1>
+          <p id="error-message" class="result-message">時間をおいて再度お試しください。問題が続く場合はお問い合わせください。</p>
+          <button type="button" id="btn-retry" class="btn-primary">もう一度試す</button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="./index.js" type="module"></script>
+</body>
+</html>

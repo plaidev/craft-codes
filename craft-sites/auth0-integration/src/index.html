@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Craft Sites App</title>
+  <script src="./lib/tailwindcss/tailwind.min.js"></script>
+  <script src="./lib/vue@3/vue.global.prod.js"></script>
+  <script src="./lib/auth0/auth0-spa-js.production.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-r from-blue-500 to-purple-600">
+  <div id="app">
+    <div class="min-h-screen py-6 flex flex-col justify-center sm:py-12">
+      <div class="relative py-3 sm:max-w-xl sm:mx-auto">
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-cyan-400 to-light-blue-500 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl">
+        </div>
+        <div class="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
+          <div class="max-w-md mx-auto">
+            <div v-if="isLoggedIn">
+              <h1 class="text-2xl font-semibold mb-6 text-gray-800">
+                ようこそ、{{ userProfile.name }}さん！
+              </h1>
+              <p class="mb-6 text-gray-600">ログインに成功しました。</p>
+              <button @click="signOut"
+                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110">
+                ログアウト
+              </button>
+            </div>
+            <div v-else>
+              <h1 class="text-2xl font-semibold mb-6 text-gray-800">
+                Craft Sites Appへようこそ
+              </h1>
+              <p class="mb-6 text-gray-600">
+                続けるにはログインしてください。
+              </p>
+              <button @click="signIn"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110">
+                ログイン
+              </button>
+            </div>
+            <div v-if="error" class="text-red-500 mt-4">{{ error }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+
+</html>

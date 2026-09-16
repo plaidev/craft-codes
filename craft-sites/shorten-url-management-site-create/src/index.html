@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>短縮URL新規発行 | KARTE Craft</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app" v-cloak>
+      <div class="container">
+        <header>
+          <h1>短縮URL発行ツール</h1>
+          <p class="subtitle">遷移先URLを整形し、セキュアな短縮リンクを生成します。</p>
+        </header>
+
+        <main>
+          <form @submit.prevent="generateShortUrl">
+            <section class="form-section">
+              <h3>1. 遷移先URLの入力</h3>
+              <div class="field">
+                <label for="originalUrl">ベースURL（パラメータを含めて入力も可）</label>
+                <input
+                  v-model="originalUrl"
+                  type="url"
+                  id="originalUrl"
+                  placeholder="https://example.com/page?utm_source=google"
+                  required
+                />
+              </div>
+            </section>
+
+            <section class="params-section">
+              <h3>2. クエリパラメータの編集</h3>
+              <p class="optional-title">
+                URL内のパラメータが自動で抽出されます。ここを編集するとURLにも反映されます。
+              </p>
+
+              <div v-for="(p, index) in params" :key="index" class="param-row">
+                <input v-model="p.key" type="text" placeholder="key (例: utm_source)" />
+                <input v-model="p.value" type="text" placeholder="value (例: ad_campaign)" />
+                <button type="button" @click="removeParam(index)" title="削除">削除</button>
+              </div>
+
+              <button type="button" @click="addParam" class="btn-add">+ パラメータを追加</button>
+            </section>
+
+            <div class="preview-area">
+              <div class="preview-header">
+                <span>最終確認：リダイレクト先</span>
+              </div>
+              <div id="urlPreview">{{ decodedUrl }}</div>
+            </div>
+
+            <div class="actions">
+              <button type="submit" class="btn-primary" :disabled="isLoading || !originalUrl">
+                {{ isLoading ? '発行中...' : '短縮URLを発行する' }}
+              </button>
+            </div>
+          </form>
+        </main>
+
+        <div v-if="isModalOpen" class="modal">
+          <div class="modal-content">
+            <div class="success-icon">✓</div>
+            <h2>短縮URLを発行しました</h2>
+            <p>以下のURLをコピーして利用してください。</p>
+
+            <div class="copy-field">
+              <input type="text" :value="resultUrl" readonly />
+              <button type="button" @click="copyToClipboard">{{ copyBtnText }}</button>
+            </div>
+
+            <div class="modal-actions">
+              <button type="button" @click="resetForm" class="btn-secondary">
+                続けて別のURLを発行する
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>

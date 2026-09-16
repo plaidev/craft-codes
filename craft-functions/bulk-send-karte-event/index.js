@@ -75,9 +75,9 @@ async function sendEvent(logger, karteApiToken, value) {
       keys: { user_id: userId },
       event: {
         values: { user_id: `wuid-line-${lineUserId}` },
-        event_name: 'identify'
-      }
-    })
+        event_name: 'identify',
+      },
+    });
     logger.debug(`succeed kick postV2TrackEventWrite api > identify: ${res}`);
   } catch (err) {
     logger.error(`error kick postV2TrackEventWrite api > identify: ${err}`);
@@ -91,8 +91,8 @@ async function sendEvent(logger, karteApiToken, value) {
       keys: { user_id: userId },
       event: {
         values: { user_id: `wuid-line-${lineUserId}`, line_user_id: lineUserId, subscribe: true },
-        event_name: 'plugin_line_identify'
-      }
+        event_name: 'plugin_line_identify',
+      },
     });
     logger.debug(`succeed kick postV2TrackEventWrite api > plugin_line_identify:  ${res}`);
   } catch (err) {
@@ -104,7 +104,7 @@ async function sendEvent(logger, karteApiToken, value) {
 export default async function (data, { MODULES }) {
   const { initLogger, secret } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
-  const token = await secret.get({ keys: [SECRET_KEY_API], });
+  const token = await secret.get({ keys: [SECRET_KEY_API] });
   const karteApiToken = token[SECRET_KEY_API];
 
   // craft-shceduler実行でjobflowをキック(クエリ実行結果を渡し当該処理自体をジョブフローから実行する)
@@ -117,7 +117,6 @@ export default async function (data, { MODULES }) {
 
     // その他は受けつけない
   } else {
-    logger.error(new Error("invalid kind. expected: karte/craft-scheduler or karte/jobflow"));
-
+    logger.error(new Error('invalid kind. expected: karte/craft-scheduler or karte/jobflow'));
   }
 }

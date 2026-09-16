@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="none">
+  <title>カスタム管理画面（サンプル）</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <!-- ヘッダー -->
+    <header class="header">
+      <div class="header-content">
+        <h1 class="site-title">カスタム管理画面（サンプル）</h1>
+        <div class="user-info">
+          <span id="header-username" class="username">読み込み中...</span>
+          <button id="logout-button" class="logout-button">ログアウト</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="main-content">
+      <!-- ローディング状態 -->
+      <div id="loading" class="loading">
+        <div class="loading-spinner"></div>
+        <p>コンテンツを読み込み中...</p>
+      </div>
+
+      <!-- エラー表示 -->
+      <div id="error-container" class="error-container" style="display: none;">
+        <div class="error-box">
+          <h2>エラーが発生しました</h2>
+          <p id="error-message" class="error-message"></p>
+          <button id="retry-button" class="retry-button">再試行</button>
+        </div>
+      </div>
+
+      <!-- コンテンツ表示領域 -->
+      <div id="content-container" class="content-container" style="display: none;">
+        <div class="content-box">
+          <h2 id="content-title" class="content-title"></h2>
+          <p id="content-description" class="content-description"></p>
+          <div class="user-section">
+            <label class="user-label">ユーザー名:</label>
+            <span id="content-username" class="content-username"></span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="./index.js" type="module"></script>
+</body>
+
+</html>

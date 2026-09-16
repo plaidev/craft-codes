@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>KARTEのおすすめ情報配信中</title>
+  <link href="./lib/tailwindcss@2.2.19/tailwind.min.css" rel="stylesheet" />
+  <!-- Start KARTE Tag -->
+  <script>
+    !(function (n) {
+      if (!window[n]) {
+        var o = (window[n] = function () {
+          var n = [].slice.call(arguments);
+          return o.x ? o.x.apply(0, n) : o.q.push(n);
+        });
+        (o.q = []),
+          (o.i = Date.now()),
+          (o.allow = function () {
+            o.o = "allow";
+          }),
+          (o.deny = function () {
+            o.o = "deny";
+          });
+      }
+    })("krt");
+  </script>
+  <!-- End KARTE Compatible Tag -->
+  <!-- プロジェクトで発行する計測タグに置き換えてください -->
+  <script async src="https://cdn-edge.karte.io/xxxxxxxxxx/edge.js"></script>
+  <!-- End KARTE Tag -->
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div class="bg-white max-w-md mx-auto shadow-md rounded-lg p-6">
+    <header class="flex justify-center mb-4">
+      <img src="./image/karte_logo.png" alt="Logo" class="h-12 max-w-full" />
+    </header>
+    <h1 class="text-center text-xl font-bold mb-4">役立つ情報を発信中</h1>
+    <p class="text-center mb-4">
+      あなたにあったオススメの記事や、最新の話題のニュースをブラウザのプッシュ通知でお知らせします。
+    </p>
+    <div class="bg-blue-50 p-4 rounded-lg mb-4">
+      <h2 class="text-lg font-semibold mb-2">ブラウザから許可</h2>
+      <p class="mb-2">
+        ブラウザ上のポップアップ表示にある「許可する」ボタンを押してください
+      </p>
+      <div class="flex justify-center">
+        <img src="./image/notification_permission.png" alt="Notification Permission" class="h-32 w-64" />
+      </div>
+    </div>
+    <div class="bg-blue-50 p-4 rounded-lg">
+      <h2 class="text-lg font-semibold mb-2">
+        KARTEからのお知らせを受け取りますか？
+      </h2>
+      <p class="mb-2">
+        プッシュ通知を受け取ると参考になる情報をお届けします!
+      </p>
+      <div class="flex items-center justify-center">
+        <button id="notification-button"
+          class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 flex items-center justify-center loading">
+          <span id="button-text">プッシュ通知を有効にする</span>
+          <div id="button-spinner"
+            class="hidden w-6 h-6 border-4 border-t-4 border-gray-200 border-t-blue-500 rounded-full animate-spin ml-2">
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+  <script src="./index.js" type="module"></script>
+</body>
+
+</html>
