@@ -1,7 +1,7 @@
 import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const EVENT_NAME = '<% EVENT_NAME% >';
 const GOOGLEMAPSAPIKEY = '<% GOOGLEMAPSAPIKEY %>';
 const FIELD = '<% FIELD %>';
@@ -37,8 +37,8 @@ export default async function (data, { MODULES }) {
     return;
   }
 
-  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  const token = secrets[KARTE_APP_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+  const token = secrets[KARTE_APP_TOKEN_SECRET_NAME];
   const body = req.body;
   karteApiClient.auth(token);
   if (!body) {

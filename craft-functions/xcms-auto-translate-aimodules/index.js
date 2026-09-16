@@ -1,7 +1,7 @@
 import api from 'api';
 
 const CMS_MODEL_ID = '<% CMS_MODEL_ID %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const REQUEST_TRANSLATION_FIELD = '<% REQUEST_TRANSLATION_FIELD %>';
 const AI_MODEL = '<% AI_MODEL %>';
 const SOURCE_LANGUAGE_CODE = '<% SOURCE_LANGUAGE_CODE %>';
@@ -333,7 +333,7 @@ export default async function (data, { MODULES }) {
   const { initLogger, secret, aiModules, RetryableError } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
-  if (!CMS_MODEL_ID || !KARTE_APP_TOKEN_SECRET || !AI_MODEL || !REQUEST_TRANSLATION_FIELD || !SOURCE_LANGUAGE_CODE) {
+  if (!CMS_MODEL_ID || !KARTE_APP_TOKEN_SECRET_NAME || !AI_MODEL || !REQUEST_TRANSLATION_FIELD || !SOURCE_LANGUAGE_CODE) {
     throw new Error('Required template variables are not configured.');
   }
 
@@ -367,10 +367,10 @@ export default async function (data, { MODULES }) {
     ...new Set(FIELD_MAPPINGS.flatMap(mapping => Object.keys(mapping.targets))),
   ];
 
-  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  const token = secrets[KARTE_APP_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+  const token = secrets[KARTE_APP_TOKEN_SECRET_NAME];
   if (!token) {
-    throw new Error(`Secret '${KARTE_APP_TOKEN_SECRET}' is not set.`);
+    throw new Error(`Secret '${KARTE_APP_TOKEN_SECRET_NAME}' is not set.`);
   }
 
   const client = api(KARTE_APP_SPEC_URI_CMS);

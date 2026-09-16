@@ -2,7 +2,7 @@ import api from 'api';
 import { JSDOM } from 'jsdom';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const KARTE_TAG = `<% KARTE_TAG %>`;
 const SITE_NAME = `<% SITE_NAME %>`;
 const DETAILS_PAGE_FOLDER = `<% DETAILS_PAGE_FOLDER %>`;
@@ -122,8 +122,8 @@ export default async function (data, { MODULES }) {
   const logger = initLogger({ logLevel: LOG_LEVEL });
   const { req, res } = data;
   try {
-    const token = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-    const karteApiToken = token[KARTE_APP_TOKEN_SECRET];
+    const token = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+    const karteApiToken = token[KARTE_APP_TOKEN_SECRET_NAME];
 
     const sites = api('@dev-karte/v1.0#3q52o2glxb1kejp');
     sites.auth(karteApiToken);

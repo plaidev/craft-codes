@@ -14,7 +14,7 @@
     "description": "出力するログのレベルをERROR/WARN/INFO/DEBUGから指定"
   },
   {
-    "name": "SLACK_SIGNING_SECRET",
+    "name": "SLACK_SIGNING_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,

@@ -7,7 +7,7 @@
     "description": "ログレベルです。DEBUG,INFO,WARN,ERRORのいずれかを指定してください。"
   },
   {
-    "name": "KARTE_APP_TOKEN_SECRET",
+    "name": "KARTE_APP_TOKEN_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,

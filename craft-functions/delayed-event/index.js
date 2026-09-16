@@ -3,7 +3,7 @@ import { format, subMinutes } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const EVENT_NAME = '<% EVENT_NAME %>';
 const DELAY_MIN = Number('<% DELAY_MIN %>');
 const SOLUTION_ID = '<% SOLUTION_ID %>';
@@ -58,8 +58,8 @@ async function registerTargetVisitor(visitorId, kvs) {
 }
 
 async function sendEventToTargets(logger, kvs, secret) {
-  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  const token = secrets[KARTE_APP_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+  const token = secrets[KARTE_APP_TOKEN_SECRET_NAME];
   karteApiClient.auth(token);
   const thirtyMinutesAgo = get30minBefore();
   const key = kvsKey(thirtyMinutesAgo);

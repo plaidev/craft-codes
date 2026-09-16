@@ -2,7 +2,7 @@ import api from 'api';
 import { parse } from 'csv-parse';
 
 const LOG_LEVEL = 'DEBUG';
-const KARTE_API_TOKEN_SECRET = '<%KARTE_API_TOKEN_SECRET%>';
+const KARTE_API_TOKEN_SECRET_NAME = '<%KARTE_API_TOKEN_SECRET_NAME%>';
 const CSV_PARSE_OPTIONS = {
   columns: true,
   skip_empty_lines: true,
@@ -167,9 +167,9 @@ export default async function (data, { MODULES }) {
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
   const secrets = await secret.get({
-    keys: [KARTE_API_TOKEN_SECRET],
+    keys: [KARTE_API_TOKEN_SECRET_NAME],
   });
-  const token = secrets[KARTE_API_TOKEN_SECRET];
+  const token = secrets[KARTE_API_TOKEN_SECRET_NAME];
 
   sdk.auth(token);
 

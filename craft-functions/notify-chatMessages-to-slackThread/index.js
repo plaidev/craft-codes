@@ -4,7 +4,7 @@ import { google } from 'googleapis';
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const KEY_PREFIX = '<% KEY_PREFIX %>';
 const GOOGLE_SERVICE_ACCOUNT_JSON_KEY = '<% GOOGLE_SERVICE_ACCOUNT_JSON_KEY %>';
-const SLACK_TOKEN_SECRET = '<% SLACK_TOKEN_SECRET %>';
+const SLACK_TOKEN_SECRET_NAME = '<% SLACK_TOKEN_SECRET_NAME %>';
 const GOOGLE_SHEET_ID = '<% GOOGLE_SHEET_ID %>';
 const KVS_DATA_VALIDITY_MINUTE = Number('<% KVS_DATA_VALIDITY_MINUTE %>');
 
@@ -57,9 +57,9 @@ async function getSheetData(secret) {
 
 async function getSlackClient(secret) {
   const slackToken = await secret.get({
-    keys: [SLACK_TOKEN_SECRET],
+    keys: [SLACK_TOKEN_SECRET_NAME],
   });
-  const slackClient = new WebClient(slackToken[SLACK_TOKEN_SECRET]);
+  const slackClient = new WebClient(slackToken[SLACK_TOKEN_SECRET_NAME]);
   return slackClient;
 }
 

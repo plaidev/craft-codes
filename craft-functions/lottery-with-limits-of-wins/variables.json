@@ -21,7 +21,7 @@
     "description": "各当たり種別の上限数をカンマ区切りで指定します。"
   },
   {
-    "name": "KARTE_APP_TOKEN_SECRET",
+    "name": "KARTE_APP_TOKEN_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,

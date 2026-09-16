@@ -1,7 +1,7 @@
 import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const REFTABLE_ID = '<% REFTABLE_ID %>';
 
 const karteApiClient = api('@dev-karte/v1.0#4013y24lvyu582u');
@@ -38,8 +38,8 @@ export default async function (data, { MODULES }) {
   const { body } = req;
   const { visitorId, fcmToken } = body;
 
-  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  const token = secrets[KARTE_APP_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+  const token = secrets[KARTE_APP_TOKEN_SECRET_NAME];
   karteApiClient.auth(token);
 
   const postReftableRowUpsertRes = await postReftableRowUpsert(logger, { visitorId, fcmToken });

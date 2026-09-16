@@ -10,7 +10,7 @@ const TARGET_JOBFLOWS = [
 ];
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 
 // 終了したトリガーを判別し、実行するターゲットを取り出す
 async function getTargetsToExecute(dataId) {
@@ -60,8 +60,8 @@ export default async function (data, { MODULES }) {
     return;
   }
   // APIトークンを設定する
-  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  const appToken = secrets[KARTE_APP_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+  const appToken = secrets[KARTE_APP_TOKEN_SECRET_NAME];
   // ジョブフローを実行する
   await executeJobflows(appToken, targetsToExecute, logger);
 }

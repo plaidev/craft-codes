@@ -7,7 +7,7 @@
     "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します。"
   },
   {
-    "name": "LINE_CHANNEL_SECRET_KEY",
+    "name": "LINE_CHANNEL_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,

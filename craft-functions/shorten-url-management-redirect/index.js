@@ -4,7 +4,7 @@ import retry from 'async-retry';
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const TARGET_FUNCTION_ID = '<% TARGET_FUNCTION_ID %>';
 const REF_TABLE_ID = '<% REF_TABLE_ID %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const DEFAULT_REDIRECT_URL = '<% DEFAULT_REDIRECT_URL %>';
 const RETRY_TIMEOUT_SEC = Number('<% RETRY_TIMEOUT_SEC %>');
 const SOLUTION_ID = '<% SOLUTION_ID %>';
@@ -69,7 +69,7 @@ export default async function (data, { MODULES }) {
           functionId: TARGET_FUNCTION_ID,
           data: {
             apiUrl: 'https://api.karte.io/v2beta/track/refTable/row/upsert',
-            tokenSecretName: KARTE_APP_TOKEN_SECRET,
+            tokenSecretName: KARTE_APP_TOKEN_SECRET_NAME,
             retryTimeoutSec: RETRY_TIMEOUT_SEC,
             parameters: {
               id: REF_TABLE_ID,

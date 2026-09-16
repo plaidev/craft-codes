@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const AUTH_KEY_SECRET = '<% AUTH_KEY_SECRET %>';
+const AUTH_KEY_SECRET_NAME = '<% AUTH_KEY_SECRET_NAME %>';
 const AUTH_KEY_NAME = 'csp-key';
 const URL_PREFIX = '<% URL_PREFIX %>';
 const REQUIRED_ROLE = '<% REQUIRED_ROLE %>';
@@ -112,8 +112,8 @@ async function handleSignIn(req, res, auth, secret, logger) {
       throw error;
     }
 
-    const secrets = await secret.get({ keys: [AUTH_KEY_SECRET] });
-    const base64Key = secrets[AUTH_KEY_SECRET];
+    const secrets = await secret.get({ keys: [AUTH_KEY_SECRET_NAME] });
+    const base64Key = secrets[AUTH_KEY_SECRET_NAME];
 
     const expirationTimeUnix = Math.floor(Date.now() / 1000) + EXPIRES_MINUTES * 60;
     const signedCookie = generateSignedCookie(

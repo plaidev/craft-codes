@@ -3,7 +3,7 @@ import { WebClient } from '@slack/web-api';
 const LOG_LEVEL = '<% LOG_LEVEL %>'; // ログのレベルを定義
 const KARTE_PROJECT_ID = '<% KARTE_PROJECT_ID %>'; // KARTEプロジェクトIDを指定
 const SLACK_CHANNEL_ID = '<% SLACK_CHANNEL_ID %>'; // 送信先のチャンネルIDを指定
-const SLACK_TOKEN_SECRET = '<% SLACK_TOKEN_SECRET %>';
+const SLACK_TOKEN_SECRET_NAME = '<% SLACK_TOKEN_SECRET_NAME %>';
 
 export default async function (data, { MODULES }) {
   const { initLogger, secret } = MODULES;
@@ -14,8 +14,8 @@ export default async function (data, { MODULES }) {
     return;
   }
 
-  const secrets = await secret.get({ keys: [SLACK_TOKEN_SECRET] }); // SlackアプリのOAuthトークンを登録したCraft Secret Managerの名前を書いておく
-  const token = secrets[SLACK_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [SLACK_TOKEN_SECRET_NAME] }); // SlackアプリのOAuthトークンを登録したCraft Secret Managerの名前を書いておく
+  const token = secrets[SLACK_TOKEN_SECRET_NAME];
   const slackClient = new WebClient(token); // Slack Web APIクライアントの初期化
   const jobflowName = data.jsonPayload.data.name; // chat.postMessageのパラメータを設定
   const jobflowId = data.jsonPayload.data.id;

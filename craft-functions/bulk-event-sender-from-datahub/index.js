@@ -2,7 +2,7 @@ import api from 'api';
 
 const sdk = api('@dev-karte/v1.0#kjw1z02imccje964');
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const RETRY_THRESHOLD_AGE = 3600;
 function parseValue(value) {
   const firstCommaIndex = value.indexOf(',');
@@ -51,9 +51,9 @@ export default async function (data, context) {
     return { success: false, reason: 'Invalid value.' };
   }
   const secrets = await secret.get({
-    keys: [KARTE_APP_TOKEN_SECRET],
+    keys: [KARTE_APP_TOKEN_SECRET_NAME],
   });
-  const appToken = secrets[KARTE_APP_TOKEN_SECRET];
+  const appToken = secrets[KARTE_APP_TOKEN_SECRET_NAME];
   sdk.auth(appToken);
   let userId;
   let eventName;

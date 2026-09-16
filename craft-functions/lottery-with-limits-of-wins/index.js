@@ -9,7 +9,7 @@ const LIMITS = '<% LIMITS %>'.split(',').map(v => v.trim());
 const CAMPAIGN_START_DATE = new Date('<% CAMPAIGN_START_DATE %>');
 const CAMPAIGN_END_DATE = new Date('<% CAMPAIGN_END_DATE %>');
 const MIN_WIN_PROBABILITY = Number('<% MIN_WIN_PROBABILITY %>');
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const KARTE_CAMPAIGN_ID = '<% KARTE_CAMPAIGN_ID %>';
 const PRIZE_COUNT_EXPIRE_SECONDS = Number('<% PRIZE_COUNT_EXPIRE_SECONDS %>');
 const USER_PARTICIPATION_INTERVAL_MINUTES = Number('<% USER_PARTICIPATION_INTERVAL_MINUTES %>');
@@ -292,8 +292,8 @@ export default async function (data, { MODULES }) {
   const { req, res } = data;
   const { kvs, counter, initLogger, secret } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
-  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  const token = secrets[KARTE_APP_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+  const token = secrets[KARTE_APP_TOKEN_SECRET_NAME];
 
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');

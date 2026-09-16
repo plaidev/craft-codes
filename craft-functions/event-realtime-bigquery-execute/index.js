@@ -1,8 +1,8 @@
 import { WebClient } from '@slack/web-api';
 import { BigQuery } from '@google-cloud/bigquery';
 
-const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
-const SLACK_TOKEN_SECRET = '<% SLACK_TOKEN_SECRET %>';
+const SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% SERVICE_ACCOUNT_KEY_SECRET_NAME %>';
+const SLACK_TOKEN_SECRET_NAME = '<% SLACK_TOKEN_SECRET_NAME %>';
 const STOCK_BQ_TABLE_ID = '<% STOCK_BQ_TABLE_ID %>';
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 
@@ -45,17 +45,17 @@ export default async function (data, { MODULES }) {
 
   // BigQueryとSlackのシークレットを取得
   const secrets = await secret.get({
-    keys: [SERVICE_ACCOUNT_KEY_SECRET, SLACK_TOKEN_SECRET],
+    keys: [SERVICE_ACCOUNT_KEY_SECRET_NAME, SLACK_TOKEN_SECRET_NAME],
   });
 
-  const saKeyJson = secrets[SERVICE_ACCOUNT_KEY_SECRET];
+  const saKeyJson = secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME];
   const clientConfig = getClientConfig(saKeyJson);
 
   // BigQueryクライアントを初期化
   const bigquery = new BigQuery(clientConfig);
 
   // Slackトークンの取得
-  const token = secrets[SLACK_TOKEN_SECRET];
+  const token = secrets[SLACK_TOKEN_SECRET_NAME];
 
   // Slack APIクライアントの初期化
   const slackClient = new WebClient(token);

@@ -21,7 +21,7 @@
     "description": "更新対象の紐付けテーブルのIDです"
   },
   {
-    "name": "KARTE_APP_TOKEN_SECRET",
+    "name": "KARTE_APP_TOKEN_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,

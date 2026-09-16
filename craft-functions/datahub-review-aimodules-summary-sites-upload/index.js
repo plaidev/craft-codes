@@ -1,7 +1,7 @@
 import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const SITE_NAME = '<% SITE_NAME %>';
 const UPLOAD_DIRECTORY = '<% UPLOAD_DIRECTORY %>';
 const PUBLICATION_STATUS = '<% PUBLICATION_STATUS %>';
@@ -87,8 +87,8 @@ export default async function (data, { MODULES }) {
     }
     const { targetId, targetName, cleanedReviews } = parseTargetData(rawData);
 
-    const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-    const appToken = secrets[KARTE_APP_TOKEN_SECRET];
+    const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+    const appToken = secrets[KARTE_APP_TOKEN_SECRET_NAME];
     const sdk = api('@dev-karte/v1.0#l10f37mfxgrjj4');
     sdk.auth(appToken);
 

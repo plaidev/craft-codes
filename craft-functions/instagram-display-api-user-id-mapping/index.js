@@ -2,10 +2,10 @@ import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const INSTAGRAM_APP_ID = '<% INSTAGRAM_APP_ID %>';
-const INSTAGRAM_APP_SECRET = '<% INSTAGRAM_APP_SECRET %>';
+const INSTAGRAM_APP_SECRET_NAME = '<% INSTAGRAM_APP_SECRET_NAME %>';
 const REDIRECT_URI = '<% REDIRECT_URI %>';
 const REF_TABLE_ID = '<% REF_TABLE_ID %>';
-const KARTE_API_TOKEN_SECRET = '<% KARTE_API_TOKEN_SECRET %>';
+const KARTE_API_TOKEN_SECRET_NAME = '<% KARTE_API_TOKEN_SECRET_NAME %>';
 
 const sdk = api('@dev-karte/v1.0#4013y24lvyu582u');
 const requestUrl = 'https://api.instagram.com/oauth/access_token';
@@ -92,12 +92,12 @@ export default async function (data, { MODULES }) {
 
   try {
     const secrets = await secret.get({
-      keys: [KARTE_API_TOKEN_SECRET, INSTAGRAM_APP_SECRET],
+      keys: [KARTE_API_TOKEN_SECRET_NAME, INSTAGRAM_APP_SECRET_NAME],
     });
 
-    const karteToken = secrets[KARTE_API_TOKEN_SECRET];
+    const karteToken = secrets[KARTE_API_TOKEN_SECRET_NAME];
     sdk.auth(karteToken);
-    const appSecret = secrets[INSTAGRAM_APP_SECRET];
+    const appSecret = secrets[INSTAGRAM_APP_SECRET_NAME];
 
     const { authorizationCode, websiteUserId } = req.body;
 

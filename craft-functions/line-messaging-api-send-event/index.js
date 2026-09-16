@@ -2,9 +2,9 @@ import api from 'api';
 import crypto from 'crypto';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const LINE_MESSAGING_API_CHANNEL_SECRET = '<% LINE_MESSAGING_API_CHANNEL_SECRET %>';
+const LINE_MESSAGING_API_CHANNEL_SECRET_NAME = '<% LINE_MESSAGING_API_CHANNEL_SECRET_NAME %>';
 const REF_TABLE_ID = '<% REF_TABLE_ID %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const SEND_LINE_EVENT_LIST = '<% SEND_LINE_EVENT_LIST %>';
 const KARTE_EVENT_NAME = '<% KARTE_EVENT_NAME %>';
 
@@ -53,11 +53,11 @@ export default async function (data, { MODULES }) {
   const sdk = api('@dev-karte/v1.0#2ee6yim1g4jq6m');
 
   const secrets = await secret.get({
-    keys: [KARTE_APP_TOKEN_SECRET, LINE_MESSAGING_API_CHANNEL_SECRET],
+    keys: [KARTE_APP_TOKEN_SECRET_NAME, LINE_MESSAGING_API_CHANNEL_SECRET_NAME],
   });
-  const karteToken = secrets[KARTE_APP_TOKEN_SECRET];
+  const karteToken = secrets[KARTE_APP_TOKEN_SECRET_NAME];
   sdk.auth(karteToken);
-  const lineChannelSecret = secrets[LINE_MESSAGING_API_CHANNEL_SECRET];
+  const lineChannelSecret = secrets[LINE_MESSAGING_API_CHANNEL_SECRET_NAME];
 
   const lineSignature = req.headers['x-line-signature'];
   const isValidSignature = await verifySignature(lineChannelSecret, lineSignature, req.body);

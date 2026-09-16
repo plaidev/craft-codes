@@ -1,14 +1,14 @@
 import sgMail from '@sendgrid/mail';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const SENDGRID_API_KEY_SECRET = '<% SENDGRID_API_KEY_SECRET %>';
+const SENDGRID_API_KEY_SECRET_NAME = '<% SENDGRID_API_KEY_SECRET_NAME %>';
 
 export default async function (data, { MODULES }) {
   const { initLogger, secret } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
-  const secrets = await secret.get({ keys: [SENDGRID_API_KEY_SECRET] });
-  const token = secrets[SENDGRID_API_KEY_SECRET];
+  const secrets = await secret.get({ keys: [SENDGRID_API_KEY_SECRET_NAME] });
+  const token = secrets[SENDGRID_API_KEY_SECRET_NAME];
   sgMail.setApiKey(token);
 
   const {

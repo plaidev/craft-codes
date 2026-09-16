@@ -1,7 +1,7 @@
 import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const CONTENT_CMS_MODEL_ID = '<% CONTENT_CMS_MODEL_ID %>';
 const TAG_CMS_MODEL_ID = '<% TAG_CMS_MODEL_ID %>';
 const GEMINI_MODEL = '<% GEMINI_MODEL %>';
@@ -150,8 +150,8 @@ export default async function (data, { MODULES }) {
   if (!contentId) return logger.warn('No contentId found');
 
   try {
-    const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-    const token = secrets[KARTE_APP_TOKEN_SECRET];
+    const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+    const token = secrets[KARTE_APP_TOKEN_SECRET_NAME];
 
     const [article, tagListResponse] = await Promise.all([
       fetchCmsContent({ modelId: CONTENT_CMS_MODEL_ID, contentId, token, logger }),

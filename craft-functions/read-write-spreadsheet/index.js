@@ -1,7 +1,7 @@
 import { google } from 'googleapis';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>'; // GoogleサービスアカウントのJSONキーを登録したシークレットの名前
+const SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% SERVICE_ACCOUNT_KEY_SECRET_NAME %>'; // GoogleサービスアカウントのJSONキーを登録したシークレットの名前
 const SPREADSHEET_ID = '<% SPREADSHEET_ID %>'; // https://docs.google.com/spreadsheets/d/#{SPREADSHEET_ID}/
 const SHEET_NAME = '<% SHEET_NAME %>'; // スプレッドシート内のシート名
 
@@ -28,8 +28,8 @@ export default async function (data, { MODULES }) {
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
   // GoogleサービスアカウントのJSONキーをシークレットから取得
-  const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET] });
-  const _jsonKey = secrets[SERVICE_ACCOUNT_KEY_SECRET];
+  const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET_NAME] });
+  const _jsonKey = secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME];
   const jsonKey = JSON.parse(_jsonKey);
 
   // Google Drive APIの初期化

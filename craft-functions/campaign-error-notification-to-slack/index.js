@@ -1,12 +1,12 @@
 import { WebClient } from '@slack/web-api';
 
 const SLACK_CHANNEL_ID = '<% SLACK_CHANNEL_ID %>';
-const SLACK_TOKEN_SECRET = '<% SLACK_TOKEN_SECRET %>';
+const SLACK_TOKEN_SECRET_NAME = '<% SLACK_TOKEN_SECRET_NAME %>';
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 
 async function getSlackSecrets(secret) {
   return secret.get({
-    keys: [SLACK_TOKEN_SECRET],
+    keys: [SLACK_TOKEN_SECRET_NAME],
   });
 }
 
@@ -62,7 +62,7 @@ export default async function (data, { MODULES }) {
     }
 
     const secrets = await getSlackSecrets(secret);
-    const slackToken = secrets[SLACK_TOKEN_SECRET];
+    const slackToken = secrets[SLACK_TOKEN_SECRET_NAME];
     const slackChannelId = SLACK_CHANNEL_ID;
 
     const slackClient = new WebClient(slackToken);

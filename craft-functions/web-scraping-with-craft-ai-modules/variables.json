@@ -21,7 +21,7 @@
     "description": "使用するAIモデルです。利用可能なモデルはhttps://craft.developers.karte.io/craft-ai-modules/models/を参照してください。"
   },
   {
-    "name": "SERVICE_ACCOUNT_KEY_SECRET",
+    "name": "SERVICE_ACCOUNT_KEY_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,

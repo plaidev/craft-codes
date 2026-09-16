@@ -3,7 +3,7 @@ import api from 'api';
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const RANKING_SITE_NAME = '<% RANKING_SITE_NAME %>';
 const RANKING_JSON_PATH = '<% RANKING_JSON_PATH %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 
 async function updateRanking(products, sites) {
   const content = JSON.stringify({
@@ -40,8 +40,8 @@ export default async function (data, { MODULES }) {
     return;
   }
 
-  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  const token = secrets[KARTE_APP_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+  const token = secrets[KARTE_APP_TOKEN_SECRET_NAME];
 
   const sites = api('@dev-karte/v1.0#3q52o2glxb1kejp');
   sites.auth(token);

@@ -4,7 +4,7 @@ import { subDays, format } from 'date-fns';
 import { JSDOM } from 'jsdom';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
+const SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% SERVICE_ACCOUNT_KEY_SECRET_NAME %>';
 const GCP_API_KEY = '<% GCP_API_KEY %>';
 const SITE_URL = '<% SITE_URL %>';
 const DAY_BEFORE_END_DATE = '<% DAY_BEFORE_END_DATE %>';
@@ -238,8 +238,8 @@ export default async function (data, { MODULES }) {
   const { initLogger, secret } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
-  const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET] });
-  const jsonKey = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET]);
+  const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET_NAME] });
+  const jsonKey = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME]);
 
   const searchConsole = await createSearchConsoleClient(jsonKey);
   const authClient = await googleAuth(jsonKey);

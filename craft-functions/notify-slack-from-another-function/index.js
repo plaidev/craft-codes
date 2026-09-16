@@ -1,7 +1,7 @@
 import { WebClient, ErrorCode } from '@slack/web-api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const SLACK_TOKEN_SECRET = '<% SLACK_TOKEN_SECRET %>';
+const SLACK_TOKEN_SECRET_NAME = '<% SLACK_TOKEN_SECRET_NAME %>';
 
 function isObject(v) {
   return typeof v === 'object' && v !== null && !Array.isArray(v);
@@ -132,9 +132,9 @@ function throwSuitableError({ msg, error, RetryableError, retryTimeoutSec }) {
 async function getSlackToken(secret, logger, RetryableError, retryTimeoutSec) {
   try {
     const secrets = await secret.get({
-      keys: [SLACK_TOKEN_SECRET],
+      keys: [SLACK_TOKEN_SECRET_NAME],
     });
-    return secrets[SLACK_TOKEN_SECRET];
+    return secrets[SLACK_TOKEN_SECRET_NAME];
   } catch (error) {
     const msg = `Failed to retrieve Slack token from secret. message: ${error.message}, status: ${error.status}`;
     logger.error(msg);

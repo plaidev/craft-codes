@@ -1,7 +1,7 @@
 import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const CMS_MODEL_ID = '<% CMS_MODEL_ID %>';
 const CMS_FIELD_NAMES = '<% CMS_FIELD_NAMES %>';
 
@@ -67,8 +67,8 @@ export default async function (data, { MODULES }) {
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
   try {
-    const token = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-    const karteApiToken = token[KARTE_APP_TOKEN_SECRET];
+    const token = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+    const karteApiToken = token[KARTE_APP_TOKEN_SECRET_NAME];
 
     const valueStringData = data.jsonPayload.data.value;
     if (!valueStringData) {

@@ -1,7 +1,7 @@
 import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const RETRY_TIMEOUT_SEC = Number('<% RETRY_TIMEOUT_SEC %>');
 
 const CRAFT_API_SPEC_ID = '@dev-karte/v1.0#5yj9jf39mp50ef9q';
@@ -52,8 +52,8 @@ export default async function (data, { MODULES }) {
   }
 
   try {
-    const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-    const token = secrets[KARTE_APP_TOKEN_SECRET];
+    const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+    const token = secrets[KARTE_APP_TOKEN_SECRET_NAME];
 
     const SITE_NAME = splitData[0];
     const DIRECTORY_PATH = splitData[1];

@@ -21,7 +21,7 @@
     "description": "ノート投稿時のBot送信者IDです"
   },
   {
-    "name": "KARTE_APP_TOKEN_SECRET",
+    "name": "KARTE_APP_TOKEN_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,

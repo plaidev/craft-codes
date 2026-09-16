@@ -3,7 +3,7 @@ import { parse } from 'csv-parse/sync';
 import crypto from 'crypto';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const SITE_NAME = `<% SITE_NAME %>`;
 const DETAILS_PAGE_FOLDER = `<% DETAILS_PAGE_FOLDER %>`.replace(/\/$/, '');
 const LIST_PAGE_PATH = `<% LIST_PAGE_PATH %>`;
@@ -185,8 +185,8 @@ export default async function (data, { MODULES }) {
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
   try {
-    const token = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-    const karteApiToken = token[KARTE_APP_TOKEN_SECRET];
+    const token = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+    const karteApiToken = token[KARTE_APP_TOKEN_SECRET_NAME];
     const jobflowData = data.jsonPayload.data;
     if (!jobflowData.value) {
       logger.error('jobflowData.value is undefined or null');

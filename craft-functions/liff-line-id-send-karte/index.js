@@ -1,7 +1,7 @@
 import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const REF_TABLE_ID = '<% REF_TABLE_ID %>';
 const LINE_LOGIN_CHANNEL_ID = '<% LINE_LOGIN_CHANNEL_ID %>';
 const KARTE_EVENT_NAME = '<% KARTE_EVENT_NAME %>';
@@ -71,9 +71,9 @@ export default async function (data, { MODULES }) {
   const sdk = api('@dev-karte/v1.0#emcs633m3nxep4d');
 
   const secrets = await secret.get({
-    keys: [KARTE_APP_TOKEN_SECRET],
+    keys: [KARTE_APP_TOKEN_SECRET_NAME],
   });
-  const karteToken = secrets[KARTE_APP_TOKEN_SECRET];
+  const karteToken = secrets[KARTE_APP_TOKEN_SECRET_NAME];
   sdk.auth(karteToken);
 
   res.setHeader('Access-Control-Allow-Origin', '*');

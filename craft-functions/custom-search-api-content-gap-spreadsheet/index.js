@@ -4,7 +4,7 @@ const LOG_LEVEL = '<% LOG_LEVEL %>';
 const GCP_API_KEY = '<% GCP_API_KEY %>';
 const CUSTOM_SEARCH_ENGINE_ID = '<% CUSTOM_SEARCH_ENGINE_ID %>';
 const TARGET_KEYWORD = '<% TARGET_KEYWORD %>';
-const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
+const SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% SERVICE_ACCOUNT_KEY_SECRET_NAME %>';
 const SPREADSHEET_ID = '<% SPREADSHEET_ID %>';
 const SHEET_NAME = '<% SHEET_NAME %>';
 const SEARCH_TARGET_SITES = '<% SEARCH_TARGET_SITES %>';
@@ -143,8 +143,8 @@ export default async function (data, { MODULES }) {
   const { initLogger, secret } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
-  const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET] });
-  const jsonKey = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET]);
+  const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET_NAME] });
+  const jsonKey = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME]);
   const authClient = await googleAuth(jsonKey);
 
   await setupSpreadsheet(SPREADSHEET_ID, SHEET_NAME, authClient);

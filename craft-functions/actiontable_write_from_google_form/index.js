@@ -1,7 +1,7 @@
 import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const karteApiClient = api('@dev-karte/v1.0#1ehqt16lkm2a8jw');
 const ACTION_TABLE_ID = '<% ACTION_TABLE_ID %>';
 
@@ -9,8 +9,8 @@ export default async function (data, { MODULES }) {
   const { initLogger, secret } = MODULES;
   const { req, res } = data;
   const logger = initLogger({ logLevel: LOG_LEVEL });
-  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  const token = secrets[KARTE_APP_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+  const token = secrets[KARTE_APP_TOKEN_SECRET_NAME];
   karteApiClient.auth(token);
 
   res.setHeader('Access-Control-Allow-Origin', '*');

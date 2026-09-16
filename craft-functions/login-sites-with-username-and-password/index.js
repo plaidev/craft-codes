@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const AUTH_KEY_SECRET = '<% AUTH_KEY_SECRET %>';
+const AUTH_KEY_SECRET_NAME = '<% AUTH_KEY_SECRET_NAME %>';
 const AUTH_KEY_NAME = '<% AUTH_KEY_NAME %>';
 const AUTH_ENDPOINT_URL = '<% AUTH_ENDPOINT_URL %>';
 const ALLOWED_ORIGIN = '<% ALLOWED_ORIGIN %>';
@@ -87,7 +87,7 @@ export default async function (data, { MODULES }) {
 
   const _expiredSeconds = expiredSeconds || 600;
 
-  const secrets = await secret.get({ keys: [AUTH_KEY_SECRET] });
+  const secrets = await secret.get({ keys: [AUTH_KEY_SECRET_NAME] });
 
   // 入力されたログイン情報をチェック
   const signinResult = await signin(username, password, logger);
@@ -96,7 +96,7 @@ export default async function (data, { MODULES }) {
   }
 
   // 署名鍵の値を取得する
-  const base64Key = secrets[AUTH_KEY_SECRET];
+  const base64Key = secrets[AUTH_KEY_SECRET_NAME];
 
   const expirationTimeUnix = Math.floor(Date.now() / 1000) + _expiredSeconds;
   const signedCookie = generateSignedCookie(

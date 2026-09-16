@@ -3,7 +3,7 @@ import api from 'api';
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const SLACK_CHANNEL_ID = '<% SLACK_CHANNEL_ID %>';
 const SLACK_APP_USER_ID = '<% SLACK_APP_USER_ID %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const KARTE_BOT_ID = '<% KARTE_BOT_ID %>';
 const SOLUTION_ID = '<% SOLUTION_ID %>';
 
@@ -23,8 +23,8 @@ function isEmpty(obj) {
 
 async function handleSlackHook(data, { secret, kvs, logger }) {
   const { req, res } = data;
-  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  const karteAppToken = secrets[KARTE_APP_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+  const karteAppToken = secrets[KARTE_APP_TOKEN_SECRET_NAME];
 
   const talk = api('@dev-karte/v1.0#br7wylg4sjwm0');
   talk.auth(karteAppToken);

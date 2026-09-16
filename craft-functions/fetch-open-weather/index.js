@@ -1,15 +1,15 @@
 import api from 'api';
 
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
-const OPEN_WEATHER_API_KEY_SECRET = '<% OPEN_WEATHER_API_KEY_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
+const OPEN_WEATHER_API_KEY_SECRET_NAME = '<% OPEN_WEATHER_API_KEY_SECRET_NAME %>';
 const KARTE_EVENT_NAME = '<% KARTE_EVENT_NAME %>';
 
 export default async function (data, { MODULES }) {
   const { logger, secret } = MODULES;
 
-  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET, OPEN_WEATHER_API_KEY_SECRET] });
-  const token = secrets[KARTE_APP_TOKEN_SECRET];
-  const openWeatherApiKey = secrets[OPEN_WEATHER_API_KEY_SECRET];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME, OPEN_WEATHER_API_KEY_SECRET_NAME] });
+  const token = secrets[KARTE_APP_TOKEN_SECRET_NAME];
+  const openWeatherApiKey = secrets[OPEN_WEATHER_API_KEY_SECRET_NAME];
 
   const insight = api('@dev-karte/v1.0#1jvnhd6llgekil84');
   insight.auth(token);

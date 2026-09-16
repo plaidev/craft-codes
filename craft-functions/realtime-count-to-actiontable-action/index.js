@@ -1,7 +1,7 @@
 import api from 'api';
 
 const LOG_LEVEL = 'DEBUG';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const ACTION_TABLE_ID = '<% ACTION_TABLE_ID %>';
 const TABLE_KEY = '<% TABLE_KEY %>';
 const COLUMN_NAME = '<% COLUMN_NAME %>';
@@ -40,8 +40,8 @@ async function upsertActiontable(logger, counter, karteClient) {
 export default async function (data, { MODULES }) {
   const { initLogger, counter, secret } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
-  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  const token = secrets[KARTE_APP_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+  const token = secrets[KARTE_APP_TOKEN_SECRET_NAME];
   karteApiClient.auth(token);
 
   if (data.kind === 'karte/action') {

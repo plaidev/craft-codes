@@ -1,8 +1,8 @@
 import { google } from 'googleapis';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const OAUTH2_CLIENT_CREDENTIALS_SECRET = '<% OAUTH2_CLIENT_CREDENTIALS_SECRET %>';
-const REFRESH_TOKEN_SECRET = '<% REFRESH_TOKEN_SECRET %>';
+const OAUTH2_CLIENT_CREDENTIALS_SECRET_NAME = '<% OAUTH2_CLIENT_CREDENTIALS_SECRET_NAME %>';
+const REFRESH_TOKEN_SECRET_NAME = '<% REFRESH_TOKEN_SECRET_NAME %>';
 
 function constructEmailContent({ to, subject, textContent, htmlContent }) {
   const boundary = 'boundary'; // 任意の一意の文字列
@@ -60,7 +60,7 @@ async function sendEmail({ gmail, logger, to, subject, textContent, htmlContent 
 
 async function getSecrets(secret) {
   return secret.get({
-    keys: [OAUTH2_CLIENT_CREDENTIALS_SECRET, REFRESH_TOKEN_SECRET],
+    keys: [OAUTH2_CLIENT_CREDENTIALS_SECRET_NAME, REFRESH_TOKEN_SECRET_NAME],
   });
 }
 
@@ -72,7 +72,7 @@ function parseOAuth2Credentials(credentialData) {
 async function initializeOAuthClient(secret) {
   const secrets = await getSecrets(secret);
 
-  const oAuth2CredentialSecretData = secrets[OAUTH2_CLIENT_CREDENTIALS_SECRET];
+  const oAuth2CredentialSecretData = secrets[OAUTH2_CLIENT_CREDENTIALS_SECRET_NAME];
 
   const {
     client_id: clientId,
@@ -82,7 +82,7 @@ async function initializeOAuthClient(secret) {
 
   const oAuth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUris[0]);
 
-  const refreshToken = secrets[REFRESH_TOKEN_SECRET];
+  const refreshToken = secrets[REFRESH_TOKEN_SECRET_NAME];
 
   oAuth2Client.setCredentials({
     refresh_token: refreshToken,

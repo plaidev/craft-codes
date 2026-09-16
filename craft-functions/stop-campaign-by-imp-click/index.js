@@ -1,7 +1,7 @@
 import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const COUNTER_KEY_PREFIX = '<% COUNTER_KEY_PREFIX %>';
 const karteApiClient = api('@dev-karte/v1.0#1ehqt16lkm2a8jw');
 const COUNTER_EXPIRE_SECONDS = Number('<% COUNTER_EXPIRE_SECONDS %>');
@@ -49,8 +49,8 @@ export default async function (data, { MODULES }) {
       return;
     }
 
-    const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-    const token = secrets[KARTE_APP_TOKEN_SECRET];
+    const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+    const token = secrets[KARTE_APP_TOKEN_SECRET_NAME];
     karteApiClient.auth(token);
 
     const apiRes = await karteApiClient.postV2betaActionCampaignToggleenabled({

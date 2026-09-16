@@ -5,7 +5,7 @@ const TARGET_MODEL_ID = '<% TARGET_MODEL_ID %>';
 const RAG_CORPUS_ID = '<% RAG_CORPUS_ID %>';
 const SITE_NAME = '<% SITE_NAME %>';
 const SITE_DIR_PATH = '<% SITE_DIR_PATH %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const CMS_CONTENT_FIELDS = '<% CMS_CONTENT_FIELDS %>';
 const RETRY_TIMEOUT_SEC = 3600;
 const CMS_SPEC_URI = '@dev-karte/v1.0#1g9n3z10mdh7d91y';
@@ -57,8 +57,8 @@ function throwSuitableError({ msg, status, RetryableError, retryTimeoutSec }) {
 }
 
 async function getAuthToken(secret) {
-  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-  return secrets[KARTE_APP_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+  return secrets[KARTE_APP_TOKEN_SECRET_NAME];
 }
 
 async function fetchCmsContent(token, modelId, contentId, logger, shortEventType) {

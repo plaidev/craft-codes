@@ -2,8 +2,8 @@ import { WebClient } from '@slack/web-api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const SLACK_CHANNEL_ID = '<% SLACK_CHANNEL_ID %>';
-const SLACK_TOKEN_SECRET = '<% SLACK_TOKEN_SECRET %>';
-const X_BEARER_TOKEN_SECRET = '<% X_BEARER_TOKEN_SECRET %>';
+const SLACK_TOKEN_SECRET_NAME = '<% SLACK_TOKEN_SECRET_NAME %>';
+const X_BEARER_TOKEN_SECRET_NAME = '<% X_BEARER_TOKEN_SECRET_NAME %>';
 const SEARCH_WORD = '<%SEARCH_WORD%>';
 const MINUTES_AGO = '<%MINUTES_AGO%>';
 const MAX_RESULTS = '<%MAX_RESULTS%>';
@@ -114,10 +114,10 @@ export default async function (data, { MODULES }) {
   const { initLogger, secret } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
   const secrets = await secret.get({
-    keys: [SLACK_TOKEN_SECRET, X_BEARER_TOKEN_SECRET],
+    keys: [SLACK_TOKEN_SECRET_NAME, X_BEARER_TOKEN_SECRET_NAME],
   });
-  const slackToken = secrets[SLACK_TOKEN_SECRET];
-  const xBearerToken = secrets[X_BEARER_TOKEN_SECRET];
+  const slackToken = secrets[SLACK_TOKEN_SECRET_NAME];
+  const xBearerToken = secrets[X_BEARER_TOKEN_SECRET_NAME];
   const slackChannelId = SLACK_CHANNEL_ID;
   const slackClient = new WebClient(slackToken);
   const searchQuery = SEARCH_WORD;

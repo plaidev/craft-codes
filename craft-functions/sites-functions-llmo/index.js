@@ -2,7 +2,7 @@ import api from 'api';
 import { JSDOM } from 'jsdom';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const CRAFT_SITES_NAME = '<% CRAFT_SITES_NAME %>';
 const WEB_SITE_TITLE = '<% WEB_SITE_TITLE %>';
 const WEB_SITE_OVERVIEW = '<% WEB_SITE_OVERVIEW %>';
@@ -66,8 +66,8 @@ export default async function (data, { MODULES }) {
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
   try {
-    const token = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-    const karteApiToken = token[KARTE_APP_TOKEN_SECRET];
+    const token = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+    const karteApiToken = token[KARTE_APP_TOKEN_SECRET_NAME];
 
     const jobflowData = data.jsonPayload.data;
     if (!jobflowData.value) {

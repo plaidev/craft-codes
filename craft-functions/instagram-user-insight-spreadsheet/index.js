@@ -1,10 +1,10 @@
 import { google } from 'googleapis';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const INSTAGRAM_ACCESS_TOKEN_SECRET = '<% INSTAGRAM_ACCESS_TOKEN_SECRET %>';
+const INSTAGRAM_ACCESS_TOKEN_SECRET_NAME = '<% INSTAGRAM_ACCESS_TOKEN_SECRET_NAME %>';
 const INSTAGRAM_BUSINESS_ACCOUNT_ID = '<% INSTAGRAM_BUSINESS_ACCOUNT_ID %>';
 const GRAPH_API_VERSION = '<% GRAPH_API_VERSION %>';
-const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
+const SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% SERVICE_ACCOUNT_KEY_SECRET_NAME %>';
 const SPREADSHEET_ID = '<% SPREADSHEET_ID %>';
 const SHEET_NAME = '<% SHEET_NAME %>';
 const DAY_BEFORE_END_DATE = '<% DAY_BEFORE_END_DATE %>';
@@ -524,11 +524,11 @@ export default async function (data, { MODULES }) {
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
   const secrets = await secret.get({
-    keys: [SERVICE_ACCOUNT_KEY_SECRET, INSTAGRAM_ACCESS_TOKEN_SECRET],
+    keys: [SERVICE_ACCOUNT_KEY_SECRET_NAME, INSTAGRAM_ACCESS_TOKEN_SECRET_NAME],
   });
-  const saKeyJson = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET]);
+  const saKeyJson = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME]);
   const sheets = await createSheetsClient(saKeyJson);
-  const accessToken = secrets[INSTAGRAM_ACCESS_TOKEN_SECRET];
+  const accessToken = secrets[INSTAGRAM_ACCESS_TOKEN_SECRET_NAME];
 
   try {
     const { followersCount, mediaCount } = await fetchFollowerAndMediaCount(

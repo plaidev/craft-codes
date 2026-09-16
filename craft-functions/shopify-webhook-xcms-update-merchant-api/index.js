@@ -3,9 +3,9 @@ import { JWT } from 'google-auth-library';
 import crypto from 'crypto';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const CMS_MODEL_ID = '<% CMS_MODEL_ID %>';
-const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
+const SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% SERVICE_ACCOUNT_KEY_SECRET_NAME %>';
 const SHOPIFY_WEBHOOK_SHARED_SECRET_NAME = '<% SHOPIFY_WEBHOOK_SHARED_SECRET_NAME %>';
 const SHOPIFY_SHOP_PUBLIC_DOMAIN = '<% SHOPIFY_SHOP_PUBLIC_DOMAIN %>';
 const MERCHANT_CENTER_ID = '<% MERCHANT_CENTER_ID %>';
@@ -251,14 +251,14 @@ export default async function (data, { MODULES }) {
   try {
     const secrets = await secret.get({
       keys: [
-        KARTE_APP_TOKEN_SECRET,
-        SERVICE_ACCOUNT_KEY_SECRET,
+        KARTE_APP_TOKEN_SECRET_NAME,
+        SERVICE_ACCOUNT_KEY_SECRET_NAME,
         SHOPIFY_WEBHOOK_SHARED_SECRET_NAME,
       ],
     });
 
-    const appToken = secrets[KARTE_APP_TOKEN_SECRET];
-    const serviceAccountKey = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET]);
+    const appToken = secrets[KARTE_APP_TOKEN_SECRET_NAME];
+    const serviceAccountKey = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME]);
     const shopifySharedSecret = secrets[SHOPIFY_WEBHOOK_SHARED_SECRET_NAME];
 
     const hmacHeader = req.headers['x-shopify-hmac-sha256'];

@@ -12,7 +12,7 @@
     "required": true
   },
   {
-    "name": "SERVICE_ACCOUNT_KEY_SECRET",
+    "name": "SERVICE_ACCOUNT_KEY_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,

@@ -1,8 +1,8 @@
 import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
-const OTHER_PROJECT_KARTE_APP_TOKEN_SECRET = '<% OTHER_PROJECT_KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
+const OTHER_PROJECT_KARTE_APP_TOKEN_SECRET_NAME = '<% OTHER_PROJECT_KARTE_APP_TOKEN_SECRET_NAME %>';
 const PER_DATA_TIMEOUT_SEC = Number('<% PER_DATA_TIMEOUT_SEC %>');
 const karteApiClient = api('@dev-karte/v1.0#1bkcoiglscz8c35');
 
@@ -71,10 +71,10 @@ export default async function (data, { MODULES }) {
   }
 
   const secrets = await secret.get({
-    keys: [KARTE_APP_TOKEN_SECRET, OTHER_PROJECT_KARTE_APP_TOKEN_SECRET],
+    keys: [KARTE_APP_TOKEN_SECRET_NAME, OTHER_PROJECT_KARTE_APP_TOKEN_SECRET_NAME],
   });
-  const token = secrets[KARTE_APP_TOKEN_SECRET];
-  const otherProjectToken = secrets[OTHER_PROJECT_KARTE_APP_TOKEN_SECRET];
+  const token = secrets[KARTE_APP_TOKEN_SECRET_NAME];
+  const otherProjectToken = secrets[OTHER_PROJECT_KARTE_APP_TOKEN_SECRET_NAME];
 
   const { userId, date, otherProjectVisitorId, eventName } = data.jsonPayload.data;
 

@@ -1,5 +1,5 @@
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const CHANNEL_ACCESS_TOKEN_SECRET = '<% CHANNEL_ACCESS_TOKEN_SECRET %>';
+const CHANNEL_ACCESS_TOKEN_SECRET_NAME = '<% CHANNEL_ACCESS_TOKEN_SECRET_NAME %>';
 const DIAGNOSE_START_TEXT = '<% DIAGNOSE_START_TEXT %>';
 const LINE_REPLY_ENDPOINT = 'https://api.line.me/v2/bot/message/reply';
 
@@ -204,8 +204,8 @@ export default async function (data, { MODULES }) {
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
   // LINEのチャンネルアクセストークンを取得
-  const secrets = await secret.get({ keys: [CHANNEL_ACCESS_TOKEN_SECRET] });
-  const accessToken = secrets[CHANNEL_ACCESS_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [CHANNEL_ACCESS_TOKEN_SECRET_NAME] });
+  const accessToken = secrets[CHANNEL_ACCESS_TOKEN_SECRET_NAME];
 
   const transitionRules = makeTransitionRules(flowChart);
 

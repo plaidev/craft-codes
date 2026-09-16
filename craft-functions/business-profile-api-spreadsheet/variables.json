@@ -7,7 +7,7 @@
     "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
   },
   {
-    "name": "SERVICE_ACCOUNT_KEY_SECRET",
+    "name": "SERVICE_ACCOUNT_KEY_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,
@@ -28,14 +28,14 @@
     "description": "対象Googleスプレッドシートのシート名です"
   },
   {
-    "name": "OAUTH2_CLIENT_CREDENTIALS_SECRET",
+    "name": "OAUTH2_CLIENT_CREDENTIALS_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,
     "description": "OAuth 2.0 クライアント ID作成時に取得したJSONキーを登録したシークレットの名前です"
   },
   {
-    "name": "REFRESH_TOKEN_SECRET",
+    "name": "REFRESH_TOKEN_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,

@@ -2,10 +2,10 @@ import { Storage } from '@google-cloud/storage';
 import api from 'api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
+const SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% SERVICE_ACCOUNT_KEY_SECRET_NAME %>';
 const API_URL = '<% API_URL %>';
 const BUCKET_NAME = '<% BUCKET_NAME %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const RETRY_TIMEOUT_SEC = 3600;
 
 function throwSuitableError({ msg, status, RetryableError, retryTimeoutSec }) {
@@ -42,8 +42,8 @@ export default async function (data, { MODULES }) {
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
   // Secret Managerから認証情報を取得
-  const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET] });
-  const gcsKey = secrets[SERVICE_ACCOUNT_KEY_SECRET];
+  const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET_NAME] });
+  const gcsKey = secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME];
 
   // ジョブフローからパラメータを取得
   const valueString = data.jsonPayload.data.value;
@@ -103,8 +103,8 @@ export default async function (data, { MODULES }) {
   // データ処理後の次ステップを実行（jobflowIdが指定されている場合）
   if (batchData.jobflowId) {
     try {
-      const jobflowSecrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-      const appToken = jobflowSecrets[KARTE_APP_TOKEN_SECRET];
+      const jobflowSecrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+      const appToken = jobflowSecrets[KARTE_APP_TOKEN_SECRET_NAME];
       const jobflowsApi = api('@dev-karte/v1.0#kjw1z015mccjef86');
       jobflowsApi.auth(appToken);
       await jobflowsApi.postV2DatahubJobflowExec({ jobflow_id: batchData.jobflowId});

@@ -14,7 +14,7 @@
     "description": "CORS許可対象のオリジンをカンマ区切りで設定してください（例: https://craft-sites.example.com）。* で全許可も可能です"
   },
   {
-    "name": "KARTE_APP_TOKEN_SECRET",
+    "name": "KARTE_APP_TOKEN_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,

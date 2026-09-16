@@ -3,12 +3,12 @@ import { subDays, format } from 'date-fns';
 import { WebClient } from '@slack/web-api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const AGGREGATION_RANGE = '<% AGGREGATION_RANGE %>';
 const RELATIVE_START_DATE_DAYS_AGO = Number('<% RELATIVE_START_DATE_DAYS_AGO %>');
 const ABSOLUTE_START_DATE = '<% ABSOLUTE_START_DATE %>';
 const ABSOLUTE_END_DATE = '<% ABSOLUTE_END_DATE %>';
-const SLACK_TOKEN_SECRET = '<% SLACK_TOKEN_SECRET %>';
+const SLACK_TOKEN_SECRET_NAME = '<% SLACK_TOKEN_SECRET_NAME %>';
 const SLACK_CHANNEL_ID = '<% SLACK_CHANNEL_ID %>';
 const GEMINI_MODEL = 'gemini-2.5-flash';
 
@@ -238,13 +238,13 @@ export default async function (data, { MODULES }) {
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
   const secrets = await secret.get({
-    keys: [KARTE_APP_TOKEN_SECRET, SLACK_TOKEN_SECRET],
+    keys: [KARTE_APP_TOKEN_SECRET_NAME, SLACK_TOKEN_SECRET_NAME],
   });
-  const appToken = secrets[KARTE_APP_TOKEN_SECRET];
+  const appToken = secrets[KARTE_APP_TOKEN_SECRET_NAME];
   const sdk = api('@dev-karte/v1.0#1esei2umf20oay1');
   sdk.auth(appToken);
 
-  const slackToken = secrets[SLACK_TOKEN_SECRET];
+  const slackToken = secrets[SLACK_TOKEN_SECRET_NAME];
   const slackClient = new WebClient(slackToken);
 
   const { startDate, endDate } = makeStartEndDate(

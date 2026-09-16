@@ -7,14 +7,14 @@
     "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
   },
   {
-    "name": "OAUTH2_CLIENT_CREDENTIALS_SECRET",
+    "name": "OAUTH2_CLIENT_CREDENTIALS_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,
     "description": "OAuth 2.0 クライアントID作成時にダウンロードしたJSONデータを登録したシークレット名です"
   },
   {
-    "name": "REFRESH_TOKEN_SECRET",
+    "name": "REFRESH_TOKEN_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": true,

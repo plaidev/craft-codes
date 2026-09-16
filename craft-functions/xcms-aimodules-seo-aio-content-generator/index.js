@@ -3,7 +3,7 @@ import MarkdownIt from 'markdown-it';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
 const ALLOWED_ORIGINS = '<% ALLOWED_ORIGINS %>';
-const KARTE_APP_TOKEN_SECRET = '<% KARTE_APP_TOKEN_SECRET %>';
+const KARTE_APP_TOKEN_SECRET_NAME = '<% KARTE_APP_TOKEN_SECRET_NAME %>';
 const CMS_MODEL_ID = '<% CMS_MODEL_ID %>';
 const GEMINI_MODEL = '<% GEMINI_MODEL %>';
 const CMS_SPEC_URI = '@dev-karte/v1.0#7pblxhpmo2hfu7z';
@@ -1331,8 +1331,8 @@ export default async function (data, { MODULES }) {
     case 'submit': {
       let appToken;
       try {
-        const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET] });
-        appToken = secrets[KARTE_APP_TOKEN_SECRET];
+        const secrets = await secret.get({ keys: [KARTE_APP_TOKEN_SECRET_NAME] });
+        appToken = secrets[KARTE_APP_TOKEN_SECRET_NAME];
       } catch (error) {
         logger.error(`Error retrieving KARTE API token: ${error.message}`);
         res.status(500).json({

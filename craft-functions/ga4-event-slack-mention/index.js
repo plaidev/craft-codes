@@ -2,8 +2,8 @@ import { google } from 'googleapis';
 import { WebClient } from '@slack/web-api';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
-const SLACK_TOKEN_SECRET = '<% SLACK_TOKEN_SECRET %>';
+const SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% SERVICE_ACCOUNT_KEY_SECRET_NAME %>';
+const SLACK_TOKEN_SECRET_NAME = '<% SLACK_TOKEN_SECRET_NAME %>';
 const SLACK_CHANNEL_ID = '<% SLACK_CHANNEL_ID %>';
 const GA4_PROPERTY_ID = '<% GA4_PROPERTY_ID %>';
 const CV_EVENTS_AND_LIMITS_SETTING = '<% CV_EVENTS_AND_LIMITS_SETTING %>';
@@ -225,11 +225,11 @@ export default async function (data, { MODULES }) {
   const logger = initLogger({ logLevel: LOG_LEVEL });
 
   const secrets = await secret.get({
-    keys: [SERVICE_ACCOUNT_KEY_SECRET, SLACK_TOKEN_SECRET],
+    keys: [SERVICE_ACCOUNT_KEY_SECRET_NAME, SLACK_TOKEN_SECRET_NAME],
   });
 
-  const saKeyJson = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET]);
-  const token = secrets[SLACK_TOKEN_SECRET];
+  const saKeyJson = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME]);
+  const token = secrets[SLACK_TOKEN_SECRET_NAME];
   const slackClient = new WebClient(token);
 
   // Google Analytics APIへの認証を設定

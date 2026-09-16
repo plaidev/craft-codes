@@ -3,7 +3,7 @@ import api from 'api';
 
 const talkApiClient = api('@dev-karte/v1.0#kq56pa1wmccjei8j');
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const KARTE_TALK_APP_TOKEN_SECRET = '<% KARTE_TALK_APP_TOKEN_SECRET %>';
+const KARTE_TALK_APP_TOKEN_SECRET_NAME = '<% KARTE_TALK_APP_TOKEN_SECRET_NAME %>';
 const SYSTEM_PROMPT = '<% SYSTEM_PROMPT %>';
 const BOT_HELP_MESSAGE = '<% BOT_HELP_MESSAGE %>';
 const AI_WARNING_MESSAGE = '<% AI_WARNING_MESSAGE %>';
@@ -59,7 +59,7 @@ export default async function (data, context) {
   const { initLogger, secret, rag, aiModules } = MODULES;
   const logger = initLogger({ logLevel: LOG_LEVEL });
   const requiredVars = {
-    KARTE_TALK_APP_TOKEN_SECRET,
+    KARTE_TALK_APP_TOKEN_SECRET_NAME,
     SYSTEM_PROMPT,
     BOT_ERROR_MESSAGE,
     GEMINI_MODEL,
@@ -103,9 +103,9 @@ export default async function (data, context) {
   }
   try {
     const secrets = await secret.get({
-      keys: [KARTE_TALK_APP_TOKEN_SECRET],
+      keys: [KARTE_TALK_APP_TOKEN_SECRET_NAME],
     });
-    const talkToken = secrets[KARTE_TALK_APP_TOKEN_SECRET];
+    const talkToken = secrets[KARTE_TALK_APP_TOKEN_SECRET_NAME];
     if (!talkToken) {
       logger.error('token_secret が取得できませんでした。シークレットを確認してください。');
       return;

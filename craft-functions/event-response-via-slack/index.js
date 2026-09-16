@@ -6,7 +6,7 @@ const SLACK_APP_ID = '<% SLACK_APP_ID %>';
 const SLACK_APP_MEMBER_ID = '<% SLACK_APP_MEMBER_ID %>';
 const SLACK_CHANNEL_ID = '<% SLACK_CHANNEL_ID %>';
 const ACCEPT_MESSAGE = '...';
-const SLACK_TOKEN_SECRET = '<% SLACK_TOKEN_SECRET %>';
+const SLACK_TOKEN_SECRET_NAME = '<% SLACK_TOKEN_SECRET_NAME %>';
 const KVS_EXPIRE_MINUTES = '<% KVS_EXPIRE_MINUTES %>';
 
 async function postToSlack({ slackClient, channel, threadTs, text }) {
@@ -199,8 +199,8 @@ export default async function (data, { MODULES } = {}) {
     return;
   }
 
-  const secrets = await secret.get({ keys: [SLACK_TOKEN_SECRET] });
-  const token = secrets[SLACK_TOKEN_SECRET];
+  const secrets = await secret.get({ keys: [SLACK_TOKEN_SECRET_NAME] });
+  const token = secrets[SLACK_TOKEN_SECRET_NAME];
   const slackClient = new WebClient(token);
 
   if (req.body && req.body.event && req.body.event.type === 'app_mention') {

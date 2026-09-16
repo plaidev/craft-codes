@@ -7,7 +7,7 @@
     "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します。"
   },
   {
-    "name": "SLACK_TOKEN_SECRET",
+    "name": "SLACK_TOKEN_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": false,
@@ -21,7 +21,7 @@
     "description": "配信したいSlackチャンネルのIDです。"
   },
   {
-    "name": "KARTE_APP_TOKEN_SECRET",
+    "name": "KARTE_APP_TOKEN_SECRET_NAME",
     "value": "",
     "type": "string",
     "required": false,

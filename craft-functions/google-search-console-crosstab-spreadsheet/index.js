@@ -3,7 +3,7 @@ import { auth } from 'google-auth-library';
 import { subDays, format } from 'date-fns';
 
 const LOG_LEVEL = '<% LOG_LEVEL %>';
-const SERVICE_ACCOUNT_KEY_SECRET = '<% SERVICE_ACCOUNT_KEY_SECRET %>';
+const SERVICE_ACCOUNT_KEY_SECRET_NAME = '<% SERVICE_ACCOUNT_KEY_SECRET_NAME %>';
 const SITE_URL = '<% SITE_URL %>';
 const DAY_BEFORE_END_DATE = '<% DAY_BEFORE_END_DATE %>';
 const SPREADSHEET_ID = '<% SPREADSHEET_ID %>' ;
@@ -113,9 +113,9 @@ async function writeDataToSheet(sheets, spreadsheetId, sheetName, startDate, dat
     const logger = initLogger({ logLevel: LOG_LEVEL });
   
     // Search Consoleとスプレッドシート用のシークレットを取得
-    const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET] });
+    const secrets = await secret.get({ keys: [SERVICE_ACCOUNT_KEY_SECRET_NAME] });
   
-    const saKeyJson = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET]);
+    const saKeyJson = JSON.parse(secrets[SERVICE_ACCOUNT_KEY_SECRET_NAME]);
     const searchConsole = await createSearchConsoleClient(saKeyJson);
   
     const { startDate, endDate } = getStartDateAndEndDate(DAY_BEFORE_END_DATE);
