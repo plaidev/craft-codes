@@ -14,3 +14,7 @@ Craft Functionsを使ってLINE上で診断コンテンツを配信するため�
 ## category
 
 LINE,Craft Functions,CRAFT_LINE_HOOK
+
+## functionType
+
+event

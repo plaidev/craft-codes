@@ -2,50 +2,51 @@ const LOG_LEVEL = '<% LOG_LEVEL %>';
 const CHANNEL_ACCESS_TOKEN_SECRET_NAME = '<% CHANNEL_ACCESS_TOKEN_SECRET_NAME %>';
 const DIAGNOSE_START_TEXT = '<% DIAGNOSE_START_TEXT %>';
 const LINE_REPLY_ENDPOINT = 'https://api.line.me/v2/bot/message/reply';
+const FIRST_QUESTION_ID = 'Q-1';
 
 // 診断のフローチャートを定義
 const flowChart = {
   // 設問を設定
-  start: {
+  'Q-1': {
     question: '1.私服はカジュアルなものが好きですか？',
     answers: {
-      '1.はい': '2-A',
-      '1.いいえ': '2-B',
+      YES: { label: '1.はい', next: 'Q-2A' },
+      NO: { label: '1.いいえ', next: 'Q-2B' },
     },
   },
-  '2-A': {
+  'Q-2A': {
     question: '2-A.外に出るときはかっちりしたい？',
     answers: {
-      '2-A.はい': '3-A',
-      '2-A.いいえ': '3-B',
+      YES: { label: '2-A.はい', next: 'Q-3A' },
+      NO: { label: '2-A.いいえ', next: 'Q-3B' },
     },
   },
-  '2-B': {
+  'Q-2B': {
     question: '2-B.布に覆われていることがあまり好きでない？',
     answers: {
-      '2-B.はい': '3-B',
-      '2-B.いいえ': '3-C',
+      YES: { label: '2-B.はい', next: 'Q-3B' },
+      NO: { label: '2-B.いいえ', next: 'Q-3C' },
     },
   },
-  '3-A': {
+  'Q-3A': {
     question: '3-A.柄物よりはシンプルなカラーのものが好きですか？',
     answers: {
-      '3-A.はい': 'R-A',
-      '3-A.いいえ': 'R-B',
+      YES: { label: '3-A.はい', next: 'R-A' },
+      NO: { label: '3-A.いいえ', next: 'R-B' },
     },
   },
-  '3-B': {
+  'Q-3B': {
     question: '3-B.ブルベですか？',
     answers: {
-      '3-B.はい': 'R-C',
-      '3-B.いいえ': 'R-D',
+      YES: { label: '3-B.はい', next: 'R-C' },
+      NO: { label: '3-B.いいえ', next: 'R-D' },
     },
   },
-  '3-C': {
+  'Q-3C': {
     question: '3-C.休日は外で遊ぶより家でゆっくりしたい派ですか？',
     answers: {
-      '3-C.はい': 'R-E',
-      '3-C.いいえ': 'R-F',
+      YES: { label: '3-C.はい', next: 'R-E' },
+      NO: { label: '3-C.いいえ', next: 'R-F' },
     },
   },
   // 診断結果を設定
@@ -87,36 +88,114 @@ const flowChart = {
   },
 };
 
-// 診断のルールを作成する関数
-function makeTransitionRules(flowChartObj) {
-  const keys = Object.keys(flowChartObj);
-  let rules = {};
-  keys.forEach(key => {
-    rules = { ...rules, ...flowChartObj[key].answers };
-  });
-  return rules;
+// postback data から設問・回答・結果 ID を取り出す関数
+function parsePostbackData(data) {
+  if (!data || typeof data !== 'string') {
+    return null;
+  }
+  const params = new URLSearchParams(data);
+  const type = params.get('type');
+  if (type === 'answer') {
+    const questionId = params.get('question_id');
+    const answerId = params.get('answer_id');
+    if (!questionId || !answerId) {
+      return null;
+    }
+    return { type, questionId, answerId };
+  }
+  if (type === 'result') {
+    const resultId = params.get('result_id');
+    if (!resultId) {
+      return null;
+    }
+    return { type, resultId };
+  }
+  return null;
+}
+
+// LINEからのWeb HookでreplyTokenとイベント種別を取得する関数
+function getReplyTokenAndEvent(data) {
+  const events = data?.jsonPayload?.data?.body?.events;
+  if (!Array.isArray(events) || events.length === 0) {
+    return null;
+  }
+  const eventData = events[0];
+  const { replyToken } = eventData;
+  if (!replyToken) {
+    return null;
+  }
+  if (eventData.type === 'postback' && eventData.postback?.data) {
+    return {
+      replyToken,
+      kind: 'postback',
+      data: eventData.postback.data,
+    };
+  }
+  if (eventData.type === 'message' && eventData.message?.text != null) {
+    return {
+      replyToken,
+      kind: 'message',
+      text: eventData.message.text,
+    };
+  }
+  return null;
 }
 
 // 現在の診断ステップを取得する関数
-function getCurrentStep(text, transitionRules) {
-  if (text === DIAGNOSE_START_TEXT) {
-    return 'start';
+function resolveStep(event, diagnoseStartText, flowChartObj) {
+  if (event.kind === 'message') {
+    if (event.text === diagnoseStartText) {
+      return { kind: 'question', stepId: FIRST_QUESTION_ID };
+    }
+    return null;
   }
-  return transitionRules[text];
+  if (event.kind !== 'postback') {
+    return null;
+  }
+  const parsed = parsePostbackData(event.data);
+  if (!parsed) {
+    return null;
+  }
+  if (parsed.type === 'result') {
+    const resultNode = flowChartObj[parsed.resultId];
+    if (!resultNode?.result) {
+      return null;
+    }
+    return { kind: 'result', stepId: parsed.resultId };
+  }
+  if (parsed.type === 'answer') {
+    const questionNode = flowChartObj[parsed.questionId];
+    const answer = questionNode?.answers?.[parsed.answerId];
+    const nextNode = flowChartObj[answer?.next];
+    if (!answer || !nextNode) {
+      return null;
+    }
+    if (nextNode.result) {
+      return { kind: 'resultPrompt', resultId: answer.next };
+    }
+    return { kind: 'question', stepId: answer.next };
+  }
+  return null;
 }
 
-// LINEからのWeb HookでreplyTokenとtextを取得する関数
-function getReplyTokenAndText(data) {
-  const eventData = data.jsonPayload.data.body.events[0];
+function createPostbackAction(label, data) {
   return {
-    replyToken: eventData.replyToken,
-    text: eventData.message.text,
+    type: 'action',
+    action: {
+      type: 'postback',
+      label,
+      data,
+      displayText: label,
+    },
   };
 }
 
 // LINEに送信する診断のデータを作成する関数
 function createRequestQuestionBody(questionSentence, currentStep, replyToken) {
-  const [answerYes, answerNo] = Object.keys(flowChart[currentStep]?.answers || {});
+  const answers = flowChart[currentStep]?.answers || {};
+  const items = Object.entries(answers).map(([answerId, answer]) =>
+    createPostbackAction(answer.label, `type=answer&question_id=${currentStep}&answer_id=${answerId}`)
+  );
   return {
     replyToken,
     messages: [
@@ -124,24 +203,23 @@ function createRequestQuestionBody(questionSentence, currentStep, replyToken) {
         type: 'text',
         text: questionSentence,
         quickReply: {
-          items: [
-            {
-              type: 'action',
-              action: {
-                type: 'message',
-                label: answerYes,
-                text: answerYes,
-              },
-            },
-            {
-              type: 'action',
-              action: {
-                type: 'message',
-                label: answerNo,
-                text: answerNo,
-              },
-            },
-          ],
+          items,
+        },
+      },
+    ],
+  };
+}
+
+// LINEに送信する診断結果確認のデータを作成する関数
+function createRequestResultPromptBody(resultId, replyToken) {
+  return {
+    replyToken,
+    messages: [
+      {
+        type: 'text',
+        text: '診断が完了しました。結果を見るをタップしてください。',
+        quickReply: {
+          items: [createPostbackAction('結果を見る', `type=result&result_id=${resultId}`)],
         },
       },
     ],
@@ -152,31 +230,34 @@ function createRequestQuestionBody(questionSentence, currentStep, replyToken) {
 function createRequestResultBody(thumbnailImageUrl, resultText, replyToken, result, detaillUri) {
   return {
     replyToken,
-    messages: [{
-      type: 'template',
-      altText: 'This is a buttons template',
-      template: {
-        type: 'buttons',
-        thumbnailImageUrl,
-        imageAspectRatio: 'rectangle',
-        imageSize: 'cover',
-        imageBackgroundColor: '#FFFFFF',
-        title: result,
-        text: resultText,
-        defaultAction: {
-          type: 'uri',
-          label: 'View detail',
-          uri: detaillUri
-        },
-        actions: [
-          {
+    messages: [
+      {
+        type: 'template',
+        altText: 'This is a buttons template',
+        template: {
+          type: 'buttons',
+          thumbnailImageUrl,
+          imageAspectRatio: 'rectangle',
+          imageSize: 'cover',
+          imageBackgroundColor: '#FFFFFF',
+          title: result,
+          text: resultText,
+          defaultAction: {
             type: 'uri',
-            label: '詳細を見る',
-            uri: detaillUri
-          }
-        ]
-      }
-    }]};
+            label: 'View detail',
+            uri: detaillUri,
+          },
+          actions: [
+            {
+              type: 'uri',
+              label: '詳細を見る',
+              uri: detaillUri,
+            },
+          ],
+        },
+      },
+    ],
+  };
 }
 
 // LINEにPOSTリクエストを送信する関数
@@ -207,32 +288,38 @@ export default async function (data, { MODULES }) {
   const secrets = await secret.get({ keys: [CHANNEL_ACCESS_TOKEN_SECRET_NAME] });
   const accessToken = secrets[CHANNEL_ACCESS_TOKEN_SECRET_NAME];
 
-  const transitionRules = makeTransitionRules(flowChart);
+  const event = getReplyTokenAndEvent(data);
+  if (!event) {
+    logger.warn('LINE event is empty or invalid.');
+    return;
+  }
 
-  const { replyToken, text } = getReplyTokenAndText(data);
-
-  const currentStep = getCurrentStep(text, transitionRules);
-  if (!currentStep) {
+  const step = resolveStep(event, DIAGNOSE_START_TEXT, flowChart);
+  if (!step) {
     return;
   }
 
   // 診断のフローチャートから設問と結果を取得
-  const questionSentence = flowChart[currentStep]?.question;
-  const { result, resultText, thumbnailImageUrl, detaillUri } = flowChart[currentStep] ?? {};
-
-  if (!questionSentence && !resultText) {
-    logger.error(`questionSentence and resultText are null. | currentStep: ${currentStep}`);
-    return;
-  }
-
   let requestBody;
-  if (result) {
+  if (step.kind === 'resultPrompt') {
+    requestBody = JSON.stringify(createRequestResultPromptBody(step.resultId, event.replyToken));
+  } else if (step.kind === 'result') {
+    const { result, resultText, thumbnailImageUrl, detaillUri } = flowChart[step.stepId] ?? {};
+    if (!result || !resultText) {
+      logger.error(`result is undefined. | stepId: ${step.stepId}`);
+      return;
+    }
     requestBody = JSON.stringify(
-      createRequestResultBody(thumbnailImageUrl, resultText, replyToken, result, detaillUri)
+      createRequestResultBody(thumbnailImageUrl, resultText, event.replyToken, result, detaillUri)
     );
   } else {
+    const questionSentence = flowChart[step.stepId]?.question;
+    if (!questionSentence) {
+      logger.error(`questionSentence is null. | stepId: ${step.stepId}`);
+      return;
+    }
     requestBody = JSON.stringify(
-      createRequestQuestionBody(questionSentence, currentStep, replyToken)
+      createRequestQuestionBody(questionSentence, step.stepId, event.replyToken)
     );
   }
 
