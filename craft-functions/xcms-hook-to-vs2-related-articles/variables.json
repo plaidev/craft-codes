@@ -1,0 +1,65 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "TARGET_MODEL_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "同期対象となるCraft Cross CMSのモデルIDです"
+  },
+  {
+    "name": "VS2_COLLECTION_ID",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "関連記事検索に使うCraft Vector Search 2.0のコレクションIDです"
+  },
+  {
+    "name": "CMS_FIELD_TITLE",
+    "value": "title",
+    "type": "string",
+    "required": true,
+    "description": "記事タイトルが格納されているCMSフィールドIDです"
+  },
+  {
+    "name": "CMS_FIELD_DESCRIPTION",
+    "value": "description",
+    "type": "string",
+    "required": true,
+    "description": "記事の概要が格納されているCMSフィールドIDです"
+  },
+  {
+    "name": "CMS_FIELD_CONTENT",
+    "value": "content",
+    "type": "string",
+    "required": true,
+    "description": "記事本文が格納されているCMSフィールドIDです"
+  },
+  {
+    "name": "CMS_FIELD_RELATED",
+    "value": "relatedArticles",
+    "type": "string",
+    "required": true,
+    "description": "関連記事リストを書き込むCMSフィールドIDです"
+  },
+  {
+    "name": "RELATED_COUNT",
+    "value": "5",
+    "type": "string",
+    "required": true,
+    "description": "関連記事フィールドに設定する最大件数です"
+  },
+  {
+    "name": "KARTE_APP_TOKEN_SECRET",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "API v2アプリのアクセストークンを保存したCraft Secret Managerのシークレット名です"
+  }
+]
