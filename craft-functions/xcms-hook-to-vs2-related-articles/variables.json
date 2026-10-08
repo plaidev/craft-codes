@@ -11,7 +11,7 @@
     "value": "",
     "type": "string",
     "required": true,
-    "description": "同期対象となるCraft Cross CMSのモデルIDです"
+    "description": "関連記事を計算したいCraft Cross CMSのモデルIDです。管理画面のモデル設定画面にあるJSONプレビューで確認できます。"
   },
   {
     "name": "VS2_COLLECTION_ID",
@@ -25,7 +25,7 @@
     "value": "title",
     "type": "string",
     "required": true,
-    "description": "記事タイトルが格納されているCMSフィールドIDです"
+    "description": "記事のタイトルが格納されているCMSフィールドIDです"
   },
   {
     "name": "CMS_FIELD_DESCRIPTION",
@@ -46,14 +46,14 @@
     "value": "relatedArticles",
     "type": "string",
     "required": true,
-    "description": "関連記事リストを書き込むCMSフィールドIDです"
+    "description": "関連記事リストを格納するCMSフィールドIDです。参照（複数）フィールドを指定し、contentIdの配列として計算結果が書き込まれます。配列の並び順が関連度（先頭ほど高い）を表します。"
   },
   {
     "name": "RELATED_COUNT",
-    "value": "5",
-    "type": "string",
-    "required": true,
-    "description": "関連記事フィールドに設定する最大件数です"
+    "value": 5,
+    "type": "number",
+    "required": false,
+    "description": "関連記事として登録する最大件数です。"
   },
   {
     "name": "KARTE_APP_TOKEN_SECRET",
