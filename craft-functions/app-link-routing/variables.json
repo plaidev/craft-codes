@@ -1,0 +1,58 @@
+[
+  {
+    "name": "LOG_LEVEL",
+    "value": "WARN",
+    "type": "string",
+    "required": true,
+    "description": "出力するログのレベルです。ERROR/WARN/INFO/DEBUGから指定します"
+  },
+  {
+    "name": "IOS_APP_SCHEME",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "iOS カスタム URL スキームです（例: myapp）。:// は含めない"
+  },
+  {
+    "name": "IOS_STORE_URL",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "`MOBILE_UNINSTALLED_FALLBACK` が `store` のとき、未インストール時に開く App Store の URL です"
+  },
+  {
+    "name": "ANDROID_PACKAGE_NAME",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Android アプリのパッケージ名です（例: com.example.app）"
+  },
+  {
+    "name": "ANDROID_APP_SCHEME",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "Android カスタム URL スキームです（例: myapp）。:// は含めない。Functions 到達後の Intent に使う"
+  },
+  {
+    "name": "ANDROID_STORE_URL",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "`MOBILE_UNINSTALLED_FALLBACK` が `store` のとき、未インストール時に開く Play Store の URL です"
+  },
+  {
+    "name": "WEB_FALLBACK_URL",
+    "value": "",
+    "type": "string",
+    "required": true,
+    "description": "PC および判定不能時のリダイレクト先のベース URL です（https）。配下パスとクエリを連結します。モバイル未インストール時は `MOBILE_UNINSTALLED_FALLBACK` が `web` のとき、パスもクエリも付けずに使います"
+  },
+  {
+    "name": "MOBILE_UNINSTALLED_FALLBACK",
+    "value": "store",
+    "type": "string",
+    "required": true,
+    "description": "モバイル未インストール時の送り先です。`store`（ストア）または `web`（インストール LP）。PC には効かない"
+  }
+]
