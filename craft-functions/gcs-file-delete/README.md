@@ -2,7 +2,7 @@
 
 ## title
 
-KARTE Dataubのジョブフローの実行時に指定したGCSバケット上のファイルを削除する
+KARTE Datahubのジョブフローの実行時に指定したGCSバケット上のファイルを削除する
 
 ## blogUrl
 
