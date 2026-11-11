@@ -22,7 +22,7 @@
   },
   {
     "name": "GEMINI_MODEL",
-    "value": "gemini-2.5-flash",
+    "value": "",
     "type": "string",
     "required": false,
     "description": "使用するGeminiモデルの名前を指定します。"

@@ -15,7 +15,7 @@
   },
   {
     "name": "AI_MODEL",
-    "value": "gemini-2.5-flash",
+    "value": "",
     "type": "string",
     "required": true,
     "description": "使用するAIモデルです。利用可能なモデルはhttps://craft.developers.karte.io/craft-ai-modules/models/を参照してください。"
