@@ -22,7 +22,7 @@
     },
     {
         "name": "AI_MODEL",
-        "value": "gemini-2.5-flash-lite",
+        "value": "",
         "type": "string",
         "required": true,
         "description": "テキスト生成時に利用するCraft AI ModulesのLLMモデル名を設定してください"

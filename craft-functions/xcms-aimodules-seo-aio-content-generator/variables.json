@@ -29,10 +29,10 @@
   },
   {
     "name": "GEMINI_MODEL",
-    "value": "gemini-3.5-flash",
+    "value": "",
     "type": "string",
     "required": true,
-    "description": "gemini-3.5-flashやgemini-2.5-proなど、利用する生成AIのモデル名を指定します"
+    "description": "利用する生成AIのモデル名を指定します"
   },
   {
     "name": "METADATA_SYSTEM_INSTRUCTION",

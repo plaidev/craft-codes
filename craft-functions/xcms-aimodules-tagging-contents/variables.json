@@ -60,7 +60,7 @@
     "value": "",
     "type": "string",
     "required": true,
-    "description": "gemini-2.5-flashやgemini-2.5-proなど、利用する生成AIのモデル名を指定します"
+    "description": "利用する生成AIのモデル名を指定します"
   },
   {
     "name": "SYSTEM_INSTRUCTION",
